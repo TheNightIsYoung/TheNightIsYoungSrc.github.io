@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Anaconda,Jupyter Notebook,JupyterLab,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇： 熟悉 Python 的同学应该都知道 JupyterLab（Jupyter Notebook） 这一数据分析神器，它能帮助我们有效地组织输入输出，将我们探索数据的过程记录下来，后续稍加整理便可以生成一篇分析报告或学习记录。Jupyter Notebook 支持 Markdown，也支持 Python、R 甚至 Julia 等语言，完全可">
+<meta name="keywords" content="Anaconda,Jupyter Notebook,JupyterLab">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jupyter Notebook（JupyterLab） 远程访问服务器">
+<meta property="og:url" content="http://yoursite.com/Anaconda/Jupyter-Notebook（JupyterLab）-远程访问服务器/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇： 熟悉 Python 的同学应该都知道 JupyterLab（Jupyter Notebook） 这一数据分析神器，它能帮助我们有效地组织输入输出，将我们探索数据的过程记录下来，后续稍加整理便可以生成一篇分析报告或学习记录。Jupyter Notebook 支持 Markdown，也支持 Python、R 甚至 Julia 等语言，完全可">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-29T03:03:51.704Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jupyter Notebook（JupyterLab） 远程访问服务器">
+<meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇： 熟悉 Python 的同学应该都知道 JupyterLab（Jupyter Notebook） 这一数据分析神器，它能帮助我们有效地组织输入输出，将我们探索数据的过程记录下来，后续稍加整理便可以生成一篇分析报告或学习记录。Jupyter Notebook 支持 Markdown，也支持 Python、R 甚至 Julia 等语言，完全可">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Anaconda/Jupyter-Notebook（JupyterLab）-远程访问服务器/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>Jupyter Notebook（JupyterLab） 远程访问服务器 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Anaconda/Jupyter-Notebook（JupyterLab）-远程访问服务器/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Jupyter Notebook（JupyterLab） 远程访问服务器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T16:30:08+08:00">
+                2018-12-04
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:51+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Anaconda/" itemprop="url" rel="index">
+                    <span itemprop="name">Anaconda</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Anaconda/Jupyter-Notebook（JupyterLab）-远程访问服务器/" class="leancloud_visitors" data-flag-title="Jupyter Notebook（JupyterLab） 远程访问服务器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…</center>
+
+<p><strong>开篇：</strong></p>
+<p>熟悉 Python 的同学应该都知道 <strong>JupyterLab（Jupyter Notebook）</strong> 这一数据分析神器，它能帮助我们有效地组织输入输出，将我们探索数据的过程记录下来，后续稍加整理便可以生成一篇分析报告或学习记录。Jupyter Notebook 支持 Markdown，也支持 Python、R 甚至 Julia 等语言，完全可以满足一个数据工作者的大多数分析需求。</p>
+<a id="more"></a>
+<p>然而考虑以下场景：</p>
+<ul>
+<li>通常我们更加专注于本地机器开发，实际运行环境是远程服务器。我们会苦恼于本地机器[<code>Local_Server</code>]和远程服务器[<code>Remote_Server</code>]上都要配置相同的机器学习环境（Anaconda），这既消耗时间又占用硬盘资源。</li>
+<li>想要在某一台本地机器上访问远程服务器上的 Jupyter Notebook 文档。一方面我们需要在本地机器重新搭建 Jupyter Notebook 环境；另一方面我们需要将目标 Jupyter Notebook 文档 Download 到本地机器？</li>
+</ul>
+<p>当你也面临这些场景时，你就有必要考虑搭建一个可以远程访问的 Jupyter Notebook 或者 JupyterLab 服务了。所以今天花了点时间研究了下 <code>Jupter notebook（JupyterLab）</code> 远程访问服务器（在<code>Remote_Server</code> 安装 <code>Jupter</code> ，然后在本地 <code>Local_Server</code> 可以访问 <code>Remote_Server</code> ，使用其内部搭建好的机器学习环境），所以记录一下。</p>
+<hr>
+<h3 id="1-Jupyter-notebook（JupyterLab）User-Tutorial"><a href="#1-Jupyter-notebook（JupyterLab）User-Tutorial" class="headerlink" title="1. Jupyter notebook（JupyterLab）User Tutorial"></a>1. Jupyter notebook（JupyterLab）User Tutorial</h3><p>我们知道：<code>Jupyter notebook（JupyterLab）</code> 是一个基于浏览器的 python 数据分析工具，使用起来非常方便，具有极强的交互方式和富文本的展示效果，安装非常方便。</p>
+<blockquote>
+<p>注意：JupyterLab &amp;&amp; Jupyter Notebook 可以作为单独的数据分析工具使用，故可以单独安装使用。为什么强调单独安装使用呢？事实上，Anaconda 中已经将其作为内部的插件，可以极其方便的使用 Anaconda 的虚拟隔离环境。所有，更常见的是配合 Anaconda 一起使用。</p>
+</blockquote>
+<p>故，一般我们习惯在 Anaconda 环境下使用 Jupyter notebook（JupyterLab），并且 Anaconda 安装包中自带了 <code>Jupyter</code> 。安装 Anaconda  时会默认将 <code>Jupyter notebook（JupyterLab）</code> 安装到 <code>Anaconda</code> 的 <strong>base 环境</strong>（免安装）。</p>
+<p>当然，你也可以在其它虚拟环境中再次安装。这里我们给出在深度学习服务器  Anaconda 虚拟环境安装配置 Jupter 服务的简明步骤：</p>
+<p>通常，首先需要根据我们已创建的虚拟开发环境，选择【Jupyter】服务安装的虚拟环境（例如： <code>DeepLearning(python2.7) 或者 DeepLearning(python3.5）</code>），然后激活相应虚拟环境，在其中安装 <code>Jupyter</code> ，完成后续配置后，我们就可以在相应的虚拟环境中启动 <code>Jupyter</code> 进行使用了。</p>
+<hr>
+<p>JupyterLab 与 Jupyter Notebook 师出同源，配置过程完全一样（除了安装）。下面我将会以 Jupter notebook 安装以及配置为主（JupyterLab 与之有差异的地方会另外标注出）介绍如何搭建远程访问。</p>
+<p>在安装以及配置 Jupter notebook（JupyterLab）之前，我们先给出 Jupter 服务的两种访问方式：</p>
+<ol>
+<li>本地访问：部署 Jupter 服务的服务器本地浏览器中访问；</li>
+<li>远程访问：远程浏览器中访问部署在服务器上的 Jupter 服务（常用访问模式）。</li>
+</ol>
+<p>下面我们来看如何安装和部署 Server Jupter 服务的本地访问和远程访问：</p>
+<hr>
+<h4 id="1-1-本地访问"><a href="#1-1-本地访问" class="headerlink" title="1.1 本地访问"></a>1.1 本地访问</h4><p>这里的本地访问是指在远程服务器（Remote_Server）本地实现访问，首先需要登录远程服务器，然后：</p>
+<p>【1】明确所处虚拟环境</p>
+<p>首先我们需要明确我们是使用 Anaconda <code>base</code> 环境中自带的 Jupyter notebook（JupyterLab）还是在相应的虚拟环境中安装新的 Jupyter notebook（JupyterLab）？？？</p>
+<p><strong>–&gt;  Anaconda base envs</strong> </p>
+<p>如果我们使用 Anaconda <code>base</code>  环境中自带的 Jupyter notebook（JupyterLab）可以直接跳过<code>【2】 安装步骤</code> 开始<code>【3】 本地使用</code>。</p>
+<p>注意，如果安装的是 Anaconda 2 的话，<code>base</code> 环境是不支持 JupyterLab 的（无法安装）。但此时可以在其创建的 <code>conda envs</code> 中安装 JupyterLab 。</p>
+<p><strong>–&gt; Other conda envs (create)</strong></p>
+<p>如果在其它新创建的 conda envs 中安装配置的话，我们需要先切换到相应环境中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> activate envsname</span><br></pre></td></tr></table></figure>
+<p>【2】 安装步骤：</p>
+<p>检查 <code>Remote_Server</code> 是否有安装 jupyter notebook（JupyterLab）服务，如果没有则安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### --&gt; jupyter Notebook 检测与安装：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 终端输入 jupyter notebook,如果报错就是没有安装，那么就要用下面命令安装。(安装完成后可重新检查：$ jupyter notebook)</span></span><br><span class="line">$ pip install jupyter notebook</span><br><span class="line"></span><br><span class="line"><span class="comment">### --&gt; jupyter jupyterlab 检测与安装：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检测：</span></span><br><span class="line">$ jupyter lab</span><br><span class="line"><span class="comment"># 安装（注意，Python2.7 中不支持 jupyterlab）</span></span><br><span class="line">$ pip install jupyter jupyterlab</span><br></pre></td></tr></table></figure>
+<p>【3】 本地使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. Terminal 下先使用下面的命令开启 notebook service：（之后便可以在浏览器中使用，默认下只能在远程服务器本地进行访问）</span></span><br><span class="line">$ jupyter notebook</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启 jupyterlab service：</span></span><br><span class="line">$ jupyter lab</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2. 在 [`Remote_Server`] 浏览其中输入 url：（就可以实现本地访问了）</span></span><br><span class="line">$ http://localhost:8888</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问：jupyter jupyterlab</span></span><br><span class="line">$ http://localhost:8888/lab</span><br></pre></td></tr></table></figure>
+<p>补充如何查看当前已启动的 Jupyter 服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ jupyter notebook list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或：</span></span><br><span class="line"></span><br><span class="line">$ jupyter notebook list</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="1-2-远程访问"><a href="#1-2-远程访问" class="headerlink" title="1.2 远程访问"></a>1.2 远程访问</h4><p>Jupyter notebook（JupyterLab）默认只能在本地访问，如果想把它安装在服务器上，然后在本地远程访问 Jupyter 服务器，则需要进行如下配置：</p>
+<p>【1】 相关配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 生成配置文件</span></span><br><span class="line">$ jupyter notebook --generate-config</span><br><span class="line"><span class="comment"># Log：Write default config to : ~/.jupyter/jupyter_notebook_config.py</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 打开ipython，创建一个密文的密码：</span></span><br><span class="line">$ ipython</span><br><span class="line">In [1]: from notebook.auth import passwd</span><br><span class="line">In [2]: passwd()</span><br><span class="line">Enter password: </span><br><span class="line">Verify password: </span><br><span class="line">Out[2]: <span class="string">'sha1:ce23d945972f:34769685a7ccd3d08c84a18c63968a41f1140274'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 复制密文，并 `exit` ipython</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 修改默认配置文件</span></span><br><span class="line">$ vim ~/.jupyter/jupyter_notebook_config.py</span><br><span class="line"><span class="comment"># 添加如下内容：</span></span><br><span class="line">c.NotebookApp.ip=<span class="string">'*'</span></span><br><span class="line">c.NotebookApp.password = u<span class="string">'sha:ce...刚才复制的那个密文'</span></span><br><span class="line">c.NotebookApp.open_browser = False</span><br><span class="line">c.NotebookApp.port =8888 <span class="comment">#随便指定一个端口</span></span><br><span class="line">c.IPKernelApp.pylab = <span class="string">'inline'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 至此，配置完成。接下来，看如何使用</span></span><br></pre></td></tr></table></figure>
+<p>【2】 远程访问</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 在 [`Remote_Server`] 上启动 Jupter notebook(root 用户下安装需要加参数： --allow-root)，从 Log 可以获取到开放的端口号，该远程连接切勿关闭！！！</span></span><br><span class="line">$ jupyter notebook</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启 jupyter jupyterlab service：</span></span><br><span class="line">$ jupyter lab</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2. 远程访问：在本地[`Local_Server`]中浏览器直接访问[`Remote_Server`]</span></span><br><span class="line">$ https://address_of_remote:8888</span><br><span class="line"></span><br><span class="line"><span class="comment"># 远程访问：jupyter jupyterlab</span></span><br><span class="line">$ https://address_of_remote:8888/lab</span><br></pre></td></tr></table></figure>
+<p>补充启动方式，可以指定启动时的端口：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># --ip：Remote_Server_ip , --port:开放端口</span></span><br><span class="line">$ jupyter notbook --ip 0.0.0.0 --port 9999</span><br><span class="line"></span><br><span class="line"><span class="comment"># 远程访问：</span></span><br><span class="line">$ https://address_of_remote:9999</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="1-3-配置问题"><a href="#1-3-配置问题" class="headerlink" title="1.3 配置问题"></a>1.3 配置问题</h4><p>1）配置远程访问后，在启动时报错：<code>KeyError：&#39;allow_remote_access&#39;</code>。解决方法如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ vim ~/.jupyter/jupyter_notebook_config.py</span><br><span class="line"></span><br><span class="line"><span class="comment"># 补充添加如下语句：</span></span><br><span class="line">c.NotebookApp.allow_remote_access = True</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="2-Switching-Conda-Envs（Kernels）-In-Jupyter"><a href="#2-Switching-Conda-Envs（Kernels）-In-Jupyter" class="headerlink" title="2. Switching Conda Envs（Kernels） In Jupyter"></a>2. Switching Conda Envs（Kernels） In Jupyter</h3><p>在 Jupyter 中进行深度学习实验时，肯定会涉及到不同的环境配置，看如下场景：</p>
+<ul>
+<li>Python3 和 Python2 的不同虚拟环境。</li>
+<li>不同版本的 tensorflow 的虚拟环境。</li>
+</ul>
+<p>这就要求我们需要随时切换虚拟环境。</p>
+<p>-&gt; 给一种解决方案:</p>
+<p>从上面 Jupyter notebook（JupyterLab）安装配置中知道，我们可以在不同的虚拟环境中分别安装 Jupyter notebook（JupyterLab），然后通过在不同的 conda 环境中启动 Jupyter notebook（JupyterLab）实现切换不同的 Jupyter 环境。</p>
+<p>–&gt; 引发一个问题：这不是有病么？既浪费系统资源又浪费时间！</p>
+<p>那么，有么有一种办法我只在一个虚拟环境下启动 Jupyter notebook（JupyterLab）却可以在 Jupyter 中切换不同的虚拟运行环境？？？答案肯定是有的。</p>
+<hr>
+<p>下面我们给出一种合理的解决思路：</p>
+<h4 id="2-1-Install-ipykernel"><a href="#2-1-Install-ipykernel" class="headerlink" title="2.1 Install ipykernel"></a>2.1 Install ipykernel</h4><p>需要用到一个 <code>ipykernel</code> 插件，首先，我们选择在 Anaconda base 环境安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda install ipykernel</span><br></pre></td></tr></table></figure>
+<p>此时，我们可以在 Anaconda base 中启动 Jupyter notebook（JupyterLab），发现启动后只有一个原生的 base 环境。</p>
+<h4 id="2-2-添加虚拟环境到-Jupyter"><a href="#2-2-添加虚拟环境到-Jupyter" class="headerlink" title="2.2 添加虚拟环境到 Jupyter"></a>2.2 添加虚拟环境到 Jupyter</h4><p>事实上，这一部分就是将各种创建好的 conda 虚拟环境（也称为不同的 Kernel）添加 Jupyter Kernel 中。</p>
+<p>【1】激活虚拟环境</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> activate myenv</span><br></pre></td></tr></table></figure>
+<p>【2】将环境写入 notebook 的 kernel 中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m ipykernel install --user --name myenv --display-name &quot;Python (myenv)&quot;</span><br></pre></td></tr></table></figure>
+<p>推荐将 <code>--name</code> 和 <code>--display-name</code> 设置为当前虚拟环境的名称。</p>
+<p>如果显示 “No module named ipykernel”，说明当前虚拟环境没有安装 ipykernel 插件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda install ipykernel</span><br></pre></td></tr></table></figure>
+<p>其它环境添加也一样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> activate other-env</span><br><span class="line">python -m ipykernel install --user --name other-env --display-name <span class="string">"Python (other-env)"</span></span><br></pre></td></tr></table></figure>
+<p>【3】测试</p>
+<p>重新在  Anaconda base 环境中启动  Jupyter notebook（JupyterLab），可以看到 Jupyter 中已经可以切换其它虚拟环境了。</p>
+<blockquote>
+<p>注意：切换 Jupyter notebook（JupyterLab）虚拟环境其实相当于切换其 Kernel（内核）。</p>
+</blockquote>
+<hr>
+<h4 id="2-3-Kernel-移除"><a href="#2-3-Kernel-移除" class="headerlink" title="2.3 Kernel 移除"></a>2.3 Kernel 移除</h4><p>有时，由于添加了错误的内核或者不想要该内核，我们需要移除 Jupyter notebook（JupyterLab）虚拟环境内核（Kernel）。</p>
+<p>首先，我们来看如何查看当前系统中安装的内核以及其位置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jupyter kernelspec list</span><br></pre></td></tr></table></figure>
+<p>–&gt; 如何移除？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jupyter kernelspec remove myenv</span><br></pre></td></tr></table></figure>
+<p>myenv 表示 Kernel 所对应的虚拟环境的名称。</p>
+<p>移除后，重新启动 Jupyter notebook（JupyterLab）即可发现内核已经被移除。</p>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/Anaconda/Jupyter-Notebook（JupyterLab）-远程访问服务器/" title="Jupyter Notebook（JupyterLab） 远程访问服务器">http://yoursite.com/Anaconda/Jupyter-Notebook（JupyterLab）-远程访问服务器/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Anaconda/" rel="tag"><i class="fa fa-tag"></i> Anaconda</a>
+          
+            <a href="/tags/Jupyter-Notebook/" rel="tag"><i class="fa fa-tag"></i> Jupyter Notebook</a>
+          
+            <a href="/tags/JupyterLab/" rel="tag"><i class="fa fa-tag"></i> JupyterLab</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Anaconda/Anaconda-生态环境初体验/" rel="next" title="Anaconda 生态环境初体验">
+                <i class="fa fa-chevron-left"></i> Anaconda 生态环境初体验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Git/Part-1-Of-Git-Tutorial/" rel="prev" title="Git 使用指南之初识">
+                Git 使用指南之初识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Jupyter-notebook（JupyterLab）User-Tutorial"><span class="nav-text">1. Jupyter notebook（JupyterLab）User Tutorial</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-本地访问"><span class="nav-text">1.1 本地访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-远程访问"><span class="nav-text">1.2 远程访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-配置问题"><span class="nav-text">1.3 配置问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Switching-Conda-Envs（Kernels）-In-Jupyter"><span class="nav-text">2. Switching Conda Envs（Kernels） In Jupyter</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-Install-ipykernel"><span class="nav-text">2.1 Install ipykernel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-添加虚拟环境到-Jupyter"><span class="nav-text">2.2 添加虚拟环境到 Jupyter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-Kernel-移除"><span class="nav-text">2.3 Kernel 移除</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="TensorFlow,DeepLearning,Deep Neural Networks,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="愿你每天欢喜多于悲，孤独有人陪…   读取须知： 上一章节，我们介绍了 TensorFlow 基本工作原理，并且给出了一个完整的 TensorFlow 样例来训练一个简单的三层全连接神经网络模型。本章我们将进一步介绍如何更加合理的设计和优化神经网络，使得学得的模型能够更好的对未知样本进行更加精确的预测。">
+<meta name="keywords" content="TensorFlow,DeepLearning,Deep Neural Networks">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深层神经网络和深度学习">
+<meta property="og:url" content="http://yoursite.com/TensorFlow/深层神经网络和深度学习/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   读取须知： 上一章节，我们介绍了 TensorFlow 基本工作原理，并且给出了一个完整的 TensorFlow 样例来训练一个简单的三层全连接神经网络模型。本章我们将进一步介绍如何更加合理的设计和优化神经网络，使得学得的模型能够更好的对未知样本进行更加精确的预测。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/深层神经网络和深度学习/Img/Neural_Cell_WithActivation.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/深层神经网络和深度学习/Img/Common_Activation_Function.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/深层神经网络和深度学习/Img/playground_with_xor.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/深层神经网络和深度学习/Img/softmax.jpg">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/深层神经网络和深度学习/Img/define_loss.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/深层神经网络和深度学习/Img/gradient_decent.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/深层神经网络和深度学习/Img/local_optimum.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/深层神经网络和深度学习/Img/learning_rate_methods.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/深层神经网络和深度学习/Img/overfitting.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/深层神经网络和深度学习/Img/regurization.png">
+<meta property="og:updated_time" content="2019-05-29T10:37:21.184Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深层神经网络和深度学习">
+<meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   读取须知： 上一章节，我们介绍了 TensorFlow 基本工作原理，并且给出了一个完整的 TensorFlow 样例来训练一个简单的三层全连接神经网络模型。本章我们将进一步介绍如何更加合理的设计和优化神经网络，使得学得的模型能够更好的对未知样本进行更加精确的预测。">
+<meta name="twitter:image" content="http://yoursite.com/TensorFlow/深层神经网络和深度学习/Img/Neural_Cell_WithActivation.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/TensorFlow/深层神经网络和深度学习/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>深层神经网络和深度学习 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/TensorFlow/深层神经网络和深度学习/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深层神经网络和深度学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-25T15:00:58+08:00">
+                2018-09-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T18:37:21+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/TensorFlow/深层神经网络和深度学习/" class="leancloud_visitors" data-flag-title="深层神经网络和深度学习">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  12.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  46
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center> 愿你每天欢喜多于悲，孤独有人陪… </center>
+
+<p><strong>读取须知：</strong></p>
+<p>上一章节，我们介绍了 <a href="https://www.orangeshare.cn/TensorFlow/TensorFlow-%E5%9F%BA%E6%9C%AC%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">TensorFlow 基本工作原理</a>，并且给出了一个完整的 TensorFlow 样例来训练一个简单的三层全连接神经网络模型。本章我们将进一步介绍如何更加合理的设计和优化神经网络，使得学得的模型能够更好的对未知样本进行更加精确的预测。</p>
+<a id="more"></a>
+<p>这一章节我们总共安排了四个部分来进行学习：</p>
+<p>第一部分：针对网络结构，介绍深度学习与深层网络 (DNN) 的概念，并给出一个样例来说明深层网络可以解决部分浅层网络解决不了的问题；</p>
+<p>第二部分：针对损失函数，将介绍如何设定神经网络的优化目标（即：损失函数）。这一节将分别介绍分类问题和回归问题中比较常使用的几种经典的损失函数，以及如何通过自定义损失函数，使得神经网络优化的目标更加接近实际问题的需求；</p>
+<p>第三部分：针对反向传播算法，将更加详细的介绍神经网络的 BP 算法，并且给出一个 TensorFlow 实现反向传播过程的通用框架；</p>
+<p>第四部分：针对神经网络优化，将介绍在神经网络优化过程中经常遇到的几个问题，并给出解决方案。</p>
+<hr>
+<h3 id="1-深度学习和深层神经网络"><a href="#1-深度学习和深层神经网络" class="headerlink" title="1. 深度学习和深层神经网络"></a>1. 深度学习和深层神经网络</h3><p>维基百科中对深度学习的精确定义为：“一类通过多层非线性变换对高复杂性数据建模算法的合集”。</p>
+<p>深层神经网络是实现“多层非线性”最常用的一种方法，所以在实际中基本上可以认为深度学习就是深层神经网络的代名词。从上面描述可以看出深度学习的两个重要的特性： <strong>多层</strong> 和 <strong>非线性</strong> 。为什么要强调这两个性质呢？！下面我们将通过具体样例来说明这两点在对复杂问题建模时是缺一不可的！</p>
+<h4 id="1-1-线性模型的局限性"><a href="#1-1-线性模型的局限性" class="headerlink" title="1.1 线性模型的局限性"></a>1.1 线性模型的局限性</h4><p>这一小节我们先介绍线性变换存在的问题？以及为什么要在深度学习中强调“复杂问题”？既然线性模型存在问题，那么我们如何解决（去线性化）？</p>
+<p>在线性模型中，模型的输出为输入的加权和。假设一个模型的输出 $ y $ 和输入 $ x_i $ 满足以下关系，那么这个模型就是一个线性模型：</p>
+<p>$$ y = \sum_{i=0}w_ix_i + b $$</p>
+<p>在一个线性模型中，通过输入 $ x_i $ 得到输出 $y$ 的函数称之为一个 <strong>线性变换</strong>。上面的公式就是一个线性变换。线性模型的最大特点就是 <strong>任意线性模型的组合仍然还是线性模型。</strong></p>
+<p>可以发现，前面章节我们实现的三层全连接网络的前向传播过程就是一个线性模型，前向传播的计算公式：</p>
+<p>$$ a^{(1)} = xW^{(1)}, y = a^{(1)}W^{(2)} $$</p>
+<p>其中 $ x $ 为输入，$ W $ 为参数。由上述关系推导得：</p>
+<p>$$ y = (xW^{(1)}W^{(2)}) = x(W^{(1)}W^{(2)}) = xW’ $$</p>
+<p>可见，推导过程中 $ W^{(1)}W^{(2)} $ 被表示为一个新的参数（权重矩阵） $ W’ $，计算过程如下:</p>
+<p>$$ W’ = W^{(1)}W^{(2)} = \left[ \begin{array} {cccc}<br>W_{1,1}^{(1)} &amp; W_{1,2}^{(1)} &amp; W_{1,3}^{(1)}\\<br>W_{2,1}^{(1)} &amp; W_{2,2}^{(1)} &amp; W_{2,3}^{(1)}\\<br>\end{array} \right]\left[ \begin{array} {cccc} W_{1,1}^{(2)}\\ W_{2,1}^{(2)}\\ W_{3,1}^{(2)}\\<br>\end{array} \right] = \left[ \begin{array} {cccc} W_{1,1}^{(2)}W_{1,1}^{(2)}+W_{1,2}^{(1)}W_{2,1}^{(2)}+W_{1,3}^{(1)}W_{3,1}^{(2)}\\ W_{2,1}^{(2)}W_{1,1}^{(2)}+W_{2,2}^{(1)}W_{2,1}^{(2)}+W_{2,3}^{(1)}W_{3,1}^{(2)}\end{array} \right] \\=  \left[ \begin{array} {cccc} W_1’\\ W_2’\end{array} \right] $$</p>
+<p>这样输入和输出的关系就可以表示为：</p>
+<p>$$ y = xW’ = \left[ \begin{array} {cccc} x_1 &amp; x_2\end{array} \right]\left[ \begin{array} {cccc} W_1’\\ W_2’\end{array} \right] = \left[ \begin{array} {cccc} W_1’x_1+W_2’x_2\end{array} \right] $$</p>
+<p>可以看出，这个前向传播算法完全符合线性模型的定义。虽然这个神经网络有两层（不算输入层，输入层节点为非神经元节点），但它和单层的神经网络并没有本质区别。</p>
+<blockquote>
+<p><strong>我们可以以此类推：只通过线性变换，任意层的全连接神经网络和单层神经网络模型的表达能力没有任何区别，而且线性模型能够解决的问题是有限的（只能解决线性可分问题）。</strong></p>
+</blockquote>
+<p>至此，我们已经知道了线性变换存在的问题：表达能力有限以及解决问题是有限的。上面我们已经说明了其表达能力有限性，下面我们给出一个样例来看为什么线性模型解决的问题是有限的：</p>
+<p>还记得上一章节我们 PLAY 过的 TensorFlow 游乐场么？你将默认设置下网页顶部激活函数（<code>Activation</code>）一栏选择为线性（<code>Linear</code>），这和我们实现的三层神经网络结构是基本一致的，然后开始训练，你会发现当前设置下线性模型是无法解决这个二分类任务的。如果我们将默认数据集更换成第三个（线性可分数据集）便可以对数据集做区分了，也就是说线性模型只能用来解决线性可分问题。</p>
+<p>我们再来说明深度学习中为什么强调高复杂问题：数据至少是无法通过直线（或者高维平面平面：线性模型中，当输入为 n 个时，x 和 y 就会形成 n+1 维空间中的一个平面）划分的问题。而实际问题往往都是复杂问题。</p>
+<p>最后，我们再来看深度学习的定义：事实上，强调“非线性”、“高复杂问题”其实是很有道理的！既然线性模型存在上述阐述的局限性，那么如何解决这个问题呢？？？</p>
+<hr>
+<h4 id="1-2-激活函数去线性化（Activation-Function）"><a href="#1-2-激活函数去线性化（Activation-Function）" class="headerlink" title="1.2 激活函数去线性化（Activation Function）"></a>1.2 激活函数去线性化（Activation Function）</h4><p>前面我们已经提到过了激活函数，并且通过 TensorFlow 游乐场看到了它的神奇作用。这一小节，我们来介绍激活函数如何工作？</p>
+<p>我们知道神经元结构的输出为所有输入的加权和，这导致了整个神经网络是一个线性模型。那么如何对这个线性模型去线性化（转化为非线性模型）呢？其实很简单，我们只需要让每个神经元的输出再通过一个非线性函数（激活函数），那么整个神经网络模型就不再是线性的了。下面给出了加入偏置项以及激活函数的神经元结构：</p>
+<p><img src="/TensorFlow/深层神经网络和深度学习/Img/Neural_Cell_WithActivation.png" alt="avatar"></p>
+<p>除了激活函数，还增加了一个新的参数–偏置项（<code>bias</code>）。偏置项是神经网络中非常常用的一种结构，对应线性模型中的平移变换，可以帮助模型更好的拟合数据集。</p>
+<p>下面我们来看加入激活函数和偏置项之后的神经网络结构的前向传播算法实现原理：</p>
+<p>$$ A_1 = [a_{11},a_{12},a_{13}] = f(xW^{(1)} + b) = f([x_1, x_2]\left[ \begin{array} {cccc}<br>W_{1,1}^{(1)} &amp; W_{1,2}^{(1)} &amp; W_{1,3}^{(1)}\\<br>W_{2,1}^{(1)} &amp; W_{2,2}^{(1)} &amp; W_{2,3}^{(1)}\\<br>\end{array} \right] + \left[ \begin{array} {cccc} b_1 &amp; b_2 &amp; b_3\end{array} \right] )\\ = f([W_{1,1}^{(1)}x_1+W_{2,1}^{(1)}x_2+b_1, W_{1,2}^{(1)}x_1+W_{2,2}^{(1)}x_2+b_2, W_{1,3}^{(1)}x_1+W_{2,3}^{(1)}x_2]+b_3) \\ = [f([W_{1,1}^{(1)}x_1+W_{2,1}^{(1)}x_2+b_), f(W_{1,2}^{(1)}x_1+W_{2,2}^{(1)}x_2+b_2), f(W_{1,3}^{(1)}x_1+W_{2,3}^{(1)}x_2]+b_3)] $$</p>
+<p>下面展示几种常用的非线性激活函数图像：</p>
+<p><img src="/TensorFlow/深层神经网络和深度学习/Img/Common_Activation_Function.png" alt="avatar"></p>
+<p>TensorFlow 提供了对上述非激活函数的支持：<code>tf.nn.relu()</code>、<code>tf.sigmoid()</code> 和 <code>tf.tanh()</code>。除此之外 TensorFlow 还支持自定义激活函数。以下代码展示了 TensorFlow 使用 <code>Relu</code> 激活函数实现三层神经网络的前向传播算法：</p>
+<p>$$ a = tf.nn.relu( tf.matmul(x, w1) + biases1)\\<br>y = tf.nn.relu( tf.matmul(w1, w2) + biases2) $$</p>
+<hr>
+<h4 id="1-3-多层（深层）网络解决异或运算"><a href="#1-3-多层（深层）网络解决异或运算" class="headerlink" title="1.3 多层（深层）网络解决异或运算"></a>1.3 多层（深层）网络解决异或运算</h4><p>上一小节我们详细讲解了线性变换问题。这一小节我们将通过实际问题来讲解深度学习的另一个重要的性质：多层变换。</p>
+<p>在神经网络的发展史上，一个很重要的问题就是异或问题。</p>
+<p><strong>何为异或问题？</strong>：直观来说就是如果两个输入的符号相同时（同时为正或同时为负）则输出 0，否则（一正一负）输出 1。</p>
+<p>神经网络的理论模型最初是由 <code>Warren McCulloch</code> 和 <code>Walter Pitts</code> 于 1943 年提出，并在 1958 年由 <code>Frank Tosenblatt</code> 提出了感知机模型，从数学上完成了对神经网络的精确建模。感知机可以简单理解为单层的神经网络，它会先将输入进行加权和，然后通过激活函数最终得到输出（没有隐藏层的神经网络结构）。上世纪 60 年代，神经网络作为对人类大脑的模拟算法受到了广泛的关注。</p>
+<p>然而到了 1969 年， <code>Marvin Minsky</code> 和 <code>Seymour Papert</code> 提出感知机是无法模拟异或运算的，这里我们不对其复杂的数学求证过程做推导。，但我们可以通过 TensorFlow 游乐场来模拟一下通过感知机的结构来模拟异或运算：</p>
+<p><img src="/TensorFlow/深层神经网络和深度学习/Img/playground_with_xor.png" alt="avatar"></p>
+<p>可以看到，感知机模型是无法对数据集做出有效区分的。也就是说感知机无法模拟异或运算。而当加入隐藏层之后，我们发现异或问题可以得到很好的解决。这是由于隐藏层中的神经元节点可以被认为从输入的特征向量中提取出了更高维的数据特征。</p>
+<p><strong>结论： </strong></p>
+<p><strong>实际上，深层神经网络有组合特征提取的功能，对于解决不易提取特征向量的问题（如图像识别、语音识别等）有很大的帮助，这也是深度学习在这些问题上更加容易取得突破性进展的重要原因！</strong></p>
+<hr>
+<h3 id="2-损失函数（Loss-Function）"><a href="#2-损失函数（Loss-Function）" class="headerlink" title="2. 损失函数（Loss Function）"></a>2. 损失函数（Loss Function）</h3><p>上一小节我们针对神经网络结构进一步了解了深度学习的概念。本节我们将介绍如何刻画不同神经网络模型的效果。<strong>神经网络模型的效果以及优化目标是通过损失函数来定义的。我们可以通过损失函数是否收敛用于评价一个模型在当前数据集下是否达到最佳。</strong></p>
+<h4 id="2-1-经典损失函数"><a href="#2-1-经典损失函数" class="headerlink" title="2.1 经典损失函数"></a>2.1 经典损失函数</h4><p>这一小节我们将介绍适用于分类问题和回归问题的经典损失函数，并通过 TensorFlow 实现这些损失函数。分类问题和回归问题是监督学习两大种类，下面我们将分别做简单介绍：</p>
+<h5 id="2-1-1-分类问题经典损失函数"><a href="#2-1-1-分类问题经典损失函数" class="headerlink" title="2.1.1 分类问题经典损失函数"></a>2.1.1 分类问题经典损失函数</h5><p>分类问题希望解决的是：将不同的数据样本划分到事先定义好的类别中。比如我们之前章节接触的二分类问题，需要将样本零件划分到合格或不合格两个类别中。以及后面我们还会介绍到的手写数字识别问题，它可以被归纳为一个十分类问题。</p>
+<p>在解决判断零件是否合格的二分类问题时，我们认为当最终输出节点值越接近 <code>0</code>，这个样本可能不及格；反之越接近 <code>1</code> 则越有可能合格。为了给出集体的类别结果，我们可以取 <code>0.5</code> 为阈值。我们认为凡是输出大于 <code>0.5</code> 的样本都认为时合格的，反之不合格。但是这样的做法时是不容易推广到多分类的。虽然理论上对于多分类设置多个阈值是可能的，但在解决实际问题的过程一般不会这么处理。</p>
+<p><strong>通过神经网络解决多分类问题常用的方法</strong> 是：设置 $n$（n 为类别数目） 个输出节点。对于每一个样例，神经网络都可以得到一个 $n$ 维数组（数组中每一维[每一个输出节点]对应一个类别）作为输出结果。理想情况下，如果一个样本属于类别 $k$，那么这个类别所对应的输出节点值应该为 <code>1</code> ，其它的均为 <code>0</code>。</p>
+<p>这里我们结合一个样例说明：以手写数字图像识别为例，数字图片需要被分类到 <code>0~9</code> $10$ 个数字类别中。我们设置 $n = 10$，对于每一个手写数字图片，通过神经网络后都可以得到一个 $10$ 维（长度为 10）的数组，每一个维度都对应了 <code>0~9</code> 中数字中的一个。如果某个样本属于数字类别 <code>1</code>，那么输出的数组理想情况应该是：<code>[0,1,0,0,0,0,0,0,0,0]</code>，神经网络的输出越接近它表示结果越好。对于这个神经网络模型我们优化的目标是，让神经网络的输出向量尽可能的接近真实标注期望的向量。</p>
+<p>基于上述的情况，那么我们如何判断一个输出向量和期望的向量有多接近呢？交叉熵损失函数是常用的一种评价方法。 <strong>交叉熵刻画了两个概率分布之间的距离</strong>，它是分类问题最常使用的一种损失函数。</p>
+<p><strong>–&gt; 交叉熵损失函数（Cross Entropy）以及 TensorFlow 实现样例</strong></p>
+<p><strong>1）交叉熵损失函数</strong></p>
+<p>交叉熵是信息论中的概念，这里不讨论其原本的意义，这一小节主要讲解它对于评估分类效果的意义。假设给定两个概率分布 $ p $ 和 $ q $，这里我们通过 $ q $ 来表示 $ p $ 的交叉熵：</p>
+<p>$$ H(p,q) = - \sum_{x}p(x)log(q(x)) $$</p>
+<p><strong>需要注意的是：交叉熵刻画的是两个概率分布之间的距离，然后神经网络的输出却不一定是一个概率分布。</strong>（概率分布刻画的是不同事件发生的概率。由概率论知识可知，当事件总数是有限的前提下，概率分布的和是 <code>1</code>）</p>
+<p><strong>Softmax 回归引入：</strong></p>
+<p>那么，我们如何将神经网络的前向传播结果转换成一个概率分布呢？<code>Softmax</code> 回归是一个非常常用的方法。<code>Softmax</code> 回归本身可以作为一个学习算法来优化分类结果，但在 TensorFlow 中，<code>Softmax</code> 回归的参数被去掉了，它只是一层额外的处理层，作用是<strong>将神经网络的输出变成一个概率分布</strong>。</p>
+<p>下面给出加上 <code>softmax</code> 回归的神经网络示意图：</p>
+<p><img src="/TensorFlow/深层神经网络和深度学习/Img/softmax.jpg" alt="avatar"></p>
+<p>根据上图，假设原始的神经网络的输出为 $ y_1,y_2,…,y_n $，那么经过 <code>Softmax</code> 回归处理之后的输出为：</p>
+<p>$$ softmax(y)_i = y_i’ = \frac{e^{yj}}{\sum_{j=1}^{n}e^{yj}} $$</p>
+<p>由上可知，神经网络输出经过一个 <code>Softmax</code> 回归变换成一个概率分布，接下来就可以通过交叉熵来刻画概率分布之间的距离了。</p>
+<p>返回来继续看交叉熵，从交叉熵公式中可以看出交叉熵函数不是对称的（$ H(p,q) \ne H(q,p) $）。因为正确答案是期望得到的，所有当交叉熵作为损失函数时，$ p $ 代表答案标注，$ q $ 代表预测值。它刻画的是概率分布 $ q $ 和 $ p $ 的距离，交叉熵越小，概率分布越接近。</p>
+<p>下面我们给出一个三分类样例来说明通过交叉熵确实可以判断期望值和预测值之间的距离：</p>
+<p>假设某个样例的标注是 (1,0,0)。当某模型经过 Softmax 回归之后的预测值是 (0.5,0.4,0.1),那么这个预测值和正确答案之间的交叉熵为：</p>
+<p>$$ H((1,0,0),(0.5,0.4,0.1)) = -(1*log0.5 + 0*log0.4 + 0*log0.1) \approx 0.3 $$</p>
+<p>另外一个模型经过 Softmax 回归之后的预测值是 (0.8,0.1,0.1),那么这个预测值和正确答案之间的交叉熵为：</p>
+<p>$$ H((1,0,0),(0.8,0.1,0.1)) = -(1*log0.8 + 0*log0.1 + 0*log0.1) \approx 0.1 $$</p>
+<p>从直观上很容易知道第二个模型的答案要优于第一个答案。通过交叉熵的计算得到的结果也是一致的。</p>
+<p><strong>2）TensorFlow 实现样例</strong></p>
+<p>上面我们已经了解了交叉熵的概念，并且在之前的章节中我们介绍过 TensorFlow 中定义的交叉熵损失函数。这里我们来看其是如何实现的，下面先给出其代码实现：</p>
+<pre><code>cross_entropy = -tf.reduce_mean( input_y * tf.log( tf.clip_by_value(y, 1e-10, 1.0)) )
+</code></pre><p>其中，<code>input_y</code> 代表输入的正确答案（真实标记），$y$ 代表预测结果。下面来看涉及到的几个功能函数：</p>
+<p><strong>–&gt; [2.1]</strong> <code>tf.clip_by_value()</code> 函数可以将一个张量中的数值限定在一个范围之内，用于给出函数的有效域，可以避免一些运算错误（比如：<code>log0</code> 是无效的）。下面给出一个简单的运算样例：</p>
+<pre><code>import tensorflow as tf
+
+v = tf.constant([ [1.0,2.0,3.0],[4.0,5.0,6.0] ])
+sess = tf.InteractiveSession()
+print (tf.clip_by_value(v, 2.5, 4.5).eval())
+</code></pre><p>样例输出结果如下:</p>
+<pre><code>[[2.5 2.5 3. ]
+[4.  4.5 4.5]]
+</code></pre><p>可以看出，输入的常量 $v$ 中的数值被限制到了 $ v[i][j]\in(2.5，4.5) $,保证了在进行 <code>tf.log()</code> 函数时不会产生错误。</p>
+<p><strong>–&gt; [2.2]</strong> <code>tf.log()</code> 函数用于对张量中的所有元素依次计算其对数值，下面给出一个简单的运算样例：</p>
+<pre><code>v = tf.constant([1.0,2.0,3.0])
+print (tf.log(v).eval())
+</code></pre><p>样例输出结果如下:</p>
+<pre><code>[0.        0.6931472 1.0986123]
+</code></pre><p><strong>–&gt; [2.3]</strong> <code>*</code> 运算符用于将两个矩阵中的元素进行对应相乘，也可以称为数乘（注意与点乘的区别）。矩阵的乘法通过 <code>tf.matmul()</code> 函数来实现。下面给出一个样例来看一下数乘和点乘的区别：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">v1 = tf.constant([[<span class="number">1.0</span>,<span class="number">2.0</span>],[<span class="number">3.0</span>,<span class="number">4.0</span>]])</span><br><span class="line">v2 = tf.constant([[<span class="number">4.0</span>,<span class="number">5.0</span>],[<span class="number">6.0</span>,<span class="number">7.0</span>]])</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> ((v1*v2).eval())</span><br><span class="line"><span class="keyword">print</span> (tf.matmul(v1,v2).eval())</span><br></pre></td></tr></table></figure>
+<p>样例输出结果如下:</p>
+<pre><code>[[ 4. 10.]
+ [18. 28.]]
+[[16. 19.]
+ [36. 43.]]
+</code></pre><p>通过上述三个运算已经可以完成了每一个样例的每一个类别的交叉熵 $ p(x)log(q(x)) $ 的计算。这三部的计算的结果是一个 $n*m$ 阶的二维矩阵，其中 <code>n</code> 为一个 <code>batch</code> 中的样本数，<code>m</code> 为分类的类别数。</p>
+<p>根据交叉熵公式，应该将每行中的 <code>m</code> 个结果相加得到所有样例的交叉熵，然后再对这 <code>n</code> 行取平均值得到一个 <code>batch</code> 的平均交叉熵。但是，由于分类数是不变的，即每一行都是 <code>n</code> 个分类，所以等价于对整个矩阵做平均，下面给出 TensorFlow  中对矩阵做平均的运算：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">v3 = tf.constant([[<span class="number">1.0</span>,<span class="number">2.0</span>],[<span class="number">3.0</span>,<span class="number">4.0</span>]])</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> (v3.eval())</span><br><span class="line"><span class="keyword">print</span> (tf.reduce_mean(v3).eval())</span><br></pre></td></tr></table></figure>
+<p>样例输出结果如下:</p>
+<pre><code>[[1. 2.]
+ [3. 4.]]
+2.5
+</code></pre><p>由于交叉熵一般会与“Softmax”回归一起使用，TensorFlow 给出了一个统一函数 <code>tf.nn.softmax_cross_entropy_with_logits()</code> 用来封装 Softmax 回归和交叉熵。以下代码给出了使用了 Softmax 回归 之后的交叉熵损失函数：</p>
+<pre><code># Old Version:
+# cross_entropy = tf.nn.softmax_cross_entropy_with_logits(y, input_y)
+# New Version:
+cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=y, labels=input_y)
+</code></pre><p>注意，在只有一个正确答案的分类问题中（可以表示为：<code>one-hot</code>），TensorFlow提供了 <code>tf.nn.sparse_softmax_cross_entropy_with_logits()</code> 函数来加速计算过程。</p>
+<hr>
+<h5 id="2-1-2-回归问题经典损失函数"><a href="#2-1-2-回归问题经典损失函数" class="headerlink" title="2.1.2 回归问题经典损失函数"></a>2.1.2 回归问题经典损失函数</h5><p>上一小节我们已经知道分类问题希望解决的是：将不同的数据样本划分到事先定义好的类别中。而回归问题需要预测的不是一个事先定义好的类别，而是连续的实数，是对具体数值的预测（比如：房价预测、销量预测）。解决回归问题的神经网络一般只有一个输出节点，这个节点的输出值就是预测值。</p>
+<p>对于回归问题，最常用的损失函数是均方误差（<strong>MSE:mean squared error</strong>）。公式定义如下：</p>
+<p>$$ MSE(y,y’) = \cfrac{\sum_{i=1}^{n}(y_i-y_i’)^2}{n} $$</p>
+<p>其中，$y_i$ 为 batch 中第 i 个数据的正确答案，而 $y_i’$ 是神经网络给出的预测值。下面给出使用 TensorFlow 来实现均方误差损失函数：</p>
+<p>$$mse = tf.reduce\_mean(tf.square(y - y’))$$</p>
+<p>注意，这里的 <code>-</code> 运算符是两个矩阵中对应元素做差值。</p>
+<hr>
+<h4 id="2-2-TensorFlow-自定义损失函数"><a href="#2-2-TensorFlow-自定义损失函数" class="headerlink" title="2.2 TensorFlow 自定义损失函数"></a>2.2 TensorFlow 自定义损失函数</h4><p>TensorFlow 中不仅支持经典的损失函数，还可以优化任意的自定义损失函数。下面将介绍如何通过自定义损失函数的方法来使得神经网络优化的结果更加接近实际问题的需求。这里会给出一个预测商品销量问题的样例：</p>
+<p><img src="/TensorFlow/深层神经网络和深度学习/Img/define_loss.png" alt="avatar"></p>
+<pre><code>loss = tf.reduce_sum(tf.select( tf.greater(v1,v2), (v1-v2) * a, (v1-v2) * b))
+</code></pre><p>1）比较函数 <code>tf.greater(v1,v2)</code>：<code>tf.greater(v1,v2)</code> 的输入是两个张量，函数会比较两个张量每一个元素的大小，返回操作结果。当输入的张量维度不一样时，TensorFlow 会进行类似的 Numpy 广播操作（<code>broadcasting</code>）的处理。</p>
+<p>2）选择条件函数 <code>tf.select()</code>：当选择条件为 <code>True</code> 时，<code>tf.select()</code> 函数会选择第二个参数中的值，否则使用第三个参数中的值。注意 <code>tf.select()</code> 函数判断和选择都在元素级别进行。</p>
+<p>下面代码给出了上述两个函数的用法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">v1 = tf.constant([<span class="number">1.0</span>,<span class="number">2.0</span>,<span class="number">3.0</span>,<span class="number">4.0</span>])</span><br><span class="line">v2 = tf.constant([<span class="number">4.0</span>,<span class="number">3.0</span>,<span class="number">2.0</span>,<span class="number">1.0</span>])</span><br><span class="line"></span><br><span class="line">sess = tf.InteractiveSession()</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> (tf.greater(v1,v2).eval())</span><br><span class="line"></span><br><span class="line"><span class="comment"># AttributeError: module 'tensorflow' has no attribute 'select</span></span><br><span class="line"><span class="comment"># print (tf.select( tf.greater(v1,v2), v1, v2).eval())</span></span><br><span class="line"><span class="comment"># 原因：新版本 TensorFlow API的名称做了改变，这个选择操作的tf.select()被改为tf.where()。</span></span><br><span class="line"><span class="keyword">print</span> (tf.where( tf.greater(v1,v2), v1, v2).eval())</span><br><span class="line"></span><br><span class="line">sess.close()</span><br></pre></td></tr></table></figure>
+<p>样例输出结果如下:</p>
+<pre><code>[False False  True  True]
+[4. 3. 3. 4.]
+</code></pre><hr>
+<h4 id="2-3-损失函数对神经网络模型的影响"><a href="#2-3-损失函数对神经网络模型的影响" class="headerlink" title="2.3 损失函数对神经网络模型的影响"></a>2.3 损失函数对神经网络模型的影响</h4><p>上面章节我们也就了解了 TensorFlow 中经典损失函数以及自定义损失函数的使用，也明白了一个损失函数使用的重要性。我们可以通过 TensorFlow 来定义不同的损失函数，那么对于一个模型来说，损失函数到底会有怎样的影响？下面我们将通过一个样例来说明选择一个合适的模型对训练结果影响的重要性。这里我们实现一个拥有两个输入节点，一个输出节点，没有隐藏层的神经网络结构：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> numpy.random <span class="keyword">import</span> RandomState</span><br><span class="line"></span><br><span class="line">batch_size = <span class="number">8</span></span><br><span class="line"></span><br><span class="line">input_x = tf.placeholder(tf.float32, shape=(<span class="keyword">None</span>,<span class="number">2</span>), name=<span class="string">"input_x"</span>)</span><br><span class="line">input_y = tf.placeholder(tf.float32, shape=(<span class="keyword">None</span>,<span class="number">1</span>), name=<span class="string">"input_y"</span>)</span><br><span class="line"></span><br><span class="line">w1 = tf.Variable(tf.random_normal([<span class="number">2</span>,<span class="number">1</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line">y = tf.matmul(input_x, w1)</span><br><span class="line"></span><br><span class="line">loss_less = <span class="number">10</span></span><br><span class="line">loss_more = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">define_loss = tf.reduce_sum(tf.where( tf.greater(y,input_y), (y-input_y) * loss_more, (input_y-y) * loss_less))</span><br><span class="line">learning_rate = <span class="number">0.001</span></span><br><span class="line">train_op = tf.train.AdamOptimizer(learning_rate).minimize(define_loss)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过随机数生成一个模拟数据集：</span></span><br><span class="line">rdm = RandomState(<span class="number">1</span>)</span><br><span class="line">dataset_size = <span class="number">128</span> <span class="comment"># 训练数据集样本数目</span></span><br><span class="line"></span><br><span class="line">X = rdm.rand(dataset_size, <span class="number">2</span>)</span><br><span class="line"><span class="comment"># 定义规则给出样本的标签（x1 + x2 + noise）：</span></span><br><span class="line"><span class="comment"># noise 属于 -0.05 ~ 0.05 的值</span></span><br><span class="line">Y = [ [x1 + x2 + rdm.rand()/<span class="number">10.0</span><span class="number">-0.05</span>] <span class="keyword">for</span> (x1, x2) <span class="keyword">in</span> X ]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面创建一个会话来运行程序：</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    </span><br><span class="line">    init_op = sess.run(tf.global_variables_initializer())</span><br><span class="line">    <span class="comment"># 打印训练之前的神经网络参数：</span></span><br><span class="line">    <span class="keyword">print</span> (sess.run(w1))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 开始训练：</span></span><br><span class="line">    <span class="comment"># 定义训练轮数：</span></span><br><span class="line">    STEPS = <span class="number">5000</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(STEPS):</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 每次选取一个 batch 的数据进行训练：</span></span><br><span class="line">        start = (i * batch_size) % dataset_size</span><br><span class="line">        end = min(start + batch_size, dataset_size)</span><br><span class="line">        </span><br><span class="line">        data_feed = feed_dict=&#123;input_x: X[start:end], input_y: Y[start:end]&#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 训练神经网络参数</span></span><br><span class="line">        sess.run(train_op, data_feed)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">print</span> (sess.run(w1))</span><br></pre></td></tr></table></figure>
+<p>样例输出结果如下:</p>
+<pre><code>[[-0.8113182]
+ [ 1.4845988]]
+[[1.019347 ]
+ [1.0428089]]
+</code></pre><p>标准答案为：<code>x1 + x2 + noise</code>。此时的参数下，模型更加偏向于预测多一点。如果将 <code>loss_less</code> 和 <code>loss_more</code> 和值互换，那么最终 <code>w1 = [0.95525807, 0.9813394]</code>，此时模型更加偏向预测少一点。如果使用均方误差作为损失函数，<code>w1 = [0.97437561, 1.0243336]</code>，会让预测值离标准答案更近。</p>
+<p><strong>结论：</strong></p>
+<p>相同的神经网络，不同损失函数的使用会对训练得到的模型产生重要的影响！</p>
+<hr>
+<h3 id="3-神经网络优化算法（BP）"><a href="#3-神经网络优化算法（BP）" class="headerlink" title="3.  神经网络优化算法（BP）"></a>3.  神经网络优化算法（BP）</h3><p>这一小节我们将针对神经网络学习（优化）算法，更加具体地介绍如何通过反向传播算法和梯度下降（Gradient Decent）算法优化神经网络中的参数。<strong>梯度下降算法主要用于优化单个参数的取值，而反向传播算法给出了一个高效的方式在所有参数上使用梯度下降算法。</strong></p>
+<p>反向传播传播算法是学习神经网络的核心算法，它可以根据定义好的损失函数优化神经网络中参数的取值，从而使得神经网络模型在训练数据集上的损失函数达到一个较小值。本小节，我们将主要讲解神经网络优化过程的基本概念和主要思想，而略去算法的数学推导和证明。</p>
+<p><strong>神经网络的优化过程可以分为两个阶段：</strong></p>
+<ul>
+<li>第一阶段先通过前向传播算法计算得到预测值，并将预测值和真实值做对比得出两者之间的差距（<code>loss</code>）;</li>
+<li>第二阶段通过反向传播算法计算损失函数对每一个参数的梯度，再根据梯度和学习率使用梯度下降算法更新每一个参数，下面我们会做详细说明。</li>
+</ul>
+<hr>
+<h4 id="3-1-梯度下降算法"><a href="#3-1-梯度下降算法" class="headerlink" title="3.1 梯度下降算法"></a>3.1 梯度下降算法</h4><p>首先我们给出一个图解来探讨使用梯度下降算法优化参数取值的过程：</p>
+<p><img src="/TensorFlow/深层神经网络和深度学习/Img/gradient_decent.png" alt="avatar"></p>
+<p>结合图解，这里我们再通过一个具体样例来说明梯度下降算法是如何工作的。假设要通过梯度下降算法来优化参数 $\theta$ ,使得损失函数 $J(X)=\theta^2$ 的值尽量小。梯度下降算法的第一步需要随机产生一个参数 $\theta$ 的初始值，然后再通过梯度和学习率来更新参数 $\theta$ 的取值。</p>
+<p>样例中参数 $\theta$ 的梯度为：$\nabla=\cfrac{\partial J(\theta)}{\partial x} = 2\theta$，所以 <code>BP</code> 中每次使用梯度下降算法对参数 $\theta$ 的更新公式为：</p>
+<p>$$ x_{n+1} = x_n - \eta \nabla $$</p>
+<p>假设参数 $\theta$ 初始值为 <code>5</code>，学习率设置为 <code>0.3</code>，那么优化过程可以总结为下表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">轮数</th>
+<th style="text-align:left">当前轮参数值</th>
+<th style="text-align:left">梯度×学习率</th>
+<th style="text-align:left">更新后参数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">5</td>
+<td style="text-align:left">2×5×0.3=3</td>
+<td style="text-align:left">5-3=2</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">2×2×0.3=1.2</td>
+<td style="text-align:left">2-1.2=0.8</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">0.8</td>
+<td style="text-align:left">2×0.8×0.3=0.48</td>
+<td style="text-align:left">0.8-0.48=0.32</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">0.32</td>
+<td style="text-align:left">2×0.32×0.3=0.192</td>
+<td style="text-align:left">0.32-0.192=0.128</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">0.128</td>
+<td style="text-align:left">2×0.128×0.3=0.0768</td>
+<td style="text-align:left">0.128-0.0768=0.0512</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结论：</strong></p>
+<p>可以发现，经过  <code>5</code> 迭代后，参数 $\theta$ 取值已变为 <code>0.0512</code>，和参数最优值 <code>0</code> 已经很接近了。这个样例虽然比较简单，但神经网络反向传播算法根据梯度和学习率使用梯度下降算法更新参数过程是类似的。</p>
+<h5 id="3-1-1-梯度下降法存在的问题"><a href="#3-1-1-梯度下降法存在的问题" class="headerlink" title="3.1.1 梯度下降法存在的问题"></a>3.1.1 梯度下降法存在的问题</h5><p><strong>1）局部最优解</strong></p>
+<p>需要注意的是： 梯度下降算法并不能保证被优化的函数达到全局最优解 如下如所示，图中给出的函数就有可能只能得到局部最优解而不是全局最优。在图中标记点处（小黑点），损失函数的偏导为 <code>0</code>，于是参数就不会在进一步更新了。</p>
+<p><img src="/TensorFlow/深层神经网络和深度学习/Img/local_optimum.png" alt="avatar"></p>
+<p><strong>结论：</strong></p>
+<blockquote>
+<p>梯度下降是否能够达到全局最优取决于：待优化参数初始值落在哪个区域。参数初始值的选取很大程度影响最后的优化结果。只有当损失函数为凸函数时，梯度下降算法才能保证达到全局最优。</p>
+</blockquote>
+<p><strong>2）耗时</strong></p>
+<p>梯度下降法除了不一定能达到全局最优外，另一个存在的问题就是计算时间太长。因为要在全部训练数据上最小化损失，也就是说所有损失函数 $ J(\theta) $ 是在所有的训练数据上的损失和达到最小。这样在每一轮的迭代中都需要计算在全部训练数据上的损失。在海量训练训练数据下，要计算所有训练数据的损失函数是极其耗时的。</p>
+<hr>
+<p>为了加速训练过程，提出了随机梯度下降算法（<code>Stochastic Gradient Decent：[stəˈkastik ˈgrādēənt ˈdēsənt]</code>，SGD）:</p>
+<h4 id="3-2-随机梯度下降算法（SGD）"><a href="#3-2-随机梯度下降算法（SGD）" class="headerlink" title="3.2  随机梯度下降算法（SGD）"></a>3.2  随机梯度下降算法（SGD）</h4><p>随机梯度下降算法 SGD 优化的不是在全部训练数据上的损失函数，而是在每一轮迭代中随机优化某一条训练数据上的损失函数，这样每一轮参数更新的速度就大大加快了。</p>
+<p>但是由于 SGD 算法每次优化的只是在某一条数据上的损失函数，所以问题也非常明显：在某一条数据上损失函数更小并不能代表在全部数据上的损失函数更小，于是 <strong>使用随机梯度下降优化得到的神经网络甚至可能无法达到局部最优。</strong></p>
+<p>为了综合梯度下降算法和随机梯度下降算法的优缺点，在实际应用中提出了一种折中的办法：<code>Mini Batch SGD</code>。</p>
+<h4 id="3-3-Mini-Batch-SGD"><a href="#3-3-Mini-Batch-SGD" class="headerlink" title="3.3  Mini Batch SGD"></a>3.3  Mini Batch SGD</h4><p><code>Mini Batch SGD</code> 算法的优化过程是：每次计算一小部分训练数据的损失函数，也就是我们之前提到的一个 <code>batch</code> 的数据。通过矩阵运算，每次在一个 <code>batch</code> 的数据上优化神经网络的参数并不会比单个数据慢太多；另一方面，每次使用一个 <code>batch</code> 的数据可以大大减少损失函数收敛所需要的迭代次数，同时可以使得收敛的结果更加接近梯度下降的效果。</p>
+<p><strong>注意：</strong></p>
+<p>当神经网络模型比较复杂或者数据本身（大尺寸图像）比较大，太大的 <code>batch</code> 会导致计算时间过程过长甚至发生内存溢出！</p>
+<h4 id="3-4-TensorFlow-实现反向传播过程的通用框架"><a href="#3-4-TensorFlow-实现反向传播过程的通用框架" class="headerlink" title="3.4 TensorFlow 实现反向传播过程的通用框架"></a>3.4 TensorFlow 实现反向传播过程的通用框架</h4><p>综合上述，下面给出 TensorFlow 实现反向传播过程的通用框架：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> numpy.random <span class="keyword">import</span> RandomState</span><br><span class="line"></span><br><span class="line">batch_size = <span class="number">8</span></span><br><span class="line"></span><br><span class="line">input_x = tf.placeholder(tf.float32, shape=(<span class="keyword">None</span>,<span class="number">2</span>), name=<span class="string">"input_x"</span>)</span><br><span class="line">input_y = tf.placeholder(tf.float32, shape=(<span class="keyword">None</span>,<span class="number">1</span>), name=<span class="string">"input_y"</span>)</span><br><span class="line"></span><br><span class="line">w1 = tf.Variable(tf.random_normal([<span class="number">2</span>,<span class="number">1</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line">.....</span><br><span class="line"></span><br><span class="line">define_loss = ...</span><br><span class="line">learning_rate = <span class="number">0.001</span></span><br><span class="line">train_op = tf.train.AdamOptimizer(learning_rate).minimize(define_loss)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    </span><br><span class="line">    init_op = sess.run(tf.global_variables_initializer())</span><br><span class="line">    <span class="comment"># 打印训练之前的神经网络参数：</span></span><br><span class="line">    <span class="keyword">print</span> (sess.run(w1))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 开始训练：</span></span><br><span class="line">    <span class="comment"># 定义训练轮数：</span></span><br><span class="line">    STEPS = <span class="number">5000</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(STEPS):</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 每次选取一个 batch 的数据进行训练：</span></span><br><span class="line">        start = (i * batch_size) % dataset_size</span><br><span class="line">        end = min(start + batch_size, dataset_size)</span><br><span class="line">        </span><br><span class="line">        data_feed = feed_dict=&#123;input_x: X[start:end], input_y: Y[start:end]&#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 训练神经网络参数</span></span><br><span class="line">        sess.run(train_op, data_feed)</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="4-神经网络进一步优化"><a href="#4-神经网络进一步优化" class="headerlink" title="4. 神经网络进一步优化"></a>4. 神经网络进一步优化</h3><p>这一小节，我们将针对神经网络优化过程可能遇到的问题，进一步优化神经网络。例如：如何设置梯度下降算法的学习率？如何解决过拟合，使得我们训练好的模型更加泛化？以及如何使用滑动平均模型使得学得的模型更加健壮，滑动平均模型可以一定程度上提高模型在最终测试数据集上的表现（增强模型效果）。</p>
+<h4 id="4-1-学习率的设置"><a href="#4-1-学习率的设置" class="headerlink" title="4.1 学习率的设置"></a>4.1 学习率的设置</h4><p>上一小节我们在讲解梯度下降算法时提到，训练（优化）神经网络模型需要通过学习率来控制参数更新的速度（幅度）。那么考虑一个问题：我们是否只需要设置一个较大的学习率，就可以让模型在很短时间内达到局部最优？</p>
+<p>答案肯定是否定的！学习率决定了参数每次更新的幅度。如果幅度过大，那么可能导致参数在极优值两侧来回移动，无法收敛到一个极小值。相反，如果学习率过小，每次参数更新幅度较小，虽然能够保证收敛性，但这会大大降低参数的优化（训练）速度。模型需要更多轮的迭代才可以达到一个比较理想的结果。下面来看一个实例：</p>
+<p>还是以梯度下降算法介绍中给出的样例为例。假设：参数 $\theta$ 初始值为：<code>5</code></p>
+<p>当学习率为：<code>0.001</code> 时，迭代 <code>5</code> 次之后，$\theta$ 的取值将为 <code>4.95</code>。要将 $\theta$ 训练到 <code>0.05</code> 需要大约 <code>2300</code> 轮； 当学习率为：<code>0.3</code> 时，只需要迭代 <code>5</code> 轮就可以达到。</p>
+<p>综上所述：如何更加合理的设置学习率取值为对保证模型优化的高效和精确是必要的！</p>
+<h5 id="4-1-1-指数衰减法"><a href="#4-1-1-指数衰减法" class="headerlink" title="4.1.1 指数衰减法"></a>4.1.1 指数衰减法</h5><p>为了解决学习率的设定问题，TensorFlow 提供了一种更加灵活的学习率设置方法：<strong>指数衰减法</strong>。</p>
+<p>TensorFlow 通过 <code>tf.train.exponential_decay()</code> 函数实现了指数衰减学习率。这个函数会指数级地减少学习率，让模型在训练前期快速接近较优解，又保证在模型训练后期不会波动太大（更加稳定），从而接近局部最优。</p>
+<p><strong>1）tf.train.exponential_decay() 函数</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tf.train.exponential_decay(</span><br><span class="line">    learning_rate,</span><br><span class="line">    global_step,</span><br><span class="line">    decay_steps,</span><br><span class="line">    decay_rate,</span><br><span class="line">    staircase=<span class="keyword">False</span>,</span><br><span class="line">    name=<span class="keyword">None</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>上述函数实现了以下代码的功能：</p>
+<pre><code>decayed_learning_rate = learning_rate * decay_rate ^ (global_step / decay_steps)
+</code></pre><p><strong>tf.train.exponential_decay() 参数说明: </strong></p>
+<p><code>learning_rate</code>：初始学习率</p>
+<p><code>global_step</code>：全局迭代次数（总迭代次数）</p>
+<p><code>decay_steps</code>：衰减速度</p>
+<p><code>decay_rate</code>：衰减系数</p>
+<p><code>staircase</code>：衰减方式（阶梯式衰减 or 连续衰减）</p>
+<p><code>name</code>：String. Optional name of the operation. Defaults to ‘ExponentialDecay’.</p>
+<p>|——————————————————————</p>
+<p><strong>staircase 参数详解：</strong></p>
+<p><code>tf.train.exponential_decay()</code> 函数可以通过设置参数 <code>staircase</code> 来选择不同的衰减方式。如果参数 <code>staircase</code> 为 <code>True</code>，<code>(global_step / decay_steps)</code> 结果会取整，此时学习率成为阶梯函数( <code>staircase function</code> )。</p>
+<p>下图展示的连续的学习率曲线是 <code>staircase</code> 为 <code>False</code>，阶梯状曲线是 <code>staircase</code> 为 <code>True</code>：</p>
+<p><img src="/TensorFlow/深层神经网络和深度学习/Img/learning_rate_methods.png" alt="avatar"> </p>
+<p>当 <code>staircase</code> 设置为 <code>True</code> 时，<code>decay_steps</code> 通常代表完整的使用一遍训练数据所需要的迭代轮数。这时，这个迭代轮数也就是总训练样本数除以每一个 <code>batch</code> 中的训练样本数（即：<code>batch_size</code>）。这种设置的常用场景是：每完整的过完一遍训练数据，学习率就减少一次。</p>
+<p>优点：可以使得训练数据集中的所有数据对模型训练有相等的作用。</p>
+<p>当 <code>staircase</code> 默认为 <code>False</code> 时，即连续衰减学习率。不同的训练数据有不同的学习率，只有当学习率减小时，对应的训练数据对模型的训练结果的影响也就小了。</p>
+<p>|—————————————————————— </p>
+<p>下面将给出一个使用了指数衰减学习率的优化器样例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">global_step = tf.Variable(<span class="number">0</span>, trainable=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">starter_learning_rate = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line">learning_rate = tf.train.exponential_decay(</span><br><span class="line">    starter_learning_rate, </span><br><span class="line">    global_step,</span><br><span class="line">    <span class="number">100000</span>, </span><br><span class="line">    <span class="number">0.96</span>, </span><br><span class="line">    staircase=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Passing global_step to minimize() will increment it at each step.</span></span><br><span class="line">learning_step = (</span><br><span class="line">    tf.train.GradientDescentOptimizer(learning_rate)</span><br><span class="line">    .minimize(...my loss..., global_step=global_step)</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong> </p>
+<blockquote>
+<p>学习率决定了参数更新（损失函数下降）的速度。一般来说，初始学习率、衰减学习率以及衰减速度都是根据经验设置的。但是损失函数下降的速度和迭代结束之后总损失的大小没有必然的联系。也就是说，并不能通过前几轮损失函数下降的速度来比较不同神经网络模型的效果。</p>
+</blockquote>
+<hr>
+<h4 id="4-2-过拟合问题"><a href="#4-2-过拟合问题" class="headerlink" title="4.2 过拟合问题"></a>4.2 过拟合问题</h4><p>前面我们了解了如何在训练数据上优化一个给定的损失函数。然而在真实的应用中想要的并不是单纯让模型尽量模拟（拟合）训练数据的行为，而是希望通过训练出来的模型对未知数据也能够给出很好的预测。</p>
+<p>所谓的<strong>过拟合</strong>：指的是当一个模型过为复杂之后，它可以很好的记忆每一个训练数据中的随机噪音的部分而忘记了去“学习”训练数据中的通用趋势。</p>
+<p>举一个极端的样例：如果一个模型中的参数比训练数据的总数还多（一般样本数维持在参数量的<code>10</code>倍），那么只要训练数据不冲突，这个模型完全可以记住所有训练数据的结果从而使得损失函数为 <code>0</code>。可以直观的想象一个包含 <code>n</code> 个变量和 <code>n</code> 个等式的方程组：当方程不冲突时，这个方程组是可以通过数学方法求解的。然而过度拟合训练数据的随机噪音虽然可以得到非常小的损失，但是对于未知数据可能无法做出可靠的判断。</p>
+<p>下图给出了模型训练的三种不同情况：</p>
+<p><img src="/TensorFlow/深层神经网络和深度学习/Img/overfitting.png" alt="avatar"></p>
+<ol>
+<li>第一种情况下，由于模型过于简单，无法刻画问题的趋势。属于欠拟合，模型在训练数据集的准确率较低；</li>
+<li>第二张模型是比较合理的，它既不会过于关注训练数据中的噪音，又能很好的刻画问题的整体趋势（理想情况）；</li>
+<li>第三种模型就是过拟合了，虽然第三个模型完美地划分了不同形状的点，但这样的划分并不能很好地对未知数据做出判断，因为它过度拟合了训练数据中的噪音数据而忽略了问题的整体规律（测试集准确率远远跟不上训练集测试集）。</li>
+</ol>
+<h4 id="4-3-正则化"><a href="#4-3-正则化" class="headerlink" title="4.3 正则化"></a>4.3 正则化</h4><p>为了避免过拟合问题</p>
+<p><img src="/TensorFlow/深层神经网络和深度学习/Img/regurization.png" alt="avatar"></p>
+<p>前面章节提到过使用 TensorFlow 可以优化任意形式的损失函数，所以 TensorFlow 自然也可以优化任何带正则化的损失函数。以下代码给出了一个简单的带 $L2$ 正则化的损失函数定义:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">w = tf.Variable(tf.random_normal([<span class="number">2</span>,<span class="number">1</span>],stddev=<span class="number">1</span>,seed=<span class="number">1</span>))</span><br><span class="line">y = tf.matmul(x,w)</span><br><span class="line"></span><br><span class="line"><span class="comment"># loss = 经验风险最小化 + 结构风险最小化</span></span><br><span class="line">loss = tf.reduce_mean(tf.square(y_ - y)) +  tf.contrib.layers.l2_regularizer(<span class="keyword">lambda</span>)(w)  </span><br><span class="line"><span class="comment">#lambda为正则化权重  实际过程中 lambda 为关键字</span></span><br></pre></td></tr></table></figure>
+<p><code>loss</code> 定义为损失函数，由两个部分组成：第一个部分是均方误差损失函数，刻画模型在训练数据上的表现。第二部分就是正则化，防止模型过度模拟训练数据中的随机噪声。类似的, <code>tensorflow.contrib.layers.l1_regularizer(lambda)(w)</code> 函数可以计算 $L1$ 正则化的值。以下代码给出了使用这两个函数的样例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">weights = tf.constant([[<span class="number">1.0</span>, <span class="number">-2.0</span>], [<span class="number">-3.0</span>, <span class="number">4.0</span>]])</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="comment"># 输出为：(|1| + |-2| + |-3| + |4|) * 0.5 = 5。其中 0.5 为正则化项的权重。</span></span><br><span class="line">    <span class="keyword">print</span> (sess.run(tf.contrib.layers.l1_regularizer(<span class="number">.5</span>)(weights)))</span><br><span class="line">    <span class="comment"># 输出为：(1^2 + (-2)^2 + (-3)^2 + 4^2) * 0.5 = 7.5。</span></span><br><span class="line">    <span class="keyword">print</span> (sess.run(tf.contrib.layers.l2_regularizer(<span class="number">.5</span>)(weights)))</span><br></pre></td></tr></table></figure>
+<p>样例输出结果为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5.0</span><br><span class="line">7.5</span><br></pre></td></tr></table></figure>
+<p>在简单的神经网络中，上述代码可以很好地计算带正则化的损失函数，但当神经网络的参数增多之后，这样的方式可能导致 <code>loss</code> 函数定义可读性变差。更主要的是导致：网络结构复杂之后定义网络结构的部分和计算损失函数的部分可能不在同一函数中，这样通过变量这样方式计算损失函数就不方便了。</p>
+<p>下面我们给出一个使用 TensorFlow 中给提供的集合(<code>Collection</code>)解决一个 <code>5</code> 层神经网络带 $L2$ 正则化 的损失函数计算方法（网络结构的部分和计算损失函数的部分不在同一函数）:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># Part 1：定义神经网络结构以及前向传播算法：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取单层神经网络 Edge 上的权重，并且将这个权重的 L2 正则化损失加入到名称为 'losses' 的集合中：</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_weight</span><span class="params">(shape, lamada)</span>:</span></span><br><span class="line">    <span class="comment"># 创建变量：</span></span><br><span class="line">    var = tf.Variable(tf.random_normal(shape), dtype=tf.float32)</span><br><span class="line">    <span class="comment"># 使用 add_to_collection() 函数将这个新创建的变量的 L2 正则化损失加入到集合</span></span><br><span class="line">    <span class="comment"># 这个函数的第一个参数 'losses' 是集合的名称；第二个参数是要加入到集合的内容</span></span><br><span class="line">    tf.add_to_collection(<span class="string">'losses'</span>, tf.contrib.layers.l2_regularizer(lamada)(var))</span><br><span class="line">    <span class="keyword">return</span> var</span><br><span class="line"></span><br><span class="line"><span class="comment"># 带输入特征向量以及标签的占位符</span></span><br><span class="line">input_x = tf.placeholder(tf.float32, shape=(<span class="keyword">None</span>, <span class="number">2</span>))</span><br><span class="line">input_y = tf.placeholder(tf.float32, shape=(<span class="keyword">None</span>, <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># batch size：</span></span><br><span class="line">batch_size = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义神经网络中每一层网络中的节点个数：</span></span><br><span class="line">layer_dimension = [<span class="number">2</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">1</span>]</span><br><span class="line"><span class="comment"># 获取神经网络的层数</span></span><br><span class="line">n_layers = len(layer_dimension)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个变量用于维护前向传播时当前层的节点，开始的时候就是输入层：</span></span><br><span class="line">cur_layer = input_x</span><br><span class="line"><span class="comment"># 获取当前层节点个数：</span></span><br><span class="line">in_dimension = layer_dimension[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过一个循环生成5层全连接的神经网络结构</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n_layers):</span><br><span class="line">    <span class="comment"># 获取下一层节点的个数</span></span><br><span class="line">    out_dimension = layer_dimension[i]</span><br><span class="line">    <span class="comment"># 获取当前计算层的权重并加入了 L2 正则化损失</span></span><br><span class="line">    weight = get_weight([in_dimension, out_dimension], <span class="number">0.001</span>)</span><br><span class="line">    <span class="comment"># 随机生成偏向</span></span><br><span class="line">    bias = tf.Variable(tf.constant(<span class="number">0.1</span>, shape=[out_dimension]))</span><br><span class="line">    <span class="comment"># 计算前向传播节点，使用RELU激活函数</span></span><br><span class="line">    cur_layer = tf.nn.relu(tf.matmul(cur_layer, weight) + bias)</span><br><span class="line">    <span class="comment"># 进入下一层之前，更新下一层节点的输入节点数</span></span><br><span class="line">    in_dimension = layer_dimension[i]</span><br><span class="line">    </span><br><span class="line"><span class="comment"># Part 2：定义损失函数以及反向传播算法：</span></span><br><span class="line"><span class="comment"># 计算模型数据的均值化损失加入损失集合</span></span><br><span class="line">mse_loss = tf.reduce_mean(tf.square(input_y - cur_layer))</span><br><span class="line">tf.add_to_collection(<span class="string">'losses'</span>, mse_loss)</span><br><span class="line"></span><br><span class="line"><span class="comment"># get_collection 返回一个列表，列表是所有这个集合的所有元素</span></span><br><span class="line"><span class="comment"># 在本例中，元素代表了其他的损失，加起来就得到了所有的损失</span></span><br><span class="line">loss = tf.add_n(tf.get_collection(<span class="string">'losses'</span>))</span><br><span class="line"></span><br><span class="line">global_step = tf.Variable(<span class="number">0</span>)</span><br><span class="line"><span class="comment"># 学习率的设置：指数衰减法，参数：初始参数，全局步骤，每训练100轮乘以衰减速度0,96(当staircase=True的时候)</span></span><br><span class="line">learning_rate = tf.train.exponential_decay(<span class="number">0.1</span>, global_step, <span class="number">100</span>, <span class="number">0.96</span>, staircase=<span class="keyword">True</span>)</span><br><span class="line">train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss, global_step=global_step)</span><br></pre></td></tr></table></figure>
+<p>上面给出的代码给出的是一个只有 <code>5</code> 层的全连接神经网络，在更加复杂的网络结构中，使用这样的方式来计算损失函数将大大增强代码的可读性。</p>
+<hr>
+<h4 id="4-4-滑动平均模型"><a href="#4-4-滑动平均模型" class="headerlink" title="4.4 滑动平均模型"></a>4.4 滑动平均模型</h4><p>上一小节我们通过神经网络训练过程可能产生的过拟合问题，提出了通过参数正则化使得模型在测试数据上更健壮（泛化）。这一小节我们来介绍另一种保证模型健壮性的方法：<strong>滑动平均模型</strong>。</p>
+<p>在采用 <strong>随机梯度下降算法</strong> 训练神经网络时，使用滑动平均模型在很多应用中都可以在一定程度上提高最终模型在预测数据上的表现。</p>
+<h5 id="4-4-1-滑动平均模型原理"><a href="#4-4-1-滑动平均模型原理" class="headerlink" title="4.4.1 滑动平均模型原理"></a>4.4.1 滑动平均模型原理</h5><p><strong>1 –&gt; 滑动平均：</strong></p>
+<p>滑动平均，使变量的更新与一段时间内（非某一时刻）的取值有关。</p>
+<p>在创建滑动平均模型后，滑动平均模型会对每一个变量维护一个影子变量(<strong>shadow_variable</strong>，影子变量的初始值为相应变量的初始值)，每当变量更新时，影子变量的值会更新为：</p>
+<p>$$ shadow\_variable = decay × shadow\_variable + ( 1 - decay ) × variable ​$$</p>
+<p>其中，$shadow\_variable$：为影子变量，$variable$：为待更新变量，$decay$：为衰减率。注意区分：第一个 $shadow\_variable​$ 是当前时刻影子变量的值下；而第二个是上一时刻变量的影子变量。</p>
+<p>可以看出，$decay$ 决定了模型更新的速度，$decay$ 越大，影子变量受变量更新的影响越小，模型越趋于稳定。故，在实际的应用中，$decay$ 值一般会设成非常接近 <code>1</code> 的数（如：<code>0.999</code>、<code>0.9999</code>）。</p>
+<p><strong>注意，变量的影子变量和变量的滑动平均值是一个意思！</strong></p>
+<p>事实上，滑动平均值可以看作是变量的过去一段时间（过去<strong>1/(1-decay​)</strong>个时刻）取值的均值，相比对变量直接赋值而言，采用滑动平均得到的值在图像上更加平缓光滑，抖动性更小，不会因为某次的异常取值而使得滑动平均值波动很大。</p>
+<p><strong>2 –&gt; 测试中使用</strong></p>
+<p>对神经网络边的权重 <code>weights</code> 使用滑动平均，并且得到其对应的影子变量 <code>shadow_weights</code>。但注意，在训练过程仍然使用原来不带滑动平均的权重 <strong>weights</strong>，不然无法得到 <strong>weights</strong> 下一步更新的值，又怎么求下一步 <strong>weights</strong> 所对应的影子变量 <strong>shadow_weights</strong> 呢？！</p>
+<p>故，之后在测试过程中使用 shadow_weights 来代替 weights 作为神经网络边的权重，这样在测试数据上效果更好。</p>
+<hr>
+<h5 id="4-4-2-TensorFlow-中的滑动平均模型定义"><a href="#4-4-2-TensorFlow-中的滑动平均模型定义" class="headerlink" title="4.4.2 TensorFlow 中的滑动平均模型定义"></a>4.4.2 TensorFlow 中的滑动平均模型定义</h5><p>Tensorflow 中通过 <strong>tf.train.ExponentialMovingAverage()</strong> 函数来实现滑动平均模型。</p>
+<p><strong>1 –&gt; 滑动平均对象初始化</strong></p>
+<p>在初始化 <code>ExponentialMovingAverage()</code> 时，需要提供一个衰减率（<code>decay</code>），这个衰减率将用于控制模型更新的速度。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variable_averages = tf.train.ExponentialMovingAverage(MOVING_AVERAGE_DECAY, num_updates)</span><br></pre></td></tr></table></figure>
+<p>为了使模型在训练前期更新得的更快，<code>ExponentialMovingAverage</code> 函数还提供了 <code>num_updates</code> 参数来动态设置 <code>decay</code> 的大小。如果在 <code>ExponentialMovingAverage()</code> 函数初始化时提供了 <code>num_updates 参数</code>，那么每次使用的衰减率将是：</p>
+<p>$$ min \{ {decay, \cfrac{1 + num\_updates}{10 + num\_updates}} \} $$</p>
+<p>可以看出，<strong>num_updates</strong> 越大，衰减率就越大。<strong>num_updates</strong> 一般会为迭代轮数，所以当迭代轮数越大，模型参数就越稳定。即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variable_averages = tf.train.ExponentialMovingAverage(MOVING_AVERAGE_DECAY, global_step)</span><br></pre></td></tr></table></figure>
+<p><strong>2 –&gt; 添加/更新变量</strong></p>
+<p>添加目标变量，为之维护影子变量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variable_averages_op = variable_averages.apply([var0, var1, ..., var_n])</span><br></pre></td></tr></table></figure>
+<p>注意维护不是自动的，更新一次影子变量就需要训练中执行一次上述语句。这里提供了一种方法：一般都会使用<strong>tf.control_dependencies</strong> 使之和 <strong>train_op</strong> 绑定，使得至于每次 train_op 都会更新影子变量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Tensorflow提供了两种机制：tf.control_dependencie 和 tf.group：</span></span><br><span class="line"><span class="comment"># train_op = tf.group(train_step, variables_averages_op) 等价于 ==</span></span><br><span class="line"><span class="keyword">with</span> tf.control_dependencies([train_step, variables_averages_op]):</span><br><span class="line">	train_op = tf.no_op(name=<span class="string">'train'</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>3 –&gt; 获取影子变量值</strong></p>
+<p>从影子变量集合中提取目标变量对应的滑动平均值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sess.run(variable_averages.average([var0, var1]))</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>4 –&gt; 给一个使用样例</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个变量用以计算滑动平均，变量的初始值为0,手动指定类型为float32，</span></span><br><span class="line"><span class="comment"># 因为所有需要计算滑动平均的变量必须是实数型</span></span><br><span class="line">v1 = tf.Variable(<span class="number">0</span>,dtype=tf.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模拟神经网络迭代的轮数，动态控制衰减率</span></span><br><span class="line">step = tf.Variable(<span class="number">0</span>,trainable=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个滑动平均的类，初始化时给定衰减率为0.99和控制衰减率的变量</span></span><br><span class="line">ema = tf.train.ExponentialMovingAverage(<span class="number">0.99</span>,step)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个滑动平均的操作，这里需要给定一个列表，每次执行这个操作时，列表里的元素都会被更新</span></span><br><span class="line">maintain_average_op = ema.apply([v1])</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="comment"># 初始化所有变量</span></span><br><span class="line">    init_op = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 获取滑动平均之后变量的取值</span></span><br><span class="line">    <span class="keyword">print</span> (sess.run([v1,ema.average(v1)])) <span class="comment"># 输出 :[0.0, 0.0]</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 更新v1的值为5</span></span><br><span class="line">    sess.run(tf.assign(v1,<span class="number">5</span>))</span><br><span class="line">    <span class="comment"># 更新 v1 的滑动平均值，衰减率为 min&#123;0.99,(1+step)/(10+step)=0.1&#125;=0.1,</span></span><br><span class="line">    <span class="comment"># 所以 v1 的滑动平均被更新为 0.1*0+0.9*5=4.5</span></span><br><span class="line">    sess.run(maintain_average_op)</span><br><span class="line">    <span class="keyword">print</span> (sess.run([v1,ema.average(v1)])) <span class="comment"># 输出 :[5.0, 4.5]</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 更新迭代的轮数</span></span><br><span class="line">    sess.run(tf.assign(step,<span class="number">10000</span>))</span><br><span class="line">    sess.run(tf.assign(v1,<span class="number">10</span>))</span><br><span class="line">    <span class="comment"># 这里的衰减率变成 0.99</span></span><br><span class="line">    <span class="comment"># v1 = 0.99*4.5+0.01*10=4.555</span></span><br><span class="line">    sess.run(maintain_average_op)</span><br><span class="line">    <span class="keyword">print</span> (sess.run([v1,ema.average(v1)]))</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#再次更新滑动平均值</span></span><br><span class="line">    sess.run(maintain_average_op)</span><br><span class="line">    <span class="keyword">print</span> (sess.run([v1,ema.average(v1)]))</span><br></pre></td></tr></table></figure>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/TensorFlow/深层神经网络和深度学习/" title="深层神经网络和深度学习">http://yoursite.com/TensorFlow/深层神经网络和深度学习/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TensorFlow/" rel="tag"><i class="fa fa-tag"></i> TensorFlow</a>
+          
+            <a href="/tags/DeepLearning/" rel="tag"><i class="fa fa-tag"></i> DeepLearning</a>
+          
+            <a href="/tags/Deep-Neural-Networks/" rel="tag"><i class="fa fa-tag"></i> Deep Neural Networks</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/DataSet/MNIST-Introduce/" rel="next" title="MNIST Introduce">
+                <i class="fa fa-chevron-left"></i> MNIST Introduce
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/TensorFlow/TensorFlow-之-MNIST-手写体数字图像识别问题/" rel="prev" title="TensorFlow 之 MNIST 手写体数字图像识别问题">
+                TensorFlow 之 MNIST 手写体数字图像识别问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-深度学习和深层神经网络"><span class="nav-text">1. 深度学习和深层神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-线性模型的局限性"><span class="nav-text">1.1 线性模型的局限性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-激活函数去线性化（Activation-Function）"><span class="nav-text">1.2 激活函数去线性化（Activation Function）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-多层（深层）网络解决异或运算"><span class="nav-text">1.3 多层（深层）网络解决异或运算</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-损失函数（Loss-Function）"><span class="nav-text">2. 损失函数（Loss Function）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-经典损失函数"><span class="nav-text">2.1 经典损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-1-分类问题经典损失函数"><span class="nav-text">2.1.1 分类问题经典损失函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-2-回归问题经典损失函数"><span class="nav-text">2.1.2 回归问题经典损失函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-TensorFlow-自定义损失函数"><span class="nav-text">2.2 TensorFlow 自定义损失函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-损失函数对神经网络模型的影响"><span class="nav-text">2.3 损失函数对神经网络模型的影响</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-神经网络优化算法（BP）"><span class="nav-text">3.  神经网络优化算法（BP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-梯度下降算法"><span class="nav-text">3.1 梯度下降算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-1-梯度下降法存在的问题"><span class="nav-text">3.1.1 梯度下降法存在的问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-随机梯度下降算法（SGD）"><span class="nav-text">3.2  随机梯度下降算法（SGD）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-Mini-Batch-SGD"><span class="nav-text">3.3  Mini Batch SGD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-TensorFlow-实现反向传播过程的通用框架"><span class="nav-text">3.4 TensorFlow 实现反向传播过程的通用框架</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-神经网络进一步优化"><span class="nav-text">4. 神经网络进一步优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-学习率的设置"><span class="nav-text">4.1 学习率的设置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-1-指数衰减法"><span class="nav-text">4.1.1 指数衰减法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-过拟合问题"><span class="nav-text">4.2 过拟合问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-正则化"><span class="nav-text">4.3 正则化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-滑动平均模型"><span class="nav-text">4.4 滑动平均模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-4-1-滑动平均模型原理"><span class="nav-text">4.4.1 滑动平均模型原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-4-2-TensorFlow-中的滑动平均模型定义"><span class="nav-text">4.4.2 TensorFlow 中的滑动平均模型定义</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

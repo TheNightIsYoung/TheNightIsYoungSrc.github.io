@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Keras,DeepLearning,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇 前面，我们知道相较于其它主流深度学习框架，选择 Keras 意味着支持快速实验，支持多个后端，易用而又不失灵活性，具有以上优点完全取决于 Keras 的设计特性。关于其设计特性最重要的一点就是高度模块化的设计思想，快速理解其模块化设计思想可以加深我们对 Keras 框架的整体理解，从而以最短的时间从其它（例如：TensorFlow）深度学">
+<meta name="keywords" content="Keras,DeepLearning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习框架 Keras 之 Keras 框架结构">
+<meta property="og:url" content="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇 前面，我们知道相较于其它主流深度学习框架，选择 Keras 意味着支持快速实验，支持多个后端，易用而又不失灵活性，具有以上优点完全取决于 Keras 的设计特性。关于其设计特性最重要的一点就是高度模块化的设计思想，快速理解其模块化设计思想可以加深我们对 Keras 框架的整体理解，从而以最短的时间从其它（例如：TensorFlow）深度学">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/module.png">
+<meta property="og:image" content="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/layers.png">
+<meta property="og:image" content="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/net_config.png">
+<meta property="og:image" content="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/preprocessing.png">
+<meta property="og:image" content="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/how_to_model.png">
+<meta property="og:image" content="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/output_1_0.png">
+<meta property="og:image" content="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/output_3_1.png">
+<meta property="og:image" content="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/output_5_1.png">
+<meta property="og:image" content="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/output_0_1_1.png">
+<meta property="og:image" content="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/output_1_1_2.png">
+<meta property="og:image" content="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/output_3_3_3.png">
+<meta property="og:updated_time" content="2019-05-29T03:03:52.532Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度学习框架 Keras 之 Keras 框架结构">
+<meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇 前面，我们知道相较于其它主流深度学习框架，选择 Keras 意味着支持快速实验，支持多个后端，易用而又不失灵活性，具有以上优点完全取决于 Keras 的设计特性。关于其设计特性最重要的一点就是高度模块化的设计思想，快速理解其模块化设计思想可以加深我们对 Keras 框架的整体理解，从而以最短的时间从其它（例如：TensorFlow）深度学">
+<meta name="twitter:image" content="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/module.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>深度学习框架 Keras 之 Keras 框架结构 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深度学习框架 Keras 之 Keras 框架结构</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-02T14:55:43+08:00">
+                2019-03-02
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:52+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Keras/" itemprop="url" rel="index">
+                    <span itemprop="name">Keras</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Keras/深度学习框架-Keras-之-Keras-框架结构/" class="leancloud_visitors" data-flag-title="深度学习框架 Keras 之 Keras 框架结构">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  23
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…</center>
+
+<p><strong>开篇</strong></p>
+<p><a href="https://www.orangeshare.cn/Keras/深度学习框架-Keras-之-Keras-入门介绍和安装/" target="_blank" rel="noopener">前面</a>，我们知道相较于其它主流深度学习框架，选择 Keras 意味着支持快速实验，支持多个后端，易用而又不失灵活性，具有以上优点完全取决于 Keras 的设计特性。关于其设计特性最重要的一点就是高度模块化的设计思想，快速理解其模块化设计思想可以加深我们对 Keras 框架的整体理解，从而以最短的时间从其它（例如：TensorFlow）深度学习框架转入到 Keras 开发。</p>
+<a id="more"></a>
+<h3 id="1-初识-Keras-框架结构"><a href="#1-初识-Keras-框架结构" class="headerlink" title="1. 初识 Keras 框架结构"></a>1. 初识 Keras 框架结构</h3><p>Keras 的高度模块化理解：</p>
+<p>Keras <strong>模型（model）</strong>可以被理解为由独立的、完全可配置的模块构成的序列或计算图。</p>
+<p>模块可以以尽可能少的限制自由组合在一起。具体而言，<strong>网络层（layer）、损失函数、优化器、初始化方法、激活函数、正则化方法</strong>等等都是独立的可配置的模块，你可以将它们结合起来构建自己的模型。</p>
+<p>我们知道，Keras 是构建与第三方深度学习框架（TensorFlow、Theano 等作为后端）上的高级深度学习库。事实上，<strong>后端（backend）</strong>也是 Keras 框架的一个模块。</p>
+<hr>
+<h4 id="1-1-Keras-模块结构"><a href="#1-1-Keras-模块结构" class="headerlink" title="1. 1 Keras 模块结构"></a>1. 1 Keras 模块结构</h4><p>当然，除了上述之外，Keras 还提供一些其它的功能模块，用以帮助开发人员进行快速实验。例如，数据预处理、Scikit-learn API 等。</p>
+<p>但 Keras 模块中最为要紧和核心为以下三个模块：</p>
+<ol>
+<li>backend：后端，对 Tensorflow 、Theano 等进行封装。完成低层的张量运算、计算图编译等；</li>
+<li>model：模型，是层的有序组合构成的计算图，也是层的“容器”，是 “神经网络” 的整体表示；</li>
+<li>layer：网络层，神经网络的层本质上规定了一种从输入张量到输出张量的计算规则。</li>
+</ol>
+<p>搭建一个神经网络模型，只用上面给出的三个模块内容就可以了。</p>
+<p>注意的是，backend（后端）虽然很重要，但其内容多而杂，大部分内容都是被其他 keras 模块调用，而不是被用户直接使用。所以它不是新手马上就应该学的，初学 Keras 不妨先将 backend 放一旁，从 model 和 layers 学起。</p>
+<hr>
+<p>这里我们给出一个 Keras  模块结构的思维导图，便于观察与理解：</p>
+<p><img src="/Keras/深度学习框架-Keras-之-Keras-框架结构/./module.png" alt="avatar"></p>
+<p>–&gt; 你应该有点感觉，事实上呢？↓↓↓↓↓↓ 下面给一个详细的说明：</p>
+<p><strong>1）关于网络层 layer</strong></p>
+<p>首先，搭建神经网络模型，需要定义神经网络的前向传播过程。也就是说我们需要使用 Keras 网络层（layers）中支持的不同种类的模块层来组合我们的模型。你可以看到 Keras 支持了几乎所有的常见网络层：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">核心网络层（Dense ...）</span><br><span class="line">卷积层（Convolutional）</span><br><span class="line">池化层（Poooling）</span><br><span class="line">局部连接层（Locally-connected）</span><br><span class="line">循环层（Recurrent）</span><br><span class="line">嵌入层（Embedding）</span><br><span class="line">融合层（Merge）</span><br><span class="line">高级激活层（Advanced Activations）</span><br><span class="line">标准化层（Normalization）</span><br><span class="line">噪音层（Noise）</span><br><span class="line">层包装器（Wrappers）</span><br><span class="line">自定义层</span><br></pre></td></tr></table></figure>
+<p>来个 Keras 支持的常见网络层思维导图：</p>
+<p><img src="/Keras/深度学习框架-Keras-之-Keras-框架结构/./layers.png" alt="avatar"></p>
+<hr>
+<p><strong>2）关于网络配置</strong></p>
+<p>除了定义网络层外，Keras 还提供了一组模块用来对神经网络层进行配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Initializers：初始化策略，规定了网络参数的初始化方法；</span><br><span class="line">Regularizers：正则项，提供了一些用于参数正则化的方法；</span><br><span class="line">Constraints：约束项，提供了对网络参数进行约束的方法；</span><br><span class="line">Activations：激活函数可以通过设置单独的激活层实现，也可以在构造层对象时通过传递 activation 参数实现。</span><br></pre></td></tr></table></figure>
+<p>为了训练神经网络，必须为神经网络定义一个神经网络优化的目标和一套参数更新的方式，这部分就是目标函数和优化器配置模块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Losses：损失函数，规定了神经网络的优化方向；</span><br><span class="line">Optimizers：优化器，规定了神经网络的参数如何更新；</span><br></pre></td></tr></table></figure>
+<p>同时，为了方便调试、分析和使用网络，Keras 还提供了下面的配置模块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">性能评估（Metrics）：评估标准，用于评估当前训练模型的性能；</span><br><span class="line">回调函数（Callbacks）：用于训练阶段，查看训练模型的内在状态和统计；</span><br><span class="line">可视化（Visualization）：可视化，用于将网络结构绘制出来，以直观观察；</span><br></pre></td></tr></table></figure>
+<p>继续上图：</p>
+<p><img src="/Keras/深度学习框架-Keras-之-Keras-框架结构/./net_config.png" alt="avatar"></p>
+<hr>
+<p><strong>3）关于数据预处理</strong></p>
+<p>为了方便使用网络以及处理数据，Keras  提供了下面的模块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">数据预处理（Preprocessing）：提供了一组用于对文本、图像、序列信号进行预处理的函数 ；</span><br><span class="line">工具库（Utils）：常用函数库。大部分 utils 的函数你或许很难用到，但有几个非常重要的；</span><br></pre></td></tr></table></figure>
+<p>图来：</p>
+<p><img src="/Keras/深度学习框架-Keras-之-Keras-框架结构/./preprocessing.png" alt="avatar"></p>
+<p><strong>4）其它模块</strong></p>
+<p>除了上述的模块，Keras 还提供了其它的一些功能模块，用以帮助开发人员进行快速实验：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">常用数据集（Datasets）：提供了一些常用数据库的接口，用户将通过这些接口下载和载入数据集；</span><br><span class="line">应用（Applications）：提供了带有预训练权值的深度学习模型，这些模型可以用来进行预测、特征提取和微调（fine-tuning）。</span><br></pre></td></tr></table></figure>
+<p>例如，应用模块（keras.applications）中你可以找到在 ImageNet 上预训练过的用于图像分类的模型：</p>
+<ul>
+<li>Xception：<a href="https://keras.io/zh/applications/#xception" target="_blank" rel="noopener">https://keras.io/zh/applications/#xception</a></li>
+<li>VGG16：<a href="https://keras.io/zh/applications/#vgg16" target="_blank" rel="noopener">https://keras.io/zh/applications/#vgg16</a></li>
+<li>VGG19：<a href="https://keras.io/zh/applications/#vgg19" target="_blank" rel="noopener">https://keras.io/zh/applications/#vgg19</a></li>
+<li>ResNet50：<a href="https://keras.io/zh/applications/#resnet50" target="_blank" rel="noopener">https://keras.io/zh/applications/#resnet50</a></li>
+<li>InceptionV3：<a href="https://keras.io/zh/applications/#inceptionv3" target="_blank" rel="noopener">https://keras.io/zh/applications/#inceptionv3</a></li>
+<li>InceptionResNetV2：<a href="https://keras.io/zh/applications/#inceptionresnetv2" target="_blank" rel="noopener">https://keras.io/zh/applications/#inceptionresnetv2</a></li>
+<li>MobileNet：<a href="https://keras.io/zh/applications/#mobilenet" target="_blank" rel="noopener">https://keras.io/zh/applications/#mobilenet</a></li>
+<li>DenseNet：<a href="https://keras.io/zh/applications/#densenet" target="_blank" rel="noopener">https://keras.io/zh/applications/#densenet</a></li>
+<li>NASNet：<a href="https://keras.io/zh/applications/#nasnet" target="_blank" rel="noopener">https://keras.io/zh/applications/#nasnet</a></li>
+<li>MobileNetV2：<a href="https://keras.io/zh/applications/#mobilenetv2" target="_blank" rel="noopener">https://keras.io/zh/applications/#mobilenetv2</a></li>
+</ul>
+<p>好了，从模块化设计角度解读 Keras 框架就写到这了……。关于 Keras 中各模块的使用具体可以参见其官方文档：</p>
+<ul>
+<li><p>官方文档：<a href="https://keras.io/" target="_blank" rel="noopener">https://keras.io/</a> </p>
+</li>
+<li><p>中文文档：<a href="https://keras.io/zh/" target="_blank" rel="noopener">https://keras.io/zh/</a> </p>
+</li>
+</ul>
+<hr>
+<p>掌握了高度模块化的设计思想，下面来看如何来快速搭建我们的第一个神经网络：</p>
+<h3 id="2-如何使用-Keras-搭建一个神经网络"><a href="#2-如何使用-Keras-搭建一个神经网络" class="headerlink" title="2. 如何使用 Keras 搭建一个神经网络"></a>2. 如何使用 Keras 搭建一个神经网络</h3><p>在使用 Keras 开始搭建神经网络之前，我们先来掌握一些 Keras 中的主要概念：</p>
+<h4 id="2-1-符号主义、张量和计算图"><a href="#2-1-符号主义、张量和计算图" class="headerlink" title="2.1 符号主义、张量和计算图"></a>2.1 符号主义、张量和计算图</h4><p><strong>1 –&gt; 符号主义</strong></p>
+<p>Google 一下，你会发现它是一个机器学习的名词，但我们这说的符号主义不是那个东西，这里说的符号主义，指的是使用 <strong>符号式编程</strong> 的一种方法，与之相对应的是 <strong>命令式编程</strong>。</p>
+<p>我们知道， Keras 的底层库使用 Theano 或 TensorFlow，这两个库也称为 Keras 的后端。无论是 Theano ，TensorFlow 还是 Keras，其实都是一个 <strong>“符号式”</strong> 的库。所以要说 Theano/Tensorflow/Keras，就不能不提它们的符号主义特性：</p>
+<p>事实上，Theano 也好，Tensorflow 也好，不仅仅是为深度学习设计的。假如你有一个与深度学习完全无关的计算任务想运行在 GPU 上，你完全可以通过 Theano/Tensorflow 进行编写和运行。</p>
+<p>假如我们要求两个数 <code>a</code> 和 <code>b</code> 的和，通常只要把值赋值给 <code>a</code> 和 <code>b</code>，然后计算 <code>a+b</code> 就可以了。一般会这么写：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a=3</span><br><span class="line">b=5</span><br><span class="line">z = a + b</span><br></pre></td></tr></table></figure>
+<p>程序运行到第一行，把 <code>3</code> 给了 <code>a</code>，运行到第二行把 <code>5</code> 给了 <code>b</code> 。同理，运行到第三行是计算 <code>a + b</code> 的值然后赋给 <code>z</code>。这呢就是 <strong>命令式</strong> 的编程思路…</p>
+<p>但一些人呢想到：将 <code>a+b</code> 这个计算任务分为三步。（1）声明两个变量 <code>a</code>，<code>b</code>。建立输出变量 <code>z</code>；（2）确立 <code>a</code>，<code>b</code> 和 <code>z</code> 的计算关系，<code>z=a+b</code>；（3）将两个数值 <code>a</code> 和 <code>b</code> 赋值到变量中，计算结果 <code>z</code>。这种“先确定符号以及符号之间的计算关系，然后才放数据进去计算”的方法就是 <strong>符号式</strong> 编程。</p>
+<p>换句话说就是，当我们定义变量或函数时，并不会做真正的数值计算。这类变量或函数的定义中使用数值占位符，只有当给定真正的输入后，才会对这个函数进行编译计算。</p>
+<p>–&gt; 符号式编程首先需要定义各种变量，然后建立一个<strong>“计算图”</strong>（也称为数据流图，它规定了各个变量之间的计算关系。），最后提供输入数据完成最终的运输。</p>
+<p>可能你会说，这样做是不是闲的无聊？答案肯定不是，事实上，符号式编程可以优化程序计算速度和占用内存的使用率。</p>
+<hr>
+<p><strong>2 –&gt; 张量</strong></p>
+<p>在 Keras，theano，Tensorflow 等深度学习中，一般统一采用张量的形式来组织数据，也就是说参与符号运算的那些变量可以统一称作张量。</p>
+<p>从功能角度来讲，张量可以看作是向量，矩阵的自然推广，用来表示更加广泛的数据类型。张量的阶数也叫维度。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0 阶张量：即标量，也就是一个数。</span><br><span class="line">1 阶张量：即向量，当我们把一些数有序的排列起来就形成了向量。</span><br><span class="line">2 阶张量：即矩阵，如果我们继续把上述的一组向量有序的进行排列就构成了矩阵。</span><br><span class="line">3 阶张量：可以看作立方体，我们把一组矩阵按上下一层层排列起来就形成了一个立方体。具有 3 个颜色通道的彩色图片就是一个这样的立方体。</span><br><span class="line">4 阶张量：继续排......不要去试图想像4阶张量是什么样子，它就是个数学上的概念。</span><br></pre></td></tr></table></figure>
+<p>说到这里，我们不得不提彩色图像的两种数据格式：</p>
+<ol>
+<li>th 模式或 channels_first 模式：Theano 和 caffe 使用此模式。</li>
+<li>tf 模式或 channels_last 模式：TensorFlow 使用此模式。</li>
+</ol>
+<p>举例说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 对于 100 张 RGB 3通道的 16×32（Height：16；Weight：32）彩色图：</span><br><span class="line"></span><br><span class="line">th 表示方式：（100,3,16,32）</span><br><span class="line">tf 表示方式：（100,16,32,3）</span><br><span class="line"></span><br><span class="line"># 唯一的区别就是表示通道个数 3 的位置不一样。</span><br></pre></td></tr></table></figure>
+<hr>
+<p>一言以蔽之，Keras 等深度学习框架的计算过程，就是建立一个从<strong>张量到张量的映射函数</strong>，然后再放入真实数据进行计算。对深度学习而言，这个“映射函数”就是一个神经网络，而神经网络中的每个层自然也都是从张量到张量的映射。</p>
+<hr>
+<h4 id="2-2-关于-Keras-模型"><a href="#2-2-关于-Keras-模型" class="headerlink" title="2.2 关于 Keras 模型"></a>2.2 关于 Keras 模型</h4><p><strong>model</strong> 是 Keras 的核心数据结构 。前面我们说过，它是层的有序组合构成的计算图，也是层的“容器”，是 “神经网络” 的整体表示。</p>
+<p>从结构上来看，Keras 有两种类型的模型：<a href="https://keras.io/models/sequential" target="_blank" rel="noopener">Sequential 顺序模型</a> 和 <a href="https://keras.io/models/model" target="_blank" rel="noopener">使用函数式 API 的 Model 类模型</a> （Functional 函数式模型）。其中，函数式模型应用更为广泛，Sequential 顺序模型可以看作是函数式模型的简略版。</p>
+<ol>
+<li>Sequential 顺序模型：网络层的线性堆叠。单输入单输出，一条路通到底，层与层之间只有相邻关系，没有跨层连接。这种模型编译速度快，操作也比较简单；</li>
+<li>函数式模型：多输入多输出，层与层之间任意连接。这种模型编译速度慢。</li>
+</ol>
+<p>这些模型有两套训练和测试的函数：一套是 fit，evaluate 等；另一套是 fit_generator，evaluate_generator。前者适用于普通情况，后者适用于数据是以迭代器动态生成的情况。迭代器可以在设备内存/显存不足，实时动态优化数据读写进行网络训练，以使用 Keras 的话，Python 的迭代器这一部分是一定要掌握的内容。</p>
+<p>对模型而言，最核心的函数有两个：</p>
+<ol>
+<li>compile()：编译，模型在训练前必须编译，这个函数用于完成指定目标函数，确定优化器等等一系列模型配置功能。这个函数必须指定的参数是优化器和目标函数，经常还需要指定一个metrics来评价模型。</li>
+<li>fit() / fit_generator()：用来训练模型，参数较多，是需要重点掌握的函数，对于keras使用者而言，这个函数的每一个参数都需要掌握。</li>
+</ol>
+<p>其他的常用的属性和函数请自行在学习过程中使用学习。 </p>
+<p>当然，关于 Keras 模型这里只是简单的介绍，更详细的模型使用参考官方文档。</p>
+<hr>
+<p>好了，有了上面的基础就可以正式开始 Keras 的学习了。撒花…….</p>
+<p>先挂一个思维导图，看一下 Keras 搭建了一个神经网络的全部过程：</p>
+<p><img src="/Keras/深度学习框架-Keras-之-Keras-框架结构/./how_to_model.png" alt="avactor"></p>
+<hr>
+<h4 id="2-3-Keras-实现线性回归（Linear-Regression）"><a href="#2-3-Keras-实现线性回归（Linear-Regression）" class="headerlink" title="2.3 Keras 实现线性回归（Linear Regression）"></a>2.3 Keras 实现线性回归（Linear Regression）</h4><p>先来看如何使用 Keras 完成我们的第一个单层线性回归模型，话不多说，直接开始了…</p>
+<p>所有样例均在 Jupyter Notebook 下运行测试</p>
+<p><strong>1）首先导入必要模块</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> keras</span><br><span class="line"><span class="comment"># 从 keras.models 模型模块中导入 Sequential 顺序模型：</span></span><br><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 keras.layers 层模块中导入全连接层模块</span></span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Dense</span><br></pre></td></tr></table></figure>
+<p><strong>2）构建随机数据集，并划分为训练集和测试集</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 1. 创建数据集：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机产生 200 个样本输入数据：</span></span><br><span class="line">x_inputData = np.random.rand(<span class="number">200</span>)</span><br><span class="line"><span class="comment"># 添加样本数据噪音：</span></span><br><span class="line">data_noise = np.random.normal(<span class="number">0</span>, <span class="number">0.05</span>, x_inputData.shape)</span><br><span class="line"><span class="comment"># 假设我们的真实模型是：Y = 0.5X + 2</span></span><br><span class="line">y_inputData = <span class="number">0.5</span> * x_inputData + <span class="number">2</span> + data_noise</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示样本数据集分布：</span></span><br><span class="line">plt.scatter(x_inputData, y_inputData)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 按照 4：1 划分训练集和测试集：</span></span><br><span class="line">x_inputData_train, y_inputData_train = x_inputData[:<span class="number">160</span>], y_inputData[:<span class="number">160</span>]</span><br><span class="line">x_inputData_test, y_inputData_test = x_inputData[<span class="number">160</span>:], y_inputData[<span class="number">160</span>:]</span><br></pre></td></tr></table></figure>
+<p>随机数据集数据分布情况如下：</p>
+<p><img src="/Keras/深度学习框架-Keras-之-Keras-框架结构/./output_1_0.png" alt="avatar"></p>
+<p><strong>3）构建模型并进行编译</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 2. 开始构建建模：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个 Keras 模型：</span></span><br><span class="line"><span class="comment"># Keras 有两种类型的模型： Sequential 顺序模型和 Funtional 函数式模型</span></span><br><span class="line"><span class="comment"># 比较常用的是单输入输出的线性堆叠模型 Sequential：</span></span><br><span class="line">model = Sequential()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过 add() 方法向模型中添加一个全连接层：</span></span><br><span class="line"><span class="comment"># Dense 为全连接层，第一层需要定义输入的维度;ba</span></span><br><span class="line"><span class="comment"># 而第二层无需指定输入，一般第二层会自动将第一层的输出作为输入</span></span><br><span class="line">model.add(Dense(units=<span class="number">1</span>, input_dim=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练之前需要编译模型：</span></span><br><span class="line"><span class="comment"># 通过 compile() 来为模型配置损失函数和优化器</span></span><br><span class="line"><span class="comment"># 这里我们选择使用随机梯度下降作为优化方法，均方误差作为损失函数</span></span><br><span class="line">model.compile(optimizer=<span class="string">"sgd"</span>, loss=<span class="string">"mse"</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>4）训练模型，查看学得的回归模型拟合情况</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 3. 开始训练：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印一下训练之前的权重和偏置值：</span></span><br><span class="line">weights, biases = model.layers[<span class="number">0</span>].get_weights()</span><br><span class="line">print(<span class="string">"&lt;--- Weights And Biases Display Before training ---&gt;"</span>)</span><br><span class="line">print(<span class="string">"weights: "</span>, weights, <span class="string">"biases: "</span>, biases)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"Begin to train ---&gt;"</span>)</span><br><span class="line"><span class="keyword">for</span> step <span class="keyword">in</span> range(<span class="number">5001</span>):</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 调用模型中的 train_on_batch() 函数每次取一个 batch 数据进行模型训练，注意 Keras 中提供了很多用于训练的函数：</span></span><br><span class="line">    <span class="comment"># 这里由于数据量较少，我们直接全部放入即可</span></span><br><span class="line">    cost = model.train_on_batch(x_inputData_train, y_inputData_train)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> step % <span class="number">500</span> ==<span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"train cost: "</span>, cost)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印一下训练之后的权重和偏置值：</span></span><br><span class="line">weights, biases = model.layers[<span class="number">0</span>].get_weights()</span><br><span class="line">print(<span class="string">"&lt;--- Weights And Biases Display After training ---&gt;"</span>)</span><br><span class="line">print(<span class="string">"weights: "</span>, weights, <span class="string">"biases: "</span>, biases)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 查看回归模型在训练数据集上的拟合情况：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取 x_inputData_train 训练样本数据对应的预测值</span></span><br><span class="line">y_pred = model.predict(x_inputData_train)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示模型预测结果</span></span><br><span class="line">plt.scatter(x_inputData, y_inputData)</span><br><span class="line">plt.plot(x_inputData_train, y_pred, <span class="string">"r-"</span>, lw=<span class="number">3</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>输入如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;--- Weights And Biases Display Before training ---&gt;</span><br><span class="line">weights:  [[ 0.04869342]] biases:  [ 0.]</span><br><span class="line">Begin to train ---&gt;</span><br><span class="line">train cost:  4.91081</span><br><span class="line">train cost:  0.00664172</span><br><span class="line">train cost:  0.00344313</span><br><span class="line">train cost:  0.0024123</span><br><span class="line">train cost:  0.00208009</span><br><span class="line">train cost:  0.00197302</span><br><span class="line">train cost:  0.00193852</span><br><span class="line">train cost:  0.0019274</span><br><span class="line">train cost:  0.00192381</span><br><span class="line">train cost:  0.00192266</span><br><span class="line">train cost:  0.00192229</span><br><span class="line">&lt;--- Weights And Biases Display After training ---&gt;</span><br><span class="line">weights:  [[ 0.47959563]] biases:  [ 2.01119494]</span><br></pre></td></tr></table></figure>
+<p>回归模型拟合情况：</p>
+<p><img src="/Keras/深度学习框架-Keras-之-Keras-框架结构/./output_3_1.png" alt="avatar"></p>
+<p>简单可以看到，训练已经收敛，并且训练后权重和偏置已经很接近我们的真实模型了。</p>
+<p><strong>5）查看一下测试集上的表现</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试训练好的模型：</span></span><br><span class="line">print(<span class="string">"Model Testing ---&gt;"</span>)</span><br><span class="line">cost = model.evaluate(x_inputData_test, y_inputData_test, batch_size=<span class="number">40</span>)</span><br><span class="line">print(<span class="string">"test cost: "</span>, cost)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 查看回归模型在测试数据集上的表现：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取 x_inputData_train 训练样本数据对应的预测值</span></span><br><span class="line">test_pred = model.predict(x_inputData_test)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示回归结果</span></span><br><span class="line">plt.scatter(x_inputData_test, y_inputData_test)</span><br><span class="line">plt.plot(x_inputData_test, test_pred, <span class="string">"r-"</span>, lw=<span class="number">3</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>输入如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Model Testing ---&gt;</span><br><span class="line">40/40 [==============================] - 0s 40us/step</span><br><span class="line">test cost:  0.00270265294239</span><br></pre></td></tr></table></figure>
+<p>回归结果显示如下：</p>
+<p><img src="/Keras/深度学习框架-Keras-之-Keras-框架结构/./output_5_1.png" alt="avatar"></p>
+<hr>
+<h4 id="2-4-Keras-实现非线性回归（Nonllinear-Regression）"><a href="#2-4-Keras-实现非线性回归（Nonllinear-Regression）" class="headerlink" title="2.4 Keras 实现非线性回归（Nonllinear Regression）"></a>2.4 Keras 实现非线性回归（Nonllinear Regression）</h4><p>上面我们实现了一个线性回归模型，这里我们再来通过一个简单非线性回归来引入 Keras 中的学习率、激活函数等搭建多层非线性回归神经网络模型：</p>
+<p><strong>1）设置学习率</strong></p>
+<p>首先，我们还是导入必要模块（已将 keras.optimizers 下的 SGD 优化器模块导入），但是构建的随机数据集已经从原来的线性模型输出（0.5 * x_inputData + 2）变为非线性模型输出（np.square）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> keras</span><br><span class="line"><span class="comment"># 从 keras.models 模型模块中导入 Sequential 顺序模型：</span></span><br><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 keras.layers 层模块中导入全连接层模块</span></span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Dense</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 keras.optimizers 优化器模块中导入 SGD 随机梯度下降优化器</span></span><br><span class="line"><span class="keyword">from</span> keras.optimizers <span class="keyword">import</span> SGD</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 1. 创建数据集：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机产生 200 个样本输入数据：</span></span><br><span class="line">x_inputData = np.linspace(<span class="number">-0.5</span>, <span class="number">0.5</span>, <span class="number">200</span>)</span><br><span class="line"><span class="comment"># 添加样本数据噪音：</span></span><br><span class="line">data_nosise = np.random.normal(<span class="number">0</span>, <span class="number">0.02</span>, x_inputData.shape)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意，这里输入 y 已经有原来的线性模型输出通过 np.square() 转变为非线性模型输出了：</span></span><br><span class="line">y_inputData = np.square(x_inputData) + data_nosise</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示样本数据集分布：</span></span><br><span class="line">plt.scatter(x_inputData, y_inputData)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>随机数据集数据分布情况如下：</p>
+<p><img src="/Keras/深度学习框架-Keras-之-Keras-框架结构/./output_0_1_1.png" alt="avatar"></p>
+<p>接下来，在线性回归模型的基础上来设置一个适合的学习率，以帮助我们的模型在训练中能够快速收敛：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 2. 开始构建建模：</span></span><br><span class="line"></span><br><span class="line">model = Sequential()</span><br><span class="line"></span><br><span class="line">model.add(Dense(units=<span class="number">1</span>, input_dim=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># SGD 默认学习率(0.01)比较小，达到收敛需要的迭代次数太多，这里我们来修改其学习率：</span></span><br><span class="line">sgd = SGD(lr=<span class="number">0.3</span>)</span><br><span class="line">model.compile(optimizer=sgd, loss=<span class="string">"mse"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 3. 开始训练：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印一下训练之前的权重和偏置值：</span></span><br><span class="line">weights, biases = model.layers[<span class="number">0</span>].get_weights()</span><br><span class="line">print(<span class="string">"&lt;--- Weights And Biases Display Before training ---&gt;"</span>)</span><br><span class="line">print(<span class="string">"weights: "</span>, weights, <span class="string">"biases: "</span>, biases)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"Begin to train ---&gt;"</span>)</span><br><span class="line"><span class="keyword">for</span> step <span class="keyword">in</span> range(<span class="number">5001</span>):</span><br><span class="line">    cost = model.train_on_batch(x_inputData, y_inputData)</span><br><span class="line">    <span class="keyword">if</span> step % <span class="number">500</span> ==<span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"train cost: "</span>, cost)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印一下训练之后的权重和偏置值：</span></span><br><span class="line">weights, biases = model.layers[<span class="number">0</span>].get_weights()</span><br><span class="line">print(<span class="string">"&lt;--- Weights And Biases Display After training ---&gt;"</span>)</span><br><span class="line">print(<span class="string">"weights: "</span>, weights, <span class="string">"biases: "</span>, biases)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 查看非线性回归模型在训练数据集上的拟合情况：</span></span><br><span class="line">y_pred = model.predict(x_inputData)</span><br><span class="line">plt.scatter(x_inputData, y_inputData)</span><br><span class="line">plt.plot(x_inputData, y_pred, <span class="string">"r-"</span>, lw=<span class="number">3</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>可以看到，对于非线性模型数据，我们只是在线性模型的基础上加快了模型达到收敛的速度，网络结构并没有发生变化。下面给出上面程序输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;--- Weights And Biases Display Before training ---&gt;</span><br><span class="line">weights:  [[ 1.47613013]] biases:  [ 0.]</span><br><span class="line">Begin to train ---&gt;</span><br><span class="line">train cost:  0.197396</span><br><span class="line">train cost:  0.00601412</span><br><span class="line">train cost:  0.00601412</span><br><span class="line">train cost:  0.00601412</span><br><span class="line">train cost:  0.00601412</span><br><span class="line">train cost:  0.00601412</span><br><span class="line">train cost:  0.00601412</span><br><span class="line">train cost:  0.00601412</span><br><span class="line">train cost:  0.00601412</span><br><span class="line">train cost:  0.00601412</span><br><span class="line">train cost:  0.00601412</span><br><span class="line">&lt;--- Weights And Biases Display After training ---&gt;</span><br><span class="line">weights:  [[-0.00278729]] biases:  [ 0.08534285]</span><br></pre></td></tr></table></figure>
+<p>线性回归模型在非线性模型训练数据集上的拟合情况如下：</p>
+<p><img src="/Keras/深度学习框架-Keras-之-Keras-框架结构/./output_1_1_2.png" alt="avatar"></p>
+<p>可以看到上面的拟合情况肯定不是我们想要的结果。这是由于之前针对线性模型输出数据集所采用的线性回归模型无法拟合非线性模型输出数据集（线性回归模型存在局限性：无法解决非线性模型问题）。</p>
+<hr>
+<p><strong>2）激活函数以及深层神经网络</strong></p>
+<p>这里我们可以通过引入激活函数去线性化，并且通过将单层网络变为多层网络的方式来提取更高维的数据特征来搭建非线性回归模型：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> keras</span><br><span class="line"><span class="comment"># 从 keras.models 模型模块中导入 Sequential 顺序模型：</span></span><br><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 keras.layers 层模块中导入全连接层模块</span></span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Dense, Activation</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> keras.optimizers <span class="keyword">import</span> SGD</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 1. 创建数据集：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机产生 200 个样本输入数据：</span></span><br><span class="line">x_inputData = np.linspace(<span class="number">-0.5</span>, <span class="number">0.5</span>, <span class="number">200</span>)</span><br><span class="line"><span class="comment"># 添加样本数据噪音：</span></span><br><span class="line">data_nost = np.random.normal(<span class="number">0</span>, <span class="number">0.02</span>, x_inputData.shape)</span><br><span class="line">y_inputData = np.square(x_inputData) + data_nost</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示样本数据集分布：</span></span><br><span class="line">plt.scatter(x_inputData, y_inputData)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 2. 开始构建建模：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个 Keras 模型：</span></span><br><span class="line"><span class="comment"># Keras 有两种类型的模型： Sequential 顺序模型和 Funtional 函数式模型</span></span><br><span class="line"><span class="comment"># 比较常用的是单输入输出的线性堆叠模型 Sequential：</span></span><br><span class="line">model = Sequential()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过 add() 方法向模型中添加一个全连接层：</span></span><br><span class="line"><span class="comment"># Dense 为全连接层，第一层需要定义输入的维度;ba</span></span><br><span class="line"><span class="comment"># 而第二层无需指定输入，一般第二层会自动将第一层的输出作为输入</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意，网络结构已经变为：1-10-1，并且引入激活函数：</span></span><br><span class="line">model.add(Dense(units=<span class="number">10</span>, input_dim=<span class="number">1</span>, activation=<span class="string">"tanh"</span>))</span><br><span class="line">model.add(Dense(units=<span class="number">1</span>, activation=<span class="string">"tanh"</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认学习率(0.01)比较小，达到收敛时间太长，这里我们来修改其学习率：</span></span><br><span class="line">sgd = SGD(lr=<span class="number">0.3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练之前需要编译模型：</span></span><br><span class="line"><span class="comment"># 通过 compile() 来为模型配置损失函数和优化器</span></span><br><span class="line"><span class="comment"># 这里我们选择使用随机梯度下降作为优化方法，均方误差作为损失函数</span></span><br><span class="line">model.compile(optimizer=sgd, loss=<span class="string">"mse"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 3. 开始训练：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印一下训练之前的权重和偏置值：</span></span><br><span class="line">weights, biases = model.layers[<span class="number">0</span>].get_weights()</span><br><span class="line">print(<span class="string">"&lt;--- Weights And Biases Display Before training ---&gt;"</span>)</span><br><span class="line">print(<span class="string">"weights: "</span>, weights, <span class="string">"biases: "</span>, biases)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"Begin to train ---&gt;"</span>)</span><br><span class="line"><span class="keyword">for</span> step <span class="keyword">in</span> range(<span class="number">5001</span>):</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 调用模型中的 train_on_batch() 函数每次取一个 batch 数据进行模型训练，注意 Keras 中提供了很多用于训练的函数：</span></span><br><span class="line">    <span class="comment"># 这里由于数据量较少，我们直接全部放入即可</span></span><br><span class="line">    cost = model.train_on_batch(x_inputData, y_inputData)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> step % <span class="number">500</span> ==<span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"train cost: "</span>, cost)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印一下训练之后的权重和偏置值：</span></span><br><span class="line">weights, biases = model.layers[<span class="number">0</span>].get_weights()</span><br><span class="line">print(<span class="string">"&lt;--- Weights And Biases Display After training ---&gt;"</span>)</span><br><span class="line">print(<span class="string">"weights: "</span>, weights, <span class="string">"biases: "</span>, biases)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 查看回归模型在训练数据集上的拟合情况：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取 x_inputData_train 训练样本数据对应的预测值</span></span><br><span class="line">y_pred = model.predict(x_inputData)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示模型预测结果</span></span><br><span class="line">plt.scatter(x_inputData, y_inputData)</span><br><span class="line">plt.plot(x_inputData, y_pred, <span class="string">"r-"</span>, lw=<span class="number">3</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>下面给出程序输出结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;--- Weights And Biases Display Before training ---&gt;</span><br><span class="line">weights:  [[<span class="number">-0.73369855</span>  <span class="number">0.3708325</span>   <span class="number">0.64431423</span>  <span class="number">0.17141724</span> <span class="number">-0.06705815</span> <span class="number">-0.50297558</span></span><br><span class="line">   <span class="number">0.58436769</span> <span class="number">-0.47927734</span>  <span class="number">0.45941085</span> <span class="number">-0.7240687</span> ]] biases:  [ <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">0.</span>]</span><br><span class="line">Begin to train ---&gt;</span><br><span class="line">train cost:  <span class="number">0.014848</span></span><br><span class="line">train cost:  <span class="number">0.004966</span></span><br><span class="line">train cost:  <span class="number">0.00145104</span></span><br><span class="line">train cost:  <span class="number">0.000429263</span></span><br><span class="line">train cost:  <span class="number">0.000403715</span></span><br><span class="line">train cost:  <span class="number">0.000402976</span></span><br><span class="line">train cost:  <span class="number">0.000402589</span></span><br><span class="line">train cost:  <span class="number">0.000402275</span></span><br><span class="line">train cost:  <span class="number">0.000402006</span></span><br><span class="line">train cost:  <span class="number">0.000401767</span></span><br><span class="line">train cost:  <span class="number">0.000401548</span></span><br><span class="line">&lt;--- Weights And Biases Display After training ---&gt;</span><br><span class="line">weights:  [[<span class="number">-1.59273016</span>  <span class="number">0.37405086</span>  <span class="number">0.64990026</span>  <span class="number">0.18326743</span> <span class="number">-0.09531492</span> <span class="number">-0.75044197</span></span><br><span class="line">   <span class="number">0.58407837</span> <span class="number">-0.51858276</span>  <span class="number">0.33061254</span> <span class="number">-1.05503953</span>]] biases:  [<span class="number">-0.61383563</span>  <span class="number">0.00647766</span> <span class="number">-0.01462645</span>  <span class="number">0.05978871</span> <span class="number">-0.17726044</span>  <span class="number">0.17868811</span></span><br><span class="line">  <span class="number">0.00505544</span>  <span class="number">0.00445918</span> <span class="number">-0.1227567</span>   <span class="number">0.38105822</span>]</span><br></pre></td></tr></table></figure>
+<p><img src="/Keras/深度学习框架-Keras-之-Keras-框架结构/./output_3_3_3.png" alt="avatar"></p>
+<p>可以发现，通过映入激活函数以及额外的隐藏层，我们已经很好的拟合了非线性模型输出数据集，上述神经网络模型其实就是一个最简单的非线性回归模型。</p>
+<p><strong>–&gt; 激活函数补充：</strong></p>
+<p>其实，除了上述在网络层中配置激活函数的方法（传递激活函数参数），Keras 中还提供一种激活函数的设置方法（添加激活层）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Activation</span><br><span class="line"></span><br><span class="line">model.add(Dense(units=<span class="number">10</span>, input_dim=<span class="number">1</span>))</span><br><span class="line"><span class="comment"># 通过添加激活函数网络层来设置激活函数：</span></span><br><span class="line">model.add(Activation(<span class="string">"relu"</span>))</span><br><span class="line">model.add(Dense(units=<span class="number">1</span>))</span><br><span class="line">model.add(Activation(<span class="string">"relu"</span>))</span><br></pre></td></tr></table></figure>
+<p>关于 Keras 中为神经网络模型设置激活函数可参见：<a href="https://keras-cn.readthedocs.io/en/latest/other/activations/" target="_blank" rel="noopener">https://keras-cn.readthedocs.io/en/latest/other/activations/</a> 。</p>
+<hr>
+<p>好了，就写到这吧，下面给出博文的参考连接：</p>
+<h3 id="Reference-Link"><a href="#Reference-Link" class="headerlink" title="Reference Link"></a>Reference Link</h3><p><a href="https://zhuanlan.zhihu.com/p/22129946" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/22129946</a></p>
+<p><a href="https://blog.csdn.net/zdy0_2004/article/details/74736656" target="_blank" rel="noopener">https://blog.csdn.net/zdy0_2004/article/details/74736656</a></p>
+<p><a href="https://www.cnblogs.com/Anita9002/p/8136357.html" target="_blank" rel="noopener">https://www.cnblogs.com/Anita9002/p/8136357.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/" title="深度学习框架 Keras 之 Keras 框架结构">http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-框架结构/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Keras/" rel="tag"><i class="fa fa-tag"></i> Keras</a>
+          
+            <a href="/tags/DeepLearning/" rel="tag"><i class="fa fa-tag"></i> DeepLearning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Keras/深度学习框架-Keras-之-Keras-入门介绍和安装/" rel="next" title="深度学习框架 Keras 之 Keras 入门介绍和安装">
+                <i class="fa fa-chevron-left"></i> 深度学习框架 Keras 之 Keras 入门介绍和安装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Android/Android-Studio-安装与配置/" rel="prev" title="Android Studio 安装与配置【最新】">
+                Android Studio 安装与配置【最新】 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-初识-Keras-框架结构"><span class="nav-text">1. 初识 Keras 框架结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-Keras-模块结构"><span class="nav-text">1. 1 Keras 模块结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-如何使用-Keras-搭建一个神经网络"><span class="nav-text">2. 如何使用 Keras 搭建一个神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-符号主义、张量和计算图"><span class="nav-text">2.1 符号主义、张量和计算图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-关于-Keras-模型"><span class="nav-text">2.2 关于 Keras 模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-Keras-实现线性回归（Linear-Regression）"><span class="nav-text">2.3 Keras 实现线性回归（Linear Regression）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-Keras-实现非线性回归（Nonllinear-Regression）"><span class="nav-text">2.4 Keras 实现非线性回归（Nonllinear Regression）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference-Link"><span class="nav-text">Reference Link</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

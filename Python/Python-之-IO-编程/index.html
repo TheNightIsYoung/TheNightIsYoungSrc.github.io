@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python,Input/Output,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇： IO 在计算机中指 Input/Output，也就是输入和输出。由于程序和运行时数据是在内存中驻留，由 CPU 这个超快的计算核心来执行，而涉及到数据交换的地方（通常是磁盘、网络），就需要 IO 接口。这一小节，我们来看 Python 中的 IO 编程。">
+<meta name="keywords" content="Python,Input&#x2F;Output">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 之 IO 编程">
+<meta property="og:url" content="http://yoursite.com/Python/Python-之-IO-编程/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇： IO 在计算机中指 Input/Output，也就是输入和输出。由于程序和运行时数据是在内存中驻留，由 CPU 这个超快的计算核心来执行，而涉及到数据交换的地方（通常是磁盘、网络），就需要 IO 接口。这一小节，我们来看 Python 中的 IO 编程。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-29T03:03:51.970Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 之 IO 编程">
+<meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇： IO 在计算机中指 Input/Output，也就是输入和输出。由于程序和运行时数据是在内存中驻留，由 CPU 这个超快的计算核心来执行，而涉及到数据交换的地方（通常是磁盘、网络），就需要 IO 接口。这一小节，我们来看 Python 中的 IO 编程。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Python/Python-之-IO-编程/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>Python 之 IO 编程 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Python/Python-之-IO-编程/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python 之 IO 编程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-12T15:08:42+08:00">
+                2018-04-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:51+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Python/Python-之-IO-编程/" class="leancloud_visitors" data-flag-title="Python 之 IO 编程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  7.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  30
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…</center>
+
+<p><strong>开篇：</strong></p>
+<p>IO 在计算机中指 Input/Output，也就是输入和输出。由于程序和运行时数据是在内存中驻留，由 CPU 这个超快的计算核心来执行，而涉及到数据交换的地方（通常是磁盘、网络），就需要 IO 接口。这一小节，我们来看 Python 中的 IO 编程。</p>
+<a id="more"></a>
+<h2 id="Python-之-Input-Output-编程"><a href="#Python-之-Input-Output-编程" class="headerlink" title="Python 之 Input/Output 编程"></a>Python 之 Input/Output 编程</h2><h3 id="1-认识-IO"><a href="#1-认识-IO" class="headerlink" title="1. 认识 IO"></a>1. 认识 IO</h3><h4 id="1-1-IO-Stream"><a href="#1-1-IO-Stream" class="headerlink" title="1.1 IO Stream"></a>1.1 IO Stream</h4><p>当我们通过浏览器访问网站（百度搜索首页）时，浏览器就需要通过网络 IO 获取百度的搜索首页。浏览器首先会发送数据给百度服务器，告诉它我想要首页的 HTML，这个动作是往外发数据，叫 Output；随后百度服务器把网页发过来，这个动作是从外面接收数据，叫 Input。所以，通常程序完成 IO 操作会有 Input 和 Output 两个数据流。</p>
+<p>IO 编程中，Stream（流）是一个很重要的概念，可以把流想象成一个水管，数据就是水管里的水，但是只能单向流动。Input Stream 就是数据从外面（磁盘、网络）流进内存，Output Stream 就是数据从内存流到外面去。对于浏览网页来说，浏览器和服务器之间至少需要建立两根水管，才可以既能发数据，又能收数据。</p>
+<h4 id="1-2-同-异布-IO"><a href="#1-2-同-异布-IO" class="headerlink" title="1.2 同/异布 IO"></a>1.2 同/异布 IO</h4><p>由于 CPU 和内存的速度远远高于外存的速度，所以，在 IO 编程中，就存在速度严重不匹配的问题。</p>
+<p>举个例子来说，比如要把 100M 的数据写入磁盘，CPU 输出 100M 的数据只需要 0.01 秒，可是磁盘要接收这 100M数据可能需要10秒，怎么办呢？有两种办法：</p>
+<ul>
+<li>第一种是 CPU 等着，也就是程序暂停执行后续代码，等 100M 的数据在 10 秒后写入磁盘，再接着往下执行，这种模式称为同步 IO；</li>
+<li>另一种方法是 CPU 不等待，只是告诉磁盘，“您老慢慢写，不着急，我接着干别的事去了”，于是，后续代码可以立刻接着执行，这种模式称为异步 IO。</li>
+</ul>
+<p>同步和异步的区别就在于是否等待 IO 执行的结果。</p>
+<p>很明显，使用异步 IO 来编写程序性能会远远高于同步 IO，但是异步 IO 的缺点是编程模型复杂度却远远高于同步 IO。</p>
+<p>当然，操作 IO 的能力都是由操作系统提供的，每一种编程语言都会把操作系统提供的低级 C 接口封装起来方便使用，Python 也不例外。</p>
+<blockquote>
+<p>注意，本文后续涉及到的 IO 编程都是同步模式，异步 IO 由于复杂度太高，后续涉及到服务器端程序开发时我们再讨论。</p>
+</blockquote>
+<hr>
+<h3 id="2-文件读写"><a href="#2-文件读写" class="headerlink" title="2. 文件读写"></a>2. 文件读写</h3><p>不仅在 Python 中，程序设计语言最常见的 IO 操作就是：读写文件。Python 内置了读写文件的函数，用法和 C 是兼容的。</p>
+<p><strong>读写文件前，我们必须先明确：</strong></p>
+<p>在磁盘上读写文件的功能都是由操作系统提供的低级接口实现的，现代操作系统不允许普通的程序直接操作磁盘。</p>
+<p>所以，读写文件就是请求操作系统打开一个文件对象（通常称为文件描述符），然后通过操作系统提供的接口从这个文件对象中读取数据（读文件），或者把数据写入这个文件对象（写文件）。</p>
+<p>Python 中提供的 <code>open()</code> 方法将会返回一个 file 对象，基本语法格式如下:</p>
+<blockquote>
+<p>open(filename, mode)</p>
+</blockquote>
+<ul>
+<li>filename：定义你要访问的文件名称；</li>
+<li>mode：定义了文件的访问模式，以只读，写入，追加等方式访问。这个参数是非强制的，默认文件访问模式为只读(r)。</li>
+</ul>
+<p><strong>关于 <code>mode</code> 参数支持的文件访问模式：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'r'</span>：只读（默认）文件若不存在就报错(IOError)</span><br><span class="line"></span><br><span class="line"><span class="string">'w'</span>：写入（覆盖），文件若不存在就创建</span><br><span class="line"></span><br><span class="line"><span class="string">'a'</span>：追加，新的内容将会被写入到已有内容之后，文件若不存在就创建</span><br><span class="line"></span><br><span class="line"><span class="string">'r+'</span> == r+w（可读可写，文件若不存在就报错(IOError)）</span><br><span class="line"></span><br><span class="line"><span class="string">'w+'</span> == w+r（可读可写，文件若不存在就创建）</span><br><span class="line"></span><br><span class="line"><span class="string">'a+'</span> ==a+r（可追加可写，文件若不存在就创建）</span><br><span class="line"></span><br><span class="line">对应的，如果是二进制文件，就都加一个 b 就好啦：</span><br><span class="line"></span><br><span class="line"><span class="string">'rb'</span>　　<span class="string">'wb'</span>　　<span class="string">'ab'</span>　　<span class="string">'rb+'</span>　　<span class="string">'wb+'</span>　　<span class="string">'ab+'</span></span><br></pre></td></tr></table></figure>
+<p>通过<code>open()</code> 获取文件对象（文件描述符）是文件读写的第一步，然后才可以通过文件对象方法操作文件。</p>
+<hr>
+<h4 id="2-1-读文件"><a href="#2-1-读文件" class="headerlink" title="2.1 读文件"></a>2.1 读文件</h4><p>要以读文件的模式打开一个文件对象，传入相应的文件名和模式标示符即可。例如打开 <code>file_io.txt</code> 文本文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file = open(<span class="string">"./file_io.txt"</span>, <span class="string">'r'</span>)</span><br></pre></td></tr></table></figure>
+<p>标示符 <code>&#39;r&#39;</code>表示只读（默认访问模式），这样我们就成功地打开了一个文件。</p>
+<p>如果文件不存在，<code>open()</code>函数就会抛出一个 <code>IOError</code> 的错误，并且给出错误码和详细的信息告诉你文件不存在：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">FileNotFoundError: [Errno <span class="number">2</span>] No such file <span class="keyword">or</span> directory: <span class="string">'./file_io1.txt'</span></span><br></pre></td></tr></table></figure>
+<p><strong>1）file.read()</strong></p>
+<p>如果文件打开成功（无异常输出），不干点啥怎么好意思？？？接下来，我们调用 Python 文件对象方法： <code>read()</code> 方法来读取文件内容。<code>read()</code> 方法可以一次性读取文件的全部内容（把内容读到内存），返回一个 <code>str</code>对象表示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>text = file.read()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>text</span><br><span class="line"><span class="string">'Hello,Python developer.\nThis is a read file test.'</span></span><br></pre></td></tr></table></figure>
+<p><strong>2）file.close()</strong></p>
+<p>最后一步我们还需要明确调用文件对象方法 <code>close()</code> 来关闭文件。文件使用完毕后必须关闭，这是因为文件对象会占用操作系统的资源，并且操作系统同一时间能打开的文件数量也是有限的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>file.close()</span><br></pre></td></tr></table></figure>
+<p>由于文件读写时都有可能产生 <code>IOError</code>，一旦出错，后面的 <code>f.close()</code> 就不会调用,这是不安全的。所以为了保证无论是否出错都能正确地关闭文件，我们可以使用 <code>try ... finally</code> 来实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    file = open(<span class="string">"./file_io.txt"</span>, <span class="string">'r'</span>)</span><br><span class="line">    content = file.read()</span><br><span class="line">    print(type(content))</span><br><span class="line">    print(content)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">if</span> file:</span><br><span class="line">        file.close()</span><br></pre></td></tr></table></figure>
+<p>但是每次都这么写实在太繁琐，我们还可以通过引入 Python 上下文管理器 <code>with</code> 语句来自动帮我们调用<code>close()</code>方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">"./file_io.txt"</span>, <span class="string">'r'</span>) <span class="keyword">as</span> file:</span><br><span class="line">    content = file.read()</span><br><span class="line">    print(type(content))</span><br><span class="line">    print(content)</span><br></pre></td></tr></table></figure>
+<p>代码更佳简洁，并且不必明确调用 <code>file.close()</code> 方法来回收资源。</p>
+<hr>
+<h5 id="2-1-1-read-size-amp-amp-readline-amp-amp-readlines"><a href="#2-1-1-read-size-amp-amp-readline-amp-amp-readlines" class="headerlink" title="2.1.1 read(size) &amp;&amp; readline() &amp;&amp; readlines()"></a>2.1.1 read(size) &amp;&amp; readline() &amp;&amp; readlines()</h5><p>除了上面我们介绍过的 <code>read()</code> 文件对象读取方法外，Python 文件对象还提供了 <code>file.readline()</code> 方法和 <code>file.readlines()</code> 方法用来读取文件，三者用法略有不同。</p>
+<p><strong>1）read(size)</strong></p>
+<p><strong>首先考虑一个问题：</strong>我们知道，<code>read()</code> 方法会一次性读取文件的全部内容到内存中，如果我们要读取处理的文件有 <code>10G</code>，那么很大可能会导致内存直接就爆了，<code>MemoryError</code> 。</p>
+<p>注意，<code>read()</code> 方法还提供了一个可选的数字类型的参数：<code>size</code>。当 <code>size</code> 被忽略（默认）或者为负时，该文件的所有内容都将被读取并且返回。故，如果待处理文件较大（几个 G），为了保险起见，我们可以通过反复调用 <code>read(size)</code> 方法，每次最多读取 size 个字节的内容。</p>
+<blockquote>
+<p>实际使用：</p>
+</blockquote>
+<p><code>read()</code> 方法会生成文件内容最直接的字符串表示，但对于连续的面向行的处理，它却是不必要的。对于大文件处理，需要使用 <code>size</code> 参数来控制每次读取的字节数。</p>
+<p><strong>2）readlines()</strong></p>
+<p>相较于 <code>read(size)</code> 方法，<code>readlines()</code>  也是一次性读取整个文件，但它会自动将文件内容分析成一个行的列表，适用于面向行的文件处理。实现方式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    file = open(<span class="string">"./file_io.txt"</span>, <span class="string">'r'</span>)</span><br><span class="line">    text = file.readlines()</span><br><span class="line">    print(<span class="string">"type(text): "</span>, type(text))</span><br><span class="line">    print(text)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">if</span> file:</span><br><span class="line">        file.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># -------------------------------------- </span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">"./file_io.txt"</span>, <span class="string">'r'</span>) <span class="keyword">as</span> file:</span><br><span class="line">    text = file.readlines()</span><br><span class="line">    print(<span class="string">"type(text): "</span>, type(text))</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> text:</span><br><span class="line">        print(text)</span><br></pre></td></tr></table></figure>
+<p>结果输出如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">type(text): &lt;<span class="class"><span class="keyword">class</span> '<span class="title">list</span>'&gt;</span></span><br><span class="line">['Hello,Python developer.\n', 'This is a read file test.']</span><br><span class="line"></span><br><span class="line"><span class="comment"># -------------------------------------- </span></span><br><span class="line">type(text): &lt;<span class="class"><span class="keyword">class</span> '<span class="title">list</span>'&gt;</span></span><br><span class="line">Hello,Python developer.</span><br><span class="line"></span><br><span class="line">This <span class="keyword">is</span> a read file test.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>实际使用：</p>
+</blockquote>
+<p><code>readlines()</code> 方法会生成文件内容的行列表表示，适用于面向行的文件处理，一次性读取意味着大文件不适用。故，多用于简单配置文件配置文件读取。</p>
+<p><strong>3）readline()</strong></p>
+<p><code>readline()</code> 每次只读取一行，返回的是一个为当前行内容的字符串对象。同样适用于面向行的文件处理，但比 <code>readlines()</code> 慢得多。返回的字符串对象为空时，表示文件已读取到最后一行。实现方式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    file = open(<span class="string">"./file_io.txt"</span>, <span class="string">'r'</span>)</span><br><span class="line">    whilt <span class="keyword">True</span>:</span><br><span class="line">        line = file.readline()</span><br><span class="line">        <span class="keyword">if</span> line:</span><br><span class="line">            <span class="keyword">print</span> (line)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">if</span> file:</span><br><span class="line">        file.close()</span><br><span class="line">        </span><br><span class="line"><span class="comment"># --------------------------------------        </span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">"./file_io.txt"</span>, <span class="string">'r'</span>) <span class="keyword">as</span> file:</span><br><span class="line">   whilt <span class="keyword">True</span>:</span><br><span class="line">        line = file.readline()</span><br><span class="line">        <span class="keyword">if</span> line:</span><br><span class="line">            <span class="keyword">print</span> (line)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>结果输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Hello,Python developer.</span><br><span class="line"></span><br><span class="line">This is a read file test.</span><br><span class="line"></span><br><span class="line"># -------------------------------------- </span><br><span class="line">Hello,Python developer.</span><br><span class="line"></span><br><span class="line">This is a read file test.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>实际使用：</p>
+</blockquote>
+<p>当没有足够内存可以一次读取整个文件（文件较大）时，采用 <code>readlines()</code> 方法进行文件处理。</p>
+<p><strong>注意</strong>：可以看出，上面的三种方法都是把每行末尾的换行符（<code>&#39;\n&#39;</code>）也读进来了，它并不会默认的把 <code>&#39;\n&#39;</code> 去掉，需要我们手动去掉。就像我们在使用 <code>read()</code> 方法读取 <code>./file_io.txt</code> 文件时：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'Hello,Python developer.\nThis is a read file test.'</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h5 id="2-1-2-读取大文件数据"><a href="#2-1-2-读取大文件数据" class="headerlink" title="2.1.2 读取大文件数据"></a>2.1.2 读取大文件数据</h5><p>这里我们给出两种 Python 常用的大文件读取方法：</p>
+<p><strong>1）分批读取</strong></p>
+<p>处理大文件是很容易想到的就是将大文件分割成若干小文件处理，处理完每个小文件后释放该部分内存。这里用了<strong>iter &amp; yield：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_in_chunks</span><span class="params">(filePath, chunk_size=<span class="number">1024</span>*<span class="number">1024</span>)</span>:</span></span><br><span class="line">    <span class="string">"""    Lazy function (generator) to read a file piece by piece.</span></span><br><span class="line"><span class="string">    Default chunk size: 1M    You can set your own chunk size    """</span></span><br><span class="line">    file = open(filePath)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        chunk_data = file.read(chunk_size)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> chunk_data:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">yield</span> chunk_data</span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__=<span class="string">'__main__'</span>:</span><br><span class="line">    filePath = <span class="string">'./path/filename'</span></span><br><span class="line">    <span class="keyword">for</span> chunk <span class="keyword">in</span> read_in_chunks(filePath):</span><br><span class="line">        process(chunk) <span class="comment"># &lt;do something with chunk&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>size</code> 设置成 <code>1024*1024</code> 的意思就是：<code>1bit*1024*1024 = 1M</code>，也就是说每隔 1M 读取一次数据。</p>
+<p><strong>2）Using with open()</strong></p>
+<p><code>open()</code> 方法返回的不仅仅是一个文件对象，也是一个可迭代对象。对可迭代对象 <code>f</code>，进行迭代遍历：<code>for line in f</code> 会自动地使用缓冲 <code>IO（buffered IO）</code>以及内存管理，而不必担心任何大文件的问题。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(filename, <span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">        &lt;do something <span class="keyword">with</span> the line&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<h5 id="2-1-3-读文件相关"><a href="#2-1-3-读文件相关" class="headerlink" title="2.1.3 读文件相关"></a>2.1.3 读文件相关</h5><p><strong>1）file-like Object</strong></p>
+<p>像 <code>open()</code> 函数返回的这种有个 <code>read()</code> 方法的对象，在 Python 中统称为 file-like Object。除了 file 外，还可以是内存的字节流，网络流，自定义流等等。file-like Object 不要求从特定类继承，只要写个 <code>read()</code> 方法就行。</p>
+<p><code>StringIO</code> 就是在内存中创建的 file-like Object，常用作临时缓冲。后续章节会介绍到。</p>
+<p><strong>2）二进制文件</strong></p>
+<p>前面讲的默认都是读取文本文件，并且是 UTF-8 编码的文本文件。要读取二进制文件，比如图片、视频等等，用 <code>&#39;rb&#39;</code> 模式打开文件即可：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'/Users/michael/test.jpg'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br><span class="line"><span class="string">b'\xff\xd8\xff\xe1\x00\x18Exif\x00\x00...'</span> <span class="comment"># 十六进制表示的字节</span></span><br></pre></td></tr></table></figure>
+<p><strong>3）字符编码问题</strong></p>
+<p>要读取非 UTF-8 编码的文本文件，需要给 <code>open()</code> 函数传入 <code>encoding</code> 参数，例如，读取 GBK 编码的文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'.\gbk.txt'</span>, <span class="string">'r'</span>, encoding=<span class="string">'gbk'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br><span class="line"><span class="string">'测试'</span></span><br></pre></td></tr></table></figure>
+<p>遇到有些编码不规范的文件，你可能会遇到 <code>UnicodeDecodeError</code>，因为在文本文件中可能夹杂了一些非法编码的字符。遇到这种情况，<code>open()</code> 函数还接收一个 <code>errors</code> 参数，表示如果遇到编码错误后如何处理。最简单的方式是直接忽略：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'/Users/michael/gbk.txt'</span>, <span class="string">'r'</span>, encoding=<span class="string">'gbk'</span>, errors=<span class="string">'ignore'</span>)</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="2-2-写文件"><a href="#2-2-写文件" class="headerlink" title="2.2 写文件"></a>2.2 写文件</h4><p>写文件和读文件是一样的，首先要进行的肯定是使用 <code>open()</code>函数获取文件对象，唯一区别是调用 <code>open()</code>函数时，传入标识符 <code>&#39;w&#39;</code> 或者 <code>&#39;wb&#39;</code> 表示写文本文件或写二进制文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file = open(<span class="string">"./file_io.txt"</span>, <span class="string">'w'</span>)</span><br></pre></td></tr></table></figure>
+<p>注意，这里我们的文件访问模式是 <code>&#39;w&#39;</code>，即覆盖式写入。以 <code>&#39;w&#39;</code>模式写入文件时，如果文件已存在，会直接覆盖（相当于删掉后新写入一个文件）。如果我们希望追加到文件末尾怎么办？可以传入 <code>&#39;a&#39;</code>以追加（append）模式写入。</p>
+<p>打开文件对象（文件描述符），然后才是调用相应的文件对象方法 <code>write()</code> 进行写入：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f.write(<span class="string">'Hello, this is write file test!'</span>)</span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
+<p>可以反复调用 <code>write()</code>来写入文件，但是务必要调用 <code>f.close()</code> 来关闭文件：</p>
+<p>当我们写文件时，操作系统往往不会立刻把数据写入磁盘，而是放到内存缓存起来，空闲的时候再慢慢写入。只有明确调用 <code>close()</code> 方法时，操作系统才保证把没有写入的数据全部写入磁盘。忘记调用 <code>close()</code> 的后果是数据可能只写了一部分到磁盘，剩下的丢失了。所以，还是用 <code>with</code> 语句来得保险：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">"./file_io.txt"</span>, <span class="string">'w'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(<span class="string">"Hello, this is write file test!"</span>)</span><br></pre></td></tr></table></figure>
+<p>Python 文件对象提供了两个“写”方法： <code>write()</code> 和 <code>writelines()</code>。</p>
+<p><strong>1）write()</strong></p>
+<p><code>write()</code> 方法和 <code>read()</code>、<code>readline()</code> 方法对应，是将字符串写入到文件中。</p>
+<p><strong>2）writelines()</strong></p>
+<p><code>writelines()</code> 方法和 <code>readlines()</code> 方法对应，也是针对 <strong>列表</strong> 的操作。它接收一个 <strong>字符串列表</strong> 作为参数，将它们写入到文件中，换行符不会自动的加入，因此，需要显式的加入换行符。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f1 = open(<span class="string">'./file_io.txt'</span>, <span class="string">'w'</span>)</span><br><span class="line">f1.writelines([<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>])</span><br><span class="line"></span><br><span class="line">f1 = open(<span class="string">'./file_io.txt'</span>, <span class="string">'w'</span>)</span><br><span class="line">f1.writelines([<span class="string">"1\n"</span>, <span class="string">"2\n"</span>, <span class="string">"3\n"</span>])</span><br></pre></td></tr></table></figure>
+<p>同样的，要写入特定编码的文本文件，请给 <code>open()</code> 函数传入 <code>encoding</code> 参数，将字符串自动转换成指定编码。</p>
+<hr>
+<h4 id="2-3-文件定位"><a href="#2-3-文件定位" class="headerlink" title="2.3 文件定位"></a>2.3 文件定位</h4><p>文件对象中有一个很重要的概念：文件指针，它表示了文件对象读写文件时的位置信息。</p>
+<p>就像前面我们说的文件追加式写入 <code>a</code> 和 覆盖式写入 <code>w</code> 的区别：<code>a</code> 打开的文件中的文件指针位于文件末尾，而 <code>w</code> 打开的文件文件指针位于文件开头，后续内容会被删除。</p>
+<p>文件对象提供了 <code>tell()</code> 以及 <code>seek(offset [,from])</code> 方法操作文件指针：</p>
+<p><strong>1）file.tell()</strong></p>
+<p><code>tell()</code> 方法告诉你文件内文件指针的当前位置。换句话说，就是文件下一次的读写会发生在文件开头这么多字节之后（就是一个相对于文件开头的偏移量）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">file = open(<span class="string">"./file_io.txt"</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line">str1 = file.read(<span class="number">10</span>)</span><br><span class="line">print(<span class="string">"读取到的字符串为: "</span>, str)</span><br><span class="line"></span><br><span class="line">position = file.tell()</span><br><span class="line">print(<span class="string">"当前文件指针位置: "</span>, position)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> file:</span><br><span class="line">    file.close()</span><br></pre></td></tr></table></figure>
+<p>输出结果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ python HelloWorld.py</span><br><span class="line">读取到的字符串为:  Hello,Pyth</span><br><span class="line">当前文件指针位置:  <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<p>此时如果我们再次读取的话：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">file = open(&quot;./file_io.txt&quot;, &apos;r&apos;)</span><br><span class="line"></span><br><span class="line">str1 = file.read(10)</span><br><span class="line">print(&quot;读取到的字符串为: &quot;, str1)</span><br><span class="line"></span><br><span class="line">position = file.tell()</span><br><span class="line">print(&quot;当前文件指针位置: &quot;, position)</span><br><span class="line"></span><br><span class="line">str2 = file.read()</span><br><span class="line">print(&quot;再次读取到的字符串为: &quot;, str2)</span><br><span class="line"></span><br><span class="line">if file:</span><br><span class="line">    file.close()</span><br></pre></td></tr></table></figure>
+<p>输出结果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;python HelloWorld.py</span><br><span class="line">读取到的字符串为:  Hello,Pyth</span><br><span class="line">当前文件指针位置:  <span class="number">10</span></span><br><span class="line">再次读取到的字符串为:  on developer.</span><br><span class="line">This <span class="keyword">is</span> a read file test.</span><br></pre></td></tr></table></figure>
+<p><strong>2）file.seek(offset [, whence])</strong></p>
+<p><code>seek(offset [, whence])</code>  方法用于移动文件读写指针到指定位置。</p>
+<p>有两个参数，第一个 <code>offset</code> 表示偏移量，需要移动的字节数。第二个 <code>whence</code> 表示: 可选值，默认为0，表示文件开头；1表示相对于当前的位置；2表示文件末尾</p>
+<p>例如，<code>seek(0, 0)</code> 表示以文件开头作为参考位置，偏移 0 个字节，说明此时文件内的文件指针处于文件开头。</p>
+<p>正如我们上面再次读取文件字符串时，只显示文件指针在 10 之后的字符串。那么如何来读取文件中的完整字符串呢？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">file = open(<span class="string">"./file_io.txt"</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line">str1 = file.read(<span class="number">10</span>)</span><br><span class="line">print(<span class="string">"读取到的字符串为: "</span>, str1)</span><br><span class="line"></span><br><span class="line">position1 = file.tell()</span><br><span class="line">print(<span class="string">"当前文件指针位置: "</span>, position1)</span><br><span class="line"></span><br><span class="line">str2 = file.read()</span><br><span class="line">print(<span class="string">"再次读取到的字符串为: "</span>, str2)</span><br><span class="line"></span><br><span class="line">position2 = file.tell()</span><br><span class="line">print(<span class="string">"当前文件指针位置: "</span>, position2)</span><br><span class="line">str3 = file.read()</span><br><span class="line">print(<span class="string">"此时读取到的字符串为: "</span>, str3)</span><br><span class="line"></span><br><span class="line"><span class="comment"># seek(0, 0)</span></span><br><span class="line">position3 = file.seek(<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line">print(<span class="string">"当前文件指针位置: "</span>, position3)</span><br><span class="line">str4 = file.read()</span><br><span class="line">print(<span class="string">"此时读取到的字符串为: "</span>, str4)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> file:</span><br><span class="line">    file.close()</span><br></pre></td></tr></table></figure>
+<p>输出结果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;python HelloWorld.py</span><br><span class="line">读取到的字符串为:  Hello,Pyth</span><br><span class="line">当前文件指针位置:  <span class="number">10</span></span><br><span class="line">再次读取到的字符串为:  on developer.</span><br><span class="line">This <span class="keyword">is</span> a read file test.</span><br><span class="line">当前文件指针位置:  <span class="number">50</span></span><br><span class="line">此时读取到的字符串为:</span><br><span class="line">当前文件指针位置:  <span class="number">0</span></span><br><span class="line">此时读取到的字符串为:  Hello,Python developer.</span><br><span class="line">This <span class="keyword">is</span> a read file test.</span><br></pre></td></tr></table></figure>
+<p>注意，读取文件时要时刻关注文件指针的位置。一旦文件指针处于文件尾部，如果不移动文件指针位置的话，再进行读取的话，会获取到空串。</p>
+<hr>
+<h3 id="3-内存中的数据读写"><a href="#3-内存中的数据读写" class="headerlink" title="3. 内存中的数据读写"></a>3. 内存中的数据读写</h3><p>上一小节我们提到过 Python 中的 file-like object，如内存的字节流 StringIO、BytesIO 等等。比如，当我们需要对获取到的数据进行操作，但是并不想把数据写到本地硬盘上，这时我们可以使用内存的字节流来处理数据。</p>
+<p>不管是后续介绍到的 StringIO（字符串流，操作字符串），还是 BytesIO（字节流，操作二进制数据），在使用前必须从 Python 中导入相应的内置模块：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> StringIO</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br></pre></td></tr></table></figure>
+<h4 id="3-1-StringIO"><a href="#3-1-StringIO" class="headerlink" title="3.1 StringIO"></a>3.1 StringIO</h4><p>很多时候，数据读写不一定是文件，也可以在内存中读写。StringIO 顾名思义就是在内存中读写 <code>str</code>。</p>
+<p>类似于文件，在开始操作内存中的字符串流之前，首先来看如何创建一个 StringIO 对象：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> io <span class="keyword">import</span> StringIO</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str_stream1 = StringIO()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者直接在创建时赋一个初始 str：</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str_stream1 = StringIO(<span class="string">"This is a StringIO test."</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(str_stream1)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">_io</span>.<span class="title">StringIO</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">str_stream2</span></span></span><br><span class="line"><span class="class">&lt;<span class="title">_io</span>.<span class="title">StringIO</span> <span class="title">object</span> <span class="title">at</span> 0<span class="title">x000001110192FDC8</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>掌握了如何创建 StringIO 对象后，我们就可以调用相应的 file-like object 方法（<code>help(StringIO )</code> 可查看 StringIO 支持的方法）操作字符串流了。除了 file-like object 读取方法，StringIO 对象还提供了 <code>getvalue()</code> 方法用于获取内存字符串流对象中的 <code>str</code>。</p>
+<p>下面我们将通过一个样例来看其使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/envs python3</span></span><br><span class="line"></span><br><span class="line"><span class="string">'a StringIO tese'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> StringIO</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outputString</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"string \nfrom \noutputString \nfunction"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 模拟待处理的字符串数据：</span></span><br><span class="line">s = outputString()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将函数返回的字符串数据读到内存中：</span></span><br><span class="line">sio = StringIO(s)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用 StringIO 本身提供的方法读取 str：</span></span><br><span class="line">print(sio.getvalue())</span><br><span class="line"><span class="comment"># 当然也可以用 file-like object 的方法读取：</span></span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> sio.readlines():</span><br><span class="line">    print(element.strip())</span><br></pre></td></tr></table></figure>
+<p>再来看一下 <code>getvalue()</code> 和 file-like object 读取方法（例如，file.readlines()）的使用差异（同样的，StringIO 中也支持 <code>tell()</code>、<code>seek()</code> 方法）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/envs python3</span></span><br><span class="line"></span><br><span class="line"><span class="string">'a StringIO tese'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> StringIO</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outputString</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"string \nfrom \noutputString \nfunction"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 模拟待处理的字符串数据：</span></span><br><span class="line">s = outputString()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 内存中创建字节流对象：</span></span><br><span class="line">sio = StringIO()</span><br><span class="line"><span class="comment"># 向内存中写入（指针已移动到末尾）：</span></span><br><span class="line">sio.write(s)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用 StringIO 本身提供的方法读取 str：</span></span><br><span class="line">print(sio.getvalue())</span><br><span class="line"></span><br><span class="line">print(<span class="string">"当前指针位置："</span>, sio.tell())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 此时，如果用 file-like object 的方法查看的时候，会发现数据为空：</span></span><br><span class="line"><span class="keyword">for</span> ele <span class="keyword">in</span> sio.readlines():</span><br><span class="line">    print(ele)</span><br></pre></td></tr></table></figure>
+<p>结果输出如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ python HelloWorld.py</span><br><span class="line">string</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">outputString</span><br><span class="line">function</span><br><span class="line">当前指针位置： <span class="number">36</span></span><br></pre></td></tr></table></figure>
+<p>可以发现，file-like object 方法会导致 StringIO 内存指针位置的变化。</p>
+<hr>
+<h4 id="3-2-BytesIO"><a href="#3-2-BytesIO" class="headerlink" title="3.2 BytesIO"></a>3.2 BytesIO</h4><p>StringIO 操作的只能是 str，如果要操作二进制数据，就需要使用 BytesIO。</p>
+<p>下面我们来看 BytesIO 的使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"This is a BytesIO test"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 内存中创建字节流对象：</span></span><br><span class="line">bio = BytesIO()</span><br><span class="line"><span class="comment"># 写入</span></span><br><span class="line">bio.write(s.encode(<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line">print(bio.getvalue())</span><br><span class="line">bio.seek(<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line">print(bio.tell())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> bio.readlines():</span><br><span class="line">    print(i.strip())</span><br></pre></td></tr></table></figure>
+<p>结果输出如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ python HelloWorld.py</span><br><span class="line"><span class="string">b'This is a BytesIO test'</span></span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="string">b'This is a BytesIO test'</span></span><br></pre></td></tr></table></figure>
+<p>同样，和 StringIO 类似，可以用一个 bytes 对象初始化 BytesIO，然后，像读文件一样读取：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = BytesIO(<span class="string">b'\xe4\xb8\xad\xe6\x96\x87'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br><span class="line"><span class="string">b'\xe4\xb8\xad\xe6\x96\x87'</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="4-OS-Module"><a href="#4-OS-Module" class="headerlink" title="4 OS Module"></a>4 OS Module</h3><p>上面我们知道，文件读写是 Python 程序很常见，且很重要的操作，而文件读写不可避免的需要涉及到系统中文件以及目录操作，这是必要的。</p>
+<p>如果我们想要操作系统中的文件、目录，可以在命令行（Terminal）下输入操作系统提供的各种命令来完成。比如创建目录 <code>mkdir</code>、复制文件 <code>cp</code> 、删除文件 <code>rm</code> 等等。</p>
+<p>如果要在 Python 程序中执行这些目录和文件的操作怎么办？？？</p>
+<p>事实上，操作系统提供的命令只是简单地调用了操作系统提供的接口函数，而 Python 内置的 <code>os</code> 模块也可以直接调用操作系统提供的接口函数完成相同的功能。<strong>Python 中的 os</strong> 模块提供了非常丰富的方法用来处理文件和目录。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="4-1-查看系统基本属性"><a href="#4-1-查看系统基本属性" class="headerlink" title="4.1 查看系统基本属性"></a>4.1 查看系统基本属性</h4><p><strong>1）os.name</strong></p>
+<p><code>os.name</code> 可用于查看当前操作系统类型。</p>
+<p>如果值是 <code>posix</code>，说明系统是 <code>Linux</code>、<code>Unix</code> 或 <code>Mac OS X</code>；如果是 <code>nt</code>，就是 <code>Windows</code> 系统。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Linux、Unix 或 Mac OS X 平台下：</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.name</span><br><span class="line"><span class="string">'posix'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Windows 平台下：</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.name</span><br><span class="line"><span class="string">'nt'</span></span><br></pre></td></tr></table></figure>
+<p><strong>2）os.uname()</strong></p>
+<p>如果想要获取更加详细的系统信息的话，可以调用 <code>uname()</code>函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.uname()</span><br><span class="line">posix.uname_result(sysname=<span class="string">'Linux'</span>, nodename=<span class="string">'ThinkCentre-M910s-N000'</span>, release=<span class="string">'4.15.0-45-generic'</span>, version=<span class="string">'#48~16.04.1-Ubuntu SMP Mon Mar 23 11:59:05 PDT 2019'</span>, machine=<span class="string">'x86_64'</span>)</span><br></pre></td></tr></table></figure>
+<p>注意 <code>uname()</code> 函数在 Windows 上不支持。</p>
+<p><strong>3）os.environ</strong></p>
+<p>Python 中的变量 <code>os.environ</code> 保存了当前操作系统中定义的全部环境变量，可以直接查看一下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.environ</span><br><span class="line">environ(&#123;<span class="string">'VERSIONER_PYTHON_PREFER_32_BIT'</span>: <span class="string">'no'</span>, <span class="string">'TERM_PROGRAM_VERSION'</span>: <span class="string">'326'</span>, <span class="string">'LOGNAME'</span>: <span class="string">'deeplearning'</span>, <span class="string">'USER'</span>: <span class="string">'deeplearning'</span>, <span class="string">'PATH'</span>: <span class="string">'/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/mysql/bin'</span>, ...&#125;)</span><br></pre></td></tr></table></figure>
+<p>如果我们想要获取某个环境变量的值，比如常用的 <code>PATH</code> ，可以调用 <code>os.environ.get(&#39;key&#39;)</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.environ.get(<span class="string">'PATH'</span>)</span><br><span class="line"><span class="string">'/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/mysql/bin'</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="4-2-Operate-File-amp-amp-Dir"><a href="#4-2-Operate-File-amp-amp-Dir" class="headerlink" title="4.2 Operate File &amp;&amp; Dir"></a>4.2 Operate File &amp;&amp; Dir</h4><p>我们知道，Python 操作文件和目录的函数主要存放于 <code>os</code> 模块中，<code>os</code> 模块还包含了一个用于获取文件属性的 <code>os.path</code> 子模块。</p>
+<hr>
+<h5 id="4-2-1-OS-模块常用方法"><a href="#4-2-1-OS-模块常用方法" class="headerlink" title="4.2.1 OS 模块常用方法"></a>4.2.1 OS 模块常用方法</h5><p><strong>1）os.access(path, mode)</strong></p>
+<p><code>os.access(path, mode)</code> 方法可用于检查当前访问路径的权限。如果允许访问返回 True , 否则返回 False。：</p>
+<ul>
+<li>参数 <code>path</code>：用于检测的访问路径；</li>
+<li>参数 <code>mode</code>：用于检验的访问权限：<ol>
+<li><code>os.F_OK</code>: 包含在 access() 的 mode 参数中，测试 path 是否存在;</li>
+<li><code>os.R_OK</code>: 包含在 access() 的 mode 参数中 ，测试 path 是否可读；</li>
+<li><code>os.W_OK</code>: 包含在 access() 的 mode 参数中 ，测试 path 是否可写；</li>
+<li><code>os.X_OK</code>: 包含在 access() 的 mode 参数中 ，测试 path 是否可执行。</li>
+</ol>
+</li>
+</ul>
+<p>演示样例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># 假定 ./test.py 文件存在，并有读写、可执行权限</span></span><br><span class="line"></span><br><span class="line">ret = os.access(<span class="string">"./test.py"</span>, os.F_OK)</span><br><span class="line"><span class="keyword">print</span> (<span class="string">"F_OK - 返回值 %s"</span>% ret)</span><br><span class="line"></span><br><span class="line">ret = os.access(<span class="string">"./test.py"</span>, os.R_OK)</span><br><span class="line"><span class="keyword">print</span> (<span class="string">"R_OK - 返回值 %s"</span>% ret)</span><br><span class="line"></span><br><span class="line">ret = os.access(<span class="string">"./test.py"</span>, os.W_OK)</span><br><span class="line"><span class="keyword">print</span> (<span class="string">"W_OK - 返回值 %s"</span>% ret)</span><br><span class="line"></span><br><span class="line">ret = os.access(<span class="string">"./test.py"</span>, os.X_OK)</span><br><span class="line"><span class="keyword">print</span> (<span class="string">"X_OK - 返回值 %s"</span>% ret)</span><br></pre></td></tr></table></figure>
+<p>样例输出结果为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ python test.py</span><br><span class="line">F_OK - 返回值 <span class="keyword">True</span></span><br><span class="line">R_OK - 返回值 <span class="keyword">True</span></span><br><span class="line">W_OK - 返回值 <span class="keyword">True</span></span><br><span class="line">X_OK - 返回值 <span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>2）os.getcwd()</strong></p>
+<p><code>os.getcwd()</code> 方法可用于返回当前工作目录：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印当前目录</span></span><br><span class="line"><span class="keyword">print</span> (<span class="string">"当前工作目录 : %s"</span> % os.getcwd())</span><br></pre></td></tr></table></figure>
+<p>输出结果为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python test.py</span><br><span class="line">当前工作目录 : C:\Users\alienware\Desktop\Python</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>3）os.listdir(path)</strong></p>
+<p><code>os.listdir()</code> 方法用于返回指定目录中包含的文件或目录的名称列表（不包含下一级目录），以字母顺序显示。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">current_path = os.getcwd()</span><br><span class="line">dirs = os.listdir(current_path)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> dir <span class="keyword">in</span> dirs:</span><br><span class="line">    print(dir)</span><br></pre></td></tr></table></figure>
+<p>样例输出结果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ python test.py</span><br><span class="line">client</span><br><span class="line">server</span><br><span class="line">test.py</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>4）创建以及删除</strong></p>
+<p><strong>os.mkdir(path) &amp;&amp; os.makedirs(path)</strong></p>
+<p><code>os.mkdir(path)</code> 和 <code>os.makedirs(path)</code> 方法都可用于创建目录。区别在于当父目录不存在的时候<code>os.mkdir(path)</code> 不会创建，<code>os.makedirs(path)</code> 则会连同父目录一起创建。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">path = <span class="string">"./test"</span></span><br><span class="line"></span><br><span class="line">os.mkdir(path)</span><br><span class="line">os.makedirs(<span class="string">"./test1/test2/test3"</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>os.remove(path) &amp;&amp; os.rmdir(path) &amp;&amp; os.removedirs(path)</strong></p>
+<p><code>os.remove()</code> 方法用于删除指定路径的文件。如果指定的路径是一个目录，将抛出 <code>OSError</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出当前目录下所有文件：</span></span><br><span class="line"><span class="keyword">print</span> (<span class="string">"目录为: %s"</span> %os.listdir(os.getcwd()))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除 test.py 文件</span></span><br><span class="line">os.remove(<span class="string">"test.py"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除后列出目录</span></span><br><span class="line"><span class="keyword">print</span> (<span class="string">"移除后 : %s"</span> %os.listdir(os.getcwd()))</span><br></pre></td></tr></table></figure>
+<p>样例输出结果为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ python test.py</span><br><span class="line">目录为: [<span class="string">'client'</span>, <span class="string">'server'</span>, <span class="string">'test.py'</span>]</span><br><span class="line">移除后 : [<span class="string">'client'</span>, <span class="string">'server'</span>]</span><br></pre></td></tr></table></figure>
+<p><code>os.rmdir()</code> 方法用于删除指定路径的目录。仅当这文件夹是空的才可以, 否则, 抛出 <code>OSError</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os, sys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出目录</span></span><br><span class="line"><span class="keyword">print</span> (<span class="string">"目录为: %s"</span>%os.listdir(os.getcwd()))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除路径</span></span><br><span class="line">os.rmdir(<span class="string">"./client"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出重命名后的目录</span></span><br><span class="line"><span class="keyword">print</span> (<span class="string">"目录为: %s"</span> %os.listdir(os.getcwd()))</span><br></pre></td></tr></table></figure>
+<p><code>os.removedirs()</code> 方法用于递归删除目录（会判断其父目录是否为空，为空的话也会删除掉）。但只可以删除一个空目录，否组会报错，这决定了它很少用。</p>
+<blockquote>
+<p>想一下：如何删除某一目录下的所有文件以及目录？？？</p>
+</blockquote>
+<p>这里我们先给出一种遍历删除法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">del_file</span><span class="params">(path)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> file <span class="keyword">in</span> os.listdir(path):</span><br><span class="line">        file_path = os.path.join(path, file)</span><br><span class="line">        <span class="keyword">if</span> os.path.isfile(file_path):</span><br><span class="line">            os.remove(file_path)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            del_file(file_path)</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>5）os.renames(src, dst) &amp;&amp; os.renames(src, dst)</strong></p>
+<p><code>os.rename()</code> 方法用于命名文件或目录，从 <code>src</code> 到 <code>dst</code>。如果 <code>dst</code> 是一个存在的目录, 将抛出 <code>OSError</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os, sys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出目录</span></span><br><span class="line"><span class="keyword">print</span> (<span class="string">"目录为: %s"</span>%os.listdir(os.getcwd()))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重命名</span></span><br><span class="line">os.rename(<span class="string">"test.py"</span>,<span class="string">"test_new.py"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出重命名后的目录</span></span><br><span class="line"><span class="keyword">print</span> (<span class="string">"目录为: %s"</span> %os.listdir(os.getcwd()))</span><br></pre></td></tr></table></figure>
+<p><code>os.renames()</code> 方法用于递归重命名目录或文件。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os, sys</span><br><span class="line"><span class="keyword">print</span> (<span class="string">"当前目录为: %s"</span> %os.getcwd())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出目录</span></span><br><span class="line"><span class="keyword">print</span> (<span class="string">"目录为: %s"</span>%os.listdir(os.getcwd()))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重命名 "aa1.txt"</span></span><br><span class="line">os.renames(<span class="string">"test_new.py"</span>,<span class="string">"newdir/test.py"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出重命名的文件 "aa1.txt"</span></span><br><span class="line"><span class="keyword">print</span> (<span class="string">"目录为: %s"</span> %os.listdir(os.getcwd()))</span><br></pre></td></tr></table></figure>
+<hr>
+<h5 id="4-2-2-os-path-Module"><a href="#4-2-2-os-path-Module" class="headerlink" title="4.2.2 os.path Module"></a>4.2.2 os.path Module</h5><p><strong>1）os.path.abspath(path)</strong> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.abspath(<span class="string">'.'</span>)</span><br><span class="line"><span class="string">'C:\\Users\\alienware\\Desktop\\Python'</span></span><br></pre></td></tr></table></figure>
+<p><strong>2）os.path.basename(path) &amp;&amp; os.path.dirname(path)</strong> </p>
+<p>返回路径文件名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.basename(os.getcwd())</span><br><span class="line"><span class="string">'Python'</span></span><br></pre></td></tr></table></figure>
+<p>返回路径目录名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.dirname(<span class="string">'./server/test/client'</span>)</span><br><span class="line"><span class="string">'./server/test'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.dirname(<span class="string">'./server/README.txt'</span>)</span><br><span class="line"><span class="string">'./server'</span></span><br></pre></td></tr></table></figure>
+<p><strong>3）os.path.exists(path)</strong> </p>
+<p>判断路径 <code>path</code> 是否存在。路径存在则返回True,路径损坏返回False</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.exists(<span class="string">"./server/README.txt"</span>)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.exists(<span class="string">"./server/app"</span>)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<p><strong>4）os.path.isfile(path)  &amp;&amp; os.path.isdir(path)</strong> </p>
+<p><code>os.path.isfile(path)</code> 方法可用于判断路径是否为文件，而 <code>os.path.isdir(path)</code> 可以判断路径是否为目录。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.isfile(<span class="string">"./server/README.txt"</span>)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.isdir(<span class="string">"./server/README.txt"</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.isdir(<span class="string">"./server/app"</span>)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.isfile(<span class="string">"./server/app"</span>)</span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+<p><strong>5）os.path.getsize(path)</strong> </p>
+<p>用于返回文件大小，如果文件不存在就返回错误。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.getsize(<span class="string">"./server/README.txt"</span>)</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p><strong>6）os.path.join(path1[, path2[, …]])</strong> </p>
+<p>可把目录和文件名合成一个路径：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.join(<span class="string">"/home"</span>, <span class="string">"test"</span>, <span class="string">"server.py"</span>)</span><br><span class="line"><span class="string">'home\\test\\server.py'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意，os.sep 可获取当前系统分隔符</span></span><br></pre></td></tr></table></figure>
+<p><strong>7）os.path.split(path)  &amp;&amp; os.path.splitext(path)</strong> </p>
+<p><code>os.path.split(path)</code>  方法可以把路径分割成 dirname 和 basename，返回一个元组：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.basename(<span class="string">"/home/test.py"</span>)</span><br><span class="line"><span class="string">'test.py'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.dirname(<span class="string">"/home/test.py"</span>)</span><br><span class="line"><span class="string">'/home'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.split(<span class="string">"/home/test.py"</span>)</span><br><span class="line">(<span class="string">'/home'</span>, <span class="string">'test.py'</span>)</span><br></pre></td></tr></table></figure>
+<p><code>os.path.splitext(path)</code> 方法把路径分割成路径名和文件扩展名的元组：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; os.path.splitext(&quot;/home/test.py&quot;)</span><br><span class="line">(&apos;/home/test&apos;, &apos;.py&apos;)</span><br></pre></td></tr></table></figure>
+<hr>
+<h5 id="4-2-3-常用功能模块"><a href="#4-2-3-常用功能模块" class="headerlink" title="4.2.3 常用功能模块"></a>4.2.3 常用功能模块</h5><p>这一部分将结合 4.2.1 和 4.2.2 中模块方法给出开发中常用的功能模块方法：</p>
+<p><strong>1）创建以及删除目录</strong></p>
+<p>这里我们使用 Python 另一个内置模块 <code>shutil</code> 来删除目录中文件，可以将其看作是 <code>os</code> 模块的一个补充。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os, shutil</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mkdir</span><span class="params">(path)</span>:</span></span><br><span class="line">    </span><br><span class="line">    path = path.strip()</span><br><span class="line">    </span><br><span class="line">    IsExists = os.path.exists(path)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> IsExists:</span><br><span class="line">        <span class="comment"># 目录不存在，则创建</span></span><br><span class="line">        os.makedirs(path)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 如果存在，则删除重新创建：</span></span><br><span class="line">        shutil.rmtree(path)</span><br><span class="line">        os.makedirs(path)</span><br><span class="line">        </span><br><span class="line">    print(path + <span class="string">"：had been created."</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>2）删除目录下所有文件</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os, shutil</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rmfiles</span><span class="params">(path)</span>:</span></span><br><span class="line">    </span><br><span class="line">    path = path.strip()</span><br><span class="line">    </span><br><span class="line">    IsExists = os.path.exists(path)</span><br><span class="line">    <span class="keyword">if</span> IsExists:</span><br><span class="line">        filelist=os.listdir(path)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> filelist:</span><br><span class="line">            file_path = os.path.join(path, file)</span><br><span class="line">            <span class="keyword">if</span> os.path.isfile(file_path):</span><br><span class="line">                os.remove(filepath)</span><br><span class="line">            <span class="keyword">elif</span> os.path.isdir(file_path):</span><br><span class="line">                shutil.rmtree(filepath)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">"Please check your: "</span> + path + <span class="string">" exists?"</span>)</span><br><span class="line">        </span><br><span class="line">    print(<span class="string">"The files had been deleted in : "</span> + path)</span><br></pre></td></tr></table></figure>
+<p>3<strong>）文件过滤</strong></p>
+<p>例如列出当前目录下的所有目录：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.listdir(<span class="string">"."</span>)</span><br><span class="line">[<span class="string">'server'</span>, <span class="string">'test.py'</span>, <span class="string">'test_new.py'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[x <span class="keyword">for</span> x <span class="keyword">in</span> os.listdir(<span class="string">'.'</span>) <span class="keyword">if</span> os.path.isdir(x)]</span><br><span class="line">[<span class="string">'server'</span>]</span><br></pre></td></tr></table></figure>
+<p>列出当前目录下的所有 Python 脚本文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>[x <span class="keyword">for</span> x <span class="keyword">in</span> os.listdir(<span class="string">'.'</span>) <span class="keyword">if</span> os.path.isfile(x) <span class="keyword">and</span> os.path.splitext(x)[<span class="number">1</span>]==<span class="string">'.py'</span>]</span><br><span class="line">[<span class="string">'test.py'</span>, <span class="string">'test_new.py'</span>]</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="5-Python-序列化"><a href="#5-Python-序列化" class="headerlink" title="5. Python 序列化"></a>5. Python 序列化</h3>
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/Python/Python-之-IO-编程/" title="Python 之 IO 编程">http://yoursite.com/Python/Python-之-IO-编程/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/Input-Output/" rel="tag"><i class="fa fa-tag"></i> Input/Output</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Python/Python-模块/" rel="next" title="Python 模块">
+                <i class="fa fa-chevron-left"></i> Python 模块
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python/Python-的面向对象编程/" rel="prev" title="Python 的面向对象编程">
+                Python 的面向对象编程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-之-Input-Output-编程"><span class="nav-text">Python 之 Input/Output 编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-认识-IO"><span class="nav-text">1. 认识 IO</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-IO-Stream"><span class="nav-text">1.1 IO Stream</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-同-异布-IO"><span class="nav-text">1.2 同/异布 IO</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-文件读写"><span class="nav-text">2. 文件读写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-读文件"><span class="nav-text">2.1 读文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-1-read-size-amp-amp-readline-amp-amp-readlines"><span class="nav-text">2.1.1 read(size) &amp;&amp; readline() &amp;&amp; readlines()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-2-读取大文件数据"><span class="nav-text">2.1.2 读取大文件数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-3-读文件相关"><span class="nav-text">2.1.3 读文件相关</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-写文件"><span class="nav-text">2.2 写文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-文件定位"><span class="nav-text">2.3 文件定位</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-内存中的数据读写"><span class="nav-text">3. 内存中的数据读写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-StringIO"><span class="nav-text">3.1 StringIO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-BytesIO"><span class="nav-text">3.2 BytesIO</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-OS-Module"><span class="nav-text">4 OS Module</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-查看系统基本属性"><span class="nav-text">4.1 查看系统基本属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-Operate-File-amp-amp-Dir"><span class="nav-text">4.2 Operate File &amp;&amp; Dir</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-1-OS-模块常用方法"><span class="nav-text">4.2.1 OS 模块常用方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-2-os-path-Module"><span class="nav-text">4.2.2 os.path Module</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-3-常用功能模块"><span class="nav-text">4.2.3 常用功能模块</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Python-序列化"><span class="nav-text">5. Python 序列化</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="TensorFlow,TensorFlow Mobile && TensorFlow Lite,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  写在前面： 之前做过一个基于图像识别的小程序项目，最近需求变更要将其移植为 APP。由于个人在项目中一直在做算法相关开发维护工作，撇开 UI 部分和 Android 开发部分，重点更关注于深度学习算法模型的移植过程，首要目的就是在移动和嵌入式设备上把 TensorFlow 模型运行起来。">
+<meta name="keywords" content="TensorFlow,TensorFlow Mobile &amp;&amp; TensorFlow Lite">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习模型移动和嵌入式端落地方案：深度学习模型移植到 Android">
+<meta property="og:url" content="http://yoursite.com/TensorFlow/深度学习模型移动和嵌入式端落地方案：深度学习模型移植到-Android/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  写在前面： 之前做过一个基于图像识别的小程序项目，最近需求变更要将其移植为 APP。由于个人在项目中一直在做算法相关开发维护工作，撇开 UI 部分和 Android 开发部分，重点更关注于深度学习算法模型的移植过程，首要目的就是在移动和嵌入式设备上把 TensorFlow 模型运行起来。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/深度学习模型移动和嵌入式端落地方案：深度学习模型移植到-Android/result.png">
+<meta property="og:updated_time" content="2019-05-29T03:03:52.595Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度学习模型移动和嵌入式端落地方案：深度学习模型移植到 Android">
+<meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  写在前面： 之前做过一个基于图像识别的小程序项目，最近需求变更要将其移植为 APP。由于个人在项目中一直在做算法相关开发维护工作，撇开 UI 部分和 Android 开发部分，重点更关注于深度学习算法模型的移植过程，首要目的就是在移动和嵌入式设备上把 TensorFlow 模型运行起来。">
+<meta name="twitter:image" content="http://yoursite.com/TensorFlow/深度学习模型移动和嵌入式端落地方案：深度学习模型移植到-Android/result.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/TensorFlow/深度学习模型移动和嵌入式端落地方案：深度学习模型移植到-Android/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>深度学习模型移动和嵌入式端落地方案：深度学习模型移植到 Android | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/TensorFlow/深度学习模型移动和嵌入式端落地方案：深度学习模型移植到-Android/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深度学习模型移动和嵌入式端落地方案：深度学习模型移植到 Android</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T18:14:02+08:00">
+                2019-05-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:52+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/TensorFlow/深度学习模型移动和嵌入式端落地方案：深度学习模型移植到-Android/" class="leancloud_visitors" data-flag-title="深度学习模型移动和嵌入式端落地方案：深度学习模型移植到 Android">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…</center>
+
+<p><strong>写在前面：</strong></p>
+<p>之前做过一个基于图像识别的小程序项目，最近需求变更要将其移植为 APP。由于个人在项目中一直在做算法相关开发维护工作，撇开 UI 部分和 Android 开发部分，重点更关注于深度学习算法模型的移植过程，首要目的就是在移动和嵌入式设备上把 TensorFlow 模型运行起来。</p>
+<a id="more"></a>
+<p>和云端关注点不同的是，移动和嵌入式设备上执行 TensorFlow 注重更低的功耗、更快的速度、以及更小的 size。</p>
+<p>关于移动和嵌入式平台的深度学习解决方案，这里将其编为一个博文系列，并给出相关文章的索引，仅供参考：</p>
+<p>系列博文之一：<a href="https://www.orangeshare.cn/TensorFlow/深度学习模型移动和嵌入式端落地方案%EF%BC%9A深度学习模型移植到-Android/" target="_blank" rel="noopener">深度学习模型移动和嵌入式端落地方案：深度学习模型移植到 Android</a> ;</p>
+<p>系列博文之二：<a href="">深度学习模型移动和嵌入式端落地方案：TFM 实现 TF MNIST 手写数字识别模型移植到 Android 端</a>；</p>
+<hr>
+<h3 id="TensorFlow-For-Mobile-amp-amp-TensorFlow-Lite"><a href="#TensorFlow-For-Mobile-amp-amp-TensorFlow-Lite" class="headerlink" title="TensorFlow For Mobile &amp;&amp; TensorFlow Lite"></a>TensorFlow For Mobile &amp;&amp; TensorFlow Lite</h3><p>TensorFlow 旨在成为移动和嵌入式平台良好的深度学习解决方案。</p>
+<p>通过查阅相关文档，目前 TensorFlow 支持两种良好的在移动和嵌入式设备上部署机器学习应用的解决方案：TensorFlow for Mobile 和 TensorFlow Lite。</p>
+<p>TensorFlow for Mobile 官方网址：<a href="https://www.tensorflow.org/mobile/mobile_intro?hl=zh-cn" target="_blank" rel="noopener">https://www.tensorflow.org/mobile/mobile_intro?hl=zh-cn</a> ;</p>
+<p>TensorFlow Lite 官方网址：<a href="https://www.tensorflow.org/mobile/tflite/?hl=zh-cn" target="_blank" rel="noopener">https://www.tensorflow.org/mobile/tflite/?hl=zh-cn</a> ;</p>
+<p>TensorFlow 国内网址：<a href="https://tensorflow.google.cn/learn" target="_blank" rel="noopener">https://tensorflow.google.cn/learn</a> 。</p>
+<hr>
+<h4 id="TensorFlow-For-Mobile-amp-amp-TensorFlow-Lite-简单对比"><a href="#TensorFlow-For-Mobile-amp-amp-TensorFlow-Lite-简单对比" class="headerlink" title="TensorFlow For Mobile &amp;&amp; TensorFlow Lite 简单对比"></a>TensorFlow For Mobile &amp;&amp; TensorFlow Lite 简单对比</h4><p><strong>下面首先简单给出两者之间的一些差异：</strong></p>
+<ol>
+<li>TensorFlow For Mobile 比较早出来，比较稳定，并且简单易用，但性能等方面没有针对移动端作过多优化。目前 TensorFlow 官方已不推荐使用，2019 年后将不再提供支持；</li>
+<li>TensorFlow Lite 是 TensorFlow For Mobile 的进化版，尚在开发阶段，可能存在一些功能尚未补齐。目前官方推荐以及承诺大力开发以及维护的解决方案；</li>
+<li>相较于 TensorFlow For Mobile ，在大多数情况下，TensorFlow Lite 拥有跟小的二进制大小，更少的依赖以及更好的性能；</li>
+<li>相比 TensorFlow Mobile 是对完整 TensorFlow 的裁减，TensorFlow Lite 是一个新的实现方案。</li>
+</ol>
+<p><strong>如何选择？</strong></p>
+<p><strong>–&gt; 学习角度：</strong></p>
+<p>既然是学习，TensorFlow Mobile &amp;&amp; TensorFlow Lite 两种策略都可以作为学习对象。多一种方案多一种解决思路，后续系列博文中会分别解读这两种解决方案，并进行相关的 Demo 测试。</p>
+<p><strong>–&gt; 工程应用：</strong></p>
+<p>为了应用，TensorFlow Mobile &amp;&amp; TensorFlow Lite 两者选择其一即可。</p>
+<p>TensorFlow Mobile 作为最初启用的移动和嵌入式移植方案，移植过程简单快速，有着较为成熟的文档，但性能相对较低，后续面临的问题是会被 Google 弃用。</p>
+<p>TensorFlow Lite 是TensorFlow团队给出的全新的实现方案，目前官方推荐的解决方案（官网有详细的 <a href="https://tensorflow.google.cn/lite" target="_blank" rel="noopener">TensorFlow Lite 说明文档</a>），有更好的性能优化，已经成为目前主流的方法。</p>
+<hr>
+<h3 id="Blog-Abstract"><a href="#Blog-Abstract" class="headerlink" title="Blog Abstract"></a>Blog Abstract</h3><p>前面是引入，这里先给这篇博文来个读前吧，帮助大家更好的了解博文主要内容和结构。</p>
+<p>TensorFlow For Mobile 后续会简称 <code>TFM</code>，TensorFlow Lite 会简称为 <code>TFL</code>。</p>
+<h4 id="关于本文："><a href="#关于本文：" class="headerlink" title="关于本文："></a>关于本文：</h4><p>本文（深度学习模型移植到 Android）采用的策略是 TFM，关于 TFL 解决方案请绕道参考后续博文。</p>
+<p>本文主要是针对模型移植过程进行说明，对 UI、Android 以及 TF 的细节并不会做过多的说明。</p>
+<p>文中如有不恰当之处还请指正，欢迎各位大佬在评论区指出不足之处。</p>
+<h4 id="Envs："><a href="#Envs：" class="headerlink" title="Envs："></a>Envs：</h4><p>本系列博文均在以下环境下进行 Demo 测试：</p>
+<ul>
+<li>Windows10</li>
+<li>Ubuntu 16.04 Server</li>
+<li>TensorFlow Env：Ubuntu 16.04 + TF-GPU 1.6（CUDA 9.0 + cuDNN 7.0）</li>
+<li>Android Studio 3.x</li>
+<li>Real Mobile phone envs：SAMSUNG Galaxy S7</li>
+</ul>
+<hr>
+<h3 id="TFM-实现-TensorFlow-学得模型移植到-Android-端"><a href="#TFM-实现-TensorFlow-学得模型移植到-Android-端" class="headerlink" title="TFM 实现 TensorFlow 学得模型移植到 Android 端"></a>TFM 实现 TensorFlow 学得模型移植到 Android 端</h3><p>后文我将给出一个最简单的 TFM Demo：利用 TensorFlow 实现一个求简单的数组相加，并把持久化的模型移植到 Android 端（SAMSUNG Galaxy S7）上运行。</p>
+<p>正如官网给出的关于 “Android TensorFlow support” 描述的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Components (a native .so library and a Java JAR) geared towards supporting TensorFlow on Android.</span></span><br></pre></td></tr></table></figure>
+<p>这里，我们首先给出 TFM 移植方案的一般思路：</p>
+<blockquote>
+<p>一般先利用 Bazel 工具把 TensoFlow 编译成 <code>.so 库文件</code> 和 <code>jar 包</code>，进行 Android 相关配置，即可实现 TF 模型的移植。</p>
+</blockquote>
+<p>Bazel  编译成功后，”.so library” 和 “Java JAR” 分别对应的具体文件名称如下：</p>
+<ol>
+<li>libtensorflow_inference.so</li>
+<li>libandroid_tensorflow_inference_java.jar</li>
+</ol>
+<p>将 1、2 导入 Android 平台后便可以使用其中提供的接口调用 TF Model。</p>
+<p><strong>–&gt; 注意：</strong></p>
+<p>手动使用 Bazel 编译 TensoFlow 过程中可能遇到很多问题，导致最终编译  <code>.so 库文件</code> 和 <code>jar 包</code> 失败，这是很常见的！！！事实上，不会使用 Bazel 编译也没关系，TensoFlow 官方已经为开发者提供了编译好的 <code>.so库文件</code> 和对应的 <code>jar 包</code> 文件，下载后即可使用。</p>
+<p>这里先不要急，后面我会给出上述的两种 “.so library” 和 “Java JAR” 获取方式的具体说明。</p>
+<hr>
+<h4 id="1-预移植环境准备"><a href="#1-预移植环境准备" class="headerlink" title="1. 预移植环境准备"></a>1. 预移植环境准备</h4><p>在正式开始移植之前，我们先来完成相关的工具准备：</p>
+<h5 id="1-1-Android-Envs-For-Windows-配置"><a href="#1-1-Android-Envs-For-Windows-配置" class="headerlink" title="1.1 Android Envs For Windows 配置"></a>1.1 Android Envs For Windows 配置</h5><p>关于 Android 开发环境，这里我们使用 Android Studio3.X 来开发我们的第一个 APP（TF 模型移植到 Android Demo）项目。下面开始在 Windows10 下搭建 Android 开发环境：</p>
+<h6 id="1-1-1-安装配置-JDK1-8"><a href="#1-1-1-安装配置-JDK1-8" class="headerlink" title="1.1.1 安装配置 JDK1.8"></a>1.1.1 安装配置 JDK1.8</h6><p>关于 JDK 的详细安装以及配置教程见博文：<a href="https://www.orangeshare.cn/Java/JDK-下载与安装教程/" target="_blank" rel="noopener"><strong>JDK</strong> 下载与安装教程</a> 。</p>
+<h6 id="1-1-2-Android-Studio-安装与配置"><a href="#1-1-2-Android-Studio-安装与配置" class="headerlink" title="1.1.2 Android Studio 安装与配置"></a>1.1.2 Android Studio 安装与配置</h6><p>关于 Android Studio 环境的详细部署过程见博文：<a href="https://www.orangeshare.cn/Android/Android-Studio-安装与配置/" target="_blank" rel="noopener">Android Studio 安装与配置</a> 。</p>
+<hr>
+<p>Android Envs For Windows 工具环境安装配置完成之后，我们再来补充前面提到的两种 “.so library” 和 “Java JAR” 插件获取方式的具体说明：</p>
+<h5 id="1-2-SO-library-和-Java-JAR"><a href="#1-2-SO-library-和-Java-JAR" class="headerlink" title="1.2 SO library 和 Java JAR"></a>1.2 SO library 和 Java JAR</h5><p>开始之前先了解一下关于 TensorFlow 版本问题：</p>
+<p><strong>–&gt; 重点来了：</strong></p>
+<p>前面提过，<code>.so library</code> 和 <code>Java JAR</code>  内部提供了在 Android 平台调用 TF 模型的接口，但随着 TensorFlow  版本的更新，其内部的接口也发生了变化，可以将其分为新旧两个版本线。</p>
+<p>–&gt; 旧版本（r1.1 之前）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Tensorflow 接口初始化方法：*/</span></span><br><span class="line">TensorFlowInferenceInterface inferenceInterface = <span class="keyword">new</span> TensorFlowInferenceInterface();</span><br><span class="line">inferenceInterface.initializeTensorFlow(getAssets(), MODEL_FILE);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* TF 模型调用接口：*/</span></span><br><span class="line">inferenceInterface.fillNodeFloat(INPUT_NODE, <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, HEIGHT, WIDTH, CHANNEL&#125;, inputs);    <span class="comment">// 将数据 feed 给 tensorflow</span></span><br><span class="line">inferenceInterface.runInference(<span class="keyword">new</span> String[]&#123;OUTPUT_NODE&#125;);    <span class="comment">// 进行模型运算</span></span><br><span class="line">inferenceInterface.readNodeFloat(OUTPUT_NODE, outputs);    <span class="comment">// 将输出存放到 outputs 中</span></span><br></pre></td></tr></table></figure>
+<p>r1.1 版本之前具体接口的实现见：<a href="https://github.com/tensorflow/tensorflow/blob/r1.1/tensorflow/contrib/android/java/org/tensorflow/contrib/android/TensorFlowInferenceInterface.java" target="_blank" rel="noopener">TensorFlowInferenceInterface</a> 。</p>
+<p>–&gt; 新版本（Version &gt;= r1.2）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Tensorflow 接口初始化方法：*/</span></span><br><span class="line">TensorFlowInferenceInterface inferenceInterface = <span class="keyword">new</span> TensorFlowInferenceInterface(assetManager,modePath);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* TF 模型调用接口：*/</span></span><br><span class="line">TensorFlowInferenceInterface.feed()    <span class="comment">// 将数据 feed 给 tensorflow</span></span><br><span class="line">TensorFlowInferenceInterface.run()    <span class="comment">// 进行模型运算</span></span><br><span class="line">TensorFlowInferenceInterface.fetch()    <span class="comment">// 将输出存放到 outputs 中</span></span><br></pre></td></tr></table></figure>
+<p>r1.2 之后具体接口的实现见：<a href="https://github.com/tensorflow/tensorflow/blob/r1.2/tensorflow/contrib/android/java/org/tensorflow/contrib/android/TensorFlowInferenceInterface.java" target="_blank" rel="noopener">TensorFlowInferenceInterface</a> 。</p>
+<p>注意，对于各个不同 TensorFlow 版本编译的具体接口的查看可以通过修改 Github 分支完成切换。</p>
+<hr>
+<h6 id="1-2-1-直接下载编译好的-“-so-library”-和-“Java-JAR”（推荐）"><a href="#1-2-1-直接下载编译好的-“-so-library”-和-“Java-JAR”（推荐）" class="headerlink" title="1.2.1 直接下载编译好的 “.so library” 和 “Java JAR”（推荐）"></a>1.2.1 直接下载编译好的 “.so library” 和 “Java JAR”（推荐）</h6><p>前面提到过 TensoFlow 官方已经为开发者提供了编译好的 <code>.so库文件</code> 和对应的 <code>jar 包</code> 文件，即：</p>
+<ol>
+<li>libtensorflow_inference.so</li>
+<li>libandroid_tensorflow_inference_java.jar</li>
+</ol>
+<p><strong>–&gt; Download</strong></p>
+<p><strong>要注意！！！需要根据你的 TensorFlow 版本下载对应的 “.so library” 和 “Java JAR” 。</strong></p>
+<p>可以从下面提供的链接中下载到官网提供的已经编译好的 “.so library” 和 “Java JAR” ：</p>
+<p>For prebuilt libraries, see the <a href="https://ci.tensorflow.org/view/Nightly/job/nightly-android/" target="_blank" rel="noopener">nightly Android build artifacts</a> page for a recent build.</p>
+<p>网上很多人说 TensorFlow 官网好像已不再提供了…. 幸运的是，这里有资源：</p>
+<p>–&gt; 新版本：</p>
+<p><a href="https://github.com/TheNightIsYoung/TSFOnAndroid/tree/master/app/libs" target="_blank" rel="noopener">Download –&gt; libtensorflow_inference.so &amp;&amp; libandroid_tensorflow_inference_java.jar</a> 。</p>
+<p>–&gt; 旧版本：</p>
+<p>旧版本没找到……不过不重要！TensorFlow 2.0 都发布了，你还在使用 r1.1 以下版本也是厉害，大拇指。</p>
+<hr>
+<h6 id="1-2-2-手动-Bazel-编译-“-so-library”-和-“Java-JAR”（可选）"><a href="#1-2-2-手动-Bazel-编译-“-so-library”-和-“Java-JAR”（可选）" class="headerlink" title="1.2.2 手动 Bazel 编译 “.so library” 和 “Java JAR”（可选）"></a>1.2.2 手动 Bazel 编译 “.so library” 和 “Java JAR”（可选）</h6><p>如果感觉不自己编难受啊，那还说啥，开始吧……</p>
+<p>详细的构建过程以官方给出的为依据 –&gt; <a href="https://github.com/tensorflow/tensorflow/tree/r1.0/tensorflow/contrib/android" target="_blank" rel="noopener">Android TensorFlow support</a> ;</p>
+<p>主要步骤如下：</p>
+<p>How ot Install Bazel？–&gt; <a href="https://docs.bazel.build/versions/master/install.html" target="_blank" rel="noopener">https://docs.bazel.build/versions/master/install.html</a> ；</p>
+<p>（未完）….</p>
+<hr>
+<p> 自此，预移植环境准备已经完成，下面开始正式的移植过程：</p>
+<h4 id="2-Moblile-Phone-调用-TF-Model-完成移植过程"><a href="#2-Moblile-Phone-调用-TF-Model-完成移植过程" class="headerlink" title="2. Moblile Phone 调用 TF Model 完成移植过程"></a>2. Moblile Phone 调用 TF Model 完成移植过程</h4><p>上面我们给出 TFM 移植方案的一般思路，这里我们来看移动或嵌入式端掉用 TF 模型完成移植的过程简介：</p>
+<ol>
+<li>获取训练好的 TF Model，并且明确模型网络节点信息（尤其是输入输出节点），完成模型预测可用验证；</li>
+<li>在 Android Studio 中创建 Android 项目，导入 Android 平台调用 TF 模型需要的 jar 包和 so 文件 (负责 TF 模型的解析和运算)，以及 TF Model ，并完成相关的项目配置；</li>
+<li>创建并完成调用：定义变量用于储存模型输入输出，并通过 jar 包提供的接口进行 TF 模型的调用。还需要简单注意与 Android UI 页面的关联。</li>
+<li>移植测试</li>
+</ol>
+<hr>
+<p>下面，我们将根据上述移植过程简介来完成 Moblile Phone 调用 TF Model 完成移植的全过程：</p>
+<h5 id="2-1-Prepare-Pretrain-TF-Model"><a href="#2-1-Prepare-Pretrain-TF-Model" class="headerlink" title="2.1 Prepare Pretrain TF Model"></a>2.1 Prepare Pretrain TF Model</h5><p>先来测试一个最简单的 TFM Demo：输入是一个数组 matrix_1，输出的是数组 matrix_1 自身相加的结果，然后将模型持久化成 PB 模型用于完成后续的移植。</p>
+<p><strong>1 –&gt; Matrix 自身相加的 TensorFlow 模型持久化</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework <span class="keyword">import</span> graph_util</span><br><span class="line"><span class="comment"># If error: from tensorflow.python.client import graph_util</span></span><br><span class="line"></span><br><span class="line">matrix_1 = tf.constant([[<span class="number">4.0</span>,<span class="number">6.0</span>]], name=<span class="string">'input'</span>)</span><br><span class="line">result = tf.add(matrix_1, matrix_1, name=<span class="string">'output'</span>)</span><br><span class="line"></span><br><span class="line">sess = tf.Session()</span><br><span class="line"></span><br><span class="line">sess.run(result)</span><br><span class="line"></span><br><span class="line">output_graph_def = graph_util.convert_variables_to_constants(sess, sess.graph_def, output_node_names=[<span class="string">'output'</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.gfile.FastGFile(<span class="string">'model.pb'</span>, mode=<span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(output_graph_def.SerializeToString())</span><br><span class="line"></span><br><span class="line">sess.close()</span><br></pre></td></tr></table></figure>
+<p>运行后会在程序同名目录下生成一个：<code>model.pb</code> TensorFlow 持久化文件。</p>
+<p><strong>2 –&gt; 明确模型网络节点信息</strong></p>
+<p>需要明确模型中输出（inputName）节点和输出（outputName）节点，为了后续方便进行调用。不清楚的话可以先打印 PB 模型中节点信息用于确定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">model_path = &quot;./model.pb&quot;</span><br><span class="line"></span><br><span class="line">with tf.Graph().as_default() as graph:</span><br><span class="line"></span><br><span class="line">    print(&quot;Loading Model &gt;&gt;&gt;&gt;&gt;&quot;)</span><br><span class="line">    with tf.gfile.GFile(model_path, &quot;rb&quot;) as f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read())</span><br><span class="line"></span><br><span class="line">    tf.import_graph_def(graph_def, name=&quot;&quot;)</span><br><span class="line">    print(&quot;&lt;&lt;&lt; success!&quot;)</span><br><span class="line"></span><br><span class="line">    print(&quot;Neural Network Node Information ---&gt;&quot;)</span><br><span class="line">    for op in graph.get_operations():</span><br><span class="line">        print(op.name, &quot;:&quot;, op.values)</span><br></pre></td></tr></table></figure>
+<p>输出如下信息：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Loading Model &gt;&gt;&gt;&gt;&gt;</span><br><span class="line">&lt;&lt;&lt; success!</span><br><span class="line">Neural Network Node Information ---&gt;</span><br><span class="line">input : &lt;bound method Operation.values of &lt;tf.Operation <span class="string">'input'</span> type=Const&gt;&gt;</span><br><span class="line">output : &lt;bound method Operation.values of &lt;tf.Operation <span class="string">'output'</span> type=Add&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>我们知道了，输入（inputName）节点名称为：<code>input</code>，输出（outputName）节点名称为：<code>output</code>。</p>
+<p><strong>3 –&gt; 验证模型预测可用</strong></p>
+<p>在使用持久化模型之前，我们必须先要验证我们模型是可用的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#model_path = "./Model/mnist.pb"</span></span><br><span class="line">model_path = <span class="string">"./model.pb"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#testImage = Image.open("./data/test_image.jpg")</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Graph().as_default() <span class="keyword">as</span> graph:</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"Loading Model &gt;&gt;&gt;&gt;&gt;"</span>)</span><br><span class="line">    <span class="keyword">with</span> tf.gfile.GFile(model_path, <span class="string">"rb"</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read())</span><br><span class="line"></span><br><span class="line">    tf.import_graph_def(graph_def, name=<span class="string">""</span>)</span><br><span class="line">    print(<span class="string">"&lt;&lt;&lt; success!"</span>)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"Neural Network Node Information ---&gt;"</span>)</span><br><span class="line">    <span class="keyword">for</span> op <span class="keyword">in</span> graph.get_operations():</span><br><span class="line">        <span class="comment"># print(op)</span></span><br><span class="line">        print(op.name, <span class="string">":"</span>, op.values)</span><br><span class="line"></span><br><span class="line">    config = tf.ConfigProto(allow_soft_placement=<span class="keyword">True</span>,</span><br><span class="line">                            log_device_placement=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> tf.Session(config=config) <span class="keyword">as</span> sess:</span><br><span class="line">        tf.global_variables_initializer().run()</span><br><span class="line"></span><br><span class="line">        input_x = sess.graph.get_tensor_by_name(<span class="string">"input:0"</span>)</span><br><span class="line">        output = sess.graph.get_tensor_by_name(<span class="string">"output:0"</span>)</span><br><span class="line"></span><br><span class="line">        test_matrix = [[<span class="number">2.0</span>, <span class="number">6.6</span>]]</span><br><span class="line"></span><br><span class="line">        pre_num = sess.run(output, feed_dict=&#123;input_x: test_matrix&#125;)</span><br><span class="line">        print(<span class="string">'The Result Of Model Prediction [number] is '</span>, pre_num)</span><br></pre></td></tr></table></figure>
+<p>可以看出，明确节点信息和验证模型预测可用可以放到一起。输出结果如下，说明模型没有问题：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Loading Model &gt;&gt;&gt;&gt;&gt;</span><br><span class="line">&lt;&lt;&lt; success!</span><br><span class="line">Neural Network Node Information ---&gt;</span><br><span class="line">input : &lt;bound method Operation.values of &lt;tf.Operation <span class="string">'input'</span> type=Const&gt;&gt;</span><br><span class="line">output : &lt;bound method Operation.values of &lt;tf.Operation <span class="string">'output'</span> type=Add&gt;&gt;</span><br><span class="line">...</span><br><span class="line">The Result Of Model Prediction [number] <span class="keyword">is</span>  [[ <span class="number">4.</span>  <span class="number">13.2</span>]]</span><br></pre></td></tr></table></figure>
+<hr>
+<h5 id="2-2-Android-Project-In-Android-Studio"><a href="#2-2-Android-Project-In-Android-Studio" class="headerlink" title="2.2 Android Project In Android Studio"></a>2.2 Android Project In Android Studio</h5><h6 id="2-2-1-Android-Project-配置"><a href="#2-2-1-Android-Project-配置" class="headerlink" title="2.2.1 Android Project 配置"></a>2.2.1 Android Project 配置</h6><p>1 –&gt; Android Studio 中新建一个 Android Project;</p>
+<p>2 –&gt; 将 2.1中训练得到的 TF Model：<code>model.pb</code> 文件存放到 <code>...app/src/main/assets</code> 目录下，若 assets 目录不存在则创建；</p>
+<p>3 –&gt; 项目中导入 “.so library” 和 “Java JAR”：</p>
+<p>将 <code>libandroid_tensorflow_inference_java.jar</code> 存放到 <code>.../app/libs</code> 目录下；</p>
+<p><code>.../app/libs</code> 目录下新建 <code>armeabi</code> 文件夹，并将 <code>libtensorflow_inference.so</code> 放进去。</p>
+<p>4 –&gt; 配置 build.gradle（Module：app） 以及 gradle.properties：</p>
+<p>build.gradle（Module：app） 位于 <code>../app</code> 目录下。</p>
+<p>–&gt; 4.1）在 <code>../app/build.gradle</code> 文件中的 android 节点追加 <code>soureSets</code> 节点信息，用于指定 <code>jniLibs</code> 的路径：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sourceSets &#123;</span><br><span class="line">        main &#123;</span><br><span class="line">            jniLibs.srcDirs = [<span class="string">'libs'</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>–&gt; 4.2）在 <code>../app/build.gradle</code> 中的 <code>dependencies</code> 节点追加如下信息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">implementation <span class="title">files</span><span class="params">(<span class="string">'libs/libandroid_tensorflow_inference_java.jar'</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>这里，其实就是增加 <code>libandroid_tensorflow_inference_java.jar</code> 依赖，否则无法解析到 TensorFlow 包，产生报错。还有一种方法就是找到其位置（…/app/libs），右键 “add as Libary” 会自动添加到 <code>dependencies</code> 中。</p>
+<p>–&gt; 4.3）并且在 <code>../app/build.gradle</code> 中的 <code>defaultConfig</code> 节点追加如下信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ndk &#123;</span><br><span class="line">            abiFilters &quot;armeabi&quot;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>好了，先构建一下看看是否报错，解决一下错误信息，自此关于 Android Studio 中 Android 项目的创建配置就完成。接下来看如何在我们已经创建好的 Android 项目中实现 TF Model 的调用： </p>
+<hr>
+<h6 id="2-2-2-模型的调用"><a href="#2-2-2-模型的调用" class="headerlink" title="2.2.2 模型的调用"></a>2.2.2 模型的调用</h6><p>–&gt; 新建一个 MyTSFMatrixDemo 类（…app/src/main/java/com.xxxx.xxxx/ 下），在这个类里面进行模型的调用，即通过输入获取模型输出：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.content.res.AssetManager;</span><br><span class="line"><span class="keyword">import</span> android.os.Trace;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.tensorflow.contrib.android.TensorFlowInferenceInterface;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTSFMatrixDemo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MyTSFMatrixDemo"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String MODEL_FILE = <span class="string">"file:///android_asset/model.pb"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义数据的维度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> HEIGHT = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> WIDTH = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 模型中输入变量的名称</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String inputName = <span class="string">"input"</span>;</span><br><span class="line">    <span class="comment">// 用于模型输入数据存储</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span>[] inputs = <span class="keyword">new</span> <span class="keyword">float</span>[HEIGHT * WIDTH];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 模型中输出变量的名称</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String outputName = <span class="string">"output"</span>;</span><br><span class="line">    <span class="comment">// 用于模型输出数据存储</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span>[] outputs = <span class="keyword">new</span> <span class="keyword">float</span>[HEIGHT * WIDTH];</span><br><span class="line"></span><br><span class="line">    TensorFlowInferenceInterface inferenceInterface;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">// 加载库文件</span></span><br><span class="line">        System.loadLibrary(<span class="string">"tensorflow_inference"</span>);</span><br><span class="line">        Log.e(TAG,<span class="string">"libtensorflow_inference.so loading successfully."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    MyTSFMatrixDemo(AssetManager assetManager) &#123;</span><br><span class="line">        <span class="comment">// 接口定义</span></span><br><span class="line">        inferenceInterface = <span class="keyword">new</span> TensorFlowInferenceInterface(assetManager,MODEL_FILE);</span><br><span class="line">        Log.e(TAG, <span class="string">"Initialize TensorFlowInferenceInterface successfully."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span>[] getAddResult() &#123;</span><br><span class="line">        <span class="comment">// 初始化样例数据：</span></span><br><span class="line">        inputs[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        inputs[<span class="number">1</span>] = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将样例数据 feed 给 tensorflow model</span></span><br><span class="line">        Trace.beginSection(<span class="string">"feed"</span>);</span><br><span class="line">        inferenceInterface.feed(inputName, inputs, WIDTH, HEIGHT);</span><br><span class="line">        Trace.endSection();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用模型进行运算</span></span><br><span class="line">        Trace.beginSection(<span class="string">"run"</span>);</span><br><span class="line">        String[] outputNames = <span class="keyword">new</span> String[] &#123;outputName&#125;;</span><br><span class="line">        inferenceInterface.run(outputNames);</span><br><span class="line">        Trace.endSection();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将输出结果物存放到 outputs 中</span></span><br><span class="line">        Trace.beginSection(<span class="string">"fetch"</span>);</span><br><span class="line">        inferenceInterface.fetch(outputName, outputs);</span><br><span class="line">        Trace.endSection();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> outputs;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 MainActivity.java 中通过一个单击事件获取预测结果:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MainActivity"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">click01</span><span class="params">(View v)</span></span>&#123;</span><br><span class="line">        Log.i(TAG, <span class="string">"click ----------&gt;"</span>);</span><br><span class="line">        MyTSFMatrixDemo tsfDemo = <span class="keyword">new</span> MyTSFMatrixDemo(getAssets());</span><br><span class="line">        <span class="keyword">float</span>[] result = tsfDemo.getAddResult();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;result.length;i++)&#123;</span><br><span class="line">            Log.i(TAG, <span class="string">"The result of Matrix elements: "</span> + result[i] );</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>..app/main/res/layout/activity_main 页面布局文件如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">android.support.constraint.ConstraintLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">".MainActivity"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:onClick</span>=<span class="string">"click01"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"click"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">android.support.constraint.ConstraintLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>构建一下，解决项目报错。自此，我们已经完成了移植的全部过程。项目代码已经上传至 Github 仓库：<a href="https://github.com/TheNightIsYoung/TSFOnAndroid" target="_blank" rel="noopener">TSFOnAndroid</a> 。</p>
+<hr>
+<h5 id="2-3-测试"><a href="#2-3-测试" class="headerlink" title="2.3 测试"></a>2.3 测试</h5><p>那么如何对上述移植过程进行测试？Android studo 调试平台有两类：模拟器和真机运行。</p>
+<h6 id="2-3-1-真机环境测试"><a href="#2-3-1-真机环境测试" class="headerlink" title="2.3.1 真机环境测试"></a>2.3.1 真机环境测试</h6><p>通过数据线将手机连接到电脑上，设置 –&gt; (关于手机 –&gt; 版本号 –&gt;)  开发者选项 –&gt; 开启 USB 调试模式）。</p>
+<p>真机只要连接没问题，且开启了USB调试模式，就可以在 Android Studio 中通过 Debug ‘app’（Shift F9）或 Run ‘app‘（Shift F10）完成真机中 <code>apk</code> 的安装以及测试了，页面如下：</p>
+<p><img src="/TensorFlow/深度学习模型移动和嵌入式端落地方案：深度学习模型移植到-Android/./result.png" alt="avatar"></p>
+<p>CLICK 之后，Log 信息如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">I/MainActivity: click ----------&gt;</span><br><span class="line">E/MyTSFMatrixDemo: libtensorflow_inference.so loading successfully.</span><br><span class="line">I/TensorFlowInferenceInterface: Checking to see <span class="keyword">if</span> TensorFlow <span class="keyword">native</span> methods are already loaded</span><br><span class="line">    TensorFlow <span class="keyword">native</span> methods already loaded</span><br><span class="line">I/TensorFlowInferenceInterface: Model load took <span class="number">1</span>ms, TensorFlow version: <span class="number">1.1</span>.0-rc2</span><br><span class="line">    Successfully loaded model from <span class="string">'file:///android_asset/model.pb'</span></span><br><span class="line">E/MyTSFMatrixDemo: Initialize TensorFlowInferenceInterface successfully.</span><br><span class="line">I/MainActivity: The result of Matrix elements: <span class="number">2.0</span></span><br><span class="line">    The result of Matrix elements: <span class="number">6.0</span></span><br></pre></td></tr></table></figure>
+<h6 id="2-3-2-模拟器环境测试"><a href="#2-3-2-模拟器环境测试" class="headerlink" title="2.3.2 模拟器环境测试"></a>2.3.2 模拟器环境测试</h6><p>推荐 Genymotion 模拟器。</p>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/TensorFlow/深度学习模型移动和嵌入式端落地方案：深度学习模型移植到-Android/" title="深度学习模型移动和嵌入式端落地方案：深度学习模型移植到 Android">http://yoursite.com/TensorFlow/深度学习模型移动和嵌入式端落地方案：深度学习模型移植到-Android/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TensorFlow/" rel="tag"><i class="fa fa-tag"></i> TensorFlow</a>
+          
+            <a href="/tags/TensorFlow-Mobile-TensorFlow-Lite/" rel="tag"><i class="fa fa-tag"></i> TensorFlow Mobile && TensorFlow Lite</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Android/Android-Studio-安装与配置/" rel="next" title="Android Studio 安装与配置【最新】">
+                <i class="fa fa-chevron-left"></i> Android Studio 安装与配置【最新】
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/TensorFlow/深度学习模型移动和嵌入式端落地方案：TFM-实现-TF-MNIST-手写数字识别模型移植到-Android-端/" rel="prev" title="深度学习模型移动和嵌入式端落地方案：TFM 实现 TF MNIST 手写数字识别模型移植到 Android 端">
+                深度学习模型移动和嵌入式端落地方案：TFM 实现 TF MNIST 手写数字识别模型移植到 Android 端 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#TensorFlow-For-Mobile-amp-amp-TensorFlow-Lite"><span class="nav-text">TensorFlow For Mobile &amp;&amp; TensorFlow Lite</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TensorFlow-For-Mobile-amp-amp-TensorFlow-Lite-简单对比"><span class="nav-text">TensorFlow For Mobile &amp;&amp; TensorFlow Lite 简单对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Blog-Abstract"><span class="nav-text">Blog Abstract</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于本文："><span class="nav-text">关于本文：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Envs："><span class="nav-text">Envs：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TFM-实现-TensorFlow-学得模型移植到-Android-端"><span class="nav-text">TFM 实现 TensorFlow 学得模型移植到 Android 端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-预移植环境准备"><span class="nav-text">1. 预移植环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-Android-Envs-For-Windows-配置"><span class="nav-text">1.1 Android Envs For Windows 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-1-1-安装配置-JDK1-8"><span class="nav-text">1.1.1 安装配置 JDK1.8</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-1-2-Android-Studio-安装与配置"><span class="nav-text">1.1.2 Android Studio 安装与配置</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-SO-library-和-Java-JAR"><span class="nav-text">1.2 SO library 和 Java JAR</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-2-1-直接下载编译好的-“-so-library”-和-“Java-JAR”（推荐）"><span class="nav-text">1.2.1 直接下载编译好的 “.so library” 和 “Java JAR”（推荐）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-2-2-手动-Bazel-编译-“-so-library”-和-“Java-JAR”（可选）"><span class="nav-text">1.2.2 手动 Bazel 编译 “.so library” 和 “Java JAR”（可选）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Moblile-Phone-调用-TF-Model-完成移植过程"><span class="nav-text">2. Moblile Phone 调用 TF Model 完成移植过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-Prepare-Pretrain-TF-Model"><span class="nav-text">2.1 Prepare Pretrain TF Model</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-Android-Project-In-Android-Studio"><span class="nav-text">2.2 Android Project In Android Studio</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-1-Android-Project-配置"><span class="nav-text">2.2.1 Android Project 配置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-2-模型的调用"><span class="nav-text">2.2.2 模型的调用</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-测试"><span class="nav-text">2.3 测试</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#2-3-1-真机环境测试"><span class="nav-text">2.3.1 真机环境测试</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-3-2-模拟器环境测试"><span class="nav-text">2.3.2 模拟器环境测试</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

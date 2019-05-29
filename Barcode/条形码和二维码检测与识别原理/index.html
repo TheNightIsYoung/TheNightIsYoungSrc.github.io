@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Barcode,Detection,recognition,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="开篇： 谈起条码、二维码，你可能并不陌生… 从商场实体店到大街小巷的小商小贩都开始布满了腾讯爸爸和阿里爸爸的二维码之后，越来越多的人感受到了二维码的使用带来的共享支付的便捷性与优越性。我还记得当初微信推出二维码扫码功能时，觉得这相当的 Imagine！我们可以通过一张简单的二维码图片就可以扫码添加好友以及实现收付款功能。 随着二维码技术的不断普及，目前越来越多不同领域的应用都开始支持扫码功能。例如">
+<meta name="keywords" content="Barcode,Detection,recognition">
+<meta property="og:type" content="article">
+<meta property="og:title" content="条形码和二维码检测与识别原理">
+<meta property="og:url" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="开篇： 谈起条码、二维码，你可能并不陌生… 从商场实体店到大街小巷的小商小贩都开始布满了腾讯爸爸和阿里爸爸的二维码之后，越来越多的人感受到了二维码的使用带来的共享支付的便捷性与优越性。我还记得当初微信推出二维码扫码功能时，觉得这相当的 Imagine！我们可以通过一张简单的二维码图片就可以扫码添加好友以及实现收付款功能。 随着二维码技术的不断普及，目前越来越多不同领域的应用都开始支持扫码功能。例如">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/barcode.jpg">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/Ena.jpg">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/Ena.jpg">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/ena13_char.jpg">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/jiou.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/encode.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/ena13_char.jpg">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/barcode_detection.jpg">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/2DBarCode.jpg">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/2barcode.jfif">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/2barcode.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/qrcode_size.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/table2.1.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/table2.2.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/table2.3.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/complex_encode.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/eg1.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/eg1_end.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/codeerror.jfif">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/errotC.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/errorC1.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/errorC2.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/errorC4.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/errorC5.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/remind_bit.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/position_detection_pattern.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/alignment_pattern.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/centermodule_alignment_patterns.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/version8_qrcode.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/baidu.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/timing_pattern.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/baidu_time.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/format_info.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/format_info_bits.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/ErrorCorrect_L.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/version_info.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/version_info_location.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/data_code_fix.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/data_code_fixed.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/data_code_fix_updown.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/data_code_unfix_updown.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/data_code_fix_alignmentpattern.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/mask_shall.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/mask_shall_function.png">
+<meta property="og:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/mask_shall_process.png">
+<meta property="og:updated_time" content="2019-05-29T03:03:52.345Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="条形码和二维码检测与识别原理">
+<meta name="twitter:description" content="开篇： 谈起条码、二维码，你可能并不陌生… 从商场实体店到大街小巷的小商小贩都开始布满了腾讯爸爸和阿里爸爸的二维码之后，越来越多的人感受到了二维码的使用带来的共享支付的便捷性与优越性。我还记得当初微信推出二维码扫码功能时，觉得这相当的 Imagine！我们可以通过一张简单的二维码图片就可以扫码添加好友以及实现收付款功能。 随着二维码技术的不断普及，目前越来越多不同领域的应用都开始支持扫码功能。例如">
+<meta name="twitter:image" content="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/Img/barcode.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>条形码和二维码检测与识别原理 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">条形码和二维码检测与识别原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-13T11:25:03+08:00">
+                2018-11-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:52+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Barcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Barcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Barcode/条形码和二维码检测与识别原理/" class="leancloud_visitors" data-flag-title="条形码和二维码检测与识别原理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  10.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  38
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>开篇：</strong></p>
+<p>谈起条码、二维码，你可能并不陌生…</p>
+<p>从商场实体店到大街小巷的小商小贩都开始布满了腾讯爸爸和阿里爸爸的二维码之后，越来越多的人感受到了二维码的使用带来的共享支付的便捷性与优越性。我还记得当初微信推出二维码扫码功能时，觉得这相当的 Imagine！我们可以通过一张简单的二维码图片就可以扫码添加好友以及实现收付款功能。</p>
+<p>随着二维码技术的不断普及，目前越来越多不同领域的应用都开始支持扫码功能。例如：扫码登陆、扫码分享、扫码支付、扫码验真等等。那么，二维码是如何作为凭证使用的呢？How can ？！</p>
+<a id="more"></a>
+<p>其实，条码的使用不仅仅局限于上面我提到的二维条码，还有传统的一维条码，我们也称为条形码。如果注意观察，你会发现我们生活的方方面面都和条码相关：商品条形码、物流管理码、图书条形码、医疗码……</p>
+<p>本文我将以常见条码（一维条形码、二维码）使用为样例由浅入深、由易到难逐渐解析条码的检测与识别原理。下面开始记录我在条码检测与识别学习过程中的学习路线，以供日后复习使用。</p>
+<hr>
+<h3 id="1-条形码"><a href="#1-条形码" class="headerlink" title="1. 条形码"></a>1. 条形码</h3><p>条形码或称条码（barcode）是将宽度不等的多个黑条和空白，按照一定的编码规则排列，用以表达一组信息的图形标识符。常见的条形码是由反射率相差很大的黑条（简称：条）和白条（简称：空）排成的平行线图案及其对应编码字符组成的信息标识（如图所示：ISBN 国际标准书号）。</p>
+<p>条形码可以标出商品信息（物品的生产国、制造厂家、商品名称、生产日期等）、图书信息（图书出版国家、语言、出版社等）、邮件信息（邮件起止地点、类别、日期）等多样信息。因而条形码技术被广泛应用于商品流通、图书管理、邮政管理、仓储、交通运输、包装、配送等许多领域。</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/barcode.jpg" alt="avatar"></center>
+
+<blockquote>
+<p>为何使用黑条、白条标识条码？</p>
+</blockquote>
+<p>我们知道，物体的颜色是由其反射光的类型决定的。众所周知，黑色吸收光中的所有颜色，白色反射光中的所有颜色，此时条形码的光学特性最好。当然，也可以用其他两种颜色来表示条形码，只要两种颜色有不同的反射率，足够的对比度。</p>
+<hr>
+<h4 id="1-1-条形码组成"><a href="#1-1-条形码组成" class="headerlink" title="1.1 条形码组成"></a>1.1 条形码组成</h4><p>一个完整的条码，不论是采取何种规则印制的条形码，都由静区、起始字符、数据字符与终止字符组成。有些条码在数据字符与终止字符之间还有中间分隔符、校验字符（如下图所示）。</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/Ena.jpg" alt="avatar"></center>
+
+<p><strong>（1）静区：</strong></p>
+<p>静区也叫空白区，分为左空白区和右空白区，左空白区是让扫描设备做好扫描准备，右空白区是保证扫描设备正确识别条码的结束标记。</p>
+<p>为了防止左右空白区（静区）在印刷排版时被无意中占用，可在空白区加印一个符号（左侧没有数字时印’&lt;’, 右侧没有数字时加印’&gt;’）,这个符号就叫静区标记。主要作用就是防止静区宽度不足。只要静区宽度能保证，有没有这个符号都不影响条码的识别。</p>
+<p><strong>（2）起始/终止符：</strong></p>
+<p>指位于条码开始和结束的若干条与空，标志条码的开始和结束，同时提供了码制识别信息和阅读方向的信息。</p>
+<p><strong>（3）数据符：</strong></p>
+<p>位于条码中间的条、空结构，它包含条码所表达的特定信息。</p>
+<p><strong>（4）校验字符：</strong></p>
+<p>检验读取到的数据是否正确。不同编码规则可能会有不同的校验规则，根据不同的校验规则可以得到不同的校验字符。</p>
+<p><strong>基本单位：模块</strong></p>
+<p>构成条码的基本单位是模块，模块是指条码中最窄的条或空，模块的宽度通常以 mm 或 mil（千分之一英寸）为单位。构成条码的一个条或空称为一个单元，一个单元包含的模块数是由编码方式决定的。</p>
+<hr>
+<h4 id="1-2-条码运作原理"><a href="#1-2-条码运作原理" class="headerlink" title="1.2 条码运作原理"></a>1.2 条码运作原理</h4><p>(1) 识别原理</p>
+<p>要将按照一定规则编译出来的条形码转换成有意义的信息，需要经历<strong>扫描和译码</strong>两个过程。</p>
+<p>首先来看<strong>扫描</strong> &gt;&gt;&gt;</p>
+<p>条形码的扫描需要<strong>扫描器</strong>，扫描器利用自身光源照射条形码，再利用<strong>光电转换器</strong>接受反射的光线，将反射光线的明暗转换成<strong>数字信号（0，1）</strong>。并且白条、黑条的宽度不同，会导致相应的电信号持续时间长短也不同。</p>
+<p><strong>条码扫描器</strong>有光笔、CCD 、激光、影像四种。这里简单介绍常见的两种：激光、影像。</p>
+<p><strong>激光：</strong>以激光作为发光源的扫描器。又可分为线型、全角度等几种。</p>
+<p><strong>影像</strong>：以光源拍照利用自带硬解码板解码，通常影像扫描可以同时扫描一维及二维条码。</p>
+<p>再来看<strong>译码</strong> &gt;&gt;&gt;</p>
+<p>译码器可以通过测量脉冲数字电信号 0，1 的数目来判别条和空的数目。通过测量 0，1 信号持续的时间来判别条和空的宽度。此时所得到的数据（条形码符号）仍然是杂乱无章的，要想知道条形码所包含的信息，则需根据对应的编码规则，将条形符号换成相应的数字、字符信息。</p>
+<hr>
+<h4 id="1-3-条形码码制"><a href="#1-3-条形码码制" class="headerlink" title="1.3 条形码码制"></a>1.3 条形码码制</h4><p>码制即指：条码条和空的排列规则。目前，国际广泛使用的一维条码种类有：</p>
+<p>（1）EAN/UPC 码：商品条码，用于在世界范围内唯一标识一种商品。我们在超市中最常见的就是这种条码。</p>
+<p>（2）Code39/93/128 码：为目前国内企业内部自定义码制，可以根据需要确定条码的长度和信息。它编码的信息可以是数字，也可以包含字母，主要应用于工业生产线领域等。</p>
+<p>（3）ITF25 码（交叉 25 码）：主要应用于包装、运输（物流管理）以及国际航空系统的机票顺序编号等。</p>
+<p>（4）Codabar（库德巴码）：多用于血库、图书馆、包裹等的跟踪管理等。</p>
+<hr>
+<h4 id="1-4-条码重要参数"><a href="#1-4-条码重要参数" class="headerlink" title="1.4 条码重要参数"></a>1.4 条码重要参数</h4><p>（1）密度（Density）：</p>
+<p>条码的密度指单位长度的条码所表示的字符个数。对于一种码制而言，密度主要由模块的尺寸决定，模块尺寸越小，密度越大，所以密度值通常以模块尺寸的值来表示（如5mil）。</p>
+<p>通常 7.5 mil 以下的条码称为高密度条码，15 mil 以上的条码称为低密度条码。条码密度越高，要求条码识读设备的性能（如分辨率）也越高。</p>
+<p>（2）对比度（PCS）：</p>
+<p>条码符号的光学指标，PSC 值越大则条码的光学特性越好。PCS =（RL-RD）/RL×100%（RL：条的反射率 RD：空的反射率）</p>
+<hr>
+<p>上面我们已经基本掌握了条码的相关概念。下面我们以我国广泛流传的“ EAN-13 条形码”的识别为样例来印证上述所学。</p>
+<h4 id="1-5-EAN13-条形码"><a href="#1-5-EAN13-条形码" class="headerlink" title="1.5 EAN13 条形码"></a>1.5 EAN13 条形码</h4><p>EAN 码是国际物品编码协会制定的一种商品条码，通用于全世界。EAN 码符号有标准版（EAN-13）和缩短版（EAN-8）两种。标准版表示 13 位数字，又称为 EAN13 码;缩短版表示 8 位数字，又称 EAN8。两种条码的最后一位为校验位，由前面的 12 位或 7 位数字计算得出。</p>
+<p>EAN13 码是我国主要采取的商品码编码标准。EAN-13 码包含了商品的名称、生存厂商、产品型号、所属国家地区等信息。</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/Ena.jpg" alt="avatar"></center>
+
+<p>（1）EAN13 条形码编码字符格式说明</p>
+<ul>
+<li>EAN13 条形码一共编码有 13 位数字；</li>
+<li>前 2 位或者前 3 位称为前缀，表示国家、地区或者某种特定的商品类型。（例如：1 中国区条形码开头：690~699；2 图书类条形码开头：978~979）；</li>
+<li>前缀后的 4 位或者 5 位称为厂商代码，表示产品制造商；</li>
+<li>厂商代码后 5 位称为商品代码，表示具体的商品项目；</li>
+<li>最后1位是校验码，根据前 12 位计算而出，可以用来防伪以及识别校验。</li>
+</ul>
+<p>（2）EAN13 条形码编码说明</p>
+<p>EAN13 码是模块组合型条码。我们知道，模块是指条码中最窄的条或空，而构成条码的一个条或空都称为一个单元，并且一个单元可以由多个模块构成。一个模块宽的条（条形码黑色部分：bar）单元表示二进制 “1”，两个模块宽的条（黑）单元表示二进制 “11”，一个模块宽的空（条形码白色部分：space）单元表示二进制 “0”。 这样，便可以用二进制的 0、1 表示信息。</p>
+<p>我们已经知道了EAN13 条形码编码字符格式，它是 13 个数字字符。这里我们来看 EAN13 码中的每一个字符的编码细节：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/ena13_char.jpg" alt="avatar"></center>
+
+<p>在 EAN 码中，每一个编码字符（例如：数字 1），都是由两个条（黑）和两个空（白）组成。条和空又分别由 1~4 个同宽、同颜色的模块组成。每个字符总共有 7 个模块（宽/长度），并规定每个字符从外观上包含两个条、两个空。所以 EAN 码又称（7,2）编码（7 位二进制 bit）。 </p>
+<ul>
+<li>条形码一共有8个区域：左侧空白区-&gt;起始符-&gt;左侧数据符-&gt;中间分隔符-&gt;右侧数据符-&gt;校验符-&gt;终止符-&gt;右侧空白区</li>
+<li>编码字符为：0~9</li>
+<li>起始符/终止符编码为：101；分隔符编码为：01010</li>
+<li>0~9 每种字符有 3 种编码方式，A、B为左侧数据奇偶编码，C为右侧数据偶编码（不理解后面会讲解）</li>
+<li>起始符到终止符一共有 95 个长度（95=3+7*6+5+7*6+3）</li>
+<li>起始符到终止符一共有 59 个 bar 和 space（59=3+6*4+5+6*4+3）</li>
+</ul>
+<hr>
+<p>（3）EAN13 条形码编码细则</p>
+<p><strong>前置符</strong></p>
+<p>在 EAN-13 码以图形标识符表示时，基于上述理论，我们会发现：第一位字符没有其对应的条、空表示（难道第一位字符不用表示么？！）。其实，第一位字符只是没有显示表示（如图中第一位的：6），而是采用隐式表示，既不用条和空（表示），而用第2位~第7位（总六位）的奇偶性来隐式表示（后面会说）。</p>
+<p>现在，第一位用隐式表示，那么只需要表示 13-1=12 个字符，将 12 个字符，分成两半，左侧 6 个字符，右侧 6 个字符。</p>
+<p><strong>左/右侧数据符</strong></p>
+<p>左侧字符有奇偶性，右侧字符全是偶的。左侧的奇偶性取决于隐式表示的第一位字符（前置符/码）。具体奇偶性如图：A 代表偶数位，B 代表奇数位。如前置符 0 表示：左侧六个字符都是奇数位。</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/jiou.png" alt="avatar"></center>
+
+<blockquote>
+<p>那么奇、偶数位有什么用呢？ </p>
+</blockquote>
+<p>其实，相同字符在偶数位、和奇数位的二进制表示是不一样的（正如我们上面提到的 0~9 每个字符都有 3 中编码方式）。如图： </p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/encode.png" alt="avatar"></center>
+
+<p><strong>校验码</strong></p>
+<p>EAN-13 码最后一个字符是校验码，我们知道，校验码用来保证条形码识别的正确性。在前面 【1.1 条形码组成】 中我们介绍校验字符时提到：不同编码规则（码制）可能会有不同的校验规则，根据不同的校验规则可以得到不同的校验字符。</p>
+<p>这里我们给出<strong>条形码校验规则</strong> &gt;&gt;&gt;</p>
+<p>首先，把条形码从右往左依次编序号为“1,2,3,4……”从序号二开始把所有偶数序号位上的数相加求和，用求出的和乘3，再从序号三开始把所有奇数序号上的数相加求和，用求出的和加上刚才偶数序号上的数，然后得出和。再用10减去这个和的个位数，就得出校验码。</p>
+<p>样例条形码为：977167121601X（X为校验码）</p>
+<pre><code>1．1+6+2+7+1+7=24
+2．24×3=72
+3．0+1+1+6+7+9=24
+4．72+24=96
+5．10-6=4
+</code></pre><p>所以最后校验码 X=4。此条形码为：9771671216014。</p>
+<hr>
+<p>（4）EAN13 条形码识别原理</p>
+<p>这里，我们还是以 “识别条形码中一个字符” 为例，给出一个最基本的识别方法：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/ena13_char.jpg" alt="avatar"></center>
+
+<p>C1，C2，C3，C4 表示该字符中四个相邻的条（黑）或空（白）的宽度，T 是一个字符的宽度。</p>
+<p>我们知道，C1+C2+C3+C4=7（模块），用 n 表示一个模块的宽度，n=T/7。</p>
+<p>用 $$ m_i=C_i/n，i=1,2,3,4 $$，便可以得到编码。若 m1=1，m2=3，m3=1，m4=2,且条码排列位【条——空——条——空】,则当前字符二进制编码为: 【1 000 1 00】。我们发现当前字符为右侧偶字符 “7”。</p>
+<p>（5）条形码扫描方向的判别（为什么左侧字符要有奇偶性？）</p>
+<p>为了能够正确地解译条形码，在解译条形码符号所表示的数据之前，需要先进行条形码扫描方向的判别。我们知道EAN-13的起始字符和终止字符的编码结构都是 “101”，所以是不能通过起始字符和终止字符来判别它的扫描方向。</p>
+<p>通过【（3）EAN13 条形码编码细则】我们知道，EAN-13 码的编码结构右侧字符为全偶，而左侧字符的奇偶顺序由前置符决定，没有全偶的。从而可以利用此原理来确定 EAN-13 码的扫描方向。如果扫描到的前 6 个字符没有奇数位，即为反向扫描，否则为正向扫描。</p>
+<p>这里给出另外一个假设：假如固定左侧奇编码，右侧偶编码那么也能判断扫描方向是否相反；假如把前置码放到数据区也用 bar&amp;space 表示也更精确。</p>
+<h4 id="1-6-条形码检测与识别流程图"><a href="#1-6-条形码检测与识别流程图" class="headerlink" title="1.6 条形码检测与识别流程图"></a>1.6 条形码检测与识别流程图</h4><center><img src="/Barcode/条形码和二维码检测与识别原理/Img/barcode_detection.jpg" alt="avatar"></center>
+
+<h4 id="1-7-总结"><a href="#1-7-总结" class="headerlink" title="1.7 总结"></a>1.7 总结</h4><ul>
+<li>条形码有明确的编码标准，条形码检测就是根据编码标准逆向读出其所代表的信息；</li>
+<li>条形码检测的难点：剪裁出条形码区域并校正至理想状态；</li>
+<li>译码的依据：字符及其二进制表示的表；</li>
+<li>前置码并没有用 bar &amp; space 表示。</li>
+</ul>
+<h3 id="2-二维码"><a href="#2-二维码" class="headerlink" title="2. 二维码"></a>2. 二维码</h3><p>上面我们已经了解了一维条形码的检测与识别原理。其实，一维条形码只是在一个方向（一般是水平方向）表达信息，而在垂直方向则不表达任何信息，其一定的高度通常是为了便于阅读器的对准。一维条形码的应用可以提高信息录入的速度，减少差错率，但是一维条形码也存在一些不足之处：</p>
+<ul>
+<li>数据容量较小： 30个字符左右；</li>
+<li>只能包含字母和数字；</li>
+<li>条形码尺寸相对较大（空间利用率较低）；</li>
+<li>条形码遭到损坏后便不能阅读。</li>
+</ul>
+<p>一维条码所携带的信息量有限，如商品上的条码仅能容纳 13 位（EAN-13 码）阿拉伯数字，更多的信息只能依赖商品数据库的支持，离开了预先建立的数据库，这种条码就没有意义了，因此在一定程度上也限制了条码的应用范围。基于这个原因，在 90 年代发明了二维条码。二维条码除了具有一维条码的优点外，同时还有信息量大、可靠性高，保密、防伪性强等优点。</p>
+<p>二维条码依靠其庞大的信息携带量，能够把过去使用一维条码时存储于后台数据库中的信息包含在条码中，可以直接通过阅读条码得到相应的信息，并且二维条码还有错误修正技术及防伪功能，增加了数据的安全性。</p>
+<hr>
+<p>在水平和垂直方向的二维空间存储信息的条形码， 称为二维条形码（2-dimensional bar code），也称为二维码。它是用某种特定的几何图形按一定规律在平面（二维方向上）分布的黑白相间的图形记录数据符号信息的。</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/2DBarCode.jpg" alt="avatar"></center>
+
+<p>在代码编制上巧妙的利用构成计算机内部逻辑基础的 0，1 比特流的概念，使用若干个与二进制相对应的几何形体来表示文字数值信息，通过图像输入设备或光电扫描设备自动识读以实现信息自动处理.</p>
+<hr>
+<h4 id="2-1-二维码分类"><a href="#2-1-二维码分类" class="headerlink" title="2.1 二维码分类"></a>2.1 二维码分类</h4><p>与一维条形码一样，二维条形码也有许多不同的编码方法（码制）。根据码制的编码原理而言，主要可分为以下二种类型：</p>
+<p>（1）堆叠式/行排式二维码</p>
+<p>编码原理是建立在一维条码基础之上，将多个一维码在纵向堆叠而产生的。典型的码制如：Code16K、Code 49、PDF417等。</p>
+<p>（2）矩阵式二维码</p>
+<p>它是在一个矩形空间通过黑、白像素在矩阵中的不同分布进行编码。在矩阵相应元素位置上，用点（方点、圆点或其他形状）的出现表示二进制 “1”，点的不出现表示二进制的 “0”，点的排列组合确定了矩阵式二维条码所代表的意义。典型的码制如：Aztec、Maxi Code、QR Code、Data Matrix等。</p>
+<p>在许多种类的二维条形码中，常用的码制有：Data Matrix, Maxi Code, Aztec, QRCode, Vericode, PDF417, Ultracode, Code 49, Code 16K 等,其中：</p>
+<ul>
+<li>Data Matrix 主要用于电子行业小零件的标识，如 Intel 的奔腾处理器的背面就印制了这种码。</li>
+<li>Maxi Code 是由美国联合包裹服务（UPS）公司研制的，用于包裹的分拣和跟踪。</li>
+<li>Aztec 是由美国韦林（Welch Allyn）公司推出的，最多可容纳3832个数字或3067个字母字符或1914个字节的数据。</li>
+</ul>
+<p>这里我们提一下 PDF417 码，尽管 PDF417 码目前颇受欢迎，但我们不谈其流通性。PDF 是取英文：Portable Data File 三个单词的首字母的缩写，意为“便携数据文件”。我们可以认为<strong>条码就寓意便携数据文件</strong>，这对我们理解条码很重要。</p>
+<p>最为常见的二维码为：QR Code，QR 全称:Quick Response，是一个近几年来移动设备上超流行的一种编码方式，它比传统的 Bar Code 条形码能存更多的信息，也能表示更多的数据类型：比如：字符，数字，日文，中文等等。因此很多人习惯将二维码称为 QR 码。</p>
+<hr>
+<p>下面我们便以“ QR Code 码制二维码”为样例来解析二维码运作以及识别原理：</p>
+<h4 id="2-2-QR-Code-运作原理"><a href="#2-2-QR-Code-运作原理" class="headerlink" title="2.2 QR Code 运作原理"></a>2.2 QR Code 运作原理</h4><h5 id="2-2-1-二维码基础知识"><a href="#2-2-1-二维码基础知识" class="headerlink" title="2.2.1 二维码基础知识"></a>2.2.1 二维码基础知识</h5><p>二维码存在 40 种尺寸。在官方文档中，尺寸又被命名为 Version。尺寸与 Version 存在线性关系：Version 1 是 21×21 的矩阵，Version 2 是 25×25 的矩阵，每增加一个 Version，尺寸都会增加 4，故尺寸 Size 与 Version 的线性关系为：Size=(Version−1)×4 。</p>
+<p>例如：Version 的最大值是 40，故尺寸最大值是：(40-1)*4+21 = 177，即 177 x 177 的矩阵。</p>
+<p>下面给出二维码（QR Code）结构示意图：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/2barcode.jfif" alt="avatar"><img src="/Barcode/条形码和二维码检测与识别原理/Img/2barcode.png" alt="avatar"></center>
+
+<p>二维码的各部分构成都有自己的作用，基本上可被分为定位、功能数据、数据内容三部分：</p>
+<blockquote>
+<p>定位图案： </p>
+</blockquote>
+<ul>
+<li>Position Detection Pattern（定位图案）：用于对二维码矩形的定位，对每个QR码来说，位置都是固定存在的，只是大小规格会有所差异。用三个定位图案即可标识并确定一个二维码矩形的位置和方向了；</li>
+<li>Separators for Position Detection Patterns（定位图案分割器）：用白边框将定位图案与其他区域区分；</li>
+<li>Timing Patterns（时序图案）：用于指示标识密度和确定坐标系，二维码如果尺寸过大，扫描时容易畸变，时序图案的作用可以防止扫描时畸变的产生；</li>
+<li>Alignment Patterns（校准图案）：只有在 Version 2 及其以上才会需要，校正标识用于进一步校正坐标系。校正标识的数量取决于版本；</li>
+</ul>
+<blockquote>
+<p>功能数据： </p>
+</blockquote>
+<ul>
+<li>Format Information（格式信息）：存在于所有尺寸中，存放格式化数据，表示该二维码的纠错级别，分为L、M、Q、H：</li>
+</ul>
+<p>级别 L、M、Q、H 分别表示:</p>
+<pre><code>level L : 最大 7% 的错误能够被纠正；
+level M : 最大 15% 的错误能够被纠正；
+level Q : 最大 25% 的错误能够被纠正；
+level H : 最大 30% 的错误能够被纠正；
+</code></pre><ul>
+<li>Version Information（版本信息）：即二维码的规格，QR码符号共有40种规格的矩阵（一般为黑白色），从21x21（版本1），到177x177（版本40），每一版本符号比前一版本 每边增加 4 个模块。 需要预留两块 3×6 的区域存放部分版本信息；</li>
+</ul>
+<blockquote>
+<p>数据内容：剩余部分存储数据内容</p>
+</blockquote>
+<ul>
+<li>Data Code(数据码)：使用黑白的二进制网格编码内容。8个格子可以编码一个字节；</li>
+<li>Error Correction Code(纠错码)：用于修正二维码损坏带来的错误；</li>
+</ul>
+<hr>
+<h5 id="2-2-2-二维码数据编码说明"><a href="#2-2-2-二维码数据编码说明" class="headerlink" title="2.2.2 二维码数据编码说明"></a>2.2.2 二维码数据编码说明</h5><p>数据编码就是把目标字符等转换成 QR 码的方法。这一部分我们来看 QR 码支持的编码内容（或者称为数据编码模式），包括纯数字、数字和字符混合编码、8 位字节码和包含汉字在内的多字节字符。</p>
+<p>介绍具体的编码之前，先说一下 QR 码的<strong>最大容量问题</strong>：</p>
+<p>QR码的最大容量取决于选择的版本、纠错级别和编码模式（Mode:数字、字符、多字节字符等）。以“Version 1、纠错级别为Level Q 的 QR 码”为例，可以存储 27 个纯数字，或 17 个字母数字混合字符或 11 个 8bit 字节数据。如果要存储同样多的内容同时提高纠错级别，则需要采用更高的版本。版本 1~3 数据容量、纠错码容量对照如下表：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/qrcode_size.png" alt="avatar"></center>
+
+<hr>
+<h6 id="（1）数据编码信息"><a href="#（1）数据编码信息" class="headerlink" title="（1）数据编码信息"></a>（1）数据编码信息</h6><p>这里我们会介绍二维码数据编码涉及到的两个编码信息：</p>
+<p><strong>[1.1] 模式标识符(Mode Indicator)</strong></p>
+<p>QR 码的模式（Mode)就是前文提到的数字、字符、8bit 字节码、多字节码等。对于不同的模式，都有对应的模式标识符（Mode Indicator)来帮助解码程序进行匹配。模式标识符用 4 bit 的二进制数表示，如下图所示：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/table2.1.png" alt="avatar"><br><br>图 2.1 二维码支持的数据编码模式（注：中文编码模式为 1101；）</center>
+
+<p><strong>[1.2] 文本串计数标识符（Character count indicator)</strong></p>
+<p>表 2.2 中显示了不同版本（即不同尺寸）的二维码，不同编码模式下用于编码字符串的长度的二进制位数（bits）。如要编码的文本串的长度为 8 个字符（Version 1；采用 Alphanumeric 编码模式），混合字符的长度为 9bit，因此将字符个数8编码为9位二进制表示：000001000。</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/table2.2.png" alt="avatar"><br><br>图 2.2 字符计数指示器中的位数 </center>
+
+<hr>
+<h6 id="（2）数据内容编码过程解读"><a href="#（2）数据内容编码过程解读" class="headerlink" title="（2）数据内容编码过程解读"></a>（2）数据内容编码过程解读</h6><p><strong>[1.1] 数字模式下的编码</strong></p>
+<p>在数字模式下，数据被限制为 3 个数字一段，分成若干段。如：”123456” 将分成”123” 和 “456”，分别被编码成 10bit（Version 1 to 9）的二进制数。“123” 的 10bit 二进制表示法为：0001111011，实际上就是二进制的 123。    </p>
+<p>当数据的长度不足 3 个数字时，如果只有 1 个数字则用 4bit，如果有 2 个数字就用 7 个 bit 来表示。如：”9876” 被分成 “987” 和 “6” 两段，因此被表示为”1111011011 0110”。</p>
+<p><strong>[1.2] 混合字符模式下的编码</strong></p>
+<p>字符编码的范围有：数字 0~9；大写 A~Z（无小写）；几个符号【$ % * + - . / 】和【空格】。将上述字符映射为一个索引表，如下图所示（图中 Char 表示字符，Value 表示字符对应的索引值）： </p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/table2.3.png" alt="avatar"></center>
+
+<p>字符编码的过程，就是将每两个字符分为一组，然后转成上图的 45 进制，再转为 11bits 的二进制结果。如下所示，每段的第一个字符乘上 45，再用第二个数字相加。因此每段变成了 11bit 的二进制码，如果字符个数只有 1 个，则用 6bit 表示。</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/complex_encode.png" alt="avatar"></center>
+
+<p><strong>[1.3] 8-bit Byte模式下的编码</strong></p>
+<p>8bit 字节数据不经编码转换直接保存。</p>
+<p><strong>[1.4] 其它模式下的编码</strong></p>
+<p>其他类型的编码本文中不详细说明（如中文和日文都是双字节编码）。其中包括：</p>
+<ul>
+<li>特殊字符集(Extended Channel Interpretation Mode)：主要用于特殊的字符集，并不是所有的扫描器都支持这种编码；</li>
+<li>混合编码(Structured Append Mode)：说明该二维码中包含了多种编码格式（模式）；</li>
+</ul>
+<p><strong>综上所述，一个字符串数据的QR 编码格式现在我们可以看为：【模式标识符 + 文本串计数标识符 + 数据内容编码】。</strong></p>
+<hr>
+<p>基于上述各数据编码模式过程说明，下面分别用一个数字编码与字符编码的示例，说明数据编码的过程：</p>
+<p>（1）例程 1：数字编码</p>
+<p><strong>问题</strong>：对于 Version 1 尺寸的二维码，纠错级别为 H，编码为：01234567</p>
+<p><strong>解析步骤</strong>：</p>
+<pre><code>1. 将上述数字分为三组：012, 345, 67
+2. 查询图 2.2 表格内容，Version 1 二维码的数字编码应转换为 10bits 的二进制数字，故将上面三组数字转为二进制分别为：012→0000001100, 345→0101011001, 67→1000011；
+3. 将三个二进制串连接起来：0000001100 0101011001 1000011；
+4. 将数字的个数转成二进制：对于数字编码，数字长度依旧用图 2.2 表格中查到的 10bits 二进制数字来表示，数字共有 8 个，故数字个数的二进制形式为：8→0000001000；
+5. 查询图 2.1 表格内容，数字编码模式的标志符为： 0001，将编码标志与步骤 4 编码结果加到步骤 3 结果之前，故最终结果为：0001 0000001000 0000001100 0101011001 1000011
+</code></pre><p>（2）例程2：字符编码</p>
+<p><strong>问题</strong>：对于 Version 1 尺寸的二维码，纠错级别为 H，编码为：AE-86</p>
+<p><strong>解析步骤</strong>：</p>
+<pre><code>1. 在图 2.3 的字符索引表中分别找到 AE-86 五个字符的索引分别为：(10, 14, 41, 8, 6)；
+2. 将五个字符两两分组：(10, 14) (41, 8) (6)；
+3. 字符编码应将字符组转换为 11bits 的二进制，故上述三组字符首先转为 45 进制后再转为二进制： 
+    * (10, 14)：转为 45 进制：10×45+14=464；再转为 11bits 的二进制：00111010000；
+    * (41, 8)：转为 45 进制：41×45+8=1853；再转为 11bits 的二进制：11100111101；
+    * (6)：转为 45 进制：6；再转为 6bits 的二进制：000110；
+4. 将步骤 3 中得到的三个二进制结果连接起来：00111010000 11100111101 000110；
+5. 查询图 2.2 表格内容，Version 1 二维码的字符个数应转换为 9bits 的二进制数字，对于 5 个字符，二维码字符个数转为 9bits 二进制为：000000101；
+6. 查询图 2.1 表格内容，字符编码的标志为 0010，将编码标志与步骤 5 编码结果加到步骤 4 结果之前，故最终编码结果为：0010 000000101 00111010000 11100111101 000110；
+</code></pre><hr>
+<h6 id="（3）结束符与补齐符"><a href="#（3）结束符与补齐符" class="headerlink" title="（3）结束符与补齐符"></a>（3）结束符与补齐符</h6><p>对于结束符和补齐符，我们直接举例进行说明：</p>
+<p><strong>问题</strong>：对于 Version 1 尺寸的二维码，纠错级别为 H，以一串英文串作为编码：CHANDLERGENG</p>
+<p>按照 2.3.2 字符编码例程进行分析，得到编码如下：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/eg1.png" alt="avatar"></center>
+
+<p>注意：上述图中字符数编码应该为：000001100，而非 00001101（13），下面也一样。</p>
+<p><strong>[1.1] 结束符</strong></p>
+<p>对于上述字符的编码完成后，需要在最后加上结束符。结束符为连续 4 个 0 值。加上结束符后，得到的编码如下：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/eg1_end.png" alt="avatar"></center>
+
+<p>如果所有的编码加起来不是 8 的倍数，则还需要在后面加上足够的 0。如上面一共有 83bits，所以与 8 的倍数还相差两位，故在最后加上 5 个 0，上表最终的数据变为： </p>
+<p>00100000 01100010 00101101 00111011 00101001 01111001 01001000 10101101 11101000 00110110 00000000</p>
+<p><strong>[1.2] 补齐符</strong></p>
+<p>如果编码后的数据不足版本及纠错级别的最大容量 Bits 数限制，则需要在编码最后加上补齐符(Padding Bytes)。<br>补齐符内容是不停重复两个字节：11101100 和 00010001。这两个二进制转成十进制，分别为 236 与17，具体不知道为什么选这两个值……关于每一个Version的每一种纠错级别的最大Bits限制，可以参看 QR Code Spec 的第35页到44页的 Table-7 一表（笔者参考的是《 ISO/IEC 18004 》2000 版），大致如下图 3.1 所示：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/codeerror.jfif" alt="avatar"><br><br>图3.1 二维码纠错级别的最大Bits限制（部分）</center>
+
+<p>上图 3.1 中提到的 codewords，可译为码字，一个码字是一个字节。对于 Version 1 的 H 纠错级别，共需要 26 个码字，即 208bits。现在加上用 0 补全的结束符，已经有了 88bits（11码字），故还需要补上 15 码字。补齐后的编码数据即为<strong>数据码(Data Codewords)</strong>。</p>
+<hr>
+<h5 id="2-2-3-二维码纠错码"><a href="#2-2-3-二维码纠错码" class="headerlink" title="2.2.3 二维码纠错码"></a>2.2.3 二维码纠错码</h5><p>前文提到了不同的纠错级别(Error Correction Code Level)。有了纠错机制，才可以使得有些二维码有了残缺也可以扫码解析出来，才可以使得二维码中心位置可以供某些商家加上对解析不必要的图标。 </p>
+<p>如上文种介绍的，二维码一共有四种纠错级别：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/errotC.png" alt="avatar"></center>
+
+<h6 id="（1）纠错码"><a href="#（1）纠错码" class="headerlink" title="（1）纠错码"></a>（1）纠错码</h6><p>二维码对数据码加上纠错码的过程，首先要对<strong>数据码进行分组</strong>，即分成不同的<strong>块(Block)</strong>。参看如上图 3.1 所示 QR Code Spec 的第35页到44页的 Table-7 中的最下方说明了分组的定义表：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/errorC1.png" alt="avatar"><br><br>图4.1 二维码纠错级别说明（部分）</center>
+
+<p>对于表中的最后两列的内容：</p>
+<ul>
+<li>纠错块个数(Number of error correction blocks)：需要划分纠错块的个数；</li>
+<li>纠错块码字数(Error Correction Code Per Blocks)：每个块中的码字个数，即有多少个字节 Bytes；</li>
+</ul>
+<p>表中最下面关于 (c,k,r) 的解释：</p>
+<ul>
+<li>c：码字总个数；</li>
+<li>k：数据码个数；</li>
+<li>r：纠错码容量；</li>
+<li>c,k,r的关系公式：c = k + 2 × r</li>
+</ul>
+<h6 id="（2）纠错码添加"><a href="#（2）纠错码添加" class="headerlink" title="（2）纠错码添加"></a>（2）纠错码添加</h6><p>以上图中的 Version 5 + H 纠错机为例：图中红色方框说明共需要 4 个块（上下行各一组，每组 2 个块）。</p>
+<p>第一组的属性：</p>
+<ul>
+<li>纠错块个数 = 2：该组中有两个块；</li>
+<li>(c, k, r) = (33, 11, 11)：该组中每个块共有 33 个码字，其中 11 个数据码， 11×2=22 个纠错码；</li>
+</ul>
+<p>第二组的属性：</p>
+<ul>
+<li>纠错块个数 = 2：该组中有两个块；</li>
+<li>(c, k, r) = (34, 12, 11)：该组中每个块共有 34 个码字，其中 12 个数据码， 11×2=22 个纠错码；</li>
+</ul>
+<p>具体示例如下表所示，且由于使用二进制会使得表格过大，故转为范围在 0~255 的十进制。其中组 1 的每个块，都有 11 个数据码， 22 个纠错码；组 2 的每个块，都有 12 个数据码，22 个纠错码。</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/errorC2.png" alt="avatar"></center>
+
+<p>二维码的纠错码主要是通过里德-所罗门纠错算法(Reed-Solomon Error Correction)实现的。</p>
+<hr>
+<h5 id="2-2-4-最终编码"><a href="#2-2-4-最终编码" class="headerlink" title="2.2.4 最终编码"></a>2.2.4 最终编码</h5><p>此时得到了数据，但还不能开始画图，因为二维码还需要将数据码与纠错码的各个字节交替放置。</p>
+<h6 id="（1）穿插放置"><a href="#（1）穿插放置" class="headerlink" title="（1）穿插放置"></a>（1）穿插放置</h6><p>继续以上一小节中给出的示例为例，给出其穿插放置的过程。</p>
+<p>上一小节示例中的数据码如下表所示：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/errorC4.png" alt="avatar"></center>
+
+<p>提取每一列数据：</p>
+<ul>
+<li>第一列：67, 66, 247, 194；</li>
+<li>第二列：85, 7, 119, 6；</li>
+<li>……</li>
+<li>第十一列：6, 199, 134, 17；</li>
+<li>第十二列：151, 236；</li>
+</ul>
+<p>将上述十二列的数据拼在一起：67, 66, 247, 194, 85, 7, 119, 6,…, 6, 199, 134, 17, 151, 236。</p>
+<p>纠错码如下表所示：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/errorC5.png" alt="avatar"></center>
+
+<p>同样的方法，将 22 列数据放在一起：199, 177, 96, 173, 11, 212, 60, 24, …, 148, 117, 118, 76, 235, 129, 134, 40。</p>
+<p>上述部分即为二维码的数据区。</p>
+<h5 id="2-2-5-剩余位-Remainder-Bits"><a href="#2-2-5-剩余位-Remainder-Bits" class="headerlink" title="2.2.5 剩余位 (Remainder Bits)"></a>2.2.5 剩余位 (Remainder Bits)</h5><p>对于某些 Version 的二维码，得到上面的数据区结果长度依旧不足，需要加上最后的剩余位。比如对于 Version 5 + H 纠错等级的二维码，剩余位需要加 7bits，即加 7 个 0。参看 QR Code Spec 的 Table-1 一表即可查询不同 Version 的剩余位信息，如下图 5.1 所示：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/remind_bit.png" alt="avatar"><br><br>图5.1 不同 Version 的剩余位</center>
+
+<h4 id="2-3-二维码的绘制"><a href="#2-3-二维码的绘制" class="headerlink" title="2.3 二维码的绘制"></a>2.3 二维码的绘制</h4><p>终于讲到二维码绘制过程了，绘制的过程按照顺序对照二维码结构示意图中各个重要部分依次讲解:</p>
+<h5 id="2-3-1-定位图案-Position-Detection-Pattern"><a href="#2-3-1-定位图案-Position-Detection-Pattern" class="headerlink" title="2.3.1 定位图案 (Position Detection Pattern)"></a>2.3.1 定位图案 (Position Detection Pattern)</h5><p>首先在二维码的三个角上绘制定位图案。定位图案与尺寸（Version）大小无关，一定是一个 7×7 的矩阵。如下图 6.1 所示：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/position_detection_pattern.png" alt="avatar"><br><br>图6.1 定位图案 (Position Detection Pattern) </center>
+
+<h5 id="2-3-2-对齐图案-Alignment-Pattern"><a href="#2-3-2-对齐图案-Alignment-Pattern" class="headerlink" title="2.3.2 对齐图案 (Alignment Pattern)"></a>2.3.2 对齐图案 (Alignment Pattern)</h5><p>然后绘制对齐图案。对齐图案与尺寸大小无关，一定是一个 5×5 的矩阵。如下图 6.2 所示：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/alignment_pattern.png" alt="avatar"><br><br>图6.2 对齐图案 (Alignment Pattern)</center>
+
+<p>对齐图案绘制的位置，可参看 QR Code Spec 的 Table-E.1 一表查询，部分内容如下图 6.3 所示：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/centermodule_alignment_patterns.png" alt="avatar"><br><br>图 6.3 对齐图案位置索引表（部分）</center>
+
+<p>下图 6.4 是上述表格中 Version 8 的一个例子，对于 Version 8 的二维码，行列值在 6, 24, 42 的几个点都会有对齐图案。</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/version8_qrcode.png" alt="avatar"><br><br>图6.4 对齐图案例程 1 </center>
+
+<p>下面我会给出一个可以扫描后可打开百度首页链接的二维码图片样例。该二维码中只有一个对齐图案，故 Version 应该在 V2—V6 之间。</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/baidu.png" alt="avatar"><br><br>图6.5 对齐图案例程 2 </center>
+
+<h5 id="2-3-3-时序图案-Timing-Pattern"><a href="#2-3-3-时序图案-Timing-Pattern" class="headerlink" title="2.3.3 时序图案 (Timing Pattern)"></a>2.3.3 时序图案 (Timing Pattern)</h5><p>时序图案是两条连接三个定位图案的坐标线，如下图 6.6 所示：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/timing_pattern.png" alt="avatar"><br><br>图6.6 时序图案例程 1</center>
+
+<p>依旧以上面百度链接二维码为例，其时序图案如图 6.7 所示：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/baidu_time.png" alt="avatar"><br><br>图6.7 时序图案例程 2</center>
+
+<h5 id="2-3-4-格式信息"><a href="#2-3-4-格式信息" class="headerlink" title="2.3.4 格式信息"></a>2.3.4 格式信息</h5><p>格式信息如下图 6.8 所示： </p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/format_info.png" alt="avatar"><br><br>图6.8 格式信息</center>
+
+<p>格式信息在定位图案周围分布，由于定位图案个数固定为 3 个，且大小固定，故格式信息也是一个固定 15bits 的信息。每个 bit 的位置如下图 6.9 所示：（注：图中的 Dark Module 是固定永远出现的）</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/format_info_bits.png" alt="avatar"><br><br>图6.9 格式信息位置</center>
+
+<p>15bits 中数据，按照 5bits 的数据位 + 10bits 纠错位的顺序排列：</p>
+<ul>
+<li>数据位占 5bits：其中 2bits 用于表示使用的纠错等级 (Error Correction Level)，3bits 用于表示使用的蒙版 (Mask) 类别；</li>
+<li>纠错位占 10bits：主要通过 BCH Code 计算；</li>
+</ul>
+<p>为了减少扫描后图像识别的困难，最后还需要将 15bits 与 101010000010010 做异或 XOR 操作。因为我们在原格式信息中可能存在太多的 0 值（如纠错级别为 00，蒙版 Mask 为 000），使得格式信息全部为白色，这将增加分析图像的困难。</p>
+<p>纠错等级的编码如下图 6.10 的表格所示：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/ErrorCorrect_L.png" alt="avatar"><br><br>图6.10 纠错等级编码</center>
+
+<p>关于蒙版图案的生成，在后文 2.3.7 中具体说明。格式信息的示例如下：</p>
+<p>假设存在纠错等级为 M（对应 00），蒙版图案对应 000，5bits 的数据位为 00101，10bits 的纠错位为 0011011100：<br>则生成了在异或操作之前的 bits 序列为：001010011011100<br>与 101010000010010 做异或 XOR 操作，即得到最终格式信息：100000011001110</p>
+<h5 id="2-3-5-版本信息-Version-Information"><a href="#2-3-5-版本信息-Version-Information" class="headerlink" title="2.3.5 版本信息 (Version Information)"></a>2.3.5 版本信息 (Version Information)</h5><p>对于 Version 7 及其以上的二维码，需要加入版本信息。如下图 6.11 蓝色部分所示：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/version_info.png" alt="avatar"><br><br>图6.11 版本信息</center>
+
+<p>版本信息依附在定位图案周围，故大小固定为 18bits。水平竖直方向的填充方式如下图 6.12 所示：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/version_info_location.png" alt="avatar"><br><br>图6.12 版本信息填充方式</center>
+
+<p>18bits 的版本信息中，前 6bits 为版本号 (Version Number)，后 12bits 为纠错码 (BCH Bits)。示例如下：</p>
+<p>假设存在一个 Version 为 7 的二维码（对应 6bits 版本号为 000111），其纠错码为 110010010100；<br>则版本信息图案中的应填充的数据为：000111110010010100</p>
+<h5 id="2-3-6-数据码与纠错码"><a href="#2-3-6-数据码与纠错码" class="headerlink" title="2.3.6 数据码与纠错码"></a>2.3.6 数据码与纠错码</h5><p>此后即可填充前面章节得到的数据内容了。填充的思想如下图 6.13 的 Version 3 二维码所示，从二维码的右下角开始，沿着红线进行填充，遇到非数据区域，则绕开或跳过。</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/data_code_fix.png" alt="avatar"><br><br>图6.13 二维码数据填充（原始版）</center>
+
+<p>然而这样难以理解，我们可以将其分为许多小模块，然后将许多小模块串连在一起，如下图 6.14 所示（截取自 QR Code Spec 的图 15）：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/data_code_fixed.png" alt="avatar"><br><br>图6.14 二维码数据填充</center>
+
+<p>小模块可以分为常规模块和非常规模块，每个模块的容量都为 8。常规情况下，小模块都为宽度为 2 的竖直小矩阵，按照方向将 8bits 的码字填充在内。非常规情况下，模块会产生变形。 </p>
+<p>填充方式上图 6.14，图中深色区域（如 D1 区域）填充数据码，白色区域（如 E15 区域）填充纠错码。遍历顺序依旧从最右下角的 D1 区域开始，按照蛇形方向（D1→D2→…→D28→E1→E2→…→E16→剩余码）进行小模块的填充，并从右向左交替着上下移动。下面给出若干填充原则：</p>
+<p><strong>原则 1：</strong>无论数据的填充方向是向上还是向下，常规模块（即 8bits 数据全在两列内）的排列顺序应是从右向左，如下图 6.15所示；</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/data_code_fix_updown.png" alt="avatar"><br><br>图6.15 常规模块内的填充方向</center>
+
+<p><strong>原则 2：</strong>每个码字的最高有效位（即第7个bit）应置于第一个可用位。对于向上填充的方向，最高有效位应该占据模块的右下角；向下填充的方向，最高有效位占据模块的右上方。 </p>
+<p>注：对于某些模块（以下图 6.17 为例），如果前一个模块在右边模块的列内部结束，则该模块成为不规则模块，且与常规模块相比，原本填充方向向上时，最高位应该在右上角，此时则变为左下角； </p>
+<p><strong>原则 3：</strong>当一个模块的两列同时遇到对齐图案或时序图案的水平边界时，它将继续在图案的上方或下方延续；</p>
+<p><strong>原则 4：</strong>当模块到达区域的上下边界（包括二维码的上下边界、格式信息、版本信息或分隔符）时，码字中任何剩余 bits 将填充在左边的下一列中，且填充方向反转；如下图 6.16 中的两个模块遇到了二维码的上边界，则方向发生变化；</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/data_code_unfix_updown.png" alt="avatar"><br><br>图6.16 非常规模块填充方向的改变（举例于 QR Code Spec 图 13）</center>
+
+<p><strong>原则 5：</strong>当模块的右一列遇到对齐图案，或遇到被版本信息占据的区域时，数据位会沿着对齐图案或版本信息旁边的一列继续填充，并形成一个不规则模块。如果当前模块填充结束之前，下一个的两列都可用，则下一个码字的最高有效位应该放在单列中，如下图 6.17 所示：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/data_code_fix_alignmentpattern.png" alt="avatar"><br><br>图6.17 模块单列填充</center>
+
+<h5 id="2-3-7-蒙版图案"><a href="#2-3-7-蒙版图案" class="headerlink" title="2.3.7 蒙版图案"></a>2.3.7 蒙版图案</h5><p>按照上述思路即可将二维码填充完毕。但是那些点并不均衡，如果出现了大面积的空白或黑块，扫描识别会十分困难，所以按照在前文 6.4 中格式信息的处理思路，对整个图像与蒙版进行蒙版操作(Masking)，蒙版操作即为异或 XOR 操作。<br>二维码又 8 种蒙版可以使用，如下图 6.18 所示，公式也在图中说明。蒙版只会和数据区进行异或操作，不会影响与格式信息相关的功能区。</p>
+<p><strong>注：</strong>选择一个合适的蒙版也是有一定算法的。</p>
+<p>蒙版图案如下图 6.18 所示，对应的产生公式与蒙版 ID 如下图 6.19 的表格所示：</p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/mask_shall.png" alt="avatar"><br><br>图6.18 蒙版图案</center>
+
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/mask_shall_function.png" alt="avatar"><br><br>图6.19 蒙版图案产生公式</center>
+
+<p>蒙版操作的过程与对比图如下图 6.20 所示，图中最上层是没有经过蒙版操作的原始二维码，其中存在大量黑色区域，难以后续的分析识别。经过两种不同蒙版的处理，可以看到最后生成的二维码变的更加混乱，容易识别。 </p>
+<center><img src="/Barcode/条形码和二维码检测与识别原理/Img/mask_shall_process.png" alt="avatar"><br><br>图6.20 蒙版操作示例</center>
+
+<p>蒙版操作之后，得到的二维码即为最终我们平常看到的结果。</p>
+<h3 id="3-参考内容"><a href="#3-参考内容" class="headerlink" title="3. 参考内容"></a>3. 参考内容</h3><p><a href="https://blog.csdn.net/ajianyingxiaoqinghan/article/details/78837864" target="_blank" rel="noopener">二维码生成原理及解析代码</a></p>
+<p><a href="https://blog.csdn.net/lovegonghui/article/details/50747195" target="_blank" rel="noopener">QR 码生成原理 QR Code 编码方式</a></p>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/Barcode/条形码和二维码检测与识别原理/" title="条形码和二维码检测与识别原理">http://yoursite.com/Barcode/条形码和二维码检测与识别原理/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Barcode/" rel="tag"><i class="fa fa-tag"></i> Barcode</a>
+          
+            <a href="/tags/Detection/" rel="tag"><i class="fa fa-tag"></i> Detection</a>
+          
+            <a href="/tags/recognition/" rel="tag"><i class="fa fa-tag"></i> recognition</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/SVN/SVN-配置以及使用过程问题记录/" rel="next" title="SVN 配置以及使用过程问题记录">
+                <i class="fa fa-chevron-left"></i> SVN 配置以及使用过程问题记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/TensorFlow/循环神经网络/" rel="prev" title="TensorFlow 实战之循环神经网络（Recurrent Neural Network）">
+                TensorFlow 实战之循环神经网络（Recurrent Neural Network） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-条形码"><span class="nav-text">1. 条形码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-条形码组成"><span class="nav-text">1.1 条形码组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-条码运作原理"><span class="nav-text">1.2 条码运作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-条形码码制"><span class="nav-text">1.3 条形码码制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-条码重要参数"><span class="nav-text">1.4 条码重要参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-EAN13-条形码"><span class="nav-text">1.5 EAN13 条形码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-6-条形码检测与识别流程图"><span class="nav-text">1.6 条形码检测与识别流程图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-7-总结"><span class="nav-text">1.7 总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-二维码"><span class="nav-text">2. 二维码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-二维码分类"><span class="nav-text">2.1 二维码分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-QR-Code-运作原理"><span class="nav-text">2.2 QR Code 运作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-二维码基础知识"><span class="nav-text">2.2.1 二维码基础知识</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-2-二维码数据编码说明"><span class="nav-text">2.2.2 二维码数据编码说明</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#（1）数据编码信息"><span class="nav-text">（1）数据编码信息</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（2）数据内容编码过程解读"><span class="nav-text">（2）数据内容编码过程解读</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（3）结束符与补齐符"><span class="nav-text">（3）结束符与补齐符</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-3-二维码纠错码"><span class="nav-text">2.2.3 二维码纠错码</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#（1）纠错码"><span class="nav-text">（1）纠错码</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（2）纠错码添加"><span class="nav-text">（2）纠错码添加</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-4-最终编码"><span class="nav-text">2.2.4 最终编码</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#（1）穿插放置"><span class="nav-text">（1）穿插放置</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-5-剩余位-Remainder-Bits"><span class="nav-text">2.2.5 剩余位 (Remainder Bits)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-二维码的绘制"><span class="nav-text">2.3 二维码的绘制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-1-定位图案-Position-Detection-Pattern"><span class="nav-text">2.3.1 定位图案 (Position Detection Pattern)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-2-对齐图案-Alignment-Pattern"><span class="nav-text">2.3.2 对齐图案 (Alignment Pattern)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-3-时序图案-Timing-Pattern"><span class="nav-text">2.3.3 时序图案 (Timing Pattern)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-4-格式信息"><span class="nav-text">2.3.4 格式信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-5-版本信息-Version-Information"><span class="nav-text">2.3.5 版本信息 (Version Information)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-6-数据码与纠错码"><span class="nav-text">2.3.6 数据码与纠错码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-7-蒙版图案"><span class="nav-text">2.3.7 蒙版图案</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-参考内容"><span class="nav-text">3. 参考内容</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

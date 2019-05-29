@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python,Setup,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇 不管是由于工作需要必须掌握 Python 开发，或是抱着极其浓厚的兴趣想要学习 Python 程序设计语言，亦或是不甘落于人后（身边越来越多的人开始使用 Python），不要困惑，我们已经站在 Python 花园秘境的入口，即将一睹大门背后绮丽的风景。 那句话怎么说来着？人生苦短，快来使用 Python 吧 ……">
+<meta name="keywords" content="Python,Setup">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 简介与开发环境搭建">
+<meta property="og:url" content="http://yoursite.com/Python/Python-简介与开发环境搭建/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇 不管是由于工作需要必须掌握 Python 开发，或是抱着极其浓厚的兴趣想要学习 Python 程序设计语言，亦或是不甘落于人后（身边越来越多的人开始使用 Python），不要困惑，我们已经站在 Python 花园秘境的入口，即将一睹大门背后绮丽的风景。 那句话怎么说来着？人生苦短，快来使用 Python 吧 ……">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/Python/Python-简介与开发环境搭建/Img/python_versions.jpg">
+<meta property="og:image" content="http://yoursite.com/Python/Python-简介与开发环境搭建/Img/python_windows.png">
+<meta property="og:image" content="http://yoursite.com/Python/Python-简介与开发环境搭建/Img/python_windows_MSI.png">
+<meta property="og:image" content="http://yoursite.com/Python/Python-简介与开发环境搭建/Img/python_windows_exc.png">
+<meta property="og:image" content="http://yoursite.com/Python/Python-简介与开发环境搭建/Img/python_windows_py3.5.png">
+<meta property="og:image" content="http://yoursite.com/Python/Python-简介与开发环境搭建/Img/python_pycharm.png">
+<meta property="og:image" content="http://yoursite.com/Python/Python-简介与开发环境搭建/Img/python_cloud_studio.png">
+<meta property="og:updated_time" content="2019-05-29T03:03:52.017Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 简介与开发环境搭建">
+<meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇 不管是由于工作需要必须掌握 Python 开发，或是抱着极其浓厚的兴趣想要学习 Python 程序设计语言，亦或是不甘落于人后（身边越来越多的人开始使用 Python），不要困惑，我们已经站在 Python 花园秘境的入口，即将一睹大门背后绮丽的风景。 那句话怎么说来着？人生苦短，快来使用 Python 吧 ……">
+<meta name="twitter:image" content="http://yoursite.com/Python/Python-简介与开发环境搭建/Img/python_versions.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Python/Python-简介与开发环境搭建/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>Python 简介与开发环境搭建 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Python/Python-简介与开发环境搭建/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python 简介与开发环境搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-01T16:36:13+08:00">
+                2018-04-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:52+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Python/Python-简介与开发环境搭建/" class="leancloud_visitors" data-flag-title="Python 简介与开发环境搭建">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  7.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  27
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…</center>
+
+<p><strong>开篇</strong></p>
+<p>不管是由于工作需要必须掌握 Python 开发，或是抱着极其浓厚的兴趣想要学习 Python 程序设计语言，亦或是不甘落于人后（身边越来越多的人开始使用 Python），不要困惑，我们已经站在 Python 花园秘境的入口，即将一睹大门背后绮丽的风景。</p>
+<p>那句话怎么说来着？人生苦短，快来使用 Python 吧 ……</p>
+<a id="more"></a>
+<p>这一章节我们通过对以下两部分内容的解读，正式开启 Python 的学习之旅的第一站（叩门）：</p>
+<ol>
+<li>Python 简介</li>
+<li>Python 开发环境搭建</li>
+</ol>
+<hr>
+<h2 id="1-Python-简介"><a href="#1-Python-简介" class="headerlink" title="1. Python 简介"></a>1. Python 简介</h2><p>这一小节我们来精简介绍 Python 学习背景知识，你可以将其作为 Python 学习入门。但是要注意，相关介绍没必要深究，在后续正式进入 Python 学习生态环境之后，你会越来越深入理解相关的内容。</p>
+<h3 id="1-1-Python-是什么？"><a href="#1-1-Python-是什么？" class="headerlink" title="1.1 Python 是什么？"></a>1.1 Python 是什么？</h3><p>Python 是一个高层次的解释型的面向对象的脚本语言。 </p>
+<ul>
+<li>Python 是一种解释型语言： 这意味着开发过程中没有了编译这个环节。类似于 PHP 和 Perl 语言。</li>
+<li>Python 是交互式语言： 这意味着，你可以在一个 Python 提示符（Shell），直接互动执行你编写的程序。</li>
+<li>Python 是面向对象语言: 这意味着 Python 支持面向对象的风格或代码封装于对象的编程技术。</li>
+<li>Python 是初学者的语言：Python 对初级程序员而言，是一种伟大的语言。它支持广泛的应用程序开发，从简单的文字处理到 WWW 浏览器再到游戏。</li>
+</ul>
+<hr>
+<h3 id="1-2-Python-能干什么？"><a href="#1-2-Python-能干什么？" class="headerlink" title="1.2 Python 能干什么？"></a>1.2 Python 能干什么？</h3><ul>
+<li>基础编程开发</li>
+<li>WEB 开发</li>
+<li>运维开发</li>
+<li>机器学习 &amp; 深度学习</li>
+<li>计算机视觉与自然语言处理</li>
+<li>数据挖掘</li>
+<li>Spark 大数据系列</li>
+<li>…….</li>
+</ul>
+<p>看到这里是不是了解了为什么 <strong>Python</strong> 经常被和 <strong>人工智能</strong> 捆绑到一块作为 AI 关键词的原因了。</p>
+<hr>
+<h3 id="1-3-Python-发展历史"><a href="#1-3-Python-发展历史" class="headerlink" title="1.3 Python 发展历史"></a>1.3 Python 发展历史</h3><p>Python 的创始人为荷兰人 Guido van Rossum（吉多·范罗苏姆）。1989年圣诞节期间，吉多·范罗苏姆为了在阿姆斯特丹打发时间， 决心开发一个新的脚本解释程序。之所以选中 Python（蟒蛇）作为程序的名字，是因为他是飞行马戏团的爱好者。</p>
+<p>Python 源代码同样遵循 GPL（GNU General Public License）协议。</p>
+<p>1991年，第一个 Python 解释器诞生。它是用 C 语言实现的，并能够调用 C 语言的库文件。</p>
+<p>Python 2.0 于 2000 年 10 月发布，增加了完整的垃圾回收，并且支持 Unicode。</p>
+<p>Python 3.0 于 2008 年 12 月发布，此版不完全兼容之前的 Python 源代码。不过，很多新特性也被移植到旧版本。 Python 2.6/2.7 版本。</p>
+<hr>
+<h3 id="1-4-Python-特点"><a href="#1-4-Python-特点" class="headerlink" title="1.4 Python 特点"></a>1.4 Python 特点</h3><ol>
+<li><strong>易于学习</strong>：Python有相对较少的关键字，结构简单，和明确定义的语法，学习起来更加简单。</li>
+<li><strong>易于阅读</strong>：Python 代码定义非常清晰。</li>
+<li><strong>一个广泛的标准库</strong>：Python 的最大的优势之一是丰富的库，跨平台的，在 UNIX，Windows 和Macintosh 兼容很好。</li>
+<li><strong>互动模式</strong>：互动模式的支持，你可以从终端输入执行代码并获得结果的语言，互动的测试和调试代码片断。</li>
+<li><strong>可移植</strong>：基于其开放源代码的特性，Python 已经被移植（也就是使其工作）到许多平台。</li>
+<li><strong>可扩展</strong>：如果你需要一段运行很快的关键代码，或者是想要编写一些不愿开放的算法，你可以使用 C 或 C++ 完成那部分程序，然后从你的 Python 程序中调用。</li>
+<li><strong>数据库</strong>：Python 提供所有主要的商业数据库的接口。</li>
+<li><strong>GUI 编程</strong>：Python 支持 GUI 可以创建和移植到许多系统调用。</li>
+<li><strong>可嵌入</strong>: 你可以将 Python 嵌入到C/C++程序，让你的程序的用户获得”脚本化”的能力。</li>
+</ol>
+<h4 id="Python-有缺点么-？？？"><a href="#Python-有缺点么-？？？" class="headerlink" title="Python 有缺点么 ？？？"></a>Python 有缺点么 ？？？</h4><p>一味鼓吹 Python 没有缺陷是伪命题，任何编程语言都有缺点，Python 也不例外。</p>
+<p><strong>第一个缺点：</strong>运行速度慢</p>
+<p>和 C 程序相比非常慢，因为 Python 是解释型语言，代码在被执行时会一行一行地翻译成 CPU 能理解的机器码，这个翻译过程非常耗时，所以很慢。而 C 程序是运行前直接被编译成 CPU 能执行的机器码，所以非常快。</p>
+<p>但是大量的应用程序不需要这么快的运行速度，因为用户根本感觉不出来。例如开发一个网络应用程序，C 程序的运行时间需要 0.001 秒，而 Python 程序的运行时间需要 0.1 秒，慢了 100 倍，但由于网络更慢，需要等待 1 秒，你想，用户能感觉到 1.001 秒和 1.1 秒的区别吗？这就好比 F1 赛车和普通的出租车在北京三环路上行驶的道理一样，虽然 F1 赛车理论时速高达 400 公里，但由于三环路堵车的时速只有 20 公里，因此，作为乘客，你感觉的时速永远是 20 公里。</p>
+<p>甚至我们可以将需要快速执行的 Python 代码段转成 C 内置于 Python 中以提升性能。</p>
+<p><strong>第二个缺点：</strong>代码不能加密</p>
+<p>如果要发布你的 Python 程序，实际上就是发布源代码，这一点跟 C 语言不同，C语言不用发布源代码，只需要把编译后的机器码（也就是你在 Windows 上常见的 xxx.exe 文件）发布出去。要从机器码反推出 C 代码是不可能的，所以，凡是编译型的语言，都没有这个问题，而解释型的语言，则必须把源码发布出去。</p>
+<p>当然，想要加密 Python 代码，也并非无解，网络上也给出了一些 Python 加密方法用以提高其源码保密性。</p>
+<h4 id="Python-彩蛋"><a href="#Python-彩蛋" class="headerlink" title="Python 彩蛋"></a>Python 彩蛋</h4><p>这一小节最后一部分，我们给出一个 Python 彩蛋：“Python 之歌”，它概要地解读了 Python 语言设计的特点。在后续我们介绍完 Python 开发环境搭建之后，你可以重新返回到这一部分“敲开”彩蛋：</p>
+<pre><code># Python 解释器执行如下命令：
+import this
+
+# 获取到如下信息：
+
+The Zen of Python, by Tim Peters
+
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren&apos;t special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you&apos;re Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it&apos;s a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let&apos;s do more of those!
+</code></pre><hr>
+<h2 id="2-Python-开发环境搭建"><a href="#2-Python-开发环境搭建" class="headerlink" title="2. Python 开发环境搭建"></a>2. Python 开发环境搭建</h2><p>工欲善其事，必先利其器。在正式开始 Pthon 程序设计语言学习之前，这一章节我将向大家介绍如何搭建本地 Python 语言开发学习环境。</p>
+<p>前面我已经提到过 Python 具有良好的移植性，可应用于多平台包括：Windows、Linux 和 Mac OS X 等等。确实，<a href="https://www.python.org/" target="_blank" rel="noopener">Python 官网</a>确实也提供了不同平台的安装包以提供下载安装。安装后，你会得到 Python 解释器（就是负责运行 Python 程序的），一个命令行交互环境，还有一个简单的集成开发环境（IDLE）。</p>
+<p>关于 Python 安装版本选择，个人建议选择 Python3.X（越来越多的开发者转战到 Python3，已成为主流使用版本）。下面来开始搭建我们的本地 Python 语言开发环境。</p>
+<hr>
+<h3 id="环境检查"><a href="#环境检查" class="headerlink" title="环境检查"></a>环境检查</h3><p>在开始正式安装之前，你可以通过<strong>终端窗口（Terminal）</strong>输入 <strong>“python -V”</strong> 命令来查看本地是否已经安装 Python 以及 Python 的安装版本。</p>
+<p>如果输出如下信息表示当前系统中已安装有 Python，你已经可以跳过安装环节开始 Python 语言的学习了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Python 3.5.0 (default, Dec  1 2018, 17:15:02) </span><br><span class="line">[GCC 4.8.5 20150623 (Red Hat 4.8.5-28)] on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>否则的话，接下文</p>
+<h3 id="2-1-Python-下载"><a href="#2-1-Python-下载" class="headerlink" title="2.1 Python 下载"></a>2.1 Python 下载</h3><p>Python 最新源码，二进制文档，相关新闻资讯等可以在 Python 的官网查看到：</p>
+<p>Python 官网：<a href="https://www.python.org/" target="_blank" rel="noopener">https://www.python.org/</a></p>
+<p>你可以在以下链接中下载 Python 的文档，你可以下载 HTML、PDF 和 PostScript 等多种格式的文档。</p>
+<p>Python 文档下载地址：<a href="https://www.python.org/doc/" target="_blank" rel="noopener">https://www.python.org/doc/</a></p>
+<h3 id="2-2-Python-安装"><a href="#2-2-Python-安装" class="headerlink" title="2.2 Python 安装"></a>2.2 Python 安装</h3><p>我们知道 Python 已经被移植在许多平台上（使它能够工作在不同平台上），类似于 Java，“一次编写，多次运行”。而不同平台平台的安装步骤视使用的操作系统和安装方式而异。安装 Python 的方式：我们既可以从<strong>源码</strong>安装，同时也可以下载使用已经编译并且打包好的<strong>二进制版本</strong>安装包进行安装。</p>
+<p>补充：如果你选择的平台（例如：Unix/Linux）的二进制代码不可用，你可以使用手动编译源代码进行安装。编译的源代码，功能上有更多的选择性， 为 Python 安装提供了更多的灵活性。</p>
+<p>以下是各个平台安装包的下载地址：</p>
+<p><img src="/Python/Python-简介与开发环境搭建/Img/python_versions.jpg" alt="avatar"></p>
+<p>以下给出不同平台（Unix/Linux、Windows）上安装 Python 的方法：</p>
+<hr>
+<h4 id="2-2-1-Unix-amp-Linux-平台安装-Python"><a href="#2-2-1-Unix-amp-Linux-平台安装-Python" class="headerlink" title="2.2.1 Unix &amp; Linux 平台安装 Python:"></a>2.2.1 Unix &amp; Linux 平台安装 Python:</h4><p>下面给出在 Unix &amp; Linux 平台上安装 Python 的通用步骤。</p>
+<h5 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h5><ul>
+<li>打开 WEB 浏览器访问：<a href="https://www.python.org/downloads/source/" target="_blank" rel="noopener">https://www.python.org/downloads/source/</a></li>
+<li>选择适用于 Unix/Linux 的源码压缩包。</li>
+<li>cd 到安装目录：/usr/local，下载及解压压缩包。</li>
+<li>如果你需要自定义一些选项，可以修改 Modules/Setup</li>
+<li>执行 ./configure 脚本</li>
+<li>make</li>
+<li>make install</li>
+</ul>
+<p>执行以上操作后，Python会被安装在<code>/usr/local/bin</code>目录中。Python库一般选择安装在<code>/usr/local/lib/pythonXX</code>，XX 为你使用的 Python 的版本号。</p>
+<p><strong>注意：</strong>在安装过程中使用一些包管理器工具（APT等），可以简化安装过程。另外在安装之前需要准备 Python 编译环境，否则会导致安装报错。</p>
+<p>由于 Unix &amp; Linux 平台一般自带相应版本的 Python（Python2/Python3），如果你选择在 Unix &amp; Linux 平台学习 Python，那么你可以直接跳过后续教程（你已经可以开始使用 Python 了！）。</p>
+<p>当然，有些同学就是想尝试一下 Python 的编译过程（或者系统原生 Python 版本不是你学习使用所需要版本），那么下面我会给出一个详细的安装过程，注意多个 Python 版本是可以共存的（前提是你需要注意新安装的 Python 环境对原有环境的影响，这里不做详细说明，后续补充章节会进行详细解读）。</p>
+<hr>
+<p>我们以 <strong>“Python-3.5.0 安装</strong>” 为样例介绍其详细安装过程：</p>
+<p>1）准备编译环境(环境如果不对的话，可能遇到各种问题，比如：wget 无法下载 https 链接文件等)</p>
+<pre><code>[root@node1 ~]# yum install zlib-devel bzip2-devel  openssl-devel ncurses-devel
+</code></pre><p>2）下载及解压 Python3.5.0 源代码包</p>
+<pre><code>[root@node1 ~]# cd /usr/local/
+
+[root@node1 ~]# wget  https://www.python.org/ftp/python/3.5.0/Python-3.5.0.tar.xz
+
+# 下载完成后进行减压：
+[root@node1 ~]# tar Jxvf  Python-3.5.0.tar.xz
+
+# 减压后进入到相应目录，可以看到一个 README 文档。说明了如何进行安装：
+[root@node1 ~]# cd Python-3.5.0
+
+# 查看安装方法：
+[root@node1 Python-3.5.0]# cat README
+</code></pre><p>3）编译安装</p>
+<pre><code># 编译后你会在目录 [/usr/local] 下发现新产生的：[python3.5] 目录
+[root@node1 Python-3.5.0]# ./configure --prefix=/usr/local/python3.5
+[root@node1 Python-3.5.0]# make &amp;&amp; make install
+
+### 日志信息如下：
+Ignoring indexes: https://pypi.python.org/simple
+Collecting setuptools
+Collecting pip
+Installing collected packages: setuptools, pip
+Successfully installed pip-7.1.2 setuptools-18.2
+
+# 同时提示成功安装 pip-7.12 与 setuptools！之后你就可以使用 pip 包管理器进行安装 Python 扩展包。（关于 pip，你知道它是用来解决 Python 包依赖（一个扩展包的安装需要其它扩展包的安装支持）的工具即可。）
+</code></pre><p>至此 Unix &amp; Linux 平台 Python 安装已完成！</p>
+<h4 id="2-2-2-Window-平台安装-Python"><a href="#2-2-2-Window-平台安装-Python" class="headerlink" title="2.2.2 Window 平台安装 Python:"></a>2.2.2 Window 平台安装 Python:</h4><p>以下为在 Window 平台上安装 Python 的简单步骤：</p>
+<h5 id="二进制版本安装"><a href="#二进制版本安装" class="headerlink" title="二进制版本安装"></a>二进制版本安装</h5><p>1）Python 2.X 版本安装：</p>
+<p>以 “最新 Python 2.7 版本安装” 为样例：</p>
+<ul>
+<li>打开 WEB 浏览器访问 <a href="https://www.python.org/downloads/windows/" target="_blank" rel="noopener">https://www.python.org/downloads/windows/</a></li>
+</ul>
+<center><img src="/Python/Python-简介与开发环境搭建/Img/python_windows.png" alt="avatar"></center>
+
+<ul>
+<li>在下载列表中选择Window平台安装包，包格式为：【python-XYZ.msi】 文件 ， XYZ 为你要安装的版本号。</li>
+<li>要使用安装程序 【python-XYZ.msi】, Windows 系统必须支持 Microsoft Installer 2.0 搭配使用。只要保存安装文件到本地计算机，然后运行它即可（安装时，根据提示 Next 即可）。需要看看你的机器是否支持 MSI，Windows XP 和更高版本已经有 MSI，很多老机器也可以安装 MSI。</li>
+</ul>
+<center><img src="/Python/Python-简介与开发环境搭建/Img/python_windows_MSI.png" alt="avatar"></center>
+
+<p>2）Python 3.X 版本安装：</p>
+<p>以 “最新 Python 3.5.1 版本安装” 为样例：</p>
+<ul>
+<li>打开 WEB 浏览器访问 https:////<a href="http://www.python.org/" target="_blank" rel="noopener">www.python.org/</a> ，点击 Downloads,进入选择下载界面：</li>
+</ul>
+<center><img src="/Python/Python-简介与开发环境搭建/Img/python_windows_exc.png" alt="avatar"></center>
+
+<ul>
+<li>这里我选择的是：python3.5.1，会看到如下界面：</li>
+</ul>
+<center><img src="/Python/Python-简介与开发环境搭建/Img/python_windows_py3.5.png" alt="avatar"></center>
+
+<p>这里，我们需要安装的是 Windows 下的 Python 版本，所以在 Operating System 中可以选择对应的 Windows 版本。另外需要注意的是要根据系统位数选择相应位数（64-bit 或 32-bit） Python 安装二进制版本，现在主流的都是 64-bit的。</p>
+<p>其中，executable 表示可执行版，需要安装后使用，embeddable 表示嵌入版，就是解压以后就可以使用的版本（免安装版本）。 我们选择安装可执行版本，可执行版安装比较简单，step by step ok。embeddable 版本 Python 安装好后一定需要配置环境变量（往下看）。</p>
+<hr>
+<h3 id="2-3-Python-环境变量配置"><a href="#2-3-Python-环境变量配置" class="headerlink" title="2.3 Python 环境变量配置"></a>2.3 Python 环境变量配置</h3><p>Python 默认安装完成后并不可以直接使用，即通过终端窗口输入 “python” 命令无法查看到 Python 版本信息（系统无法访问到安装好的 Python 可执行程序）如下，说明我们还需要为其配置系统环境变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\guoxx&gt;python</span><br><span class="line">&apos;python&apos; 不是内部或外部命令，也不是可运行的程序</span><br><span class="line">或批处理文件。</span><br></pre></td></tr></table></figure>
+<p>扩展：我们想要运行的程序或可执行文件（python.exe）可以位于许多目录，而这些路径很可能不在操作系统提供可执行文件的搜索路径中。故，不可以直接执行这些程序或可执行文件。</p>
+<p>而路径（PATH）可以存储到系统环境变量中，这是由操作系统维护的一个命名的字符串。这些变量包含系统中可用的命令行解释器（Python 解释器）和其他程序的位置信息。想要操作系统能够搜索到程序或可执行文件，我们需要将其相应的路径添加到系统环境变量中（注意在添加时，要加上环境变量中原有的路径 :<code>$PATH</code>，否则会覆盖原始路径，导致系统出错）。</p>
+<p>因此，我们需要将 Python 相关的可执行文件或程序路径添加到系统环境变量 <code>$PATH</code> 中。</p>
+<p>下面我们来看不同平台如何配置其环境变量：</p>
+<hr>
+<h4 id="2-3-1-Unix-Linux-平台设置环境变量"><a href="#2-3-1-Unix-Linux-平台设置环境变量" class="headerlink" title="2.3.1 Unix/Linux 平台设置环境变量"></a>2.3.1 Unix/Linux 平台设置环境变量</h4><p>1）export PATH 方法</p>
+<ul>
+<li><p>在 csh shell: 输入 </p>
+<p>  setenv PATH “$PATH:/usr/local/python”</p>
+</li>
+<li><p>在 bash shell (Linux): 输入 </p>
+<p>  export PATH=”$PATH:/usr/local/python” </p>
+</li>
+<li><p>在 sh 或者 ksh shell: 输入 </p>
+<p>  PATH=”$PATH:/usr/local/python” </p>
+</li>
+</ul>
+<p><strong>注意:</strong> 【/usr/local/python】 是 Python 的安装目录。</p>
+<p>2）构建 Python 使用软链接（推荐）</p>
+<p>以上面 “Python-3.5.0 安装 样例为示例：</p>
+<pre><code># 产生软连接时要注意系统中已存在的 Python 软链接，防止原生 Python 调用被覆盖掉：
+# 覆盖掉后只能访问最新版本 python。
+[root@node1 Python-3.5.0]# ln -s /usr/local/python3.5/bin/python3.5 /usr/local/bin/python3.5
+</code></pre><p>这是由于 【/usr/local/bin/】 路径已在 PATH 中。</p>
+<hr>
+<h4 id="2-3-2-Windows-平台设置环境变量"><a href="#2-3-2-Windows-平台设置环境变量" class="headerlink" title="2.3.2 Windows 平台设置环境变量"></a>2.3.2 Windows 平台设置环境变量</h4><p>在环境变量中添加 Python 目录：</p>
+<p>1）cmd 方法</p>
+<p>在命令提示框中(cmd) : 输入</p>
+<pre><code>path=%path%;C:\Python 
+</code></pre><p><strong>注意</strong>: C:\Python 是Python的安装目录。</p>
+<p>2) GUI 方法</p>
+<ul>
+<li>右键点击”计算机”，然后点击”属性”</li>
+<li>然后点击”高级系统设置”</li>
+<li>选择 <strong>“系统变量”</strong> 窗口下面的 <strong>“Path”</strong>,双击即可！</li>
+<li>然后在<strong>“Path”</strong>行，添加 python 安装路径即可(C:\Python)，所以在后面，添加该路径即可。 ps：记住，路径直接用分号 <strong>“；”</strong> 隔开！</li>
+</ul>
+<hr>
+<h4 id="2-3-3-检测环境变量配置是否成功？"><a href="#2-3-3-检测环境变量配置是否成功？" class="headerlink" title="2.3.3 检测环境变量配置是否成功？"></a>2.3.3 检测环境变量配置是否成功？</h4><p>在 <strong>命令行终端</strong> 中输入：</p>
+<pre><code>python 或 python -V
+</code></pre><p>如果配置成功的话，会有 Python 版本信息输出，并进入 Python 交互式环境（可执行 Python 语句）。如下：</p>
+<pre><code>Python 3.5.0 (default, Dec  1 2018, 17:15:02) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-28)] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt;    
+</code></pre><hr>
+<p>至此，我们已经完成了 Python 本地环境的安装，下面我们给出一个 Python Hello World 来验证本地环境已经搭建成功：</p>
+<h3 id="2-4-Python-Hello-World"><a href="#2-4-Python-Hello-World" class="headerlink" title="2.4 Python Hello World"></a>2.4 Python Hello World</h3><p>首先，在 <strong>命令行终端</strong> 中输入：<strong>“python”</strong>，会进入 Python 交互式解释器环境：</p>
+<pre><code>[root@node1 ~]# python
+Python 3.5.0 (default, Dec  1 2018, 17:15:02) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-28)] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt;    
+</code></pre><p>然后在命令提示符 <strong>&gt;&gt;&gt;</strong> 之后输入命令：</p>
+<pre><code># python 3 输入:
+print (&quot;Welcome to Python World&quot;)
+# python 2 输入:
+print &quot;Welcome to Python World&quot;
+</code></pre><p>语句执行成功后会输出以下语句，表示 Python 本地环境搭建成功：</p>
+<pre><code>Welcome to Python World
+</code></pre><hr>
+<h3 id="2-5-运行-Python-方式"><a href="#2-5-运行-Python-方式" class="headerlink" title="2.5 运行 Python 方式"></a>2.5 运行 Python 方式</h3><p>Python 本地环境搭建成功之后，我们来看如何使用搭建好的 Python 环境运行编写的 Python 程序。通常有三种方式可以运行 Python：</p>
+<p><strong>1）交互式解释器：</strong></p>
+<p>你可以通过命令行窗口（Command Terminal）进入 Python 交互式解释器中开始编写 Python 代码。你可以在 Unix，DOS 或任何其他提供了命令行或者 shell 的系统进行 python 编码工作。如下：</p>
+<pre><code># Unix/Linux &amp; Windows/DOS：
+Python 3.5.0 (default, Dec  1 2018, 17:15:02) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-28)] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt;print (&quot;Hello Python World&quot;)
+</code></pre><p>退出交互式环境：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Unix/Linux &amp; Windows/DOS：</span><br><span class="line">Python 3.5.0 (default, Dec  1 2018, 17:15:02) </span><br><span class="line">[GCC 4.8.5 20150623 (Red Hat 4.8.5-28)] on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">&gt;&gt;&gt;exit()</span><br></pre></td></tr></table></figure>
+<p><strong>2）命令行脚本：</strong></p>
+<p>在你的应用程序中通过 <strong>引入解释器</strong> 可以在命令行中执行 Python 脚本 【 HelloWorld.py 】，如下所示：</p>
+<pre><code># Unix/Linux：
+[root@node1 ~]# python HelloWorld.py 
+
+或者
+
+# Windows/DOS
+C:&gt; python HelloWorld.py
+</code></pre><p>注意：在执行脚本时，系统会检查脚本是否有可执行权限。</p>
+<p><strong>3）集成开发环境（IDE：Integrated Development Environment）:</strong></p>
+<p>和大多数程序设计语言一样，一个体验良好的集成开发环境对于 Python 程序开发是必不可缺的。这里我推荐使用 PyCharm（大多数 Python 开发人员的首选）。</p>
+<p>以 “PyCharm IDE” 为例：</p>
+<p>PyCharm 是由 JetBrains 打造的一款 Python IDE，支持 macOS、 Windows、 Linux 系统。</p>
+<p>PyCharm 功能 : 支持调试、语法高亮、Project管理、代码跳转、智能提示、自动完成、单元测试、版本控制……</p>
+<p>PyCharm 下载地址 : <a href="https://www.jetbrains.com/pycharm/download/" target="_blank" rel="noopener">https://www.jetbrains.com/pycharm/download/</a></p>
+<p>以下展示的是 PyCharm 工作界面样例图（是不看起来相当美观）：</p>
+<center><img src="/Python/Python-简介与开发环境搭建/Img/python_pycharm.png" alt="avatar"></center>
+
+<p>Windows 下 PyCharm 安装以及使用教程参见：<a href="https://www.orangeshare.cn/Pycharm/Pycharm-Community-In-Windows-Tutorial/" target="_blank" rel="noopener">Pycharm Community In Windows 安装以及使用教程</a>。</p>
+<blockquote>
+<p> <strong>注意：</strong>Python 交互模式的代码是输入一行，解释执行一行。而命令行模式下直接运行<code>.py</code>文件是一次性执行该文件内的所有代码。可见，Python 交互模式主要是为了调试 Python 代码用的，也便于初学者学习，它不是正式运行 Python 代码的环境！</p>
+</blockquote>
+<hr>
+<h4 id="何为-Python-解释器？"><a href="#何为-Python-解释器？" class="headerlink" title="何为 Python 解释器？"></a>何为 Python 解释器？</h4><p>前面我们一直提到 Python 解释器，当我们编写 Python 代码时，我们得到的是一个包含 Python 代码的以<code>.py</code>为扩展名的文本文件。要运行代码，就需要 Python 解释器去执行<code>.py</code>文件。</p>
+<p>由于整个 Python 语言从规范到解释器都是开源的，所以理论上，只要水平够高，任何人都可以编写 Python 解释器来执行 Python 代码（当然难度很大）。事实上，确实存在多种 Python 解释器。</p>
+<p><strong>1）CPython</strong></p>
+<p>当我们从 Python 官方网站下载并安装好 Python 3.x 后，我们就直接获得了一个官方版本的解释器：CPython。这个解释器是用 C 语言开发的，所以叫 CPython。在命令行下运行 <code>python</code> 就是启动 CPython 解释器。所以 CPython 是使用最广的 Python 解释器。</p>
+<p><strong>2）IPython</strong></p>
+<p> IPython 是基于 CPython 之上的一个交互式解释器，也就是说，IPython 只是在交互方式上有所增强，但是执行Python 代码的功能和 CPython 是完全一样的。好比很多国产浏览器虽然外观不同，但内核其实都是调用了 IE。</p>
+<p>CPython 用 <code>&gt;&gt;&gt;</code>作为提示符，而 IPython 用 <code>In [序号]:</code> 作为提示符。</p>
+<p><strong>3）Jython</strong></p>
+<p>Jython 是运行在 Java 平台上的 Python 解释器，可以直接把 Python 代码编译成 Java 字节码执行。</p>
+<p><strong>4）IronPython</strong></p>
+<p> IronPython 和 Jython 类似，只不过 IronPython 是运行在微软 .Net 平台上的 Python 解释器，可以直接把Python 代码编译成 .Net 的字节码。</p>
+<p><strong>注意：</strong></p>
+<p>Python 的解释器很多，这里我们简单介绍了常见的几种，但使用最广泛的还是 CPython。如果要和 Java 或 .Net 平台交互，最好的办法不是用 Jython 或 IronPython，而是通过网络调用来交互，确保各程序之间的独立性。</p>
+<p>=================================================================</p>
+<p>至此，这一章节的主要内容已经解读完成，基于上述内容的介绍你已经可以对照 Python 参考书开始 Python 语言的学习了。但我强烈建议你阅读下面的内容，它可以帮助你快速在 Python 学习中走的更远……</p>
+<p>下面我会补充介绍一部分有利于提升我们在进行 Python 开发过程拥有更好体验的内容，毕竟拥有一个更加良好的学习开发环境可以帮助我们更高效学习 Python 的使用。</p>
+<hr>
+<h2 id="3-多-Python-版本共存环境"><a href="#3-多-Python-版本共存环境" class="headerlink" title="3. 多 Python 版本共存环境"></a>3. 多 Python 版本共存环境</h2><p>前面我们提到过一个系统中是可以同时存在多个 Python 版本。</p>
+<p>我们给出一种实际情况：原生 Unix &amp; Linux 系统已经自带有一个版本的 Python2，但它不是我们需要的 Python 版本，我们想要编译安装满足我们需要的 Python 版本（Python3）。那么我们面临一种选择：我们是在原有版本基础上 update 呢？还是去安装一个新版本的 Python（原生版本 Python 也保留）？</p>
+<p>事实上，由于 Python 2.X 和 Python 3.X兼容性问题，将 Python 2.X 直接升级到 Python3 会产生一些问题（Centos 系统下的很多工具（yum、iotop 等）都依赖原生 Python2.X 版本），直接升级会无法使用。</p>
+<p>所以，一般建议添加安装一个新版本的 Python（与原生版本共存）或使用 virtualenv（后面我们会给出一个虚拟环境工具的使用，这里不用深究）</p>
+<hr>
+<h3 id="3-1-多版本共存"><a href="#3-1-多版本共存" class="headerlink" title="3.1 多版本共存"></a>3.1 多版本共存</h3><p>选择安装一个新版本的 Python（与原生版本共存）时，安装过程中我们需要考虑多版本冲突问题（多 Python 版本开发环境是我们必然要面对的问题），关键在于如何保证多个 Python 版本使用之间互相不产生影响呢？</p>
+<p>其实我们在介绍安装 Python 时，已经给出了解决办法，Unix &amp;&amp; Linux 下可以通过构建多个带有不同版本标识的 Python 软链接（不去覆盖 /usr/local/bin/python ）：</p>
+<pre><code>ln -s /usr/local/python3.5/bin/python3.5 /usr/local/bin/python3.5
+
+ln -s /usr/local/python2.7/bin/python2.7 /usr/local/bin/python3.7
+</code></pre><p>于是：</p>
+<p>在使用 Python 时，我们可以通过启动相应版本 Python：</p>
+<pre><code># 启动系统原生环境：
+python
+
+# 启动 python3.5 环境：
+python3.5
+
+# 启动 python3.7 环境：
+python3.7
+</code></pre><p>那么 Windows 下如何实现呢？</p>
+<p>我建议大家修改环境变量中设置的 Python 安装目录路径即可，想用那个版本就指向那个版本。</p>
+<p>至此，我们就可以在当前系统中同时存在多个 Python 版本供我们选择使用！</p>
+<p>除了上述介绍的方法外，我们还可以使用一些虚拟环境管理工具实现 Python 的多版本共存，例如 <code>virtualenv</code>、<code>Anaconda</code> 等。</p>
+<hr>
+<h2 id="4-Anaconda（推荐）"><a href="#4-Anaconda（推荐）" class="headerlink" title="4. Anaconda（推荐）"></a>4. Anaconda（推荐）</h2><p>通过后续 Python 的正式学习，我们会越来越加深对 “Python 实现其强大功能的前提，就是它具有数量庞大且功能相对完善的标准库和第三方库。通过对库的引用，能够快速实现对不同领域业务的开发。”的理解。你会发现：对于 Python 学习的新手来说，管理以及维护这些数量庞大的标准库和第三方库既复杂又重要。这里我们介绍一种使用 <strong>虚拟隔离环境</strong> 来解决库管理以及维护问题的方法—<strong>Anaconda</strong>。</p>
+<p>Anaconda 包管理软件是一个不错的选择，可以减少很多后续安装 Python 各种包的麻烦。同时在 Anaconda 自带的 Jupyter notebook 中进行代码的编写要比 IDE 和 Terminal 的体验好得多，Jupyter notebook 中还支持记录代码学习笔记，相当有逼格（强烈推荐使用）。</p>
+<ul>
+<li>Anaconda 是 Python 的一个发行版，如果把 Python 比作 Linux，那么 Anancoda 就是 CentOS 或者 Ubuntu。它通过 conda 工具解决了Python开发者的两大痛点：<ol>
+<li>提供包管理，功能类似于 pip，Windows 平台安装第三方包经常失败的场景得以解决。</li>
+<li>提供虚拟环境管理，功能类似于 virtualenv，解决了多版本 Python 并存问题。</li>
+</ol>
+</li>
+<li>通俗的讲：使用 Anaconda 进行 Python 相关开发时，相当于将所有的底层依赖细节全部已经打包封装好了！并且，Anaconda 还能创建自己的计算环境，相当于将 Python 的环境与其他环境做了隔离，这样你就可以在当前环境随便玩，爱怎么玩怎么玩，也不用担心破坏之前的环境！</li>
+<li>同样，Anaconda 提供多平台支持,对 Linux、Mac以及Windows 系统均支持。</li>
+</ul>
+<p>这里我们给出 <a href="https://www.anaconda.com/download/" target="_blank" rel="noopener">Anaconda 官方下载网址</a>。具体介绍、安装以及使用这里不进行说明，感兴趣同学可以参见：<a href="https://www.orangeshare.cn/Anaconda/Anaconda-介绍、安装以及使用教程/" target="_blank" rel="noopener">Anaconda 介绍、安装以及使用教程</a>。</p>
+<hr>
+<h2 id="5-在-Cloud-Studio-中运行-Python-程序"><a href="#5-在-Cloud-Studio-中运行-Python-程序" class="headerlink" title="5. 在 Cloud Studio 中运行 Python 程序"></a>5. 在 Cloud Studio 中运行 Python 程序</h2><p>前面我们提到过，Python 是跨平台的，它可以运行在 Windows、Mac 和各种 Linux/Unix 系统上。也就是说在 Windows 上写 Python 程序，放到 Linux 上也是能够运行的。所以，通常开发人员在 Windows 下进行项目开发，最后可以将开发好的项目之间投放到 Liunx 服务器上运行。</p>
+<p>通过 Python 开发环境搭建介绍，我们知道，Python 本地环境安装后，你会得到 Python 解释器，一个命令行交互环境，还有一个简单的集成开发环境。</p>
+<p>除了上述我们介绍过的 Python 开发环境，这里再推荐一种在线云端开发工具—Coding Cloud Studio。它能提供原生的在线 Linux 命令交互终端环境，Python 运行解释器，在线开发文本编辑器，你可以直接在工作站中创建 Python 文件并在 Cloud Studio 中运行你写的 Python 程序。</p>
+<p>同时，Cloud Studio 还支持供有强大的插件系统、一键切换开发环境、实时协同编辑、全功能终端、实时进度保存等丰富的功能实现。</p>
+<p>这里给出 Cloud Studio 开发界面：</p>
+<center><img src="/Python/Python-简介与开发环境搭建/Img/python_cloud_studio.png" alt="avatar"></center>
+
+<p>很多人都说 Cloud Studio 开发项目时很卡顿，这里我们只是提供另一种开发思路。</p>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/Python/Python-简介与开发环境搭建/" title="Python 简介与开发环境搭建">http://yoursite.com/Python/Python-简介与开发环境搭建/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/Setup/" rel="tag"><i class="fa fa-tag"></i> Setup</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Ubuntu/Ubuntu-Server-快速配置指南/" rel="next" title="Ubuntu Server 快速配置指南">
+                <i class="fa fa-chevron-left"></i> Ubuntu Server 快速配置指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python/第一个-Python-程序/" rel="prev" title="第一个 Python 程序">
+                第一个 Python 程序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Python-简介"><span class="nav-text">1. Python 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Python-是什么？"><span class="nav-text">1.1 Python 是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Python-能干什么？"><span class="nav-text">1.2 Python 能干什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Python-发展历史"><span class="nav-text">1.3 Python 发展历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Python-特点"><span class="nav-text">1.4 Python 特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Python-有缺点么-？？？"><span class="nav-text">Python 有缺点么 ？？？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Python-彩蛋"><span class="nav-text">Python 彩蛋</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Python-开发环境搭建"><span class="nav-text">2. Python 开发环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境检查"><span class="nav-text">环境检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Python-下载"><span class="nav-text">2.1 Python 下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Python-安装"><span class="nav-text">2.2 Python 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-Unix-amp-Linux-平台安装-Python"><span class="nav-text">2.2.1 Unix &amp; Linux 平台安装 Python:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#源码安装"><span class="nav-text">源码安装</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-Window-平台安装-Python"><span class="nav-text">2.2.2 Window 平台安装 Python:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#二进制版本安装"><span class="nav-text">二进制版本安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Python-环境变量配置"><span class="nav-text">2.3 Python 环境变量配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-Unix-Linux-平台设置环境变量"><span class="nav-text">2.3.1 Unix/Linux 平台设置环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-Windows-平台设置环境变量"><span class="nav-text">2.3.2 Windows 平台设置环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-检测环境变量配置是否成功？"><span class="nav-text">2.3.3 检测环境变量配置是否成功？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Python-Hello-World"><span class="nav-text">2.4 Python Hello World</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-运行-Python-方式"><span class="nav-text">2.5 运行 Python 方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#何为-Python-解释器？"><span class="nav-text">何为 Python 解释器？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-多-Python-版本共存环境"><span class="nav-text">3. 多 Python 版本共存环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-多版本共存"><span class="nav-text">3.1 多版本共存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Anaconda（推荐）"><span class="nav-text">4. Anaconda（推荐）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-在-Cloud-Studio-中运行-Python-程序"><span class="nav-text">5. 在 Cloud Studio 中运行 Python 程序</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

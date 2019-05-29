@@ -1,0 +1,2290 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Setup,SVN,Subversion,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇  在日常项目开发中，我们肯定会或多或少地听说或者使用过版本管理工具。刚好最近由于新项目需求：需要专门为当前项目搭建一套 SVN 版本控制系统，再加上项目组日常项目开发使用 SVN，学习 SVN 势在必行… 再说明一下本文所作目的：一方面本文作为 “SVN 版本控制系统的搭建与管理” 过程记录，方便日后回顾使用；另一方面由于在搭建过程中受益">
+<meta name="keywords" content="Setup,SVN,Subversion">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos 6&#x2F;7 SVN + Apache（HTTP）服务器配置与使用指南">
+<meta property="og:url" content="http://yoursite.com/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇  在日常项目开发中，我们肯定会或多或少地听说或者使用过版本管理工具。刚好最近由于新项目需求：需要专门为当前项目搭建一套 SVN 版本控制系统，再加上项目组日常项目开发使用 SVN，学习 SVN 势在必行… 再说明一下本文所作目的：一方面本文作为 “SVN 版本控制系统的搭建与管理” 过程记录，方便日后回顾使用；另一方面由于在搭建过程中受益">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/Img/SVN.jpg">
+<meta property="og:image" content="http://yoursite.com/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/Img/TortoistSVN.png">
+<meta property="og:image" content="http://yoursite.com/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/Img/checkout.png">
+<meta property="og:image" content="http://yoursite.com/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/Img/repos_info.png">
+<meta property="og:image" content="http://yoursite.com/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/Img/client_info.png">
+<meta property="og:image" content="http://yoursite.com/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/Img/checkout_result.png">
+<meta property="og:updated_time" content="2019-05-29T03:03:52.282Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Centos 6&#x2F;7 SVN + Apache（HTTP）服务器配置与使用指南">
+<meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇  在日常项目开发中，我们肯定会或多或少地听说或者使用过版本管理工具。刚好最近由于新项目需求：需要专门为当前项目搭建一套 SVN 版本控制系统，再加上项目组日常项目开发使用 SVN，学习 SVN 势在必行… 再说明一下本文所作目的：一方面本文作为 “SVN 版本控制系统的搭建与管理” 过程记录，方便日后回顾使用；另一方面由于在搭建过程中受益">
+<meta name="twitter:image" content="http://yoursite.com/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/Img/SVN.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>Centos 6/7 SVN + Apache（HTTP）服务器配置与使用指南 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Centos 6/7 SVN + Apache（HTTP）服务器配置与使用指南</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-17T14:03:38+08:00">
+                2018-10-17
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:52+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/SVN/" itemprop="url" rel="index">
+                    <span itemprop="name">SVN</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/" class="leancloud_visitors" data-flag-title="Centos 6/7 SVN + Apache（HTTP）服务器配置与使用指南">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  9.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  39
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…</center>
+
+<p><strong>开篇</strong> </p>
+<p>在日常项目开发中，我们肯定会或多或少地听说或者使用过版本管理工具。刚好最近由于新项目需求：需要专门为当前项目搭建一套 <strong>SVN 版本控制系统</strong>，再加上项目组日常项目开发使用 SVN，学习 SVN 势在必行…</p>
+<p>再说明一下本文所作目的：一方面本文作为 “SVN 版本控制系统的搭建与管理” 过程记录，方便日后回顾使用；另一方面由于在搭建过程中受益于博客上记录过 SVN 环境搭建的前辈们，故作此以分享给更多的 SVN 新手们。</p>
+<a id="more"></a>
+<h3 id="1-SVN-服务简介"><a href="#1-SVN-服务简介" class="headerlink" title="1. SVN 服务简介"></a>1. SVN 服务简介</h3><h4 id="1-1-何为版本控制？"><a href="#1-1-何为版本控制？" class="headerlink" title="1.1 何为版本控制？"></a>1.1 何为版本控制？</h4><p>版本控制是指对软件开发过程中各种程序代码、配置文件及说明文档等文件变更的管理。</p>
+<p>版本控制最主要的功能就是追踪文件的变更。它将什么时候、什么人更改了文件的什么内容等信息忠实地了已录下来。每一次文件的改变，文件的版本号都将增加。</p>
+<p>除了记录版本变更外，版本控制的另一个重要功能是并行开发。软件开发往往是多人协同作业，版本控制可以有效地解决版本的同步以及不同开发者之间的开发通信问题，提高协同开发的效率。</p>
+<hr>
+<h4 id="1-2-什么是-SVN（Subversion）以及-SVN-版本库？"><a href="#1-2-什么是-SVN（Subversion）以及-SVN-版本库？" class="headerlink" title="1.2 什么是 SVN（Subversion）以及 SVN 版本库？"></a>1.2 什么是 SVN（Subversion）以及 SVN 版本库？</h4><p>Subversion 是一个 自由/开源 的版本控制系统，它管理文件和目录可以超越时间。</p>
+<p>一组文件存放在中心版本库 （Subversion 的核心就是 Repository ，中文翻译成“版本库”。位于服务器端，统一管理和储存数据的地方。），这个版本库很像一个普通的文件服务器，只是它可以记录每一次文件和目录的修改，这便使你可以取得数据以前的版本，从而可以检查所作的更改。从这个方面看，许多人把版本控制系统当作一种“时间机器”。</p>
+<p><strong>SVN（Subversion）数据存储方式</strong>（两种）：一种是在 Berkeley DB 数据库中存储数据（BDB）； 另一种是使用普通的文件 FSFS 存储数据。由于 Berkeley DB 方式在使用中有可能锁住数据，一般建议使用 FSFS 方式更安全。</p>
+<p><strong>SVN（Subversion）的运行模式</strong>（两种）：一种是基于 SVN Server 的独立服务器；另一种是借助 Apache 的 http、https 网页访问模式。即 【svn://】 或 【http://；https：//】。</p>
+<p>目前很多的开源软件仍然在使用 SVN 作为代码版本管理软件。Subversion 支持：linux、windows、Mac 等平台安装，但较多安装在 linux 下。</p>
+<hr>
+<h4 id="1-3-SVN-基本工作原理"><a href="#1-3-SVN-基本工作原理" class="headerlink" title="1.3 SVN 基本工作原理"></a>1.3 SVN 基本工作原理</h4><p>首先我们给出 SVN 工作原理示意图：</p>
+<p><img src="/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/Img/SVN.jpg" alt="avatar"></p>
+<p><strong>SVN 的基本工作原理：</strong></p>
+<p>在一台服务器（SVN Server）上建立一个源代码库（版本库：Repository），源码库里可以存放许多不同项目的源程序，由源代码库管理员统一管理。</p>
+<p>（Client）每个用户在使用源代码库之前，首先要把源代码库里的项目文件下载（svn checkout）到本地，然后开发人员可以在本地修改，修改完成后用 SVN 命令（svn commit）进行提交，然后还可以通过 SVN 命令将本地仓库的代码更新到最新。由源代码统一库管理、修改、更新。</p>
+<hr>
+<h4 id="1-4-Subversion-解决的问题"><a href="#1-4-Subversion-解决的问题" class="headerlink" title="1.4 Subversion 解决的问题"></a>1.4 Subversion 解决的问题</h4><p>（1）代码管理混乱；</p>
+<p>（2）解决代码冲突困难；</p>
+<p>（3）在代码整合期间引发 BUG；</p>
+<p>（4）无法对代码的拥有者进行权限控制；</p>
+<p>（5）项目不同版本的发布困难；</p>
+<hr>
+<h4 id="1-5-SVN（Subversion）基本操作"><a href="#1-5-SVN（Subversion）基本操作" class="headerlink" title="1.5 SVN（Subversion）基本操作"></a>1.5 SVN（Subversion）基本操作</h4><p>（1） 版本库创建（<strong>create</strong>）：版本库一般创建在一个服务器上，其他用户将自己的文件提交到这个服务器进行保存。版本库包括提交的文件，还有修改历史。</p>
+<p>（2）检出（<strong>checkout</strong>）：将创建一个版本库的工作副本。工作副本是开发者私人空间，可以在工作副本中进行代码的修改，添加文件等操作。当然，不用担心会对服务器的版本库造成破坏，因为未提交到服务器上。</p>
+<p>（3）执行变更（<strong>add、del</strong>）：当检出一个工作副本后，可以对这个副本中的文件进行修改或删除，操作完毕后，通过 add 或 del 将其加到待变更列表中。直到执行了 commit 之后才真正删除。</p>
+<p>（4）提交更改（<strong>commit</strong>）：可以将在自己工作副本中修改的内容提交到服务器上，修改服务器版本库的内容。其他用户再次 checkout 的时候，将会是你 commit 的内容。当然，commit 之前，先必须将其修改的内容加到待变更列表中。</p>
+<p>（5）更新（<strong>update</strong>）：用来更新版本库，将工作副本与服务器上的版本库进行同步。</p>
+<p>（6）复查变化，修复错误，解决冲突等操作。这些可以从网上找到相关资料，此处不深入研究（这里只解释基本操作）。</p>
+<hr>
+<p>通过上文内容的说明，我们已经了解了 SVN（Subversion）的主要功能：版本控制，基本工作原理（C/S）以及其基本相关操作。我们知道 SVN 有两种运行模式：1）基于 SVN Serve 的独立服务器；2）基于 Apache 的 HTTP(S) 网页访问模式。</p>
+<p>本文我们将以<strong>“基于 SVN Serve 的独立服务器，并配置 Apache 支持 HTTP(S) 方式访问”</strong>进行 SVN 服务环境的搭建。</p>
+<p><strong>Base Environment：</strong></p>
+<ol>
+<li>操作系统：CentOS 6.x / 7.x；</li>
+<li>服务器 IP:10.1.0.123；</li>
+<li>SVN 数据存储：FSFS 数据存储方式；</li>
+<li>SVN 运行模式：SVN（Server） + Apache （HTTPS）；</li>
+</ol>
+<hr>
+<h3 id="2-SVN-Apache（HTTP）服务器配置"><a href="#2-SVN-Apache（HTTP）服务器配置" class="headerlink" title="2. SVN + Apache（HTTP）服务器配置"></a>2. SVN + Apache（HTTP）服务器配置</h3><p>在开始搭建 SVN 服务器之前，我个人建议先进行预安装环境部署，这里是指：我们创建一个 svn 用户并进行授权，使用 svn 用户来管理所有 SVN 安装以及版本库数据。</p>
+<p>当然这是<strong>可选择的</strong>，如果你不希望添加用户的话，你可以直接创建一个 svn 目录用于 SVN 后续安装操作的基础目录（表示 <code>svn</code> 用户目录：~）：</p>
+<pre><code>$ mkdir /home/svn
+</code></pre><p>注意，如果你不希望添加用户的话，可以直接跳过 <strong>预安装环境</strong> 部分，从 <strong>2.1 </strong> 直接开始阅读即可。</p>
+<hr>
+<h4 id="预安装环境（推荐）"><a href="#预安装环境（推荐）" class="headerlink" title="预安装环境（推荐）"></a>预安装环境（推荐）</h4><p><strong>1）添加 svn 用户</strong></p>
+<p>首先以 root 用户登陆服务器，然后添加新用户的信息 —&gt; 用户名:【 svn 】，密码:【 N@us0ft 】</p>
+<pre><code># 创建一个用户名为 svn 的普通用户：
+[root@node3 ~]# adduser svn
+# 初始化 svn 用户密码（linux 会判断密码复杂度，可以强行忽略）：
+[root@node3 ~]# passwd svn
+</code></pre><p><strong>2） svn 用户授权</strong></p>
+<p>个人用户的权限只可以在本 <code>home （/home/svn）</code>下拥有完整权限，操作其他用户目录需要被授权。而我们经常需要 root 用户的权限。 sudo 命令可以使得普通用户临时获取 root 权限。</p>
+<p>新创建的用户并不能直接使用 sudo 命令，需要为其进行授权：</p>
+<p>【1】授权管理：sudo 命令的授权管理是在 sudoers 文件里进行控制的。</p>
+<pre><code>### 1. 查找 sudoers 文件位置信息：
+[root@node3 ~]# sudoers
+bash: sudoers: 未找到命令...
+[root@node3 ~]# whereis sudoers
+sudoers: /etc/sudoers /etc/sudoers.d /usr/libexec/sudoers.so /usr/share/man/man5/sudoers.5.gz
+
+### 2. 找到 sudoers 文件位置之后，再查看其操作权限：
+[root@node3 ~]$ ls -l /etc/sudoers
+-r--r-----. 1 root root 3934 8月  22 14:21 /etc/sudoers
+
+### 3. 我们发现：对 sudoers 文件只有读权限，需要添加 w 权限：
+[root@node3 svn]# chmod -v u+w /etc/sudoers
+mode of &quot;/etc/sudoers&quot; changed from 0440 (r--r-----) to 0640 (rw-r-----)
+
+# 再次查看，已经添加了 w 权限：    
+[root@node3 svn]# ls -l /etc/sudoers
+-rw-r-----. 1 root root 3934 8月  22 14:21 /etc/sudoers
+
+### 4. 在 sudoers 文件为用户进行 sudo 命令的授权：
+[root@node3 svn]# vim /etc/sudoers
+
+# 在目标位置添加以下内容，wq 保存退出：
+## Allow root to run any commands anywher  
+root    ALL=(ALL)       ALL
+svn      ALL=(ALL)       ALL    # 新添加用户 sudo 授权
+
+
+### 5. 完成后，记得回收 sudoers 操作权限：
+[root@node3 svn]# chmod -v u-w /etc/sudoers
+mode of &quot;/etc/sudoers&quot; changed from 0640 (rw-r-----) to 0440 (r--r-----)
+</code></pre><p>【2】通过 sudo 临时获取 root 权限</p>
+<pre><code>### 1. svn 用户下使用 yum install：
+
+# 切换到 svn 用户：
+[root@node3 svn]# su svn
+
+[svn@node3 ~]$ yum install
+已加载插件：fastestmirror, langpacks
+Repodata is over 2 weeks old. Install yum-cron? Or run: yum makecache fast
+您需要 root 权限执行此命令。
+
+[svn@node3 ~]$ sudo yum install
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for svn:    # 输入 svn 用户密码即可执行命令
+</code></pre><p>第一次使用 <code>sudo cmd</code> 会提示你，你已经化身超人，身负拯救世界的重则。而且需要输入密码才可以下一步。如果不想需要输入密码怎么办，将最后一个ALL修改成 <code>NOPASSWD: ALL</code>。</p>
+<hr>
+<p>下面让我们正式开始 SVN 服务器搭建：</p>
+<h4 id="2-1-基于-SVN-Serve-的-SVN-服务器搭建之-Server-端"><a href="#2-1-基于-SVN-Serve-的-SVN-服务器搭建之-Server-端" class="headerlink" title="2.1 基于 SVN Serve 的 SVN 服务器搭建之 Server 端"></a>2.1 基于 SVN Serve 的 SVN 服务器搭建之 Server 端</h4><h5 id="2-1-1-SVN-的安装"><a href="#2-1-1-SVN-的安装" class="headerlink" title="2.1.1 SVN 的安装"></a>2.1.1 SVN 的安装</h5><p>1）安装 SVN（Subversion）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 1. 检测系统是否安装了低版本 SVN：</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> rpm -qa subversion</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果存在旧版本 SVN，则卸载：</span></span><br><span class="line">[svn@node3 ~]$ yum remove subversion</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 2. 开始安装 SVN：</span></span></span><br><span class="line">[svn@node3 ~]$ yum -y install subversion</span><br></pre></td></tr></table></figure>
+<p>Complete！完成之后，开始后续操作：</p>
+<p>2）查看版本信息</p>
+<pre><code>### 1. 安装是否成功：svn --version 或 svnserve --version
+
+[svn@node3 ~]$ svnserve --version
+svnserve，版本 1.7.14 (r1542130)
+   编译于 Apr 11 2018，02:40:28
+
+版权所有 (C) 2013 Apache 软件基金会。
+此软件包含了许多人的贡献，请查看文件 NOTICE 以获得更多信息。
+Subversion 是开放源代码软件，请参阅 http://subversion.apache.org/ 站点。
+
+下列版本库后端(FS) 模块可用: 
+* fs_base : 模块只能操作BDB版本库。
+* fs_fs : 模块与文本文件(FSFS)版本库一起工作。
+Cyrus SASL 认证可用。
+
+可使用以下的版本库访问模块: 
+* ra_neon : 通过 WebDAV 协议使用 neon 访问版本库的模块。
+  - 处理“http”方案
+  - 处理“https”方案
+* ra_svn : 使用 svn 网络协议访问版本库的模块。  - 使用 Cyrus SASL 认证
+  - 处理“svn”方案
+* ra_local : 访问本地磁盘的版本库模块。
+  - 处理“file”方案
+</code></pre><hr>
+<h5 id="2-1-2-SVN-的配置"><a href="#2-1-2-SVN-的配置" class="headerlink" title="2.1.2 SVN 的配置"></a>2.1.2 SVN 的配置</h5><p>1）新创建目录（包）存储 SVN 数据</p>
+<pre><code># Path：    /home/svn/SVNProject
+# svn 用户目录下创建 SVNProject 目录，用于存放所有 SVN 数据；
+# 如果没有创建 svn 用户，我们直接在 /home/svn 下创建 SVNProject 目录：
+[svn@node3 ~]$ mkdir -p /home/svn/SVNProject
+</code></pre><p>示例：<code>/home/svn/SVNProject</code> 存储了所有的版本库数据。</p>
+<p>2）创建版本仓库（Repository）</p>
+<p>我们可以在 <code>SVNProject</code> 目录下创建多个版本仓库。下面我们来看一下如何创建我们的第一个版本仓库？</p>
+<p><strong>步骤一：创建版本仓库目录</strong></p>
+<pre><code>[svn@node3 ~]$ mkdir -p SVNProject/SVNRepos
+</code></pre><p><strong>步骤二：构建 SVN 版本库</strong></p>
+<pre><code>### 1. 使用 FSFS 存储方式创建版本库
+# 如果需要使用 BDB 方式存储，则将     --fs-type fsfs ---&gt; --fs-type bdb
+[svn@node3 ~]$ svnadmin create --fs-type fsfs SVNProject/SVNRepos/
+
+# 执行上面的命令后，自动在 SVNRepos 下自动生成多个文件， 分别是：conf、db、format、hooks、locks、README.txt。
+
+[svn@node3 ~]$ ls SVNProject/SVNRepos/
+conf  db  format  hooks  locks  README.txt
+</code></pre><p>|——————————————————————</p>
+<p>下面我们给出 Subversion 版本库目录结构说明：</p>
+<p>（1）<code>dav</code> 目录：提供 Apache 与 mod_dav_svn 使用的目录，用于其存储内部数据；（某一版本？）</p>
+<p>（2）<code>db</code> 目录：所有版本控制的数据存放文件；</p>
+<p>（3）<code>hooks</code> 目录：放置 hook 脚本文件的目录；</p>
+<p>（4）<code>locks</code> 目录：用来放置 subversion 锁定数据的目录，用来追踪存取文件库的客户端；</p>
+<p>（5）<code>format</code> 文件：是一个文本文件，里面只放了一个整数。表示当前文件库配置的版本号；</p>
+<p>（6）<code>conf</code> 目录：当前仓库的配置文件。里面有 3 个文件【 <code>passwd</code> # 添加使用 svnserve 的用户和密码；<code>authz</code> # 记录不同用户的访问策略；<code>svnserve.conf</code> # svn 服务配置文件，例如： 生效 authz 和 passwd 配置。】</p>
+<p>——————————————————————|</p>
+<hr>
+<h5 id="2-1-3-版本仓库的配置"><a href="#2-1-3-版本仓库的配置" class="headerlink" title="2.1.3 版本仓库的配置"></a>2.1.3 版本仓库的配置</h5><p>我们知道创建一个版本仓库之后，会自动生成一个 <code>conf</code> 目录，目录中存放了 <code>passwd、 authz、 svnserve.conf</code> 三个文件，它们共同构成了svnserve 的配置文件。下面我们来看如何配置这些文件，更加安全便利地使用 SVN 服务。</p>
+<p>1）passwd 用户配置</p>
+<p>passwd 文件用于给 SVN 版本仓库添加使用用户，文件配置非常简单。我们先来看文件内容：</p>
+<pre><code>### This file is an example password file for svnserve.
+### Its format is similar to that of svnserve.conf. As shown in the
+### example below it contains one section labelled [users].
+### The name and password for each user follow, one account per line.
+
+[users]
+# harry = harryssecret
+# sally = sallyssecret
+</code></pre><p>可见：该文件由一个 [users] 配置段组成，格式：<code>&lt;用户名&gt;=&lt;密码口令&gt;</code>  注：口令为未经过任何处理的明文。添加使用用户时，我们只需要按格式在末尾处增加即可。样例如下：</p>
+<pre><code>[svn@node3 conf]$ vim passwd
+
+[users]
+# harry = harryssecret
+# sally = sallyssecret
+admin = admin    # 注意：居左顶齐，不要留空格；
+</code></pre><p>2）authz 用户策略配置</p>
+<p>authz 文件用来记录 SVN 用户的访问策略。它由 [groups] 配置段和若干版本库路径权限段组成，文件主要内容如下：</p>
+<pre><code>[groups]
+# harry_and_sally = harry,sally
+# harry_sally_and_joe = harry,sally,&amp;joe
+
+# [/foo/bar]
+# harry = rw
+# &amp;joe = r
+# * =
+
+# [repository:/baz/fuz]
+# @harry_and_sally = rw
+# * = r
+</code></pre><p>详细说明如下：</p>
+<p><strong>First：[groups] 配置段</strong></p>
+<p>[groups] 配置段格式：&lt;用户组&gt; = &lt;用户列表&gt;</p>
+<p>用户列表由若干个用户组或用户名构成，用户组或用户名之间用逗号”,”分隔；引用用户组时要使用前缀”@”。</p>
+<p><strong>Second：版本库路径权限段</strong></p>
+<p>【1】版本库路径权限段格式：</p>
+<pre><code>[&lt;版本库名&gt;:&lt;路径&gt;]
+</code></pre><p>样例：版本库 test 路径下 /tmp 的版本库路径权限段的段名为”[test:/tmp]”。</p>
+<p>再如：[/tmp] 。表示：还可省略段名中的版本库名。若省略版本库名，则该版本库路径权限段对所有版本库中相同路径的访问控制都有效。</p>
+<p>[/]：表示可以对版本库下的所有文件都可以进行访问控制（[/] 是相对 svn 版本库 src（源）目录下的访问路径）。</p>
+<p>【2】版本库路径权限段中<strong>配置行</strong>格式有如下三种（每行配置只能配置单个用户或用户组）：</p>
+<pre><code>&lt;用户名&gt; = &lt;权限&gt;
+&lt;用户组&gt; = &lt;权限&gt;
+\* = &lt;权限&gt;
+</code></pre><p>其中，”*”：表示任何用户。</p>
+<p>权限的取值范围为’’、’r’和’rw’。’’：表示对该版本库路径无任何权限，’r’表示具有只读权限，’rw’表示有读写权限。</p>
+<p>下面我们来看一下配置实例：</p>
+<pre><code># 只有 project_p 用户组有根目录的读写权。
+
+[svn@node3 conf]$ vim authz
+
+[groups]
+project_p = pm
+project_s = server1,server2,server3
+project_c = client1,client2,client3
+project_t = test1,test1,test1
+
+[project:/]
+@project_p = rw
+* =
+
+[project:/server]
+@project_p = rw
+@project_s = rw
+* =
+
+[project:/client]
+@project_p = rw
+@project_c = rw
+* =
+
+[project:/doc]
+@project_p = rw
+@project_s = r
+@project_c = r
+@project_t = r
+* =
+
+# &apos;* =&apos; 表示：除了上面设置了权限的用户组之外，其他任何人都被禁止访问本目录。
+</code></pre><p>3）svnserve.conf SVN 服务配置</p>
+<p>svnserve.conf 文件用来设置 SVN 服务配置。例如：使得 passwd 以及 authz 配置生效。由两个配置段构成： [general] 配置段和 [sasl] 配置段。这里我们主要关注 [general] 配置段，其格式如下（详细配置段讲解看附录 II：svnserve 配置详解）：</p>
+<pre><code>&lt;配置项&gt;=&lt;值&gt;
+</code></pre><p>配置项分为以下 5 项：</p>
+<p>【1】anon-access：匿名（非鉴权）用户访问版本库的权限。取值范围为”write”、”read”和”none”。即：”write”为可读可写；”read”为只读；”none”表示无访问权限。缺省值：read。</p>
+<p>【2】auth-access：一般（鉴权）用户访问版本库的权限。取值范围为”write”、”read”和”none”。即：”write”为可读可写；”read”为只读；”none”表示无访问权限。缺省值：write。</p>
+<p>【3】password-db：指定用户名口令（用户）配置文件路径。除非指定绝对路径，否则文件位置为相对 conf 目录的相对路径。缺省值：passwd。</p>
+<p>【4】authz-db：指定用户访问策略配置文件路径。通过该文件可以实现以路径为基础的访问控制。除非指定绝对路径，否则文件位置为相对 conf 目录的相对路径。缺省值：authz。</p>
+<p>【5】realm 指定版本库的认证域。即在登录时提示的认证域名称（可以理解为版本库目录）。若两个版本库的认证域相同，建议使用相同的用户名口令数据文件。缺省值：一个UUID(Universal Unique IDentifier，全局唯一标示)。这里我们不用设置。</p>
+<p>如下，我们给出一个设置样例：</p>
+<pre><code>[svn@node3 conf]$ vim svnserve.conf
+
+[general]
+anon-access = none
+auth-access = write
+password-db = passwd
+authz-db = authz
+</code></pre><p>SVN 管理员可以通过这 3 个 配置文件设置 svnserve 服务的用户名口令，以及对版本库路径的访问权限。这些配置文件保存后就立即生效，不需要重启 svnserve 服务。</p>
+<hr>
+<h5 id="2-1-4-启动-SVN-服务"><a href="#2-1-4-启动-SVN-服务" class="headerlink" title="2.1.4 启动 SVN 服务"></a>2.1.4 启动 SVN 服务</h5><p>上文我们以及学会了创建 SVN 版本库以及如何对其进行配置，这里我们来看如何使用（启动）创建好的 SVN 版本库（即：SVN 的使用）。</p>
+<p>1）SVN 服务启动版本库</p>
+<p>和大多数 C/S 软件一样，只有启动 SVN 服务【默认端口：3390】后才可以正常使用。</p>
+<p>SVN 启动版本库的两种方式：单库启动和多库启动。下面我们开始分别测试单库启动和多库启动。假设我们构建了两个版本库：SVNRepos1 和 SVNRepos2：</p>
+<p><strong>单库方式启动:</strong></p>
+<pre><code>#### 【1】 只启动 SVNRepos 版本库 
+[svn@node3 SVNProject]$ svnserve -d -r /home/svn/SVNProject/SVNRepos
+
+#### 【2】 启动后，简单检出测试是否可以直接访问到 SVNRepos 版本库副本：
+
+# 1. SVN Server：服务器端测试
+[svn@node3 ~]$ svn checkout svn://127.0.0.1 --username=admin
+或：
+[svn@node3 ~]$ svn checkout svn://10.1.0.123 --username=admin
+
+# 2. Client： 客户端检测
+
+TortoiseSVN：
+URL：svn://10.1.0.123
+
+#### 【3】 Completed At revision:0 ！！！ 成功了
+</code></pre><p><strong>多库方式启动</strong></p>
+<pre><code>#### 【1】 启动 SVNProject 版本仓库下所有版本库（多启动）
+[svn@node3 SVNProject]$ svnserve -d -r /home/svn/SVNProject/
+
+#### 【2】 启动后，简单检出测试是否可以直接访问到 SVNRepos 版本库副本：
+
+# 1. SVN Server：服务器端测试
+[svn@node3 ~]$ svn checkout svn://127.0.0.1/SVNRepos --username=admin
+或：
+[svn@node3 ~]$ svn checkout svn://10.1.0.123/SVNRepos --username=admin
+
+# 2. Client： 客户端检测
+
+TortoiseSVN：
+URL：svn://10.1.0.123/SVNRepos
+
+#### 【3】 Completed At revision:0 ！！！ 成功了
+</code></pre><p><strong>SVN 版本库查看</strong></p>
+<pre><code>#### 【1】 查看版本库中文件：svn list --verbose
+[svn@node3 ~]$ svn list --verbose file:///home/svn/SVNProject/SVNRepos
+      0  ?                    10月 26 14:35 ./
+
+#### 【2】 查看 SVN 版本库信息：svn info
+[svn@node3 ~]$ svn info file:///home/svn/SVNProject/SVNRepos
+路径: SVNRepos
+URL: file:///home/svn/SVNProject/SVNRepos
+版本库根: file:///home/svn/SVNProject/SVNRepos
+版本库 UUID: ab05587b-7a0e-4ee5-b505-0a4163b0f8a5
+版本: 0
+节点种类: 目录
+最后修改的版本: 0
+最后修改的时间: 2018-10-26 14:35:04 +0800 (五, 2018-10-26)
+</code></pre><p>注意：上面我们提到，SVN 服务默认端口：3690。而 SVN 服务器支持多 svnserver 同时启动的。如果你发现当前已经有 svnserve 在运行，可以通过更换端口来运行：</p>
+<pre><code>[svn@node3 SVNProject]$ svnserve -d -r /home/svn/SVNProject/ --listen-port 3391
+</code></pre><p>2）重启 SVN 服务</p>
+<p>当我们修改了 SVN 配置文件后，需要重启 SVN 服务。这里我们给出相关涉及命令供选择使用：</p>
+<pre><code>#### 【1】 启动：svnserve -d -r
+[svn@node3 SVNProject]$ svnserve -d -r /home/svn/SVNProject/
+
+#### 【2】 查看 SVN 进程：ps -aux|grep svnserve
+[svn@node3 ~]$ ps -aux|grep svnserve
+svn       5724  0.0  0.0 197188  1284 ?        Ss   16:48   0:00 svnserve -d -r /home/svn/SVNProject
+svn       9322  0.0  0.0 112720   976 pts/1    S+   17:13   0:00 grep --color=auto svnserve
+
+#### 【3】 强制 KILL SVN 进程：
+[svn@node3 ~]$ kill -9 Process_ID
+
+#### 【4】 KILL 所有 SVN 服务：
+[svn@node3 ~]$ killall svnserve
+
+#### 【5】 查看 3690 端口状态：
+[svn@node3 ~]$ netstat -apn |grep 3690
+tcp        0      0 0.0.0.0:3690            0.0.0.0:*               LISTEN      5724/svnserve
+</code></pre><hr>
+<h5 id="2-1-5-初始化-SVN-版本仓库目录"><a href="#2-1-5-初始化-SVN-版本仓库目录" class="headerlink" title="2.1.5 初始化 SVN 版本仓库目录"></a>2.1.5 初始化 SVN 版本仓库目录</h5><p>为了方便管理版本仓库中的项目，一般建立版本仓库之后，我们需要组织版本库目录结构。下面我们给出一个通用的标注目录结构：</p>
+<pre><code># 一般情况下，SVN 版本库中需要创建下面三种文件夹：
+
+trunk：主分支，日常进行开发的地方。
+tags：一般是只读目录，一般是阶段性的发布版本。作为一个里程碑式的文档。
+branchs：分支目录，一些阶段性的 release 版本
+</code></pre><p>下面我们来看一个初始化版本仓库目录的实例：</p>
+<p><strong>创建初始化临时目录</strong></p>
+<p>临时目录结构可见：<code>附录 III：Test_Library 目录结构说明</code>。</p>
+<p><strong>初始化版本库目录</strong></p>
+<pre><code>#### 【1】 使用临时目录结构初始化版本库目录：
+[svn@node3 Test_Library]$ svn import Test_Library file:///home/svn/SVNProject/SVNRepos/Test_Library -m &quot;Just Test this Trick.&quot;
+# 或
+[svn@node3 Test_Library]$ svn import Test_Library svn://localhost/Test_Library -m &quot;Just Test this Trick.&quot;
+
+# 输出如下：
+正在增加       Test_Library/2.SourceCodeLibrary
+正在增加       Test_Library/2.SourceCodeLibrary/DevelopLibrary
+正在增加       Test_Library/2.SourceCodeLibrary/DevelopLibrary/04.Vendor
+正在增加       Test_Library/2.SourceCodeLibrary/DevelopLibrary/03.Trunk
+正在增加       Test_Library/2.SourceCodeLibrary/DevelopLibrary/02.Branches
+正在增加       Test_Library/2.SourceCodeLibrary/DevelopLibrary/01.Tags
+正在增加       Test_Library/2.SourceCodeLibrary/ProductReleaseLibrary
+正在增加       Test_Library/2.SourceCodeLibrary/ProductReleaseLibrary/01.InternalRelease
+正在增加       Test_Library/2.SourceCodeLibrary/ProductReleaseLibrary/02.ExternalRelease
+正在增加       Test_Library/2.SourceCodeLibrary/BaseLineLibrary
+正在增加       Test_Library/2.SourceCodeLibrary/BaseLineLibrary/01.XX_COD(源代码)
+
+提交后的版本为 9。
+
+# 上述两种方法中，唯一不同的是版本库访问方式不同：【file:///】 和 【svn://】
+
+#### 2. 查看初始化 SVN 版本库目录（已经初始化）：
+[svn@node3 ~]$ svn list --verbose file:///home/svn/SVNProject/SVNRepos
+      9 svn                   10月 26 18:40 ./
+      9 svn                   10月 26 18:40 Test_Library/
+</code></pre><p><strong>删除初始化临时目录</strong></p>
+<pre><code>[svn@node3 ~]$ sudo rm -rf Test_Library/
+</code></pre><hr>
+<h5 id="2-1-6-SVN-Server-测试（本地测试）"><a href="#2-1-6-SVN-Server-测试（本地测试）" class="headerlink" title="2.1.6 SVN Server 测试（本地测试）"></a>2.1.6 SVN Server 测试（本地测试）</h5><p>上面我们已经完成了 SVN Server 的搭建，并且基于 /home/svn/SVNProject 目录构建了一个版本仓库。这一部分我们通过一个简单的 Python Hello 脚本来在 SVN 服务器本地进行测试 SVN 版本控制功能。</p>
+<p>关于 SVN 基础操作命令见【附录：I】。</p>
+<p><strong>检出目标版本库</strong></p>
+<pre><code># 从服务器导出目标版本库：
+[svn@node3 ~]$ svn co file:///home/svn/SVNProject/SVNRepos/Test_Library
+A    Test_Library/2.SourceCodeLibrary
+A    Test_Library/2.SourceCodeLibrary/DevelopLibrary
+A    Test_Library/2.SourceCodeLibrary/DevelopLibrary/01.Tags
+A    Test_Library/2.SourceCodeLibrary/DevelopLibrary/04.Vendor
+A    Test_Library/2.SourceCodeLibrary/DevelopLibrary/03.Trunk
+A    Test_Library/2.SourceCodeLibrary/DevelopLibrary/02.Branches
+A    Test_Library/2.SourceCodeLibrary/ProductReleaseLibrary
+A    Test_Library/2.SourceCodeLibrary/ProductReleaseLibrary/02.ExternalRelease
+A    Test_Library/2.SourceCodeLibrary/ProductReleaseLibrary/01.InternalRelease
+A    Test_Library/2.SourceCodeLibrary/BaseLineLibrary
+A    Test_Library/2.SourceCodeLibrary/BaseLineLibrary/01.XX_COD(源代码)
+取出版本 9。
+
+# 查看到处的版本库：
+[svn@node3 ~]$ ls
+Test_Library
+</code></pre><p><strong>项目开发</strong></p>
+<pre><code>cd Test_Library/2.SourceCodeLibrary/BaseLineLibrary/01.XX_COD(源代码)
+
+#### 【1】 将 &quot;print (&apos;Hello SVN Server!&apos;)&quot; 写入脚本：
+vim test.py
+
+# svn st 查看文件状态（是否在版本控制范畴）
+[svn@node3 01.XX_COD(源代码)]$ svn st
+?       test.py
+
+#### 【2】 将 test.py 文件加入待变更列表：
+[svn@node3 01.XX_COD(源代码)]$ svn add test.py
+A         test.py
+
+# svn st 查看文件状态
+[svn@node3 01.XX_COD(源代码)]$ svn st
+A       test.py
+
+#### 【3】 开发完成后，提交到 SVN 服务器：
+[svn@node3 01.XX_COD(源代码)]$ svn commit test.py -m &quot;This is a Commit Test&quot;
+Adding         main.c
+Transmitting file data .
+Committed revision 2.  ( 测试提交成功 )
+</code></pre><hr>
+<h4 id="2-2-基于-SVN-Serve-的-SVN-服务器搭建之-Client-端"><a href="#2-2-基于-SVN-Serve-的-SVN-服务器搭建之-Client-端" class="headerlink" title="2.2 基于 SVN Serve 的 SVN 服务器搭建之 Client 端"></a>2.2 基于 SVN Serve 的 SVN 服务器搭建之 Client 端</h4><p>上面我们提到：SVN 版本控制系统是一个 C/S 模式应用，客户端通过服务端某一开放端口访问服务端服务实现通信，SVN 服务维护一个默认的端口：3690（注意：SVN 是支持同时启动多个服务的）。在使用远程客户端测试（访问）SVN 服务之前我们需要保证其 3690 端口对局域网络开放，防止由于防火墙原因导致客户端无法连接至服务端。</p>
+<h5 id="2-2-1-防火墙配置"><a href="#2-2-1-防火墙配置" class="headerlink" title="2.2.1 防火墙配置"></a>2.2.1 防火墙配置</h5><p>我们先来看看防火墙端口可能引发的 SVN 客户端连接问题（对症下药）：</p>
+<p>SVN 服务成功启动，并且我们可以通过上文 【6】 SVN Server 测试（本地测试），但是在客户端(其它电脑)上无法实现检出，一直提示如下报错：</p>
+<p>（1）Can’t connect to host ‘<em>.</em>.<em>.</em>‘:由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接失败。</p>
+<p>（2）Can’t connect to host ‘<em>.</em>.<em>.</em>‘:由于目标计算机积极拒绝，无法连接。</p>
+<p><strong>解决办法：开启防火墙端口</strong></p>
+<pre><code>#### 【1】 开启防火墙端口
+
+# 1. 编辑防火墙配置文件
+
+[root@node3 svn]# vim /etc/sysconfig/iptables
+
+# 添加如下内容：
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 3690 -j ACCEPT
+
+# 修改后文件如下：
+# Firewall configuration written by system-config-firewall
+# Manual customization of this file is not recommended.
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
+
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 3690 -j ACCEPT    # 为了好区分，上下留空行
+
+-A INPUT -j REJECT --reject-with icmp-host-prohibited
+-A FORWARD -j REJECT --reject-with icmp-host-prohibited
+COMMIT
+
+# 或者（另一种方法）：直接开启端口后保存修改
+
+[root@node3 svn]# iptables -I INPUT -i eth0 -p tcp --dport 3690 -j ACCEPT
+
+[root@node3 svn]# iptables -I OUTPUT -o eth0 -p tcp --sport 3690 -j ACCEPT
+
+# 保存修改
+
+[root@node3 svn]# /etc/init.d/iptables save
+
+#### 【2】 重启防火墙，生效配置
+
+[root@node3 svn]# /etc/init.d/iptables restart
+
+# 或者：
+
+[root@node3 svn]# service iptables restart
+
+# 防火墙已重启：
+iptables: Setting chains to policy ACCEPT: filter          [  OK  ]
+iptables: Flushing firewall rules:                         [  OK  ]
+iptables: Unloading modules:                               [  OK  ]
+iptables: Applying firewall rules:                         [  OK  ]
+</code></pre><p><strong>查看防火墙端口情况</strong></p>
+<pre><code># 查看端口 tcp:port 占用情况
+root@node3 svn]# lsof -i tcp:3690
+
+COMMAND    PID USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME
+svnserve 19512  svn    3u  IPv4 42605144      0t0  TCP *:svn (LISTEN)
+
+# 或：
+
+# 列出所有端口：
+root@node3 svn]# netstat -ntlp
+
+[root@dev6 cdh]# netstat -ntlp
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address               Foreign Address             State       PID/Program name   
+tcp        0      0 0.0.0.0:3690                0.0.0.0:*                   LISTEN      7997/svnserve       
+tcp        0      0 0.0.0.0:111                 0.0.0.0:*                   LISTEN      2228/rpcbind        
+tcp        0      0 0.0.0.0:22                  0.0.0.0:*                   LISTEN      2598/sshd           
+tcp        0      0 127.0.0.1:631               0.0.0.0:*                   LISTEN      2331/cupsd          
+tcp        0      0 0.0.0.0:34839               0.0.0.0:*                   LISTEN      2285/rpc.statd      
+tcp        0      0 :::3306                     :::*                        LISTEN      3079/mysqld         
+tcp        0      0 :::111                      :::*                        LISTEN      2228/rpcbind        
+tcp        0      0 :::22                       :::*                        LISTEN      2598/sshd           
+tcp        0      0 ::1:631                     :::*                        LISTEN      2331/cupsd          
+tcp        0      0 :::59323                    :::*                        LISTEN      2285/rpc.statd    
+</code></pre><h5 id="2-2-2-SVN-客户端连接"><a href="#2-2-2-SVN-客户端连接" class="headerlink" title="2.2.2 SVN 客户端连接"></a>2.2.2 SVN 客户端连接</h5><blockquote>
+<p>开发人员强烈建议使用 IDE 中集成 SVN 插件更加智能与人性化。</p>
+</blockquote>
+<p>这一部分来看 Linux/Windows SVN 客户端环境连接与简单测试：</p>
+<p><strong>（1）Linux 环境</strong></p>
+<p>（1_1）安装 SVN（Subversion）客户端</p>
+<pre><code>### 1. 检测系统是否安装了低版本 SVN：
+$ rpm -qa subversion
+
+# 如果存在旧版本 SVN，则卸载：
+[svn@node3 ~]$ yum remove subversion
+
+### 2. 开始安装 SVN：
+[svn@node3 ~]$ yum -y install subversion
+</code></pre><p>​<br>Complete！完成之后，开始后续操作：</p>
+<p>（1_2）查看版本信息</p>
+<pre><code>### 1. 安装是否成功：svn --version 或 svnserve --version
+
+[svn@node3 ~]$ svnserve --version
+svnserve，版本 1.7.14 (r1542130)
+   编译于 Apr 11 2018，02:40:28
+
+版权所有 (C) 2013 Apache 软件基金会。
+此软件包含了许多人的贡献，请查看文件 NOTICE 以获得更多信息。
+Subversion 是开放源代码软件，请参阅 http://subversion.apache.org/ 站点。
+
+下列版本库后端(FS) 模块可用: 
+* fs_base : 模块只能操作BDB版本库。
+* fs_fs : 模块与文本文件(FSFS)版本库一起工作。
+Cyrus SASL 认证可用。
+
+可使用以下的版本库访问模块: 
+* ra_neon : 通过 WebDAV 协议使用 neon 访问版本库的模块。
+  - 处理“http”方案
+  - 处理“https”方案
+* ra_svn : 使用 svn 网络协议访问版本库的模块。  - 使用 Cyrus SASL 认证
+  - 处理“svn”方案
+* ra_local : 访问本地磁盘的版本库模块。
+  - 处理“file”方案
+</code></pre><p>Client 远程客户端安装好 SVN 服务之后，接下来我们尝试 checkout 一个上面 Server 端已经创建好的版本库来模拟实际环境下的使用：</p>
+<p>（1_3）Linux 下的测试：</p>
+<p><strong>检出目标版本库</strong></p>
+<pre><code># 从服务器导出目标版本库：
+[svn@node3 ~]$ svn co file:///home/svn/SVNProject/SVNRepos/Test_Library
+A    Test_Library/2.SourceCodeLibrary
+A    Test_Library/2.SourceCodeLibrary/DevelopLibrary
+A    Test_Library/2.SourceCodeLibrary/DevelopLibrary/01.Tags
+A    Test_Library/2.SourceCodeLibrary/DevelopLibrary/04.Vendor
+A    Test_Library/2.SourceCodeLibrary/DevelopLibrary/03.Trunk
+A    Test_Library/2.SourceCodeLibrary/DevelopLibrary/02.Branches
+A    Test_Library/2.SourceCodeLibrary/ProductReleaseLibrary
+A    Test_Library/2.SourceCodeLibrary/ProductReleaseLibrary/02.ExternalRelease
+A    Test_Library/2.SourceCodeLibrary/ProductReleaseLibrary/01.InternalRelease
+A    Test_Library/2.SourceCodeLibrary/BaseLineLibrary
+A    Test_Library/2.SourceCodeLibrary/BaseLineLibrary/01.XX_COD(源代码)
+取出版本 9。
+
+# 查看到处的版本库：
+[svn@node3 ~]$ ls
+Test_Library
+</code></pre><p><strong>项目开发</strong></p>
+<pre><code>cd Test_Library/2.SourceCodeLibrary/BaseLineLibrary/01.XX_COD(源代码)
+
+#### 【1】 将 &quot;print (&apos;Hello SVN Server!&apos;)&quot; 写入脚本：
+vim test.py
+
+# svn st 查看文件状态（是否在版本控制范畴）
+[svn@node3 01.XX_COD(源代码)]$ svn st
+?       test.py
+
+#### 【2】 将 test.py 文件加入待变更列表：
+[svn@node3 01.XX_COD(源代码)]$ svn add test.py
+A         test.py
+
+# svn st 查看文件状态
+[svn@node3 01.XX_COD(源代码)]$ svn st
+A       test.py
+
+#### 【3】 开发完成后，提交到 SVN 服务器：
+[svn@node3 01.XX_COD(源代码)]$ svn commit test.py -m &quot;This is a Commit Test&quot;
+Adding         main.c
+Transmitting file data .
+Committed revision 2.  ( 测试提交成功 )
+</code></pre><p><strong>（2）Windows 环境</strong></p>
+<p>（1_1）安装 SVN（Subversion）客户端 TortoiseSVN</p>
+<p>TortoiseSVN 官网下载地址：<a href="https://tortoisesvn.net/downloads.html" target="_blank" rel="noopener">https://tortoisesvn.net/downloads.html</a></p>
+<p>详细安装教程见网络。点击鼠标右键出现下图所示，说明安装成功：</p>
+<p><img src="/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/Img/TortoistSVN.png" alt="avatar"></p>
+<p>（1_2）Windows 下的测试：</p>
+<p>下面我们来进行一个简单的检出试验，用来检测客户端连接：</p>
+<p>首先选择：SVN 检出（checkout）</p>
+<p><img src="/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/Img/checkout.png" alt="avatar"></p>
+<p>然后，填入版本库信息：</p>
+<p><img src="/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/Img/repos_info.png" alt="avatar"></p>
+<p>此时会弹出一个对话框让你输入账号密码，输入你的账号密码即可。记得勾选保存认证，不然每次操作都会让你输入。</p>
+<p><img src="/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/Img/client_info.png" alt="avatar"></p>
+<p>等待检出完成：</p>
+<p><img src="/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/Img/checkout_result.png" alt="avatar"></p>
+<p>测试通过！！！！</p>
+<hr>
+<h4 id="2-3-配置-Apache-支持-HTTP-S-方式访问"><a href="#2-3-配置-Apache-支持-HTTP-S-方式访问" class="headerlink" title="2.3 配置 Apache 支持 HTTP(S) 方式访问"></a>2.3 配置 Apache 支持 HTTP(S) 方式访问</h4><p>先搁置，有需要再来补充。</p>
+<hr>
+<h3 id="附录：I"><a href="#附录：I" class="headerlink" title="附录：I"></a>附录：I</h3><p>1.svn help：可以通过该命令查看 svn 的所有子命令（包括命令的缩写）。</p>
+<p>2.svn checkout：表示从 svn 版本库中 checkout（检出、导出）对应的工作项目副本，样例如下：</p>
+<pre><code>##（1）svn 项目路径为：svn://192.168.1.1/myproject/doc，需要将项目路径下的文件 checkout 到 /home/test 目录下（若没有 /home/test 路径会自动创建）。
+
+    svn checkout svn://192.168.1.1/myproject/doc  /home/test/  --username myname --password password
+
+##（2）以下命令会在当前目录建 doc 目录，然后将项目 checkout 到该目录下
+
+    svn checkout svn://192.168.1.1/myproject/doc
+
+##（3）以下命令会建一个空的 doc 目录，该目录会与 svn 关联，该方法主要是为了只 checkout 对应项目下的部分文件。
+#  此时进到 doc 目录，然后使用svn up abc 命令则会将该项目下的 doc/abc 目录 checkout 到 doc，而不会 checkout 其他文件。
+
+    svn checkout --depth=empty svn://192.168.1.1/myproject/doc
+
+##（4）上面的命令可以将 checkout 替换为其缩写 co
+
+##（5）svn export：从仓库中导出代码到本地，导出的内容不包括 .svn 版本控制文件（和 co 相反），相当于导出的是一个干净的本地目录。
+</code></pre><p>3.添加文件，通过 2 将项目 checkout 到本地之后，就可以对项目进行操作，添加变更列表样例如下：</p>
+<pre><code>##（1）在 svn 目录下，添加了新文件（例如：aa.xml），然后提交，需要下面两步：
+
+      svn add aa.xml
+
+      svn commit -m &quot;add file aa.xml&quot; aa.xml
+
+##（2）添加多个文件，全部提交
+
+      svn add  *
+
+      svn commit -m &quot;add all update file&quot;  *
+
+##（3）其中上面的 commit 命令可缩写为 ci。另外 -m 参数后面引号为此次修改的注释，最后面为提交的文件。
+</code></pre><p>4.修改文件</p>
+<pre><code>##（1）当对存在的文件进行修改之后直接使用 commit 即可提交到 svn。例如：修改了：aa.txt，之后执行下面命令提交
+
+svn commit -m &quot;update file aa.txt&quot; aa.txt
+</code></pre><p>5.更新</p>
+<pre><code>##（1）更新当前目录下的全部文件
+
+      svn update
+
+##（2）更新abc目录中的文件
+
+      svn update abc
+
+##（3）将abc目录文件更新恢复到某个版本
+
+     svn update -r 版本号 abc
+
+##（4）update可用 up 代替
+</code></pre><p>6.删除文件</p>
+<pre><code>##（1）删除文件 aa.txt，需要如下两步操作，删除文件夹也一样
+
+    svn delete aa.txt
+
+    svn commit -m &quot;delete file aa.txt&quot;
+</code></pre><p>7.查看文件的状态：</p>
+<pre><code># 正常状态则执行命令之后无信息，文件前面带M表示对应文件有修改，C 表示对应文件冲突，A 表示新加文件，？ 表示文件还不在在 svn 管理下。
+# 如添加文件，没有进行 add 命令操作，则状态为？，进行了 add 操作但是没 commit，则为 A 状态
+
+##（1）查看当前目录所有文件状态
+
+    svn status
+
+##（2）查看 abc 目录下所有文件状态
+
+    svn status abc
+
+##（3）查看文件进行过的修改，第一列显示当前版本，第二列显示修改时的版本，第三列显示修改人，第四列显示修改文件
+    svn status -v abc
+
+##（4）status可用 st 代替
+
+##（5）所有文件状态：
+
+    1.&apos; &apos;没有修改
+    2.&apos;A&apos;被添加到本地代码仓库
+    3.&apos;C&apos; 冲突
+    4.&apos;D&apos; 被删除
+    5.&apos;I&apos; 被忽略
+    6.&apos;M&apos; 被修改
+    7.&apos;R&apos; 被替换
+    8,&apos;?&apos; 文件没有被添加到本地版本库内,不在 SVN 的管理之下
+    9.&apos;!&apos; 文件丢失或者不完整(不识别该文件)
+    10.&apos;~&apos; 受控文件被其他文件阻隔
+    11.&apos;U&apos; 本地有文件的情况下更新最新的代码到本地
+    12.&apos;G&apos; 产生冲突后,更新操作去解决冲突,相当于进行合并
+</code></pre><p>8.查看 svn 的提交日志记录</p>
+<pre><code>##（1）查看所有记录，一般会很多，不这么做
+
+    svn log
+
+##（2）查看最近的四条提交记录
+
+    svn log -l4
+
+##（3）查看 aa.txt 文件的记录
+
+    svn log aa.txt
+</code></pre><p>9.查看项目信息</p>
+<pre><code>##（1）查看项目的svn信息
+
+    svn info
+
+##（2）查看aa.txt文件的svn信息 
+
+   svn info aa.txt
+</code></pre><p>10.查看当前 svn 目录下有什么文件，方便根据需要 checkout 对应需要的文件</p>
+<pre><code>svn list svn://192.168.1.1/doc 
+</code></pre><p>11.拿出项目，但是拿出来的项目没有与 svn 进行关联，不在其控制范围，命令格式类似 checkout</p>
+<pre><code>##（1）拿项目的最新版本
+
+   svn export svn://192.168.1.1/doc /home/mytest
+
+##（2）拿项目指定版本的文件
+
+   svn export -r 需要的版本号 svn://192.168.1.1/doc /home/mytest
+</code></pre><p>12.文件修改之后回退</p>
+<pre><code>##（1）撤销对ab.txt 文件的修改
+
+    svn revert ab.txt
+
+##（2）撤销当前目录下的所有修改
+
+    svn revert --recursive
+</code></pre><p>13.文件对比</p>
+<pre><code>##（1）查看文件与svn中的不同
+
+    svn diff ab.txt
+
+##（2）查看 ab.txt 在版本为 12与14 之间所做的修改
+
+    svn diff -r 12:14 ab.txt
+</code></pre><hr>
+<h3 id="附录-II：svnserve-配置详解"><a href="#附录-II：svnserve-配置详解" class="headerlink" title="附录 II：svnserve 配置详解"></a>附录 II：svnserve 配置详解</h3><pre><code>### This file controls the configuration of the svnserve daemon, if you 
+### use it to allow access to this repository.  (If you only allow     
+### access through http: and/or file: URLs, then this file is
+### irrelevant.)
+
+### Visit http://subversion.tigris.org/ for more information.
+
+[general]
+### These options control access to the repository for unauthenticated
+### and authenticated users.  Valid values are &quot;write&quot;, &quot;read&quot;,
+### and &quot;none&quot;.  The sample settings below are the defaults.
+
+### 对于授权用户与未被授权（匿名）用户的访问级别控制：read，write，write
+anon-access = read
+auth-access = write 
+
+### The password-db option controls the location of the password
+### database file.  Unless you specify a path starting with a /,
+### the file&apos;s location is relative to the directory containing
+### this configuration file.
+### If SASL is enabled (see below), this file will NOT be used.
+### Uncomment the line below to use the default password file.
+
+### 密码数据文件的保存位置，默认为相对路径，如果以 / 开头则为绝对路径
+### 如果 SASL 开启的话，那么就不会验证该文件
+password-db = passwd
+
+### The authz-db option controls the location of the authorization
+### rules for path-based access control.  Unless you specify a path
+### starting with a /, the file&apos;s location is relative to the the
+### directory containing this file.  If you don&apos;t specify an
+### authz-db, no path-based access control is done.
+### Uncomment the line below to use the default authorization file.
+
+### 用户数据文件的保存位置，默认为相对路径，如果以 / 开头则为绝对路径
+### 如果未指定路径，则无访问控制
+authz-db = authz 
+
+### This option specifies the authentication realm of the repository.
+### If two repositories have the same authentication realm, they should
+### have the same password database, and vice versa.  The default realm
+### is repository&apos;s uuid.
+
+### 指定验证的范围，如果两个 repo 的 realm 属性一样，那么它们就应该使用同一个 password 数据库，反之亦然。
+### 默认的 realm 就是 repo 的唯一标示符
+realm = 0.1
+
+[sasl]
+### This option specifies whether you want to use the Cyrus SASL
+### library for authentication. Default is false.
+### This section will be ignored if svnserve is not built with Cyrus
+### SASL support; to check, run &apos;svnserve --version&apos; and look for a line
+### reading &apos;Cyrus SASL authentication is available.&apos;
+
+### 是否开启 SASL 验证，默认是 false 的
+### 此选项会默认 svn 服务器支持 Cyrus，检查的方法是，运行&apos;svnserve --version&apos;命令，查看输出是否有&apos;Cyrus SASL authentication is available.&apos;
+# use-sasl = false
+
+### These options specify the desired strength of the security layer
+### that you want SASL to provide. 0 means no encryption, 1 means
+### integrity-checking only, values larger than 1 are correlated
+### to the effective key length for encryption (e.g. 128 means 128-bit
+### encryption). The values below are the defaults.
+
+### 下面两个选项用来指定加密强度的
+# min-encryption = 0
+# max-encryption = 256
+</code></pre><hr>
+<h3 id="附录-III：Test-Library-目录结构说明"><a href="#附录-III：Test-Library-目录结构说明" class="headerlink" title="附录 III：Test_Library 目录结构说明"></a>附录 III：Test_Library 目录结构说明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Test_Library </span><br><span class="line">|</span><br><span class="line">|- SourceCodeLibrary</span><br><span class="line">	|</span><br><span class="line">​	|-- BaseLineLibrary</span><br><span class="line">	|	|</span><br><span class="line">​	|	|--- 01.XX_COD(源代码)</span><br><span class="line">	|</span><br><span class="line">​	|-- DevelopLibrary</span><br><span class="line">	|	|</span><br><span class="line">​	|	|--- 01.Tags</span><br><span class="line">	|	|</span><br><span class="line">​	|	|--- 02.Branches</span><br><span class="line">	|	|	</span><br><span class="line">​	|	|--- 03.Trunk</span><br><span class="line">	|	|</span><br><span class="line">​	|	|--- 04.Vendor</span><br><span class="line">	|</span><br><span class="line">​	|-- ProductReleaseLibrary</span><br><span class="line">		|</span><br><span class="line">​		|--- 01.InternalRelease</span><br><span class="line">		|</span><br><span class="line">​		|--- 02.ExternalRelease</span><br></pre></td></tr></table></figure>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/" title="Centos 6/7 SVN + Apache（HTTP）服务器配置与使用指南">http://yoursite.com/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Setup/" rel="tag"><i class="fa fa-tag"></i> Setup</a>
+          
+            <a href="/tags/SVN/" rel="tag"><i class="fa fa-tag"></i> SVN</a>
+          
+            <a href="/tags/Subversion/" rel="tag"><i class="fa fa-tag"></i> Subversion</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/TensorFlow/TensorFlow-之模型持久化/" rel="next" title="TensorFlow 之模型持久化">
+                <i class="fa fa-chevron-left"></i> TensorFlow 之模型持久化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/SVN/TortoiseSVN-快速使用指南/" rel="prev" title="TortoiseSVN 快速使用指南">
+                TortoiseSVN 快速使用指南 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-SVN-服务简介"><span class="nav-text">1. SVN 服务简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-何为版本控制？"><span class="nav-text">1.1 何为版本控制？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-什么是-SVN（Subversion）以及-SVN-版本库？"><span class="nav-text">1.2 什么是 SVN（Subversion）以及 SVN 版本库？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-SVN-基本工作原理"><span class="nav-text">1.3 SVN 基本工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-Subversion-解决的问题"><span class="nav-text">1.4 Subversion 解决的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-SVN（Subversion）基本操作"><span class="nav-text">1.5 SVN（Subversion）基本操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-SVN-Apache（HTTP）服务器配置"><span class="nav-text">2. SVN + Apache（HTTP）服务器配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#预安装环境（推荐）"><span class="nav-text">预安装环境（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-基于-SVN-Serve-的-SVN-服务器搭建之-Server-端"><span class="nav-text">2.1 基于 SVN Serve 的 SVN 服务器搭建之 Server 端</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-1-SVN-的安装"><span class="nav-text">2.1.1 SVN 的安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-2-SVN-的配置"><span class="nav-text">2.1.2 SVN 的配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-3-版本仓库的配置"><span class="nav-text">2.1.3 版本仓库的配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-4-启动-SVN-服务"><span class="nav-text">2.1.4 启动 SVN 服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-5-初始化-SVN-版本仓库目录"><span class="nav-text">2.1.5 初始化 SVN 版本仓库目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-6-SVN-Server-测试（本地测试）"><span class="nav-text">2.1.6 SVN Server 测试（本地测试）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-基于-SVN-Serve-的-SVN-服务器搭建之-Client-端"><span class="nav-text">2.2 基于 SVN Serve 的 SVN 服务器搭建之 Client 端</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-防火墙配置"><span class="nav-text">2.2.1 防火墙配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-2-SVN-客户端连接"><span class="nav-text">2.2.2 SVN 客户端连接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-配置-Apache-支持-HTTP-S-方式访问"><span class="nav-text">2.3 配置 Apache 支持 HTTP(S) 方式访问</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附录：I"><span class="nav-text">附录：I</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附录-II：svnserve-配置详解"><span class="nav-text">附录 II：svnserve 配置详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附录-III：Test-Library-目录结构说明"><span class="nav-text">附录 III：Test_Library 目录结构说明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

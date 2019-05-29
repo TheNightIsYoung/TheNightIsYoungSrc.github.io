@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="TensorFlow,Recurrent Neural Network,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇： 在前面的系列章节中，我们已经讲解了全连接神经网络（Full Connection Neural Network）和卷积神经网络（Convolutional Neural Network），以及如何训练和使用 FCNN、CNN 模型。它们都只能单独的处理一个个的输入，而前一个输入和后一个输入是完全没有关系的。 但是，某些任务需要能够更好的">
+<meta name="keywords" content="TensorFlow,Recurrent Neural Network">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow 实战之循环神经网络（Recurrent Neural Network）">
+<meta property="og:url" content="http://yoursite.com/TensorFlow/循环神经网络/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇： 在前面的系列章节中，我们已经讲解了全连接神经网络（Full Connection Neural Network）和卷积神经网络（Convolutional Neural Network），以及如何训练和使用 FCNN、CNN 模型。它们都只能单独的处理一个个的输入，而前一个输入和后一个输入是完全没有关系的。 但是，某些任务需要能够更好的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/循环神经网络/Img/RNN_Construct.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/循环神经网络/Img/unrolled_rnn.jpg">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/循环神经网络/Img/RNN_Construct_Unfold.jpg">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/循环神经网络/Img/output_f.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/循环神经网络/Img/ABCD.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/循环神经网络/Img/RNN_FP.jpg">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/循环神经网络/Img/FP_calc.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/循环神经网络/Img/BiRNN.jpg">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/循环神经网络/Img/calc1.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/循环神经网络/Img/calc2.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/循环神经网络/Img/deepRNN.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/循环神经网络/Img/RNN_dropout.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/循环神经网络/Img/rnn_error.png">
+<meta property="og:updated_time" content="2019-05-29T03:03:52.298Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TensorFlow 实战之循环神经网络（Recurrent Neural Network）">
+<meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇： 在前面的系列章节中，我们已经讲解了全连接神经网络（Full Connection Neural Network）和卷积神经网络（Convolutional Neural Network），以及如何训练和使用 FCNN、CNN 模型。它们都只能单独的处理一个个的输入，而前一个输入和后一个输入是完全没有关系的。 但是，某些任务需要能够更好的">
+<meta name="twitter:image" content="http://yoursite.com/TensorFlow/循环神经网络/Img/RNN_Construct.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/TensorFlow/循环神经网络/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>TensorFlow 实战之循环神经网络（Recurrent Neural Network） | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/TensorFlow/循环神经网络/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TensorFlow 实战之循环神经网络（Recurrent Neural Network）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T17:36:16+08:00">
+                2018-11-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:52+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/TensorFlow/循环神经网络/" class="leancloud_visitors" data-flag-title="TensorFlow 实战之循环神经网络（Recurrent Neural Network）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  24
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…</center>
+
+<p><strong>开篇：</strong></p>
+<p>在前面的系列章节中，我们已经讲解了全连接神经网络（Full Connection Neural Network）和卷积神经网络（Convolutional Neural Network），以及如何训练和使用 FCNN、CNN 模型。它们都只能单独的处理一个个的输入，而前一个输入和后一个输入是完全没有关系的。</p>
+<p>但是，某些任务需要能够更好的<strong>处理序列的信息</strong>，即前面的输入和后面的输入是有一定关系的。比如：当我们在理解一句话意思时，孤立的理解这句话中的每个词的意思是不够的，我们需要分析这些词连接起来的整个序列的意思；当我们处理视频的时候，我们也不能只单独的去分析每一帧的信息，而要分析这些帧连接起来的整个序列信息。也就是说待处理信息前后是存在一定序列的。</p>
+<p>基于上述，我们需要介绍深度学习领域中另一种非常重要且常用的神经网络结构：<strong>循环神经网络（Recurrent Neural Network，RNN）</strong> 以及循环神经网络中的一个重要结构——<strong>长短时记忆网络（long short-term memory，LSTM）</strong>。</p>
+<a id="more"></a>
+<p>为了进一步说明循环神经网络的使用，这一章节也将介绍循环神经网络在 <strong>自然语言处理（Natural Language Processing，NLP）</strong> 问题以及 <strong>时序分析</strong> 问题中的应用，并给出具体的 TensorFlow 程序来解决一些经典的问题。</p>
+<p>这一章节内容我们主要分为四个部分：</p>
+<p>第一部分，将介绍循环神经网络的基本知识并以机器翻译样例来说明循环神经网络工作原理。这一小节将给出一个具体的样例来说明一个最简单的循环神经网络的前向传播过程；</p>
+<p>第二部分，介绍基于上述循环神经网络结构的常用变种（BRNN、DRNN、Dropout）；</p>
+<p>第三部分，这一小节将介绍循环神经网络中的长短时记忆网络（LSTM）的网络结构；</p>
+<p>第四部分，最后一小节将结合 TensorFlow 对上述神经网络结构的支持，通过两个经典的循环神经网络模型的应用案例，介绍如何针对语言模型和时序预测两个问题，设计和使用循环神经网络。</p>
+<hr>
+<h3 id="第一部分：循环神经网络工作原理"><a href="#第一部分：循环神经网络工作原理" class="headerlink" title="第一部分：循环神经网络工作原理"></a>第一部分：循环神经网络工作原理</h3><p>循环神经网络（recurrent neural network，RNN）源自于 1982 年由 Saratha Sathasivam 提出的霍普菲尔德网络（玩音乐的应该听过德国霍普菲尔德钢琴…）。霍普菲尔德网络由于实现困难，在其提出时并没有被合适的应用，该网络结构也于 1986 年后被全连接神经网络以及一些传统的机器学习算法所取代。然而由于传统机器学习算法非常依赖于人工提取的特征，使得基于传统机器学习的图像识别、语音识别以及自然语言处理等问题存在特征提取的瓶颈。</p>
+<p>而基于全连接神经网络的方法也存在参数太多、无法利用数据中时间序列信息等问题，随着更加有效的循环神经网络结构被不断提出，循环神经网络挖掘数据中的 <strong>时序信息</strong> 以及 <strong>语义信息</strong> 等的深度表达能力被充方利用，并在语言识别、语言模型、机器翻译以及时序分析等方面实现了突破。</p>
+<hr>
+<h4 id="1-1-循环神经网络简介"><a href="#1-1-循环神经网络简介" class="headerlink" title="1.1 循环神经网络简介"></a>1.1 循环神经网络简介</h4><p>循环神经网络的主要用途是用来 <strong>处理和预测序列数据</strong>。我们之前介绍的全连接神经网络或卷积神经网络模型中，网络结构都是从输入层到隐藏层再到输出层，层与层之间是全连接或者部分连接的，但每一层的节点之间是无连接的。</p>
+<p>我们先考虑这样一个 NLP 问题：如果要预测句子的下一个单词是什么，一般需要用到当前单词以及前面的单词，这是由于句子中前后单词并不是独立的。比如，当前的单词是“很”，前一个单词是“天空”，那么下一个单词很大概率是“蓝”。循环神经网络的来源就是为了刻画一个序列当前的输出和之前信息的关系，从网络结构上来看，循环神经网络会 <strong>记忆</strong> 之前节点的信息，并利用之前的信息影响后面节点的输出。</p>
+<p>也就是说，循环神经网络的隐藏层之间的节点是有连接的，隐藏层的输入不仅包括输入层的输入，还包括上一时刻隐藏层的输出。</p>
+<p><strong>循环神经网络结构：</strong></p>
+<p>循环神经网络种类繁多，下面我们给出一个典型的循环神经网络：</p>
+<center><img src="/TensorFlow/循环神经网络/Img/RNN_Construct.png" alt="avatar"><br><br>图 8-1 循环神经网络经典结构示意图</center>
+
+<p>相信第一次看到这个玩意的读者内心和我一样是崩溃的（说好的神经网络，网络呢？！）。这是因为循环神经网络实在是太难画出来了，网上所有大神们都不得不用了这种抽象艺术手法。不过，静下心来仔细看看的话，其实也是很好理解的：</p>
+<p>如果把上面有 W 的那个带箭头的圈去掉，它就变成了一个最简单的 <strong>全连接神经网络：</strong>$x$ 表示输入向量值；$s$ 表示隐藏层值；$o$ 表示输出向量值（$U$ 是输入层到隐藏层的权重矩阵；$V$ 是隐藏层到输出层的权重矩阵）。</p>
+<p>那么接下来我们看看 <strong>“带 W 的带箭头的环”</strong> 又是指什么：它表示网络结构为循环结构，隐藏层权重为 $W$（参数共享）。循环神经网络理论上可以被看作是同一神经网络结构被无限复制的结果（其实出于优化考虑，循环神经网络无法做到真正的无限循环。所以，一般可以将循环神经网络的循环体展开。如下图所示）。循环神经网络中当前隐藏层的值 $h$（$s$） 不仅仅取决于当前这次的输入 $x$，还取决于上一次隐藏层的值 $h$（$s$）。权重矩阵 $W$ 就是隐藏层上一次的值作为这一次的输入的权重矩阵（参数 $W$ 共享）。</p>
+<center><img src="/TensorFlow/循环神经网络/Img/unrolled_rnn.jpg" alt="avatar"></center>
+
+<hr>
+<p><strong>时刻：</strong></p>
+<p>对于循环神经网络，一个非常重要的概念就是 <strong>时刻</strong>。我们知道 RNN 主要用于解决序列数据问题，对于一个数据序列的不同数据，可以看作这个序列不同时刻的数据。于是，RNN 数据输入可以看作是将不同时刻的数据依次传入循环神经网络的输入层，循环神经网络会对于每一时刻的输入结合当前模型的状态（上一次隐藏层的值）给出一个输出。通俗的讲，循环神经网络主体结构 $s$（$h$） 的当前时刻的输入除了来自于输入层 $x$，还有一个循环的边来提供当前时刻的状态（上一时刻隐藏层的值）。在每一时刻，循环神经网络的模块 $s$ 会读取当前时刻的输入 $x$，并输出一个值 $o$。同时 $s$ 的状态会从当前时刻传递到下一时刻。</p>
+<p>结合上述 RNN 网络结构示意图以及时刻概念，我们来看其 <strong>工作原理详解</strong>：</p>
+<center><img src="/TensorFlow/循环神经网络/Img/RNN_Construct_Unfold.jpg" alt="avatar"><br><br>图 8-2 循环神经网络按时刻展开后的结构</center>
+
+<p>从图中可以看到循环神经网络在每一时刻都会有一个输入 $x_t$，然后根据循环神经网络当前的状态 $s_t$ 提供一个输出 $o_t$。以时刻 $t$ 为例，网络在 $t$ 时刻接收到输入 $x_t$ 之后，隐藏层的值是 $s_t$，输出值是 $o_t$。关键一点是，$s_t$ 的值不仅仅取决于 $x_t$，还取决于 $s_{t-1}$。可以用下面的公式来表示循环神经网络的计算过程：</p>
+<p>$$<br>o_t = g(V * s_t)<br>$$</p>
+<p>$$<br>s_t = f(U * x_t + W * s_{t-1})<br>$$</p>
+<p>如果反复把 <strong>式2</strong> 带入到 <strong>式1</strong>，我们将得到：</p>
+<center><img src="/TensorFlow/循环神经网络/Img/output_f.png" alt="avatar"></center>
+
+<p>可以看出，循环神经网络的输出值 $o_t$，是受前面历次输入值 $x_t$、$x_{t-1}$、$x_{t-2}$、$x_{t-3}$、……影响的，这就是为什么<strong>循环神经网络可以往前探索任意多个输入值</strong>的原因（看到这里我们应该存在一个疑惑：对于序列问题，只依靠看前面的词就足够了么？）。</p>
+<p>对于输出 $o_t$，可以是对序列中下一个时刻的预测，也可以是对当前时刻信息的处理（如语言识别结果）。循环神经网络要求每一个时刻都要有一个输入，但是不一定每个时刻都需要有输出。</p>
+<hr>
+<p>下面我们给出一个以机器翻译为样例的演示来说明循环神经网络如何解决实际问题：</p>
+<p>对于机器翻译，循环神经网络每一时刻的输入为需要翻译的句子中的单词。如图 8-3 所示，需要翻译的句子为：ABCD，那么循环神经网络第一段每一时刻的输入就分别是：A、B、C、D，然后用 “_” 作为待翻译句子的结束符。在第一段中，循环神经网络没有输出。从结束符 “_” 开始，循环神经网络进入翻译阶段，该阶段中每一时刻的输入就是上一时刻的输出，而最终得到的输出就是句子 ABCD 翻译的结果。从图 8-3 中可以看到句子 ABCD 对应的翻译结果就是 XYZ，而 Q 是代表翻译结束的字符。</p>
+<center><img src="/TensorFlow/循环神经网络/Img/ABCD.png" alt="avatar"></center>
+
+<p><strong>RNN 总结</strong></p>
+<ul>
+<li>循环神经网络可以被看作是同一神经网络结构在时间序列上被复制多次的结果，这个被复制多次的结构被称之为循环体；</li>
+<li>如何设计循环体的网络结构是循环神经网络解决实际问题的关键；</li>
+<li>和卷积神经网络过滤器中参数共享类似，RNN 中的参数在不同时刻也是共享的。</li>
+</ul>
+<hr>
+<h4 id="1-2-循环神经网络前向传播"><a href="#1-2-循环神经网络前向传播" class="headerlink" title="1.2 循环神经网络前向传播"></a>1.2 循环神经网络前向传播</h4><p>这一小节我们解读循环神经网络的前向传播过程。首先，图 8-4 展示了一个使用<strong>最简单的循环体结构（A）</strong>的循环神经网络，在这个循环体中只使用一个类似全连接层的神经网络结构。下面我们通过 图 8-4 展示的神经网络来介绍循环神经网络的前向传播流程。</p>
+<center><img src="/TensorFlow/循环神经网络/Img/RNN_FP.jpg" alt="avatar"></center>
+
+<p>循环神经网络中的状态（A）可以通过一个向量来表示（上一时刻隐藏层的输出，假设其维度为：$h$）。从 图 8-4 中可以看出，循环体中的神经网络输入有两部分：一部分为上一时刻的状态；另外一部分为当前时刻的输入样本向量。对于时间序列输入数据来说（比如不同时刻商品的销量），每一时刻的输入样例可以是当前时刻的数值（比如销售量）；对于语言模型来说，输入样例可以是当前单词对应的单词向量（word embedding）。</p>
+<p>假设输入向量的维度为 x，那么图 8-4 中循环体的全连接层神经网络的输入大小为 $h+x$。也就是将上一时刻的状态与当前时刻的输入拼接成一个大的向量作为循环体中神经网络的输入（样例为了方便显示，采用了向量拼接的方式）。因为该神经网络的输出为当前时刻的状态，于是输出层的节点个数也为 $h$，循环体中的参数个数为 $(h+x) * h + h$ 个。</p>
+<p>从 图 8-4 中看出，循环体中的神经网络输出不但提供给了下一时刻作为状态，同时也会提供给当前时刻的输出。为了将当前时刻的状态转化为最终的输出，RNN 还需要另外一个全连接神经网络来完成这个过程，这和 CNN 中最后的全连接层的意义是一样的。<strong>类似的，不同时刻用于输出的全连接神经网络中的参数也是一致的</strong>。</p>
+<p>下面我们来看一个循环神经网络前向传播的具体计算过程：</p>
+<center><img src="/TensorFlow/循环神经网络/Img/FP_calc.png" alt="avatar"></center>
+
+<p>下面代码给出了上述循环神经网络前向传播实现过程：</p>
+<pre><code>import numpy as np
+
+X = [1, 2]
+state = [0.0, 0.0]
+
+# 分开定义不同输入部分权重以便操作：
+w_cell_state = np.asarray([[0.1, 0.2], [0.3, 0.4]])
+w_cell_input = np.asarray([0.5, 0.6])
+b_cell = np.asarray([0.1, -0.1])
+
+# 定义用于输出的全连接层参数：
+w_output = np.asarray([[1.0], [2.0]])
+b_output = 0.1
+
+# 按时间顺序执行循环神经网络的前向传播过程：
+for i in range(len(X)):
+
+    # 计算循环体中的全连接神经网络：
+    before_activation = np.dot(state, w_cell_state) + X[i] * w_cell_input + b_cell
+
+    state = np.tanh(before_activation)
+
+    # 根据当前时刻状态计算最终输出：
+    final_output = np.dot(state, w_output) + b_output
+
+    # 输出每个时刻的信息：
+    print (&quot;before activation: &quot;, before_activation)
+    print (&quot;state: &quot;, state)
+    print (&quot;output: &quot;, final_output)
+</code></pre><p>运行输出以下结果，和上图中前向传播结果数值一致：</p>
+<pre><code>before activation: [0.6 0.5]
+state: [0.53704957 0.46211716]
+output: [1.56128388]
+before activation: [1.2923401 1.39225678]
+state: [0.85973818 0.88366641]
+output: [2.72707101]
+</code></pre><p><strong>Loss Function</strong></p>
+<p>在得到循环神经网络的前向传播结果之后，可以和其它神经网络类似地定义损失函数。循环神经网络唯一的区别在于每一时刻都有一个输出，所以循环神经网络的总损失为所有时刻（或部分时刻）上的损失函数的总和。</p>
+<p>和其它神经网络类似，在定义完损失函数之后，就可以使用 TensorFlow 完成模型训练了。</p>
+<p><strong>注意:</strong></p>
+<p>需要特别指出的是，理论上循环神经网络可以支持任意长度的序列，然而实际中，如果序列过长会导致优化时出现梯度消散的问题（下一章节会进行说明）。所以实际中一般会规定一个最大长度，当序列长度超过规定长度之后会对序列进行截断。</p>
+<hr>
+<h3 id="第二部分：循环神经网络扩展"><a href="#第二部分：循环神经网络扩展" class="headerlink" title="第二部分：循环神经网络扩展"></a>第二部分：循环神经网络扩展</h3><p>在前一章节我们已经掌握了循环神经网络的工作原理以及前向传播过程，这一节我们来看 RNN 的几个常用变种（BRNN、DRNN、Dropout 等）以及它们所解决的问题，同时也会给出如何使用 TensorFlow 来实现这些变种。</p>
+<h4 id="2-1-双向循环神经网络（bi-directional-RNN）"><a href="#2-1-双向循环神经网络（bi-directional-RNN）" class="headerlink" title="2.1 双向循环神经网络（bi-directional RNN）"></a>2.1 双向循环神经网络（bi-directional RNN）</h4><p>在前面介绍的经典循环神经网络架构中，我们知道状态的传输时从前往后 <strong>单向的</strong>。然而有些问题中，当前时刻的输出不仅和之前的状态有关系，也和之后的状态相关。例如对于语言模型来说，很多时候光依赖前文信息来预测语句单词时不够的，也需要根据后面的内容。比如下面这句话：</p>
+<blockquote>
+<p>我的手机坏了，我打算____一部新手机。</p>
+</blockquote>
+<p>可以想象，如果我们只看横线前面的词，手机坏了，那么我是打算修一修？换一部新的？还是大哭一场？这些都是无法确定的。但如果我们也看到了横线后面的词是 【一部新手机】，那么横线上的词填 【买】的概率就大得多了。</p>
+<p>基于上节介绍的基本循环神经网络是无法对此进行建模的，这是就需要使用<strong>双向循环神经网络（bi-directional RNN，BiRNN）</strong>来解决这类问题。BiRNN 是由两个循环神经网络上下叠加在一起组成的，输出由这两个循环神经网络的状态共同决定。下面给出一个双向循环神经网络结构示意图：</p>
+<center><img src="/TensorFlow/循环神经网络/Img/BiRNN.jpg" alt="avatar"></center>
+
+<p>从图中可以看出，BiRNN 的主体结构就是两个单向循环神经网络的结合。在每一时刻 $t$，输入会同时提供给这两个方向相反的循环神经网络，而输出是由这两个单向循环神经网络共同决定的。</p>
+<p><strong>BiRNN  前向传播过程：</strong></p>
+<ul>
+<li>沿着时刻 $T_0$ 到时刻 $T_n$ 正向计算一遍，得到并保存每个时刻向前隐含层的输出。 </li>
+<li>沿着时刻 $T_n$ 到时刻 $T_0$ 反向计算一遍，得到并保存每个时刻向后隐含层的输出。 </li>
+<li>正向和反向都计算完所有输入时刻后，每个时刻根据向前向后隐含层得到最终输出。</li>
+</ul>
+<hr>
+<p>为了帮助理解，我们来分析一个特殊场景，然后再总结一般规律。我们先考虑上图中 $y_2$ 的计算：</p>
+<p>从上图可以看出，双向卷积神经网络的隐藏层要保存两个值，一个 $A$ 参与正向计算，另一个值 $A’$ 参与反向计算。最终的输出值 $y_2$ 取决于 $A_2$ 和 $A_2’$ 。其计算方法为：</p>
+<p>$$ y_2 = g(VA_2 + V’A_2’ ) $$</p>
+<p>$A_2$ 和 $A_2’$ 则分别计算：</p>
+<center><img src="/TensorFlow/循环神经网络/Img/calc1.png" alt="avatar"></center>
+
+<p>现在，我们已经可以看出一般的规律：正向计算时，隐藏层的值与有关 $S_t$ 和 $S_{t-1}$；反向计算时，隐藏层的值 $S_t’$ 与 $S_{t+1}’$ 有关；最终的输出取决于同一时刻的正向和反向计算。下面给出一个双向循环神经网络的计算方法：</p>
+<center><img src="/TensorFlow/循环神经网络/Img/calc2.png" alt="avatar"></center>
+
+<p>同时可以看出，正向计算和反向计算不共享权重，也就是说 $U$ 和 $U’$、$W$ 和 $W’$、$V$ 和 $V’$ 都是不同的权重矩阵。</p>
+<hr>
+<h4 id="2-2-深层循环神经网络（deepRNN）"><a href="#2-2-深层循环神经网络（deepRNN）" class="headerlink" title="2.2 深层循环神经网络（deepRNN）"></a>2.2 深层循环神经网络（deepRNN）</h4><p>为了只关注循环神经网络工作原理，前面我们介绍的循环神经网络结构都只有一个隐藏层。为了增强模型的表达能力，可以将每一时刻上的循环体重复多次（堆叠多个隐藏层），这样就得到了深度循环神经网络。下图（图 8-8）给出了深层神经网络结构示意图：</p>
+<center><img src="/TensorFlow/循环神经网络/Img/deepRNN.png" alt="avatar"></center>
+
+<p>从图 8-8 中可以看出，相比前面所介绍的循环神经网络结构，深层循环神经网络在每个时刻上将循环体结构复制了多次。和卷积神经网络类似，每一层的循环体中参数是一致的（共享），而不同层中的参数可以不同。为了更好地支持深层循环神经网络，TensorFlow 中提供了 MultiRNNCell 类来实现深层循环神经网络的前向传播过程。以下我们将给出代码展示如何使用这个类：</p>
+<pre><code># 定义一个基本的 LSTM 结构（后续会介绍 LSTM）作为循环体的基础结构。深层循环神经网络也支持使用其它的循环体
+lstm = rnn_cell.BasicLSTMCell(lstm_size)
+
+# 通过 MultiRNNCell 类实现深层循环神经网络中每一时刻的前向传播过程。其中，
+# number_of_layers 表示循环体设置隐藏层层数，这里表示设置的 LSTM 结构数目
+stached_lstm = rnn_cell.MultiRNNCell([lstm] * number_of_layers)
+
+# 和经典循环神经网络一样，可以通过 zero_state 函数来获取初始状态
+state = stacked_lstm.zero_state(batch_size, tf.float32)
+
+# 计算前向传播结果：
+for i in range(len(num_steps)):
+    if i&gt; 0: tf.get_variable_scope().reuse_variables()
+    stacked_lstm_output, state = stacked_lstm(current_input, state)
+    final_output = fully_connected(stacked_lstm_output)
+    loss += calc_loss(final_output, expected_output)
+</code></pre><p>从上述 TensorFlow 实现中看出，TensorFlow 中只需要在 BasicLSTMCell 的基础上再封装一层 MultiRNNCell 就可以非常容易地实现深层 LSTM 循环神经网络了（是不感觉很简单）。</p>
+<hr>
+<h4 id="2-3-循环神经网络的-dropout"><a href="#2-3-循环神经网络的-dropout" class="headerlink" title="2.3 循环神经网络的 dropout"></a>2.3 循环神经网络的 dropout</h4><p>前面章节中介绍过再卷积神经网络上使用 dropout 的方法。通过 dropout 可以防止过拟合，可以让卷积神经网络更加健壮（robust）。类似的，在循环神经网络中使用 dropout 也有同样的功能。</p>
+<p>注意：类似卷积神经网络只有在最后的全连接层中使用 dropout，循环神经网络一般只在不同层循环体结构之间使用 dropout ，而不在同一层的循环体结构之间使用。也就是说，从时刻 $t-1$ 传递到时刻 $t$ 时，循环神经网络不会进行状态的 dropout；而在同一时刻 $t$ 中，不同层循环体之间会使用 dropout。</p>
+<p>下图（图 8-9）展示了循环神经网络使用 dropout 的示意图。假设要从$t-2$ 时刻的输入 $x_{t-2}$ 传递到 $t+1$ 时刻的输出 $y_{t+1}$，那么 $x_{t-2}$ 将首先传入第一次循环体结构，这个过程会使用 dropout。但是从 $t-2$ 时刻的第一次循环体结构传递到第一层的 $t-1$、$t$、$t+1$ 时刻不会使用 dropout。在 $t+1$ 时刻的第一层循环体结构传递到同一时刻内更高层的循环体结构时，会再次使用 dropout。</p>
+<center><img src="/TensorFlow/循环神经网络/Img/RNN_dropout.png" alt="avatar"></center>
+
+<p>在 TensorFlow 中，使用 tf.nn.rnn_cell.DropoutWrapper 类可以很容易实现 dropout 功能。以下代码展示了如何在 TensorFlow 中实现带 dropout 的循环神经网络。</p>
+<pre><code># 定义 LSTM 结构
+lstm = rnn_cell.BasicLSTMCell(lstm_size)
+
+# 使用 DropoutWrapper 类来实现 dropout 功能。该类通过两个参数来控制 dropout 的概率：一个参数为 input_keep_prob(用来控制输入的 dropout 的概率)；另一个参数为 output_keep_prob(用于控制输出的 dropout 的概率)
+dropout_lstm = tf.nn.rnn_cell.DropoutWrapper(lstm, output_keep_prob=0.5)
+
+# 在使用 dropout 的基础上定义：
+stacked_lstm = rnn_cell.MultiRNNCell([dropout_lstm] * number_of_layers)
+
+# 计算前向传播结果：
+for i in range(len(num_steps)):
+    if i&gt; 0: tf.get_variable_scope().reuse_variables()
+    stacked_lstm_output, state = stacked_lstm(current_input, state)
+    final_output = fully_connected(stacked_lstm_output)
+    loss += calc_loss(final_output, expected_output)
+</code></pre><h4 id="2-4-RNN-的梯度爆炸和梯度消失问题"><a href="#2-4-RNN-的梯度爆炸和梯度消失问题" class="headerlink" title="2.4 RNN 的梯度爆炸和梯度消失问题"></a>2.4 RNN 的梯度爆炸和梯度消失问题</h4><p>阅读这一部分之前，感兴趣或者想深入了解 RNN 实现的读者可以练习推导一下 RNN 的训练过程（损失函数、梯度下降等算法实现）。</p>
+<p>前面我们提到：理论上循环神经网络可以支持任意长度的序列，然而实际中，前面介绍的几种 RNNs 并不能很好的处理较长的序列。一个主要的原因是：RNN 在训练中很容易发生<strong>梯度爆炸和梯度消失</strong>，这导致训练时梯度不能在较长序列中一直传递下去，从而使 RNN <strong>无法捕捉到长距离的影响</strong>。</p>
+<p>为什么 RNN 会产生梯度爆炸和消失问题呢？我们接下来将详细分析一下原因。我们根据训练过程中任意时刻 $k$ 的误差项 $\delta_k$：</p>
+<center><img src="/TensorFlow/循环神经网络/Img/rnn_error.png" alt="avatar"></center>
+
+<p>上式的 $\beta$ 定义为矩阵的模的上界。因为上式是一个指数函数，如果 $t-k$ 很大的话（也就是向前看很远的时候），会导致对应的误差项的值增长或缩小的非常快，这样就会导致相应的梯度爆炸和梯度消失问题（取决于大于 1 还是小于 1）。</p>
+<p>通常来说，<strong>梯度爆炸</strong>更容易处理一些。因为梯度爆炸的时候，我们的程序会收到 $NaN$ 错误。我们也可以设置一个梯度阈值，当梯度超过这个阈值的时候可以直接截取。</p>
+<p><strong>梯度消失</strong>更难检测，而且也更难处理一些。总的来说，我们有三种方法应对梯度消失问题：</p>
+<ul>
+<li>合理的初始化权重值。初始化权重，使每个神经元尽可能不要取极大或极小值，以躲开梯度消失的区域。</li>
+<li>使用 <strong>relu</strong> 代替 <strong>sigmoid</strong> 和 <strong>tanh</strong> 作为激活函数。</li>
+<li>使用其他结构的 RNNs，比如长短时记忆网络（<strong>LTSM</strong>）和 Gated Recurrent Unit（<strong>GRU</strong>），这是最流行的做法。我们会在随后的章节中介绍这两种网络。</li>
+</ul>
+<h3 id="第三部分：长短时记忆网络（LSTM）结构"><a href="#第三部分：长短时记忆网络（LSTM）结构" class="headerlink" title="第三部分：长短时记忆网络（LSTM）结构"></a>第三部分：长短时记忆网络（LSTM）结构</h3><p>我们都知道，循环神经网络工作的关键点就是使用前文（未来）或后文（历史）的信息来帮助当前的决策。例如语言模型中使用之前出现的单词来加强对当前文字的理解。循环神经网络可以更好地利用传统神经网络结构所不能建模的信息，但同时带来了更大的挑战——长期依赖（long-term dependencies）。</p>
+<h4 id="何为长期依赖？"><a href="#何为长期依赖？" class="headerlink" title="何为长期依赖？"></a>何为长期依赖？</h4><p>在有些问题中，模型仅仅需要短期（短距离）内的信息来执行当前的任务。比如预测短语 “大海的颜色是蓝色” 中的最后一个单词 “蓝色” 时，模型并不需要记忆这个短语之前更长的上下文信息—-因为这一句话已经包含了足够的信息来预测最后一个词。在这样的场景中，相关的信息和待预测的词的位置之间的间隔很小，循环神经网络比较容易地利用先去的信息。</p>
+<p>但同样也会有一些上下文场景更加复杂的情况。比如当前模型试着去预测段落 “某地开设了大量工厂，空气污染是否严重······这里的天空都是灰色的” 的最后一个单词时，仅仅根据短期依赖就无法很好的解决这种问题。因为只根据最后一小段，最后一个词可以是 “蓝色的” 或 “灰色的”。如果模型需要预测清楚具体是什么颜色，就需要考虑先前提到的比较远的上下文信息。因此，当前预测位置和相关信息之间的文本间隔就有可能变得很大。当这个间隔不断增大时，类似图 8-4 中给出的简单循环神经网络有可能丧失学习到距离如此之远的信息的能力（上下文距离越远学习能力越低）。或者在更加复杂的语言场景中，有用的信息的间隔有大有小，长短不一，循环神经网络的性能会受到限制。</p>
+<hr>
+<p>前面介绍的循环神经网络结构在实际应用中，很难处理长期依赖（长距离的依赖）。下面我们将介绍一种改进之后的循环神经网络：长短时记忆网络(Long Short Term Memory Network, LSTM)，它成功的解决了原始循环神经网络的缺陷，成为 RNN 在语音识别、图片描述、自然语言处理等许多领域中成功应用的关键。。但不幸的一面是，LSTM 的结构很复杂，因此，我们需要花上一些力气，才能把 LSTM 以及它的训练算法弄明白。在搞清楚 LSTM 之后，我们再介绍一种 LSTM 的变体：GRU (Gated Recurrent Unit)。 它的结构比 LSTM 简单，而效果却和 LSTM 一样好，因此，它正在逐渐流行起来。</p>
+<h4 id="3-1-LSTM"><a href="#3-1-LSTM" class="headerlink" title="3.1 LSTM"></a>3.1 LSTM</h4><hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/TensorFlow/循环神经网络/" title="TensorFlow 实战之循环神经网络（Recurrent Neural Network）">http://yoursite.com/TensorFlow/循环神经网络/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TensorFlow/" rel="tag"><i class="fa fa-tag"></i> TensorFlow</a>
+          
+            <a href="/tags/Recurrent-Neural-Network/" rel="tag"><i class="fa fa-tag"></i> Recurrent Neural Network</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Barcode/条形码和二维码检测与识别原理/" rel="next" title="条形码和二维码检测与识别原理">
+                <i class="fa fa-chevron-left"></i> 条形码和二维码检测与识别原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Pycharm/Pycharm-Community-In-Windows-Tutorial/" rel="prev" title="Pycharm Community In Windows Tutorial">
+                Pycharm Community In Windows Tutorial <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一部分：循环神经网络工作原理"><span class="nav-text">第一部分：循环神经网络工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-循环神经网络简介"><span class="nav-text">1.1 循环神经网络简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-循环神经网络前向传播"><span class="nav-text">1.2 循环神经网络前向传播</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二部分：循环神经网络扩展"><span class="nav-text">第二部分：循环神经网络扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-双向循环神经网络（bi-directional-RNN）"><span class="nav-text">2.1 双向循环神经网络（bi-directional RNN）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-深层循环神经网络（deepRNN）"><span class="nav-text">2.2 深层循环神经网络（deepRNN）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-循环神经网络的-dropout"><span class="nav-text">2.3 循环神经网络的 dropout</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-RNN-的梯度爆炸和梯度消失问题"><span class="nav-text">2.4 RNN 的梯度爆炸和梯度消失问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三部分：长短时记忆网络（LSTM）结构"><span class="nav-text">第三部分：长短时记忆网络（LSTM）结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#何为长期依赖？"><span class="nav-text">何为长期依赖？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-LSTM"><span class="nav-text">3.1 LSTM</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

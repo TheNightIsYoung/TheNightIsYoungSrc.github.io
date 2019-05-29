@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="TensorFlow,ANN,Artificial Neural Networks,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 前面的章节我们已经完成了 基于TensorFlow的深度学习框架环境的搭建 ，并且在已经安装好的 TensorFlow 环境中成功运行了一个简单的向量加法实例。本章节我们将通过两部分内容详细介绍 TensorFlow 的基本概念：  第一部分：分别通过 TensorFlow 的计算模型（Graph：计算图）、数据模型（Tensor：张量）以及运行">
+<meta name="keywords" content="TensorFlow,ANN,Artificial Neural Networks">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow 基本工作原理">
+<meta property="og:url" content="http://yoursite.com/TensorFlow/TensorFlow-基本工作原理/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 前面的章节我们已经完成了 基于TensorFlow的深度学习框架环境的搭建 ，并且在已经安装好的 TensorFlow 环境中成功运行了一个简单的向量加法实例。本章节我们将通过两部分内容详细介绍 TensorFlow 的基本概念：  第一部分：分别通过 TensorFlow 的计算模型（Graph：计算图）、数据模型（Tensor：张量）以及运行">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-基本工作原理/Img/Graph_add.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-基本工作原理/Img/TensorFlow_Playground.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-基本工作原理/Img/Nerve_Cell.jpg">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-基本工作原理/Img/Forward_Propagation.jpg">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-基本工作原理/Img/BP.png">
+<meta property="og:updated_time" content="2019-05-29T03:03:52.126Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TensorFlow 基本工作原理">
+<meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 前面的章节我们已经完成了 基于TensorFlow的深度学习框架环境的搭建 ，并且在已经安装好的 TensorFlow 环境中成功运行了一个简单的向量加法实例。本章节我们将通过两部分内容详细介绍 TensorFlow 的基本概念：  第一部分：分别通过 TensorFlow 的计算模型（Graph：计算图）、数据模型（Tensor：张量）以及运行">
+<meta name="twitter:image" content="http://yoursite.com/TensorFlow/TensorFlow-基本工作原理/Img/Graph_add.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/TensorFlow/TensorFlow-基本工作原理/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>TensorFlow 基本工作原理 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/TensorFlow/TensorFlow-基本工作原理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TensorFlow 基本工作原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-20T10:44:01+08:00">
+                2018-09-20
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:52+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/TensorFlow/TensorFlow-基本工作原理/" class="leancloud_visitors" data-flag-title="TensorFlow 基本工作原理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  10.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  41
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center> 愿你每天欢喜多于悲，孤独有人陪… </center>
+
+<p><strong>写在前面：</strong></p>
+<p>前面的章节我们已经完成了 <a href="https://www.orangeshare.cn/TensorFlow/Centos6%EF%BC%887%EF%BC%89-Ubuntu-%E5%9C%A8%E7%BA%BF%E6%90%AD%E5%BB%BA-Anaconda3-Tensorflow-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">基于TensorFlow的深度学习框架环境的搭建</a> ，并且在已经安装好的 TensorFlow 环境中成功运行了一个简单的向量加法实例。本章节我们将通过两部分内容详细介绍 TensorFlow 的基本概念：</p>
+<ul>
+<li><p>第一部分：分别通过 TensorFlow 的计算模型（Graph：计算图）、数据模型（Tensor：张量）以及运行模型（Session：会话），帮助我们对 TensorFlow 的工作原理有一个基本的了解；</p>
+</li>
+<li><p>第二部分：我们将简单介绍神经网络的基本概念，主要计算流程，以及如何通过 TensorFlow 来实现神经网络计算过程。</p>
+</li>
+</ul>
+<a id="more"></a>
+<hr>
+<h3 id="1-TensorFlow-基本工作原理"><a href="#1-TensorFlow-基本工作原理" class="headerlink" title="1. TensorFlow 基本工作原理"></a>1. TensorFlow 基本工作原理</h3><p>TensorFlow 见名知义：<code>Tensor（张量）</code> 和 <code>Flow（流）</code>，表达了它最重要的两个概念：</p>
+<p>在 TensorFlow 中，第一个词 <code>Tensor</code>，就是张量（属于数学或物理中的概念，这里不强调其本身的含义），可以被简单理解为多维数组，表达了 TensorFlow 的数据模型；第二个词 <code>Flow</code>，就是流（数据的流动或转化）它直观的表达了数据（张量）之间通过计算相互转换的过程；而运行模型是用来执行 TensorFlow 中定义好的运算的。</p>
+<hr>
+<h4 id="1-1-TensorFlow-计算模型（Graph：计算图）"><a href="#1-1-TensorFlow-计算模型（Graph：计算图）" class="headerlink" title="1.1 TensorFlow 计算模型（Graph：计算图）"></a>1.1 TensorFlow 计算模型（Graph：计算图）</h4><p>计算图（Graph）是 TensorFlow 中最基本的一个概念。Tensorflow 是一个通过计算图的形式表述计算的编程系统，也就是说，所有的 TensorFlow 程序都可以通过计算图的形式来表示。</p>
+<p>更深入的理解是，TensorFlow 程序中的所有计算都会被转化为计算图上的节点，计算图中的每一个节点就表示一个计算。计算图中节点之间的边描述了计算之间的依赖关系。</p>
+<p>基于上述，下图展示了通过 TensorFlow 可视化工具 TensorBoard 画出的两个向量相加程序样例的计算图：</p>
+<p><img src="/TensorFlow/TensorFlow-基本工作原理/Img/Graph_add.png" alt="avatar"></p>
+<p>如上计算图所示：图中的每一个节点都代表了一个计算，如 <code>a 节点</code>、<code>b 节点</code> (TensorFlow 会将常量转化成一种永远输出固定值的运算)以及 <code>add 节点</code>（加法运算）；节点之间的边表示了计算之间的依赖关系，如 <code>add</code> 运算的输入依赖于 <code>a</code> 和 <code>b</code> 运算的输出，而 <code>a</code> 和 <code>b</code> 两个常量不依赖于任何计算。</p>
+<hr>
+<h5 id="1-1-1-计算图的使用"><a href="#1-1-1-计算图的使用" class="headerlink" title="1.1.1 计算图的使用"></a>1.1.1 计算图的使用</h5><p>TensorFlow 程序一般分为两个阶段：第一个阶段需要定义计算图中的所有需要执行的运算；第二阶段为执行定义好的运算（Session）。</p>
+<p>下面，首先来看如何定义 TensorFlow 程序（计算图上）中的所有计算：</p>
+<p>这里，给出一个 TensorFlow 向量加法程序定义计算图中计算节点（<code>a</code>，<code>b</code>，<code>result</code>）的样例：</p>
+<pre><code>import tensorflow as tf
+
+a = tf.constant([1.0, 2.0], name=&apos;a&apos;)
+b = tf.constant([2.0, 3.0], name=&apos;b&apos;)
+
+result = a + b
+</code></pre><ul>
+<li>导入 TensorFlow 模块：<code>import tensorflow as tf</code>；</li>
+</ul>
+<p><strong>(1) 默认计算图</strong></p>
+<p>TensorFlow 程序中，系统会自动为其维护一个默认的计算图，TensorFlow 会自动将定义好的计算转化为计算图上的节点。如上述向量加法样例中 <code>a</code>、<code>b</code>、以及 <code>result</code> 节点所属计算图即为默认计算图。</p>
+<p><strong>如何获取 TensorFlow 程序默认的计算图以及如何查看运算所属的计算图？</strong></p>
+<ul>
+<li>通过 <code>a.graph</code> 可查看张量所属的计算图</li>
+<li>通过 <code>tf.get_default_graph()</code> 函数获取当前默认的计算图</li>
+</ul>
+<p>样例：</p>
+<pre><code>print (a.graph)
+print (tf.get_default_graph())
+print (a.graph is tf.get_default_graph())
+</code></pre><p>样例语句输出:</p>
+<pre><code>&lt;tensorflow.python.framework.ops.Graph object at 0x00000204B01969E8&gt;
+&lt;tensorflow.python.framework.ops.Graph object at 0x00000204B01969E8&gt;
+True
+</code></pre><p><strong>2）生成计算图</strong></p>
+<p>除了使用 TensorFlow 默认计算图， TensorFlow 还支持通过 <code>tf.Graph()</code> 函数来生成新的计算图。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">g = tf.Graph()</span><br><span class="line">print(g is tf.get_default_graph())</span><br></pre></td></tr></table></figure>
+<hr>
+<h5 id="1-1-2-计算图的作用"><a href="#1-1-2-计算图的作用" class="headerlink" title="1.1.2 计算图的作用"></a>1.1.2 计算图的作用</h5><p><strong>1）Graph 隔离张量和计算</strong></p>
+<p>在不同的计算图上的张量和运算不会共享，故 Graph 可以用来隔离张量和计算。样例程序如下所示：</p>
+<pre><code>import tensorflow as tf
+
+### 1. 定义计算图中的所有需要执行的运算 ###
+
+g1 = tf.Graph()
+with g1.as_default():
+    # 在计算图 g1 中定义变量 &apos;v&apos;，并初始化为 0 ：
+
+#  Old Version Error:
+#     v = tf.get_variable(
+#                        &quot;v&quot;, initializer=tf.zeros_initializer(shape=[1]))
+#  New Version:
+    v = tf.get_variable(
+                       &quot;v&quot;, initializer=tf.zeros_initializer()(shape=[1]))
+
+g2 = tf.Graph()
+with g2.as_default():
+    # 在计算图 g2 中定义变量 &apos;v&apos;，并初始化为 1 ：
+    v = tf.get_variable(
+                       &quot;v&quot;, initializer=tf.ones_initializer()(shape=[1]))
+
+### 2. 执行定义好的运算 ###
+
+# 在计算图 g1 中读取变量 ‘v’的取值：
+with tf.Session(graph=g1) as sess:
+
+#     Old Version Error:
+#     AttributeError: module &apos;tensorflow&apos; has no attribute &apos;initializer_all_variables&apos;
+#     tf.initializer_all_variables().run()
+#     New Version:
+    tf.global_variables_initializer().run()
+    with tf.variable_scope(&quot;&quot;, reuse=True):
+        # 在计算图 g1 中，变量 &apos;v&apos; 的取值应该为 0，所以这里输出: [0.]
+        print (sess.run(tf.get_variable(&apos;v&apos;)))
+
+# 在计算图 g2 中读取变量 ‘v’的取值：
+with tf.Session(graph=g2) as sess:
+    tf.global_variables_initializer().run()
+    with tf.variable_scope(&quot;&quot;, reuse=True):
+        # 在计算图 g2 中，变量 &apos;v&apos; 的取值应该为 0，所以这里输出: [1.]
+        print (sess.run(tf.get_variable(&apos;v&apos;)))
+</code></pre><p>样例程序执行结果如下：</p>
+<pre><code>[0.]
+[1.]
+</code></pre><p>注意 <code>g = tf.Graph()</code> <code>g.as_default()</code> 和 <code>tf.Session(graph=g)</code> 的用法。</p>
+<p><strong>2）Graph 管理运算以及资源</strong></p>
+<p>TensorFlow 中的 Graph 不仅仅可以用来隔离张量和计算，还提供了管理张量和计算的机制。</p>
+<p>–&gt; 管理张量和计算：例如，计算图可以通过 <code>tf.Graph.device()</code> 函数来指定执行运算的设备：</p>
+<pre><code># TensorFlow 还提供了对 GPU 的支持，来加速计算。
+# 具体使用 GPU 的办法随后章节会介绍，这里我们知道 TensorFlow 提供了 GPU 加速的机制即可。
+
+g = tf.Graph()
+
+with g.as_default():
+    a = tf.constant([1.0, 2.0], name=&apos;a&apos;)
+    b = tf.constant([2.0, 3.0], name=&apos;b&apos;)
+
+with g.device(&apos;/gpu:0&apos;):
+    result = a + b
+
+with tf.Session(graph=g) as sess:
+    print (sess.run(result))
+</code></pre><p>注意，<code>tf.Graph().device()</code> 就是 <code>图.device()</code>。</p>
+<p>–&gt; 除了管理计算之外，Graph 还能有效管理 TensorFlow 程序中的资源（资源可以是张量、变量或者程序运行时的队列资源等）。</p>
+<p>例如：在一个计算图中，可以通过集合（collection）来管理不同类别的资源。比如：通过 <code>tf.add_to_collection()</code> 函数将资源加入到一个或多个集合中； 通过 <code>tf.get_collection()</code> 函数来获取一个集合中的所有资源。</p>
+<p>为了使用方便，TensorFlow 自动管理了一些常用的集合，如下图所示的几个 TensorFlow 自动维护的集合：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">集合名称</th>
+<th style="text-align:left">集合内容</th>
+<th style="text-align:left">使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">tf.GraphKeys.VARIABLES</td>
+<td style="text-align:left">所有变量</td>
+<td style="text-align:left">持久化 TensorFlow 模型</td>
+</tr>
+<tr>
+<td style="text-align:left">tf.GraphKeys<br>.TRAINABLE_VARIABLES</td>
+<td style="text-align:left">可学习的变量(一般指神经网络中的参数)</td>
+<td style="text-align:left">模型训练、生成模型可视化内容</td>
+</tr>
+<tr>
+<td style="text-align:left">tf.GraphKeys.SUMMARIES</td>
+<td style="text-align:left">日志生成相关的张量</td>
+<td style="text-align:left">TensorFlow 计算可视化</td>
+</tr>
+<tr>
+<td style="text-align:left">tf.GraphKeys<br>.QUEUE_RUNNERS</td>
+<td style="text-align:left">处理输入的 QueueRunner</td>
+<td style="text-align:left">输入处理</td>
+</tr>
+<tr>
+<td style="text-align:left">tf.GraphKeys<br>.MOVING_AVERAGE_VARIABLES</td>
+<td style="text-align:left">所有计算了滑动平均值的变量</td>
+<td style="text-align:left">计算变量的滑动平均值</td>
+</tr>
+</tbody>
+</table>
+<p>关于上述集合的具体使用，在后续相关内容介绍部分会进行说明。</p>
+<hr>
+<hr>
+<h4 id="1-2-TensorFlow-数据模型（Tensor：张量）"><a href="#1-2-TensorFlow-数据模型（Tensor：张量）" class="headerlink" title="1.2 TensorFlow 数据模型（Tensor：张量）"></a>1.2 TensorFlow 数据模型（Tensor：张量）</h4><p>这一小节，我们来介绍 TensorFlow 中另一个重要的基本概念：Tensor。张量是 TensorFlow 管理数据的形式，在 TensorFlow 程序中，所有的数据都通过张量的形式表示。</p>
+<p>从功能角度来看，张量可以被简单理解为多维数组：零阶张量表示标量（scalar），也就是一个数；第一阶张量表示向量（vector），也就是一个一维数组；第 <code>n</code> 阶张量可以理解为一个 <code>n</code> 维数组。</p>
+<p>但是我们要明白，“可以被理解为” 并不是 “实际上就是”！实际上，<strong>张量在 TensorFlow 中的实现并不是直接采用数组的形式，它只是一个对 TensorFlow 运算结果的引用，张量中并没有存储真正的数值，它保存的一个运算的过程。</strong></p>
+<p>如何理解？来看下面的代码，运行后并不会得到加法的结果，而是对结果的一个引用：</p>
+<pre><code>import tensorflow as tf
+
+# tf.constant()是一个计算，计算的结果是一个张量，存储在变量 a 中：
+a = tf.constant([1.0, 2.0], name=&apos;a&apos;)
+b = tf.constant([1.0, 2.0], name=&apos;b&apos;)
+result = tf.add(a, b, name=&apos;add&apos;)
+
+print (result)
+</code></pre><p>样例程序执行结果如下：</p>
+<pre><code>Tensor(&quot;add_2:0&quot;, shape=(2,), dtype=float32)
+</code></pre><hr>
+<p>上从面的测试可以看出：TensorFlow 中的张量和 Numpy 中的数组是不同的，不是一个数组，不存储数值，而是一个张量结构。根据上面样例输出的张量，接下来我们来看张量结构：</p>
+<h5 id="1-2-1-张量结构"><a href="#1-2-1-张量结构" class="headerlink" title="1.2.1 张量结构"></a>1.2.1 张量结构</h5><p>从上述结果中可以看出，一个张量结构主要保存了三个属性：<strong>名字（name）</strong>、<strong>维度（shape）</strong>以及 <strong>类型（dtype）</strong>。</p>
+<p><strong>1）名字（name）</strong></p>
+<p>第一个属性：名字，不仅是张量的<strong>唯一标识</strong>，也给出了张量是如何计算出来的。</p>
+<p>我们知道：TensorFlow 程序都可以通过计算图模型来建立，而计算图中的每一个节点都代表的是一个个的计算，计算结果的引用就存储在张量中，所有张量和计算图中的节点是对应的。</p>
+<p>这样张量的命名就可以通过 <code>node_name:src_output</code> 的形式给出。（<code>node_name</code>: 表示当前张量对应节点的名称；<code>src_output</code>: 表示当前张量来至对应节点的第几个输出；）</p>
+<p>例如：<code>add_2:0</code> 表示 <code>result</code> 这个张量是节点 <code>add_2</code> 输出的第一个结果（编号从 <code>0</code> 开始）。</p>
+<p><strong>2）维度（shape）</strong></p>
+<p>第二个属性：维度，描述了一个<strong>张量的维度信息</strong>。维度是张量的一个重要属性，围绕维度 TensorFlow 给出了很多有用的运算，后面我们会涉及到部分相关运算。</p>
+<p>例如：<code>shape=(2,)</code> 表示 <code>result</code> 这个张量是一个一维数组，数组的长度为 <code>2</code>。</p>
+<p><strong>3）类型（dtype）</strong></p>
+<p>第三个属性：类型，每个张量会有一个 <strong>唯一</strong> 的类型，TenosorFlow 会对所有参与运算的张量进行类型检查。一旦发现类型不匹配时会报错，如下代码：</p>
+<pre><code>import tensorflow as tf
+a = tf.constant([1.0, 2.0], name=&apos;a&apos;)
+b = tf.constant([1, 2], name=&apos;b&apos;) # 去掉数值后的小数点，会使 b 的类型变为整型
+result = a + b
+</code></pre><p>执行上述代码报错： <code>TypeError: Input &#39;y&#39; of &#39;Add&#39; Op has type int32 that does not match type float32 of argument &#39;x&#39;</code> 。</p>
+<p>如果将 <code>b = tf.constant([1, 2], name=&#39;b&#39;)</code> 改为： <code>b = tf.constant([1, 2], name=&#39;b&#39;， dtype=tf.float32)</code> 或者 <code>b = tf.constant([1.0, 2.0], name=&#39;b&#39;)</code> 就不会报错了。</p>
+<p>|—————————————————————————</p>
+<p><strong>类型属性补充说明：</strong></p>
+<p>TensorFlow 中，如果不指定类型，TensorFlow 会给出默认的类型： 不带小数点的数会被默认为 <code>int32</code>； 带小数点的数会被默认为 <code>float32</code>；</p>
+<p>由于使用默认类型可能导致潜在的类型不匹配问题，所以 <strong>一般建议通过 <code>dtype</code> 属性来明确指出变量或常量类型。</strong></p>
+<p>TensorFlow 支持 <code>14</code> 中不同的类型：</p>
+<p>实数型：<code>tf.float32</code>、<code>tf.float64</code> ；整数型：<code>tf.int8</code>、<code>tf.int16</code>、<code>tf.int32</code>、<code>tf.int64</code>、<code>tf.unit8</code> ；布尔型：<code>tf.bool</code> ；复数型：<code>tf.complex64</code>、<code>tf.complex128</code>。</p>
+<p>—————————————————————————|</p>
+<hr>
+<h5 id="1-2-2-张量的使用"><a href="#1-2-2-张量的使用" class="headerlink" title="1.2.2 张量的使用"></a>1.2.2 张量的使用</h5><p>张量的使用主要有两类：</p>
+<p><strong>1）第一类：对中间结果的引用</strong></p>
+<p>直接计算向量和，可读性较差：</p>
+<pre><code>result2 = tf.constant([1.0, 2.0], name=&apos;a&apos;) + tf.constant([1.0, 2.0], name=&apos;b&apos;)
+</code></pre><p>使用张量记录中间结果，增强代码可读性：</p>
+<pre><code>a = tf.constant([1.0, 2.0], name=&apos;a&apos;)
+b = tf.constant([1.0, 2.0], name=&apos;b&apos;)
+result1 = a + b
+</code></pre><p>除了提高代码可读性，这还使得我们的计算更加方便与灵活：</p>
+<pre><code># 如卷积神经网络中，我们卷积层和池化层都有可能改变张量维度，通过中间结果的引用，我们可以随时查看维度的变化:
+print (result.shape)
+print (result.get_shape())
+
+% 上述语句输出：
+(2,)
+(2,)
+</code></pre><p>张量还可以通过自身属性字段查看属性值：</p>
+<pre><code>print (result.name)
+print (result.dtype)
+
+% 上述语句输出：
+add_2:0
+&lt;dtype: &apos;float32&apos;&gt;
+</code></pre><p><strong>2）第二类：用来获取计算结果</strong></p>
+<p>根据张量基本概念的介绍可知，虽然张量本身没有存储具体数值（计算结果对我们来说是重要的），但它是对计算结果的引用。我们可以通过 <code>sess = tf.Session() ; sess.run(result)</code> 来取得张量所对应的计算结果。</p>
+<hr>
+<h4 id="1-3-TensorFlow-运行模型（Session：会话）"><a href="#1-3-TensorFlow-运行模型（Session：会话）" class="headerlink" title="1.3 TensorFlow 运行模型（Session：会话）"></a>1.3 TensorFlow 运行模型（Session：会话）</h4><p>在计算图部分我们提到过，TensorFlow 程序可以分为两个阶段：I 定义计算图中所有的计算；II 执行定义好的计算（Session）。正如前面两节介绍了 TensorFlow 如何组织数据和运算。这里我们来看 TensorFlow 中的 <strong>会话（Session）</strong> 是如何来执行定义好的运算的：</p>
+<ol>
+<li>会话用来执行计算图中定义好的运算；</li>
+<li>会话拥有并管理 TensorFlow 程序运行时的所有资源；</li>
+<li>计算完成后需要关闭会话来帮助系统回收资源，否则会出现资源泄漏问题；</li>
+</ol>
+<hr>
+<p>由于会话的使用可能导致资源泄漏问题的出现，这里衍生出了会话的两种使用模式：</p>
+<h5 id="1-3-1-会话的两种使用模式"><a href="#1-3-1-会话的两种使用模式" class="headerlink" title="1.3.1 会话的两种使用模式"></a>1.3.1 会话的两种使用模式</h5><p><strong>–&gt; 第一种模式：明确调用会话生成函数和关闭函数</strong></p>
+<pre><code># 创建一个会话，用于执行运算：
+sess = tf.Session()
+
+# 使用创建好的会话，得到我们关心的运算结果 result ：
+sess.run( result )
+
+# 计算完成后，关闭会话回收系统资源，防止资源泄露：
+sess.close()
+</code></pre><p>尽管我们可以明确调用关闭函数来释放资源占用，但这种模式仍然是不安全的！</p>
+<p>风险场景：当所有计算完成之后，我们需要程序明确调用 <code>tf.Session.close()</code> 来关闭会话并释放资源。然而，当程序因为异常而退出，导致关闭会话函数不会被执行而导致资源泄露。基于此，TensorFlow 支持通过 Python 上下文管理器来使用会话：</p>
+<p><strong>–&gt; 第二种模式：通过 Python 上下文管理器使用会话</strong></p>
+<pre><code># 创建一个会话，并通过 Python 上下文管理器管理这个会话：
+with tf.Session() as sess:
+
+    # 使用创建好的会话，得到我们关心的运算结果 result ：
+    sess.run( result )
+
+    # 不需要再明确调用 Session.close() 函数来关闭会话了。当上下文退出时会自动关闭会话和完成资源释放
+</code></pre><p>通过 Python 上下文管理器机制，我们只需要将需要执行的运算放在 <code>with</code> 内部就可以。不用担心因为忘记关闭会话或程序异常退出导致的资源泄露问题。</p>
+<hr>
+<h5 id="1-3-2-默认会话机制"><a href="#1-3-2-默认会话机制" class="headerlink" title="1.3.2 默认会话机制"></a>1.3.2 默认会话机制</h5><p>在计算图的使用部分，我们提到过 TensorFlow 会自动生成一个默认的计算图，如果没有特殊指定，运算会被自动加入到默认的计算图。TensorFlow 会话也有类似的机制，但 TensorFlow 不会自动生成默认的会话，需要我们去手动指定（想想这也是合理的）。当会话被指定被指定为默认会话后，我们可以使用默认会话的一些相关函数方法：</p>
+<pre><code># 当默认会话被指定后，可以通过 tf.Tensor.eval() 函数来直接获得计算结果：
+sess = tf.Session()
+with sess.as_default():
+
+    print (result.eval()) # 是不是很方便
+
+sess.close()
+
+% 程序输出：
+[2. 4.]
+</code></pre><p>以下代码也可完成相同功能：</p>
+<pre><code>sess = tf.Session()
+
+# 下面两个指令功能相同：
+print (sess.run(result))
+print (result.eval(session=sess))
+
+% 程序输出：
+[2. 4.]
+[2. 4.]
+</code></pre><p>为了交互式测试环境下更方便的使用默认会话，TensorFlow 提供了一种 交互式 下直接构建默认会话的函数：<code>tf.InteractiveSession()</code> ,它会自动生成会话并注册为默认会话：</p>
+<pre><code>sess = tf.InteractiveSession()
+
+print (result.eval())
+# 注意，明确创建默认会话后需要关闭：
+sess.close()
+</code></pre><hr>
+<h5 id="1-3-3-会话的配置"><a href="#1-3-3-会话的配置" class="headerlink" title="1.3.3 会话的配置"></a>1.3.3 会话的配置</h5><p>在执行会话时，我们还可以通过 <code>ConfigProto Protocol Buffer</code> 来配置需要生成的会话。通过 <code>tf.ConfigProto()</code> 函数可以配置类似并行的线程数、GPU 分配策略、运算超时等参数，最常使用的有两个：</p>
+<pre><code>config = tf.ConfigProto(allow_soft_placement=True,
+                        log_device_placement=True)
+
+# 不管使用什么方式创建会话都可以进行配置：
+sess1 = tf.InteractiveSession(config=config)
+sess2 = tf.Session(config=config)
+</code></pre><p>|—————————————————————————</p>
+<p><strong>相关参数说明：</strong></p>
+<p>[1] allow_soft_placement: 布尔型参数</p>
+<p>当 <code>allow_soft_placement=True</code> 时，在以下任意一个条件成立时，GPU 运算可以放到 CPU 上进行：</p>
+<ul>
+<li>运算无法在 GPU 上执行（GPU 上不支持该类型数值运算）</li>
+<li>没有 GPU 资源（比如运算被指定在第二个 GPU 上运行，当机器只有第一个 GPU资源）</li>
+<li>运算输入包含对 CPU 计算结果的引用</li>
+</ul>
+<p><strong>allow_soft_placement</strong> 参数默认为 <code>False</code>，但为了使得代码的移植性更强（可以同时适应 GPU 和 CPU 环境），一般会将其设置为 <code>True</code>。并且不同 GPU 驱动版本可能对计算的支持有略微差别，当某些运算无法被当前 GPU 支持时，可以自动调整到 CPU，而不是报错。</p>
+<p>[2] log_device_placement：布尔型参数</p>
+<p>当 <code>log_device_placement=True</code> 时，日志中会记录每个节点被安排在哪个设备上以便调试。而在生产环境将其设置为 <code>False</code> 可以减少日志量。</p>
+<p>—————————————————————————|</p>
+<hr>
+<h3 id="2-初识神经网络"><a href="#2-初识神经网络" class="headerlink" title="2. 初识神经网络"></a>2. 初识神经网络</h3><p>这一部分我们将简单介绍神经网络的基本概念，主要计算流程，以及如何通过 TensorFlow 来实现神经网络计算。</p>
+<p>待补充基础？…..</p>
+<h4 id="2-1-TensorFlow-游乐场以及神经网络介绍"><a href="#2-1-TensorFlow-游乐场以及神经网络介绍" class="headerlink" title="2.1 TensorFlow 游乐场以及神经网络介绍"></a>2.1 TensorFlow 游乐场以及神经网络介绍</h4><p>这一小节我们将通过 TensorFlow 游乐场来快速介绍神经网络的工作流程。<a href="http://playground.tensorflow.org" target="_blank" rel="noopener">TensorFlow 游乐场</a>，是一个通过网页浏览器就可以训练的简单神经网络并实现了可视化训练过程的工具。下图给出了 TensorFlow 游乐场默认设置图：</p>
+<p><img src="/TensorFlow/TensorFlow-基本工作原理/Img/TensorFlow_Playground.png" alt="avatar"></p>
+<p>详细操作教程见网络 <a href="https://www.jianshu.com/p/95d46de63408" target="_blank" rel="noopener">TensorFlow 游乐场教程</a>，由于篇幅原因，这里不做介绍。</p>
+<p>通过 TensorFlow 游乐场的使用，我们给出使用神经网络解决分类问题的主要流程：</p>
+<ol>
+<li>从给出的原始数据提取实体的特征向量作为神经网络的输入；</li>
+<li>定义神经网络结构，并定义神经网络的前向传播算法（从输入到输出）；</li>
+<li>定义损失函数以及反向传播优化算法，并通过训练优化神经网络参数；</li>
+<li>使用训练好的神经网络模型来预测未知数据类型；</li>
+</ol>
+<hr>
+<h4 id="2-2-神经网络结构与前向传播算法"><a href="#2-2-神经网络结构与前向传播算法" class="headerlink" title="2.2 神经网络结构与前向传播算法"></a>2.2 神经网络结构与前向传播算法</h4><p>简单地说，定义神经网络结构，并定义神经网络的前向传播（Forward-Propagation），这个过程就是神经网络的前向传播算法(从输入如何得到输出的过程)。不同结构的神经网络前向传播的方式是不相同的。</p>
+<p>这一小节我们仅以最简单的全连接神经网络的前向传播算法为例，展示 TensorFlow 如何实现这个过程。</p>
+<p><strong>在解读全连接神经网络的前向传播算法过程之前，我们先来看神经网络结构组成： </strong></p>
+<h5 id="2-2-1-神经网络结构"><a href="#2-2-1-神经网络结构" class="headerlink" title="2.2.1 神经网络结构"></a>2.2.1 神经网络结构</h5><h6 id="1）神经元（nerve-cell）"><a href="#1）神经元（nerve-cell）" class="headerlink" title="1）神经元（nerve cell）"></a>1）神经元（nerve cell）</h6><p>神经元是构成神经网络的最小单元，也可以称之为 <strong>神经网络节点</strong>。下面给出一个简单的神经元单元结构图：</p>
+<p><img src="/TensorFlow/TensorFlow-基本工作原理/Img/Nerve_Cell.jpg" alt="avatar"></p>
+<p>从上图看出，一个神经元有多个输入和一个输出。每个神经元的输入既可以是其他神经元的输出，也可以是整个神经网络的输入（非神经元节点）。</p>
+<p>严格来说，神经网络中除了输入层之外的所有节点都代表了一个神经元结构。很多文档会将输入节点也看作是神经元，所以输入层也看作一层神经网络层（这也是很多时候将一个只有一层隐藏层和输出层的神经网络称为三层神经网络的原因，严格来说，应该是两层神经网络）。</p>
+<h6 id="2）神经网络结构（Neural-Network）"><a href="#2）神经网络结构（Neural-Network）" class="headerlink" title="2）神经网络结构（Neural Network）"></a>2）神经网络结构（Neural Network）</h6><p>所谓的神经网络结构：是指不同神经元之间的连接结构。这里我们采用的是全连接神经网络结构（相邻两层之间任意两个神经元节点之间都有连接），后面章节我们还会介绍卷积神经网络（CNN）、循环神经网络（RNN）、残差神经网络等等网络结构。</p>
+<p>根据 1）中神经元结构可知，一个简单神经元的输出就是所有输入的加权和以及偏置项通过一个激活函数得到，而不同的输入权重以及神经元节点的偏置就是神经元的参数。<strong>神经网络的优化</strong> 过程就是优化神经元中参数的过程。</p>
+<h5 id="2-2-2-全连接神经网络前向传播算法"><a href="#2-2-2-全连接神经网络前向传播算法" class="headerlink" title="2.2.2 全连接神经网络前向传播算法"></a>2.2.2 全连接神经网络前向传播算法</h5><p>这里我们会以一个简单的三层全连接神经网络来介绍其前向传播过程，如图所示：</p>
+<p><img src="/TensorFlow/TensorFlow-基本工作原理/Img/Forward_Propagation.jpg" alt="avatar"></p>
+<p>由上图可知：神经网络前向传播算法结果需要三部分信息(上标表示神经网络层数)：</p>
+<ol>
+<li>神经网络节点输入（从实体中提取到的特征向量）；</li>
+<li>神经网络连接结构（全连接）；</li>
+<li>神经元参数（这里指权重，不包含偏置项，不使用激活函数）</li>
+</ol>
+<p>根据神经网络前向传播算法结果需要三部分信息，这里我们给出了神经元节点 $a_{11}$、$a_{12}$、$a_{13}$ 以及 $Y$ 的输出结果如何计算（<strong>即神经网络如何进行前向传播？</strong>）：</p>
+<p><strong>实际上，我们可以把同属一个网络层的所有节点的前向传播计算过程表示为矩阵运算。</strong>如上图，假设我们要求隐藏层所有节点的值 $ a^{(1)}=[a_{11},a_{12},a_{13}] $ 以及输出层节点的值 $ Y=[y] $，前向传播计算过程如下：</p>
+<p>首先表示输入特征向量（矩阵）：$ x = [x_1, x_2] $</p>
+<p>权重矩阵为：$ W^{(1)} = \left[ \begin{array} {cccc}<br>W_{1,1}^{(1)} &amp; W_{1,2}^{(1)} &amp; W_{1,3}^{(1)}\\<br>W_{2,1}^{(1)} &amp; W_{2,2}^{(1)} &amp; W_{2,3}^{(1)}\\<br>\end{array} \right] $</p>
+<p>矩阵运算过程如下，展示了得到节点 $ a^{(1)} $ 整个前传播计算过程：</p>
+<p>$$ a^{(1)} = [a_{11}, a_{12}, a_{13}] = xW^{(1)} = [x_1, x_2]\left[ \begin{array} {cccc}<br>W_{1,1}^{(1)} &amp; W_{1,2}^{(1)} &amp; W_{1,3}^{(1)}\\<br>W_{2,1}^{(1)} &amp; W_{2,2}^{(1)} &amp; W_{2,3}^{(1)}\\<br>\end{array} \right] \\ = [W_{1,1}^{(1)}x_1+W_{2,1}^{(1)}x_2, W_{1,2}^{(1)}x_1+W_{2,2}^{(1)}x_2, W_{1,3}^{(1)}x_1+W_{2,3}^{(1)}x_2] $$</p>
+<p>类似的，输出层计算可以表示为：</p>
+<p>$$ Y = [y] = a^{(1)}W^{(2)} = [a_{11}, a_{12}, a_{13}]\left[ \begin{array} {cccc} W_{1,1}^{(2)}\\ W_{2,1}^{(2)}\\ W_{3,1}^{(2)}\\<br>\end{array} \right] = [W_{1,1}^{(2)}a_{11} + W_{2,1}^{(2)}a_{12} + W_{3,1}^{(2)}a_{13}] $$</p>
+<p>这样就将前向传播算法通过矩阵乘法的方式给出了。TensorFlow 中矩阵乘法是很容易实现的，我们通过 TensorFlow 来表示上述过程（前向传播计算过程）：</p>
+<p>$$ a^{(1)} = tf.matmul(x, W^{(1)}) $$</p>
+<p>$$ y = tf.matmul(a^{(1)}, W^{(2)}) $$</p>
+<p>在之后的章节将会继续介绍增加了偏置项（<code>bias</code>）、激活函数（<code>activation-function</code>）等更加复杂的神经元结构，以及更加复杂的神经网络结构（<code>RNN</code>、<code>CNN</code>、<code>Resnet</code>）的前向传播过程的实现。</p>
+<hr>
+<h4 id="2-3-神经网络参数与-TensorFlow-变量"><a href="#2-3-神经网络参数与-TensorFlow-变量" class="headerlink" title="2.3 神经网络参数与 TensorFlow 变量"></a>2.3 神经网络参数与 TensorFlow 变量</h4><p>上文我们介绍了全连接神经网络前向传播算法的实现原理（矩阵乘法）。这一小节，我们首先来看在 TensorFlow 中如何 <strong>组织以及存储</strong> 神经网络中的参数，以给出一个前向传播算法的具体 TensorFlow 实现。</p>
+<h5 id="2-3-1-TensorFlow-变量以及其初始化"><a href="#2-3-1-TensorFlow-变量以及其初始化" class="headerlink" title="2.3.1 TensorFlow 变量以及其初始化"></a>2.3.1 TensorFlow 变量以及其初始化</h5><p>TensorFlow 中通过变量 (<code>tf.Variable</code>) 来保存和更新神经网络中的参数。</p>
+<p>同样，和某些其它编程语言类似，TensorFlow 中的变量在声明之后也需要指定初始值，对变量进行初始化。TensorFlow 中变量的初始值可以设置为 <strong>随机数</strong>、<strong>常数</strong> 或者 <strong>通过其它变量的的初始值</strong> 计算得到。下面我们将会分别介绍上述几种初始化方法：</p>
+<p><strong>1）TensorFlow 支持的几种随机数生成器</strong></p>
+<p>首先，我们先给出一个样例来简单说明变量的声明以及初始化：在神经网络中，给参数赋予随机初始值最为常见，所以一般使用随机数给 TensorFlow 中的变量进行初始化。</p>
+<p>下面给出一种在 TensorFlow 中声明一个 <code>[2 * 3]</code> 的矩阵变量的方法：</p>
+<pre><code>weights = tf.Variable(tf.random_normal([2, 3], stddev=2))
+</code></pre><p>上述代码调用了 TensorFlow 变量的声明函数 <code>tf.Variable()</code>。并且在声明函数中给出了初始化这个变量的随机生成函数 <code>tf.random_normal()</code>。</p>
+<p> <code>tf.random_normal([2, 3], stddev=2)</code> 会产生一个 <code>[2 * 3]</code> 的矩阵，矩阵中的元素是满足正态分布，均值为 <code>0</code>，标准差为 <code>2</code> 的随机数（参数 <code>mean</code> 用来指定均值，默认为 <code>0</code>: <code>tf.random_normal([2, 3], stddev=2， mean=0</code>），当然 <strong>random_normal()</strong> 中也可以设置随机种子 <strong>seed</strong>。</p>
+<p>下面我们来看 TensorFlow 支持的几种随机数初始化函数：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数名称</th>
+<th style="text-align:left">随机分布</th>
+<th style="text-align:left">主要参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">tf.random_normal</td>
+<td style="text-align:left">正态分布</td>
+<td style="text-align:left">平均值、标准差、取值类型</td>
+</tr>
+<tr>
+<td style="text-align:left">tf.truncated_normal</td>
+<td style="text-align:left">截断正态分布</td>
+<td style="text-align:left">平均值、标准差、取值类型</td>
+</tr>
+<tr>
+<td style="text-align:left">tf.random_uniform</td>
+<td style="text-align:left">均匀分布</td>
+<td style="text-align:left">最小、最大取值，取值类型</td>
+</tr>
+<tr>
+<td style="text-align:left">tf.random_gamma</td>
+<td style="text-align:left">Gamma分布</td>
+<td style="text-align:left">形状参数 alpha、尺度参数 beta、取值类型</td>
+</tr>
+</tbody>
+</table>
+<p>其中，截断正态分布表示（比较常用）：如果随机出来的值偏离平均值超过 <code>2</code> 个标准差，会重写随机数。</p>
+<p><strong>使用习惯：</strong></p>
+<p>随机数初始化通常用来给神经网络的权重参数进行初始化！</p>
+<p><strong>2）常量（Constants）</strong></p>
+<p>正如向量加法样例中给出的，TensorFlow 中也支持通过常数来初始化变量，下面我们来看 TensorFlow 常用的几种常数初始化函数：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数名称</th>
+<th style="text-align:left">随机分布</th>
+<th style="text-align:left">样例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">tf.zeros</td>
+<td style="text-align:left">产生全为 0 的数组</td>
+<td style="text-align:left">tf.zeros([2,3], int32) -&gt; [[0,0,0],[0,0,0]]</td>
+</tr>
+<tr>
+<td style="text-align:left">tf.ones</td>
+<td style="text-align:left">产生全为 1 的数组</td>
+<td style="text-align:left">tf.ones([2,3], int32) -&gt; [[1,1,1],[1,1,1]]</td>
+</tr>
+<tr>
+<td style="text-align:left">tf.fill</td>
+<td style="text-align:left">产生一个全部为给定数字的数组</td>
+<td style="text-align:left">tf.fill([2,3],9) -&gt; [[9,9,9],[9,9,9]])</td>
+</tr>
+<tr>
+<td style="text-align:left">tf.constant</td>
+<td style="text-align:left">产生一个给定值的常量</td>
+<td style="text-align:left">tf.constant([1,2,3]) -&gt; [1,2,3]</td>
+</tr>
+</tbody>
+</table>
+<p><strong>使用习惯：</strong></p>
+<p>神经网络中，偏置项（bias）通常会使用常数来初始化： </p>
+<pre><code>biases = tf.Variable(tf.zeros([3]))
+print (biases)
+</code></pre><p>样例结果输出如下：</p>
+<pre><code>&lt;tf.Variable &apos;Variable_1:0&apos; shape=(3,) dtype=float32_ref&gt;
+</code></pre><p><strong>3）其它变量</strong></p>
+<p>TensorFlow 也支持通过其它变量的初始值来初始化新变量，如下：</p>
+<pre><code>weight1 = tf.Variable(tf.random_normal([2,3], stddev=2, dtype=tf.float32))
+weight2 = tf.Variable(weight1.initialized_value())
+</code></pre><p>注意，这种方法不太常用！</p>
+<hr>
+<h5 id="2-3-2-TensorFlow-变量的使用-amp-amp-前向传播算法的实现"><a href="#2-3-2-TensorFlow-变量的使用-amp-amp-前向传播算法的实现" class="headerlink" title="2.3.2 TensorFlow 变量的使用 &amp;&amp; 前向传播算法的实现"></a>2.3.2 TensorFlow 变量的使用 &amp;&amp; 前向传播算法的实现</h5><p>上面我们已经了解了 TensorFlow 变量如何声明以及初始化(事实上并没有真正被执行)。注意，在 TensorFlow 中，一个变量的值在被使用之前，这个<strong>变量初始化的过程必须被明确调用才可以使用！</strong></p>
+<p>这里我们将结合上文神经网络前向传播算法原理在 TensorFlow 中的实现来说明变量的使用。</p>
+<pre><code>import tensorflow as tf
+
+# 定义一个变量用于作为神经网络输入，暂时将输入特征向量(即一个样本的特征向量)定义为一个常量(1 * 2 的矩阵)：
+input_x = tf.constant([[0.7,0.9]])
+
+# 声明两个权重变量：w1、w2（这里还通过 seed 设置了随机种子，可以保证每次运行得到的结果一样）
+w1 = tf.Variable(tf.random_normal([2,3], stddev=1, seed=1))
+w2 = tf.Variable(tf.random_normal([3,1], stddev=1, seed=1))
+
+# 通过前向传播算法原理获得神经网络的输出 Y：
+a = tf.matmul(input_x, w1)
+y = tf.matmul(a, w2)
+
+# 创建会话来执行定义好的运算：
+sess = tf.Session()
+
+# 使用变量 w1、w2 之前,需要明确调用变量的初始化才可以使用：
+sess.run(w1.initializer)
+sess.run(w2.initializer)
+
+# 执行运算，获取最终结果：
+print (sess.run(y))
+
+sess.close()
+</code></pre><p>样例结果输出如下：</p>
+<pre><code>[[3.957578]]
+</code></pre><p><strong>引发的一个问题：</strong> 上面的样例中，我们在使用变量 <code>w1</code>、<code>w2</code> 之前需要明确调用其初始化，完成最终的初始化。虽然这看上去是一个可行的方案，但你有没有想过：当我们的模神经网络的变量数目增多（通常会有几万，甚至几十、几百万的参数），或者变量之间存在依赖关系时，你还会去一个个的为每个变量做明确初始化调用么？当然不会！太麻烦了。</p>
+<p>TensorFlow 提供了一种更加便捷的方法来一步完成所有变量的初始化调用。如下所示：</p>
+<pre><code># Old Version(新版本下会报错)：
+init_op = tf.initializer_all_variables().run()
+
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+&lt;ipython-input-75-2501d5753001&gt; in &lt;module&gt;()
+      1 # Old Version(新版本下会报错)：
+----&gt; 2 init_op = tf.initializer_all_variables().run()
+
+AttributeError: module &apos;tensorflow&apos; has no attribute &apos;initializer_all_variables&apos;
+
+# New Version:
+init_op = tf.global_variables_initializer().run()
+</code></pre><hr>
+<h5 id="2-3-3-TensorFlow-变量属性"><a href="#2-3-3-TensorFlow-变量属性" class="headerlink" title="2.3.3 TensorFlow 变量属性"></a>2.3.3 TensorFlow 变量属性</h5><p>类似张量，维度（<code>shape</code>）和类型（<code>dtype</code>）也是变量最重要的两个属性。</p>
+<p><strong>1）dtype </strong></p>
+<p>和大部分程序语言类似，变量类型不可以改变。一个变量一旦构建之后，类型就不能再改变。如上面给出的前向传播样例中，<code>w1</code>类型为 <code>tf.random_normal</code> 函数结果的默认类型 <code>tf.float32</code>，那么它就不能被赋予其它类型的值，如下代码所示：</p>
+<pre><code>w1 = tf.Variable(tf.random_normal([2,3], stddev=1, name=&quot;w1&quot;))
+w2 = tf.Variable(tf.random_normal([2,3], dtype=tf.float64, stddev=1, name=&quot;w2&quot;))
+
+# w1 赋值给 w2：
+w1.assign(w2)
+</code></pre><p>执行上述程序语句将报错：<code>TypeError: Input &#39;value&#39; of &#39;Assign&#39; Op has type float64 that does not match type float32 of argument &#39;ref&#39;</code>。</p>
+<p>这类似于张量，TensorFlow 会自动对变量的类型进行类型检查！</p>
+<p><strong>2）shape</strong></p>
+<p>维度是变量另外一个重要的属性。和类型不大一致，维度在 TensorFlow 程序中是可变的，但需要通过 <code>validate_shape=False</code> 设置。如下样例：</p>
+<pre><code>w1 = tf.Variable(tf.random_normal([2,3], stddev=1, name=&quot;w1&quot;))
+w2 = tf.Variable(tf.random_normal([2,2], stddev=1, name=&quot;w2&quot;))
+
+# tf.assigh(w1,w2)
+# ValueError: Shape (2,3) and (2,2) are not compatible
+
+# 这样才可以执行：
+tf.assign(w1,w2, validate_shape=False)
+</code></pre><p>样例结果输出如下：</p>
+<pre><code>&lt;tf.Tensor &apos;Assign_1:0&apos; shape=(2, 2) dtype=float32_ref&gt;
+</code></pre><p>当然，TensorFlow 支持改变变量维度的用法在实践中比较罕见。</p>
+<hr>
+<h5 id="2-3-4-TensorFlow-变量和张量"><a href="#2-3-4-TensorFlow-变量和张量" class="headerlink" title="2.3.4 TensorFlow 变量和张量"></a>2.3.4 TensorFlow 变量和张量</h5><p><strong>1）变量和张量的区别 </strong></p>
+<p>从前面的章节，我们提到：TensorFlow 中所有的数据都是通过 <code>Tensor</code> 来组织的，这一小节我们又介绍了 TensorFlow 变量，那么张量和变量是什么关系呢？TensorFlow 中，变量的声明函数是一个运算，而运算结果的引用就是一个张量，所以可以看出，这个张量就是我们这一小节所说的变量，也就是说 <strong>变量是一种特殊的张量。</strong></p>
+<p><strong>2）关于变量使用的补充</strong></p>
+<p>在计算图的使用小节中，我们提到 TensorFLow 中可以通过集合（<strong>collection</strong>）来管理运行时的各种资源，它自动维护一些默认集合。</p>
+<p>例如，所有的变量都会被自动加入到 <code>tf.GraphKeys.VARIABLES</code> 集合。通过 <code>tf.all_variables()</code> 函数可以拿到当前计算图上所有的变量。拿到计算图上的所有变量有助于 TensorFlow 持久化整个计算图的运行状态。</p>
+<p>另外，当构建机器学习模型时，我们需要不断训练参数以获得最佳的模型，可以通过变量声明函数中的 <code>trainable</code> 属性来区分需要优化的参数（神经网络中的参数）和其他参数（迭代轮数）：</p>
+<blockquote>
+<p>如果声明变量时参数 <code>trainable</code> 为 <code>True</code>（默认为：<code>False</code>），那么这个变量会被加入到 <code>tf.GraphKeys.TRAINABLE_VARIABLES</code> 集合。</p>
+</blockquote>
+<p>在 TensorFlow 中可以通过 <code>tf.trainable_variables()</code> 函数得到所有需要优化的参数。并且 TensorFlow 中提供的神经网络算法会将 <code>tf.GraphKeys.TRAINABLE_VARIABLES</code> 集合中的变量作为默认的优化对象。</p>
+<hr>
+<h4 id="2-4-TensorFlow-训练神经网络模型（优化参数）"><a href="#2-4-TensorFlow-训练神经网络模型（优化参数）" class="headerlink" title="2.4 TensorFlow 训练神经网络模型（优化参数）"></a>2.4 TensorFlow 训练神经网络模型（优化参数）</h4><p>上面的小节，我们给出了一个样例来完成全连接神经网络的前向传播过程。但是，这个样例中所有变量（参数）的初始取值都是随机的。事实上，在使用神经网络来解决实际的分类或回归问题时，我们需要通过训练神经网络模型不断调整参数获取到更好的参数取值，以获取最佳的神经网络模型。</p>
+<p>这一小节我们将介绍如何使用监督学习的方式结合训练算法（反向传播）来更合理的设置参数取值，并且给出了一个 TensorFlow 实现这一过程的样例。<strong>优化神经网络参数的过程就是神经网络的训练过程</strong>，只有经过有效训练的神经网络模型才可以真正解决分类或回归问题。</p>
+<p><strong>监督学习最重要的思想</strong> 就是：在已知答案的标注数据集上，模型给出的预测结果要尽可能接近真实标记。通过 BP 算法调整神经网络中的参数对训练数据的拟合，可以使得模型对未知样本提供预测能力。</p>
+<hr>
+<h5 id="2-4-1-神经网络训练（优化）算法"><a href="#2-4-1-神经网络训练（优化）算法" class="headerlink" title="2.4.1 神经网络训练（优化）算法"></a>2.4.1 神经网络训练（优化）算法</h5><p>在神经网络优化算法中，最常用的方法就是反向传播算法。这里，我们先简单了解一下反向传播算法（<strong>Backpropagation，BP</strong>）的概念，后续会做深入介绍。<strong>BP</strong> 是训练神经网络的核心算法，它可以根据定义好的损失函数来优化神经网络中参数的取值，从而使得神经网络模型在训练数据集上的损失函数达到一个较小值。下面我们给出一个使用了反向传播算法训练神经网络模型的流程图：</p>
+<p><img src="/TensorFlow/TensorFlow-基本工作原理/Img/BP.png" alt="avatar"></p>
+<p>从上图看出，反向传播算法本质是实现了一个迭代的过程。每次迭代开始，首先需要读取一部分训练数据（来源于训练数据集），这一小部分数据称为一个 <strong>batch</strong>。然后这个 <code>batch</code> 的数据通过前向传播算法得到其在神经网络模型的预测结果。</p>
+<p>因为训练数据都是有正确答案标注的，所有可以计算出当前神经网络模型的预测答案和正确答案的差距（通过损失函数来定义）。最后，反向传播算法会根据这个差距更新神经网络的参数，使得预测结果要尽可能接近真实标记。</p>
+<p><strong>–&gt; 如何实现反向传播算法？？？</strong></p>
+<p><strong>1）TensorFlow 表达 Batch</strong></p>
+<p>首先，我们来看如何从训练数据集读取一个 batch 的数据，在 TensorFlow 中进行表达。我们在实现全连接神经网络前向传播算法样例中，曾经使用过用常量来表达一个样本数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">input_x = tf.constant([[0.7,0.9]])</span><br></pre></td></tr></table></figure>
+<p><strong>引发一个问题：</strong> 如果每次迭代中选取的数据都要通过常量来创建，那么 TensorFlow 的计算图将会太大。因为每生成一个常量，TensorFlow 都会在计算图中增加一个计算节点。一般来说，一个神经网络的训练过程会经过几百万轮甚至几亿轮数的迭代，这样计算图就会非常大，而且利用率很低。</p>
+<p>为了避免这个问题，TensorFlow 提供了 <code>placeholder</code> 机制用于提供输入数据。<code>placeholder</code> 相当于定义了一个位置（占位符），这个位置中的数据在程序运行时再指定（必须），这样只需要将读入的数据通过 <code>placeholder</code> 传入 TensorFlow 计算图即可。</p>
+<p>也就是说，我们通过 <code>placeholder</code> 告诉 TensorFlow 程序，这里有一个“空间”，我们会在执行程序时再给定这个“空间”的取值以供计算图使用。</p>
+<p><strong>placeholder :</strong></p>
+<p>placeholder 在定义时，这个位置上的数据类型是需要指定的，而且和其它张量一样，类型是不可更改的。<code>placeholder</code> 中数据的维度信息可以根据提供的数据自动推导得出，所以不一定要给出。下面我们将 <code>placeholder</code> 的使用引入全连接神经网络的前向传播算法实现中：</p>
+<pre><code>import tensorflow as tf
+
+# placeholder 的使用：
+input_x = tf.placeholder(tf.float32, shape=(1,2), name=&quot;input_x&quot;)
+
+# 声明两个权重变量：w1、w2（这里还通过 seed 设置了随机种子，可以保证每次运行得到的结果一样）
+w1 = tf.Variable(tf.random_normal([2,3], stddev=1, seed=1))
+w2 = tf.Variable(tf.random_normal([3,1], stddev=1, seed=1))
+
+# 通过前向传播算法原理获得神经网络的输出 Y：
+a = tf.matmul(input_x, w1)
+y = tf.matmul(a, w2)
+
+# 创建会话来执行定义好的运算：
+sess = tf.Session()
+
+# 明确调用变量
+init_op = tf.global_variables_initializer().run()
+
+# 执行运算会报错：
+# print (sess.run(y))
+
+sess.close()
+</code></pre><p>我们发现，直接执行 <code>sess.run(y)</code> 会发生报错： <code>InvalidArgumentError (see above for traceback): You must feed a value for placeholder tensor &#39;input_x_1&#39; with dtype float and shape [1,2]</code>。</p>
+<p>WTF ？？？</p>
+<p><strong>神奇的 feed_dict :</strong></p>
+<p>上面我们仅仅是在计算图中创建了一个占位符，但是运行时我们并没有给 <code>placeholder</code> 传入数据。TensorFlow 中使用 <code>feed_dict</code>（类型：字典）来为 <code>placeholder</code> 提供样本数据，<code>feed_dict</code> 字典中需要给出每个用到的 <code>placeholder</code> 取值（一个 <code>batch</code> 的数据）。如下给出实现代码：</p>
+<pre><code>import tensorflow as tf
+
+# placeholder 的使用：
+input_x = tf.placeholder(tf.float32, shape=(3,2), name=&quot;input&quot;)
+
+# 声明两个权重变量：w1、w2（这里还通过 seed 设置了随机种子，可以保证每次运行得到的结果一样）
+w1 = tf.Variable(tf.random_normal([2,3], stddev=1, seed=1))
+w2 = tf.Variable(tf.random_normal([3,1], stddev=1, seed=1))
+
+# 通过前向传播算法原理获得神经网络的输出 Y：
+a = tf.matmul(input_x, w1)
+y = tf.matmul(a, w2)
+
+# 创建会话来执行定义好的运算：
+sess = tf.Session()
+
+# 明确调用变量
+init_op = sess.run(tf.global_variables_initializer())
+
+# 执行运算会报错：
+# print (sess.run(y))
+
+# batch 中含有 3 个样本：
+# 当然可以包含多个
+print (sess.run(y, feed_dict={input_x: [[0.7,0.9], [0.1,0.4], [0.5,0.8]]}))
+
+sess.close()
+</code></pre><p>样例运行结果如下（每一行都是一个样本的前向传播结果。）：</p>
+<pre><code>[[3.957578 ]
+[1.1537654]
+[3.1674924]]
+</code></pre><p><strong>2）损失函数（Loss Function） &amp;&amp; 优化器（Optimizer） </strong></p>
+<p>前面说过，我们需要定义一个损失函数来刻画当前预测值和真实标注之间的差距，然后通过反向传播算法来调整神经网络参数取值使得差距可以被缩小。下面我们给出一个简单的反向传播算法模型的定义：</p>
+<pre><code># 定义损失函数：
+cross_entropy = -tf.reduce_mean(y_ * tf.log(tf.clip_by_value(y, 1e-10, 1.0)))
+
+# 定义反向传播的优化方法：
+train_op = tf.train.AdamOptimizer(learning_rate).minimize(cross_entropy)
+</code></pre><p>除了定义损失函数外，我们还需要根据实际问题采用合理的反向传播优化方法（优化器）以更新参数（更新参数对我们来说是关键的）。下面我们来看 TensorFlow 支持的三种常用优化器：<code>tf.train.GradientDescentOptimizer()</code>、<code>tf.train.AdamOptimier()</code>、<code>tf.train.MomentumOptimizer()</code>。</p>
+<p>在定义了反向传播算法之后，通过运行 <code>sess.run(train_op)</code> 就可以对所有在 <code>tf.GraphKeys_TRAINABLE_VARIABLES()</code> 集合中的变量进行自动优化，使得神经网络模型在当前 <code>batch</code> 的损失函数更小。</p>
+<hr>
+<h5 id="2-4-2-完整神经网络样例"><a href="#2-4-2-完整神经网络样例" class="headerlink" title="2.4.2 完整神经网络样例"></a>2.4.2 完整神经网络样例</h5><p>综上所述，这一小节我们将在一个模拟数据集上训练全连接神经网络模型来解决 TensorFlow 游乐场中提到过的二分类问题：</p>
+<pre><code>import tensorflow as tf
+
+from numpy.random import RandomState
+
+# 定义训练数据 batch 的大小
+batch_size = 8
+
+# 待输入的样本特征向量以及标注的占位符：
+# None 方便自适应不同的 batch 大小
+input_x = tf.placeholder(tf.float32, shape=(None,2), name=&quot;input_x&quot;)
+input_y = tf.placeholder(tf.float32, shape=(None,1), name=&quot;input_y&quot;)
+
+# 定义全连接神经网络的参数
+w1 = tf.Variable(tf.random_normal([2,3], stddev=1, seed=1))
+w2 = tf.Variable(tf.random_normal([3,1], stddev=1, seed=1))
+
+# 定义神经网络的前向传播：
+a = tf.matmul(input_x, w1)
+y = tf.matmul(a, w2)
+
+# 定义神经网络模型损失函数以及反向传播算法：
+# 定义损失函数：
+cross_entropy = -tf.reduce_mean(input_y * tf.log(tf.clip_by_value(y, 1e-10, 1.0)))
+learning_rate = 0.001
+# 定义反向传播的优化方法：
+train_op = tf.train.AdamOptimizer(learning_rate).minimize(cross_entropy)
+
+# 通过随机数生成一个模拟数据集：
+rdm = RandomState(1)
+dataset_size = 128 # 训练数据集样本数目
+
+X = rdm.rand(dataset_size, 2)
+# 定义规则给出样本的标签（x1+x2&lt;1 认为是正样本）：
+Y = [ [int(x1+x2 &lt; 1)] for (x1, x2) in X ]
+
+# 下面创建一个会话来运行程序：
+with tf.Session() as sess:
+
+    init_op = sess.run(tf.global_variables_initializer())
+    # 打印训练之前的神经网络参数：
+    print (sess.run(w1))
+    print (sess.run(w2))
+
+    # 开始训练：
+    # 定义训练轮数：
+    STEPS = 5000
+
+    for i in range(STEPS):
+
+        # 每次选取一个 batch 的数据进行训练：
+        start = (i * batch_size) % dataset_size
+        end = min(start + batch_size, dataset_size)
+
+        data_feed = feed_dict={input_x: X[start:end], input_y: Y[start:end]}
+
+        # 训练神经网络参数
+        sess.run(train_op, data_feed)
+
+        if i % 1000 == 0:
+            # 每迭代 1000 次输出一次在所有数据上的交叉熵损失：
+            total_cross_entropy = sess.run(cross_entropy, feed_dict={input_x: X, input_y:Y})
+            print (&quot;After %d training step(s), cross entropy on all data is %g&quot; % (i, total_cross_entropy))
+
+    # 打印训练之后的神经网络参数：
+    print (sess.run(w1))
+    print (sess.run(w2))
+</code></pre><p>样例程序输出日志信息如下：</p>
+<pre><code>[[-0.8113182   1.4845988   0.06532937]
+ [-2.4427042   0.0992484   0.5912243 ]]
+[[-0.8113182 ]
+ [ 1.4845988 ]
+ [ 0.06532937]]
+After 0 training step(s), cross entropy on all data is 0.0674925
+After 1000 training step(s), cross entropy on all data is 0.0163385
+After 2000 training step(s), cross entropy on all data is 0.00907547
+After 3000 training step(s), cross entropy on all data is 0.00714436
+After 4000 training step(s), cross entropy on all data is 0.00578471
+[[-1.9618274  2.582354   1.6820377]
+ [-3.4681718  1.0698233  2.11789  ]]
+[[-1.8247149]
+ [ 2.6854665]
+ [ 1.418195 ]]
+</code></pre><hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/TensorFlow/TensorFlow-基本工作原理/" title="TensorFlow 基本工作原理">http://yoursite.com/TensorFlow/TensorFlow-基本工作原理/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TensorFlow/" rel="tag"><i class="fa fa-tag"></i> TensorFlow</a>
+          
+            <a href="/tags/ANN/" rel="tag"><i class="fa fa-tag"></i> ANN</a>
+          
+            <a href="/tags/Artificial-Neural-Networks/" rel="tag"><i class="fa fa-tag"></i> Artificial Neural Networks</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Jpype/Jpype-安装以及使用指南/" rel="next" title="Jpype 安装以及使用指南">
+                <i class="fa fa-chevron-left"></i> Jpype 安装以及使用指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/DataSet/Image-PixMatrix/" rel="prev" title="Image PixMatrix">
+                Image PixMatrix <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-TensorFlow-基本工作原理"><span class="nav-text">1. TensorFlow 基本工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-TensorFlow-计算模型（Graph：计算图）"><span class="nav-text">1.1 TensorFlow 计算模型（Graph：计算图）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-1-计算图的使用"><span class="nav-text">1.1.1 计算图的使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-2-计算图的作用"><span class="nav-text">1.1.2 计算图的作用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-TensorFlow-数据模型（Tensor：张量）"><span class="nav-text">1.2 TensorFlow 数据模型（Tensor：张量）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-1-张量结构"><span class="nav-text">1.2.1 张量结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-2-张量的使用"><span class="nav-text">1.2.2 张量的使用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-TensorFlow-运行模型（Session：会话）"><span class="nav-text">1.3 TensorFlow 运行模型（Session：会话）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-1-会话的两种使用模式"><span class="nav-text">1.3.1 会话的两种使用模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-2-默认会话机制"><span class="nav-text">1.3.2 默认会话机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-3-会话的配置"><span class="nav-text">1.3.3 会话的配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-初识神经网络"><span class="nav-text">2. 初识神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-TensorFlow-游乐场以及神经网络介绍"><span class="nav-text">2.1 TensorFlow 游乐场以及神经网络介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-神经网络结构与前向传播算法"><span class="nav-text">2.2 神经网络结构与前向传播算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-神经网络结构"><span class="nav-text">2.2.1 神经网络结构</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）神经元（nerve-cell）"><span class="nav-text">1）神经元（nerve cell）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）神经网络结构（Neural-Network）"><span class="nav-text">2）神经网络结构（Neural Network）</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-2-全连接神经网络前向传播算法"><span class="nav-text">2.2.2 全连接神经网络前向传播算法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-神经网络参数与-TensorFlow-变量"><span class="nav-text">2.3 神经网络参数与 TensorFlow 变量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-1-TensorFlow-变量以及其初始化"><span class="nav-text">2.3.1 TensorFlow 变量以及其初始化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-2-TensorFlow-变量的使用-amp-amp-前向传播算法的实现"><span class="nav-text">2.3.2 TensorFlow 变量的使用 &amp;&amp; 前向传播算法的实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-3-TensorFlow-变量属性"><span class="nav-text">2.3.3 TensorFlow 变量属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-4-TensorFlow-变量和张量"><span class="nav-text">2.3.4 TensorFlow 变量和张量</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-TensorFlow-训练神经网络模型（优化参数）"><span class="nav-text">2.4 TensorFlow 训练神经网络模型（优化参数）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-1-神经网络训练（优化）算法"><span class="nav-text">2.4.1 神经网络训练（优化）算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-2-完整神经网络样例"><span class="nav-text">2.4.2 完整神经网络样例</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

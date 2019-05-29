@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux Shell,Automated Deployment,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="在项目开发中，我们经常会遇到这样的需求：多台服务器设备要做相同的部署工作时，一般来说，我们需要分别远程登陆 Server 列表中的所有设备，然后按照应用程序官方给出的安装流程依次对所有设备进行安装。那么随之而来将会产生一个问题： 当服务器集群中有大量 Server 节点，并且部署大量的应用程序时，你还会考虑逐台登录然后安装配置么？ 答案很显然是不会！如：开发环境需要我们在一个 Server 节点数">
+<meta name="keywords" content="Linux Shell,Automated Deployment">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux Shell 脚本自动化部署">
+<meta property="og:url" content="http://yoursite.com/Automated-Deployment/Linux-Shell-脚本自动化部署/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="在项目开发中，我们经常会遇到这样的需求：多台服务器设备要做相同的部署工作时，一般来说，我们需要分别远程登陆 Server 列表中的所有设备，然后按照应用程序官方给出的安装流程依次对所有设备进行安装。那么随之而来将会产生一个问题： 当服务器集群中有大量 Server 节点，并且部署大量的应用程序时，你还会考虑逐台登录然后安装配置么？ 答案很显然是不会！如：开发环境需要我们在一个 Server 节点数">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-29T03:03:51.704Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux Shell 脚本自动化部署">
+<meta name="twitter:description" content="在项目开发中，我们经常会遇到这样的需求：多台服务器设备要做相同的部署工作时，一般来说，我们需要分别远程登陆 Server 列表中的所有设备，然后按照应用程序官方给出的安装流程依次对所有设备进行安装。那么随之而来将会产生一个问题： 当服务器集群中有大量 Server 节点，并且部署大量的应用程序时，你还会考虑逐台登录然后安装配置么？ 答案很显然是不会！如：开发环境需要我们在一个 Server 节点数">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Automated-Deployment/Linux-Shell-脚本自动化部署/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>Linux Shell 脚本自动化部署 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Automated-Deployment/Linux-Shell-脚本自动化部署/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux Shell 脚本自动化部署</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-07T10:02:37+08:00">
+                2018-06-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:51+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Automated-Deployment/" itemprop="url" rel="index">
+                    <span itemprop="name">Automated Deployment</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Automated-Deployment/Linux-Shell-脚本自动化部署/" class="leancloud_visitors" data-flag-title="Linux Shell 脚本自动化部署">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在项目开发中，我们经常会遇到这样的需求：多台服务器设备要做相同的部署工作时，一般来说，我们需要分别远程登陆 Server 列表中的所有设备，然后按照应用程序官方给出的安装流程依次对所有设备进行安装。那么随之而来将会产生一个问题：</p>
+<p>当服务器集群中有大量 Server 节点，并且部署大量的应用程序时，你还会考虑逐台登录然后安装配置么？</p>
+<p>答案很显然是不会！如：开发环境需要我们在一个 Server 节点数为 10 的集群中安装配置 JDK (很简单的需求)。我们需要分别远程登陆到这 10 台的 Server 上完成 10 次 JDK 的安装以及配置。那么，当节点数增加到成百上千呢！？这无疑是最笨拙的方法…</p>
+<a id="more"></a>
+<p>为了避免上述需求中重复性的应用程序部署，就需要用到自动化部署脚本。简单来说，自动化部署就是批量的在目标机器上安装应用程序。本文会结合一些简单应用来说明软件自动化部署的实现思路。</p>
+<h3 id="1-设计思路"><a href="#1-设计思路" class="headerlink" title="1. 设计思路"></a>1. 设计思路</h3><p>在集群一台 Server（主服务器）运行脚本，集群中其它 Server 节点会完成相同的安装以及配置；</p>
+<p><strong>1）环境准备：</strong></p>
+<ol>
+<li>集群节点需要实现 SSH 免密码登陆 或者 脚本中包含 SSH 免密码登陆相关实现；</li>
+<li>软件自动化部署脚本：放置于主服务器，会被分发到集群中各 Server 节点，用于应用程序的自动化安装；</li>
+<li>自动化部署引导脚本：放置于主服务器上用于引导集群中各节点完成软件的自动化安装。</li>
+</ol>
+<p><strong>2）脚本执行分为两个过程：</strong></p>
+<pre><code>1. 如果未配置 SSH 免密登陆先完成配置，然后使用自动化部署引导脚本 `autodeply.sh` 登陆节点服务器，发送一个软件自动部署脚本 `install.sh` 脚本到各个 Server 上；
+2. 由软件自动部署脚本 `install.sh` 实现软件的自动化部署操作。
+</code></pre><p>上述执行过程又可以细分为：SSH 登陆远程节点发送自动化脚本、下载安装包、安装以及配置环境变量。</p>
+<hr>
+<h3 id="2-JDK-自动化部署实例"><a href="#2-JDK-自动化部署实例" class="headerlink" title="2. JDK 自动化部署实例"></a>2. JDK 自动化部署实例</h3><h4 id="2-1-实验环境"><a href="#2-1-实验环境" class="headerlink" title="2.1 实验环境"></a>2.1 实验环境</h4><p>1）Servers</p>
+<p>三台 Centos Server：一台作为主服务器，其它两台为其它服务器节点。</p>
+<pre><code>BASE_SERVER（主服务器）IP：192.168.2.2
+NODE1 IP：192.168.2.3
+NODE2 IP：192.168.2.4
+</code></pre><p>2）待安装应用程序</p>
+<pre><code>JDK 版本号：jdk1.8.0_201
+</code></pre><p>3）Reference</p>
+<pre><code>1. 集群所有节点服务器安装配置 SSH
+</code></pre><hr>
+<p>下面我们会首先介绍在一台 Server 节点中，如何实现应用程序的自动部署，即：<strong>应用程序自动部署脚本</strong>  <code>install.sh</code> 的具体实现。 然后说明如何通过 <strong>自动化部署引导脚本</strong> <code>autodeply.sh</code> 在集群中实现多台 Server 节点的自动化快捷部署。 </p>
+<h4 id="2-2-实现自动化部署脚本"><a href="#2-2-实现自动化部署脚本" class="headerlink" title="2.2 实现自动化部署脚本"></a>2.2 实现自动化部署脚本</h4><p>软件自动部署脚本 <code>install.sh</code> 脚本用于在当前集群节点设备上完成应用程序的自动化下载，安装以及环境变量配置：</p>
+<p><strong>1）相关声明</strong></p>
+<p>首先我们来指定一些应用程序下载、安装相关的变量。例如：JDK 安装版本、JDK 安装目录，以及 JDK 下载 URL 地址等：</p>
+<pre><code>#!/bin/bash
+#this shell to use installing jdk1.8.121 
+echo &quot;------------------start to install jdk----------------------&quot;
+
+# 是否切换到 root 权限
+#sudo su
+
+##### ------ part 1: HyperParameters Definition ------ #####
+
+# 指定主服务器地址：
+#BASE_SERVER=192.168.2.2
+
+# 指定 JDK Version Name：
+JDK_VERSION=jdk1.8.0_201
+
+# 指定 JDK 下载源（URL）：
+JDK_URL=https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/jdk-8u201-linux-x64.tar.gz
+
+# 指定 JDK Install Package Name：
+JDK_PACKAGE=jdk-8u201-linux-x64.tar.gz
+
+# 指定 JDK 安装目录：
+JDK_DOWNLOAD_DIR=/usr/local/java
+# Create the installation directory
+make_directory(){
+    if [ ! -d $JDK_DOWNLOAD_DIR ];then
+        mkdir $JDK_DOWNLOAD_DIR
+        cd $JDK_DOWNLOAD_DIR
+    else
+        echo &quot;Add another JAVA version: $JDK_VERSION&quot;
+        cd $JDK_DOWNLOAD_DIR
+    fi
+}
+make_directory
+</code></pre><p>注意，<strong>指定 JDK 下载源（URL）：</strong> <code>JDK_URL</code> 来源于 JDK 官网下载链接，你可以根据需要指定相应版本下载链接，然后将 <code>JDK Version</code> 、<code>JDK Install Package</code> 修改为相应版本即可。</p>
+<p>|——————————————–</p>
+<p>我们知道，上述指定的 <code>JDK_URL</code> 源来至于 JDK 官网，也就是说集群中所有节点设备都需要到 JDK 官网下载安装包。一般，为了避免后续安装包下载受网络带宽的，我们可以提前将需要安装的应用程序安装包（例如：jdk-8u201-linux-x64.tar.gz）下载好一份并放置于 <strong>主服务器</strong> 上。当其它节点服务器需要时，只需要走局域网络从主服务器下载即可。</p>
+<p>这里，假设我们下载好了 <strong>jdk1.8.0_201</strong> 安装包：<code>jdk-8u201-linux-x64.tar.gz</code>，并放置于主服务器下的 /root/Download 目录中。那么，<code>JDK_URL</code> 也可以设置为如下：</p>
+<pre><code>JDK_URL= 192.168.2.2/root/Download/jdk-8u201-linux-x64.tar.gz
+</code></pre><p>|——————————————–</p>
+<p><strong>2）下载以及安装 JDK</strong></p>
+<p>下面代码会从我们在 1）中定义 <code>JDK_URL</code> 源中下载 JDK 安装包，并解压完成安装：</p>
+<pre><code># Download jdk1.8.tar.gz
+wget --no-check-certificate --no-cookies -c --header &quot;Cookie: oraclelicense=accept-securebackup-cookie&quot; $JDK_URL
+
+# tar &amp;&amp; install
+tar -zxvf $JDK_PACKAGE
+rm $JDK_PACKAGE
+</code></pre><p>注意，<code>wget</code> 通过 <code>--no-check-certificate --no-cookies -c --header &quot;Cookie: oraclelicense=accept-securebackup-cookie&quot;</code> 可以实现 <strong>免检测证书、免用户验证</strong> 下载（如果不设置的话，可能无法从 JDK 官网下载链接下载 JDK 安装包的）。</p>
+<p><strong>3）配置环境变量</strong></p>
+<p>这里我们将 JDK 环境变量配置到 <code>~/.bashrc</code> 文件中，如下：</p>
+<pre><code>#set environment
+echo &quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Configuring the JDK environment variable &gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;
+export JAVA_HOME=&quot;/usr/local/java/jdk1.8.0_201&quot;
+if ! grep &quot;JAVA_HOME=/usr/local/java/jdk1.8.0_201&quot; ~/.bashrc
+then
+    echo &quot;JAVA_HOME=/usr/local/java/jdk1.8.0_201&quot; | sudo tee -a ~/.bashrc
+    echo &quot;export JAVA_HOME&quot; | sudo tee -a ~/.bashrc
+        echo &quot;JRE_HOME=${JAVA_HOME}/jre&quot; | sudo tee -a ~/.bashrc
+        echo &quot;export JRE_HOME&quot; | sudo tee -a ~/.bashrc
+            echo &quot;CLASSPATH=.:\${JAVA_HOME}/lib/dt.jar:\${JAVA_HOME}/lib/tools.jar&quot; | sudo tee -a ~/.bashrc
+            echo &quot;export CLASSPATH&quot; | sudo tee -a ~/.bashrc
+                echo &quot;PATH=${JAVA_HOME}/bin:\$PATH&quot; | sudo tee -a ~/.bashrc
+                echo &quot;$PATH&quot;
+                fi
+
+# update environment
+#source ~/.bashrc  
+
+echo &quot;--------------- JDK 1.8.0_171 has installed ! ---------------&quot;
+</code></pre><hr>
+<p>下面我们给出软件自动部署脚本 <code>install.sh</code> 的完整代码：</p>
+<pre><code>#!/bin/bash
+#this shell to use installing jdk1.8.121 
+echo &quot;------------------start to install jdk----------------------&quot;
+
+# 是否切换到 root 权限
+#sudo su
+
+##### ------ part 1: HyperParameters Definition ------ #####
+
+# 指定主服务器地址：
+#BASE_SERVER=192.168.2.2
+
+# 指定 JDK Version Name：
+JDK_VERSION=jdk1.8.0_201
+
+# 指定 JDK 下载源（URL）：
+JDK_URL=https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/jdk-8u201-linux-x64.tar.gz
+
+# 指定 JDK Install Package Name：
+JDK_PACKAGE=jdk-8u201-linux-x64.tar.gz
+
+# 指定 JDK 安装目录：
+JDK_DOWNLOAD_DIR=/usr/local/java
+# Create the installation directory
+make_directory(){
+    if [ ! -d $JDK_DOWNLOAD_DIR ];then
+        mkdir $JDK_DOWNLOAD_DIR
+        cd $JDK_DOWNLOAD_DIR
+    else
+        echo &quot;Add another JAVA version: $JDK_VERSION&quot;
+        cd $JDK_DOWNLOAD_DIR
+    fi
+}
+make_directory
+
+
+##### ------ part 2: jdk1.8.tar.gz Setup ------ #####
+
+# Download jdk1.8.tar.gz
+# yum install -y wget
+wget --no-check-certificate --no-cookies -c --header &quot;Cookie: oraclelicense=accept-securebackup-cookie&quot; $JDK_URL
+
+# tar &amp;&amp; install
+tar -zxvf $JDK_PACKAGE
+rm $JDK_PACKAGE
+
+
+##### ------ part 3: Environment Configuration ------ #####
+
+#set environment
+echo &quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Configuring the JDK environment variable &gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;
+export JAVA_HOME=&quot;/usr/local/java/jdk1.8.0_201&quot;
+if ! grep &quot;JAVA_HOME=/usr/local/java/jdk1.8.0_201&quot; ~/.bashrc
+then
+    echo &quot;JAVA_HOME=/usr/local/java/jdk1.8.0_201&quot; | sudo tee -a ~/.bashrc
+    echo &quot;export JAVA_HOME&quot; | sudo tee -a ~/.bashrc
+        echo &quot;JRE_HOME=${JAVA_HOME}/jre&quot; | sudo tee -a ~/.bashrc
+        echo &quot;export JRE_HOME&quot; | sudo tee -a ~/.bashrc
+            echo &quot;CLASSPATH=.:\${JAVA_HOME}/lib/dt.jar:\${JAVA_HOME}/lib/tools.jar&quot; | sudo tee -a ~/.bashrc
+            echo &quot;export CLASSPATH&quot; | sudo tee -a ~/.bashrc
+                echo &quot;PATH=${JAVA_HOME}/bin:\$PATH&quot; | sudo tee -a ~/.bashrc
+                echo &quot;$PATH&quot;
+                fi
+
+# update environment
+#source ~/.bashrc  
+
+echo &quot;--------------- JDK 1.8.0_171 has installed ! ---------------&quot;
+</code></pre><hr>
+<h4 id="2-3-实现自动化部署引导脚本"><a href="#2-3-实现自动化部署引导脚本" class="headerlink" title="2.3 实现自动化部署引导脚本"></a>2.3 实现自动化部署引导脚本</h4><p>这一小节我们来看自动化部署引导脚本 <code>autodeply.sh</code> 是如何管理集群中所有节点服务器完成应用程序安装的：</p>
+<p><strong>1）相关声明</strong></p>
+<p>和 <code>2.2 实现自动化部署脚本</code> 一样，首先我们需要指定集群节点服务器相关配置项。例如 集群节点服务器 IP、登陆用户密码等：</p>
+<pre><code>#!/bin/bash
+
+# 指定主服务器 IP：
+BASE_SERVER=192.168.2.2
+
+# 集群其它节点服务器 IP：
+SERVERS=&quot;192.168.2.3 192.168.2.4&quot;
+# 主服务器远程登陆集群其它节点服务器用户密码（建议集群各节点密码最好一致）：
+PASSWORD=123456789
+</code></pre><p><strong>2）SSH 免密码登陆</strong></p>
+<pre><code>auto_ssh_copy_id() {
+    expect -c &quot;set timeout -1;
+        spawn ssh-copy-id $1;
+        expect {
+            *(yes/no)* {send -- yes\r;exp_continue;}
+            *assword:* {send -- $2\r;exp_continue;}
+            eof        {exit 0;}
+        }&quot;;
+}
+
+ssh_copy_id_to_all() {
+    for SERVER in $SERVERS
+    do
+        auto_ssh_copy_id $SERVER $PASSWORD
+    done
+}
+ssh_copy_id_to_all
+</code></pre><p><strong>3）发送自动化部署脚本</strong></p>
+<pre><code>for SERVER in $SERVERS
+do
+    scp install.sh root@$SERVER:/root
+    ssh root@$SERVER /root/install.sh
+done
+</code></pre><hr>
+<p>下面我们给出自动化部署引导脚本 <code>autodeply.sh</code> 的完整代码：</p>
+<pre><code>#!/bin/bash
+
+# 指定主服务器 IP：
+BASE_SERVER=192.168.2.2
+
+# 集群其它节点服务器 IP：
+SERVERS=&quot;192.168.2.3 192.168.2.4&quot;
+# 主服务器远程登陆集群其它节点服务器用户密码（建议集群各节点密码最好一致）：
+PASSWORD=123456789
+
+auto_ssh_copy_id() {
+    expect -c &quot;set timeout -1;
+        spawn ssh-copy-id $1;
+        expect {
+            *(yes/no)* {send -- yes\r;exp_continue;}
+            *assword:* {send -- $2\r;exp_continue;}
+            eof        {exit 0;}
+        }&quot;;
+}
+
+ssh_copy_id_to_all() {
+    for SERVER in $SERVERS
+    do
+        auto_ssh_copy_id $SERVER $PASSWORD
+    done
+}
+ssh_copy_id_to_all
+
+for SERVER in $SERVERS
+do
+    scp install.sh root@$SERVER:/root
+    ssh root@$SERVER /root/install.sh
+done
+</code></pre><hr>
+<h4 id="2-4-开始部署"><a href="#2-4-开始部署" class="headerlink" title="2.4 开始部署"></a>2.4 开始部署</h4><p><strong>1）增加自动化部署脚本执行权限：</strong></p>
+<pre><code>root@ubuntu-Lenovo-Product:~# chmod +x autodeply.sh install.sh
+</code></pre><p><strong>2）主服务器必须配置有 SSH 公秘钥：</strong></p>
+<p>如果没有，可以直接执行如下命令，一路 <code>Enter</code> 即可：</p>
+<pre><code>root@ubuntu-Lenovo-Product:~# ssh-keygen
+</code></pre><p><strong>3）自动化部署：</strong></p>
+<p>执行如下命令即可开始集群节点应用程序的自动化部署：</p>
+<pre><code>root@ubuntu-Lenovo-Product:~# ./autodeply.sh
+# 或
+root@ubuntu-Lenovo-Product:~# sh autodeply.sh
+</code></pre><hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/Automated-Deployment/Linux-Shell-脚本自动化部署/" title="Linux Shell 脚本自动化部署">http://yoursite.com/Automated-Deployment/Linux-Shell-脚本自动化部署/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux-Shell/" rel="tag"><i class="fa fa-tag"></i> Linux Shell</a>
+          
+            <a href="/tags/Automated-Deployment/" rel="tag"><i class="fa fa-tag"></i> Automated Deployment</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/" rel="next" title="Ubuntu16.04 + Nvidia GTX 970 + CUDA8.0 + CUDNN5.1 + Anaconda3 + Tensorflow1.2">
+                <i class="fa fa-chevron-left"></i> Ubuntu16.04 + Nvidia GTX 970 + CUDA8.0 + CUDNN5.1 + Anaconda3 + Tensorflow1.2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Jpype/Jpype-安装以及使用指南/" rel="prev" title="Jpype 安装以及使用指南">
+                Jpype 安装以及使用指南 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-设计思路"><span class="nav-text">1. 设计思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-JDK-自动化部署实例"><span class="nav-text">2. JDK 自动化部署实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-实验环境"><span class="nav-text">2.1 实验环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-实现自动化部署脚本"><span class="nav-text">2.2 实现自动化部署脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-实现自动化部署引导脚本"><span class="nav-text">2.3 实现自动化部署引导脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-开始部署"><span class="nav-text">2.4 开始部署</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

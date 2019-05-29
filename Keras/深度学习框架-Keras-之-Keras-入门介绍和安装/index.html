@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Keras,DeepLearning,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  前言 使用过 TensorFlow 、Theano 等深度学习框架进行机器学习或者深度神经网络研究，你会发现它们都是非常偏基础的系统，上手就很困难，更不用说快速把你自己的想法变为结果，直接使用的话生产力过于低下。苦恼啊……而此时，你恰好发现了 Keras，快来开始学习使用 Keras 吧……  Keras 专为支持快速实验而生，能够迅速地帮助你">
+<meta name="keywords" content="Keras,DeepLearning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习框架 Keras 之 Keras 入门介绍和安装">
+<meta property="og:url" content="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-入门介绍和安装/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  前言 使用过 TensorFlow 、Theano 等深度学习框架进行机器学习或者深度神经网络研究，你会发现它们都是非常偏基础的系统，上手就很困难，更不用说快速把你自己的想法变为结果，直接使用的话生产力过于低下。苦恼啊……而此时，你恰好发现了 Keras，快来开始学习使用 Keras 吧……  Keras 专为支持快速实验而生，能够迅速地帮助你">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-入门介绍和安装/dl_frameworks_power_scores.png">
+<meta property="og:updated_time" content="2019-05-29T03:03:52.532Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度学习框架 Keras 之 Keras 入门介绍和安装">
+<meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  前言 使用过 TensorFlow 、Theano 等深度学习框架进行机器学习或者深度神经网络研究，你会发现它们都是非常偏基础的系统，上手就很困难，更不用说快速把你自己的想法变为结果，直接使用的话生产力过于低下。苦恼啊……而此时，你恰好发现了 Keras，快来开始学习使用 Keras 吧……  Keras 专为支持快速实验而生，能够迅速地帮助你">
+<meta name="twitter:image" content="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-入门介绍和安装/dl_frameworks_power_scores.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-入门介绍和安装/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>深度学习框架 Keras 之 Keras 入门介绍和安装 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-入门介绍和安装/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深度学习框架 Keras 之 Keras 入门介绍和安装</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-01T17:13:46+08:00">
+                2019-03-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:52+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Keras/" itemprop="url" rel="index">
+                    <span itemprop="name">Keras</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Keras/深度学习框架-Keras-之-Keras-入门介绍和安装/" class="leancloud_visitors" data-flag-title="深度学习框架 Keras 之 Keras 入门介绍和安装">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…</center>
+
+<p><strong>前言</strong></p>
+<p>使用过 TensorFlow 、Theano 等深度学习框架进行机器学习或者深度神经网络研究，你会发现它们都是非常偏基础的系统，上手就很困难，更不用说快速把你自己的想法变为结果，直接使用的话生产力过于低下。苦恼啊……而此时，你恰好发现了 Keras，快来开始学习使用 Keras 吧…… </p>
+<p>Keras 专为支持快速实验而生，能够迅速地帮助你把 idea 转换为结果。对于入门来说，可以说是所有深度学习框架中最简单的。</p>
+<a id="more"></a>
+<hr>
+<h3 id="1-Keras-初识"><a href="#1-Keras-初识" class="headerlink" title="1. Keras 初识"></a>1. Keras 初识</h3><p>Keras 是一个基于 Python 的高层的深度学习框架，是由纯 Python 编写而成的高级神经网络 API（正如 Keras 描述，它是基于 Python 的深度学习库），并且能够以 <a href="https://github.com/tensorflow/tensorflow" target="_blank" rel="noopener">TensorFlow</a>, <a href="https://github.com/Microsoft/cntk" target="_blank" rel="noopener">CNTK</a>, <a href="http://mxnet.incubator.apache.org/" target="_blank" rel="noopener">MXNet</a> 或者 <a href="https://github.com/Theano/Theano" target="_blank" rel="noopener">Theano</a> 作为后端运行。</p>
+<p>其实，严格意义上来讲，Keras 并不能成为一个深度学习框架，它更像是一个构建于第三方框架（底层）之上的深度学习接口。</p>
+<p>并且正如开篇中说的，Keras 专为支持快速实验而生，能够以最短的时间把你的想法转换为实验结果，Keras 应该是深度学习框架之中最容易上手的一个。</p>
+<p>十全九美的是，高级 API 意味着过度封装，这使得 Keras 的程序过于缓慢。在绝大多数的场景下，Keras 是所有常用主流框架中最慢的一个。</p>
+<hr>
+<p>下面开始为推荐阅读部分（非必须），你可以跳过以下部分直接开始 Keras 的安装。</p>
+<h4 id="1-1-为何选用-Keras-？"><a href="#1-1-为何选用-Keras-？" class="headerlink" title="1.1 为何选用 Keras ？"></a>1.1 为何选用 Keras ？</h4><p>如果你有疑惑，为什么选择 Keras 而不是 TensorFlow（Theano）等其它？以下给出与目前主流深度学习框架的一些比较：</p>
+<h5 id="1-1-1-允许简单而快速的原型设计"><a href="#1-1-1-允许简单而快速的原型设计" class="headerlink" title="1.1.1 允许简单而快速的原型设计"></a>1.1.1 允许简单而快速的原型设计</h5><p>Keras 具有用户友好、高度模块化、以及易扩展性等特点：</p>
+<ul>
+<li>用户友好：Keras 是为人类而非机器设计的 API，优先考虑开发人员的经验，提供一致且简单的 API；</li>
+<li>高度模块化：Keras 模型可以被理解为由独立的、完全可配置的模块构成的序列或图。模块可以以尽可能少的限制组装在一起，特别是神经网络层、损失函数、优化器、初始化方法、激活函数、正则化方法等等，它们都是可以结合起来构建新模型的模块。</li>
+<li>易扩展性：可以很容易的添加新模块，现有的模块已经提供了充足的示例。</li>
+</ul>
+<p>并且我们知道， Keras 还是 Pythonic 的，艾玛，太好了！</p>
+<p>正是由于上述的种种特性，使得 Keras 更加的易用。但易用不以降低灵活性为代价，正如我们前面说的 Keras 可以以 TensorFlow，CNTK, MXNet 或者 Theano 等深度学习框架作为后端，这也意味着 Keras 可以让你实现任何你可以用基础语言编写的东西。</p>
+<p>例如，<code>tf.keras</code> 作为 Keras API 可以与 TensorFlow 工作流无缝集成，并且 TensorFlow 官方已经将 Keras API 内嵌为其官方前端。关于 TensorFlow 中 Keras API <code>tf.keras</code> 的使用参见 TensorFlow Team 给出的教程： <a href="https://tensorflow.google.cn/guide/keras" target="_blank" rel="noopener">https://tensorflow.google.cn/guide/keras</a> 。</p>
+<hr>
+<h5 id="1-1-2-被工业界和学术界广泛采用"><a href="#1-1-2-被工业界和学术界广泛采用" class="headerlink" title="1.1.2  被工业界和学术界广泛采用"></a>1.1.2  被工业界和学术界广泛采用</h5><p>这里首先来看由 <em>Jeff Hale</em> 给出的 2018 年中期主流深度学习框架影响力排名示意图：</p>
+<p><img src="/Keras/深度学习框架-Keras-之-Keras-入门介绍和安装/./dl_frameworks_power_scores.png" alt="avatar"></p>
+<p>可以看出，Keras 在行业和研究领域具有很高的热度。</p>
+<hr>
+<h5 id="1-1-3-Keras-模型适用多平台产品部署"><a href="#1-1-3-Keras-模型适用多平台产品部署" class="headerlink" title="1.1.3  Keras 模型适用多平台产品部署"></a>1.1.3  Keras 模型适用多平台产品部署</h5><p>任何其他深度学习框架相比，你的 Keras 模型可以在更广泛的平台上轻松部署：</p>
+<ul>
+<li>在 iOS 上，通过 <a href="https://developer.apple.com/documentation/coreml" target="_blank" rel="noopener">Apple’s CoreML</a>（苹果为 Keras 提供官方支持）。这里有一个<a href="https://www.pyimagesearch.com/2018/04/23/running-keras-models-on-ios-with-coreml/" target="_blank" rel="noopener">教程</a>。</li>
+<li>在 Android 上，通过 TensorFlow Android runtime，例如：<a href="https://medium.com/@timanglade/how-hbos-silicon-valley-built-not-hotdog-with-mobile-tensorflow-keras-react-native-ef03260747f3" target="_blank" rel="noopener">Not Hotdog app</a>。</li>
+<li>在浏览器中，通过 GPU 加速的 JavaScript 运行时，例如：<a href="https://transcranial.github.io/keras-js/#/" target="_blank" rel="noopener">Keras.js</a> 和 <a href="https://mil-tokyo.github.io/webdnn/" target="_blank" rel="noopener">WebDNN</a>。</li>
+<li>在 Google Cloud 上，通过 <a href="https://www.tensorflow.org/serving/" target="_blank" rel="noopener">TensorFlow-Serving</a>。</li>
+<li><a href="https://blog.keras.io/building-a-simple-keras-deep-learning-rest-api.html" target="_blank" rel="noopener">在 Python webapp 后端（比如 Flask app）中</a>。</li>
+<li>在 JVM 上，通过 <a href="https://deeplearning4j.org/model-import-keras" target="_blank" rel="noopener">SkyMind 提供的 DL4J 模型导入</a>。</li>
+<li>在 Raspberry Pi 树莓派上。</li>
+</ul>
+<hr>
+<h5 id="1-1-4-Keras-支持多个后端引擎，不会将你锁定到一个生态系统中"><a href="#1-1-4-Keras-支持多个后端引擎，不会将你锁定到一个生态系统中" class="headerlink" title="1.1.4 Keras 支持多个后端引擎，不会将你锁定到一个生态系统中"></a>1.1.4 Keras 支持多个后端引擎，不会将你锁定到一个生态系统中</h5><p>你的 Keras 模型可以基于不同的 <a href="https://keras.io/zh/backend/" target="_blank" rel="noopener">深度学习后端</a> 开发。重要的是，任何仅利用 Keras 内置层构建的模型，都可以在所有这些后端中移植：你可以用一种后端训练模型，再将它载入另一种后端中（例如为了发布的需要）。支持的后端有：</p>
+<ul>
+<li>谷歌的 TensorFlow 后端</li>
+<li>微软的 CNTK 后端</li>
+<li>Theano 后端</li>
+<li>亚马逊的 MXNet 后端</li>
+</ul>
+<hr>
+<h5 id="1-1-5-Keras-支持强大的多-GPU-和分布式训练"><a href="#1-1-5-Keras-支持强大的多-GPU-和分布式训练" class="headerlink" title="1.1.5 Keras 支持强大的多 GPU 和分布式训练"></a>1.1.5 Keras 支持强大的多 GPU 和分布式训练</h5><ol>
+<li>Keras <a href="https://keras.io/zh/utils/#multi_gpu_model" target="_blank" rel="noopener">内置对多 GPU 数据并行的支持</a>。</li>
+<li>Keras 模型<a href="https://www.tensorflow.org/versions/master/api_docs/python/tf/keras/estimator/model_to_estimator" target="_blank" rel="noopener">可以被转换为 TensorFlow Estimators</a> 并在 <a href="https://cloud.google.com/solutions/running-distributed-tensorflow-on-compute-engine" target="_blank" rel="noopener">Google Cloud 的 GPU 集群</a>上训练。</li>
+<li>Keras 可以在 Spark（通过 CERN 的 <a href="https://github.com/cerndb/dist-keras" target="_blank" rel="noopener">Dist-Keras</a>）和 <a href="https://github.com/maxpumperla/elephas" target="_blank" rel="noopener">Elephas</a> 上运行。</li>
+</ol>
+<hr>
+<h5 id="1-1-6-深度学习生态系统大佬支持"><a href="#1-1-6-深度学习生态系统大佬支持" class="headerlink" title="1.1.6 深度学习生态系统大佬支持"></a>1.1.6 深度学习生态系统大佬支持</h5><p>Keras 的开发主要由谷歌支持，Keras API 以 <code>tf.keras</code> 的形式包装在 TensorFlow 中。此外，微软维护着 Keras 的 CNTK 后端。亚马逊 AWS 正在开发 MXNet 支持。其他提供支持的公司包括 NVIDIA、优步、苹果（通过 CoreML）等。</p>
+<p>格局决定成败。</p>
+<hr>
+<h3 id="2-Keras-安装"><a href="#2-Keras-安装" class="headerlink" title="2. Keras 安装"></a>2. Keras 安装</h3><p>赶紧完成安装开始使用……</p>
+<p>如果你已经有了 TensorFlow、Theano 等其它深度学习框架的安装以及使用经验，Keras 的安装可以说非常简单：</p>
+<h4 id="2-1-Python-开发环境"><a href="#2-1-Python-开发环境" class="headerlink" title="2.1 Python 开发环境"></a>2.1 Python 开发环境</h4><p>我们说 Keras 是 Pythonic 的，所以首先你需要有一个 Python 开发环境，这是最基础的。</p>
+<p>这里我们推荐基于 Anaconda 来搭建 Python 开发环境，关于 Anaconda 的介绍，安装以及配置可以参看我前面的博文：<a href="https://www.orangeshare.cn/Anaconda/Anaconda-介绍、安装以及使用教程/" target="_blank" rel="noopener">Anaconda 介绍、安装以及使用教程</a>  。</p>
+<p>先来展示一下我个人部署好的 Anaconda + Python 开发环境：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(deeplearning) ubuntu@ThinkCentre-M910s-N000:~$ python</span><br><span class="line">Python <span class="number">3.6</span><span class="number">.8</span> |Anaconda, Inc.| (default, Dec <span class="number">30</span> <span class="number">2018</span>, <span class="number">01</span>:<span class="number">22</span>:<span class="number">34</span>)</span><br><span class="line">[GCC <span class="number">7.3</span><span class="number">.0</span>] on linux</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> <span class="keyword">or</span> <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="2-2-选择安装一款合适的后端引擎"><a href="#2-2-选择安装一款合适的后端引擎" class="headerlink" title="2.2 选择安装一款合适的后端引擎"></a>2.2 选择安装一款合适的后端引擎</h4><p>在安装 Keras 之前，我们还需要安装一款合适的后端引擎：</p>
+<ul>
+<li><a href="https://www.orangeshare.cn/TensorFlow/Centos6%EF%BC%887%EF%BC%89-Ubuntu-在线搭建-Anaconda3-Tensorflow-开发环境/" target="_blank" rel="noopener">TensorFlow 安装指引</a> ；</li>
+<li><a href="http://deeplearning.net/software/theano/install.html#install" target="_blank" rel="noopener">Theano 安装指引</a>；</li>
+<li><a href="https://docs.microsoft.com/en-us/cognitive-toolkit/setup-cntk-on-your-machine" target="_blank" rel="noopener">CNTK 安装指引</a> 。</li>
+</ul>
+<p>关于后端引擎的选择，根据个人需求选择就好。</p>
+<p>这里，我们以 TensorFlow 作为 Keras 的后端（官方推荐）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># GPU 版本的 TensorFLow 的安装：</span></span><br><span class="line">(deeplearning) ubuntu@ThinkCentre-M910s-N000:~$ pip install --upgrade tensorflow-gpu</span><br><span class="line"></span><br><span class="line"><span class="comment"># CPU 版本的 TensorFlow 的安装：</span></span><br><span class="line">(deeplearning) ubuntu@ThinkCentre-M910s-N000:~$ pip install --upgrade tensorflow</span><br></pre></td></tr></table></figure>
+<p>关于更加详细的安装过程，可以参考我在前面给出的 TensorFlow 安装指引即可，博文中详细记录了适合 TensorFlow 的多种安装方式以及安装过程中的各种问题总结，帮你一站式解决 TensorFlow 安装问题。</p>
+<hr>
+<h4 id="2-3-Install-Keras"><a href="#2-3-Install-Keras" class="headerlink" title="2.3 Install Keras"></a>2.3 Install Keras</h4><p>然后你就可以安装 Keras 本身了。Keras 官网提供了两种安装 Keras 的方法：</p>
+<p><strong>1 –&gt; 使用 PyPI 安装 Keras (推荐)：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(deeplearning) ubuntu@ThinkCentre-M910s-N000:~$ pip install keras</span><br></pre></td></tr></table></figure>
+<p><strong>2 –&gt; 使用 GitHub 中提供源码安装 Keras：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 git 克隆 Keras 源码：</span></span><br><span class="line">(deeplearning) ubuntu@ThinkCentre-M910s-N000:~$ git <span class="built_in">clone</span> https://github.com/keras-team/keras.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后，cd 到 Keras 目录并且运行安装命令即可：</span></span><br><span class="line">(deeplearning) ubuntu@ThinkCentre-M910s-N000:~$ <span class="built_in">cd</span> keras</span><br><span class="line">(deeplearning) ubuntu@ThinkCentre-M910s-N000:~/keras$ sudo python setup.py install</span><br></pre></td></tr></table></figure>
+<hr>
+<p>至此，以 TensorFlow  为 backend（后端）的 Keras 环境的搭建就完成了。我们可以进行简单测试一下，Python 交互式解释器下 <code>import keras</code> 输出以下信息说明安装成功：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(deeplearning) ubuntu@ThinkCentre-M910s-N000:~$ python</span><br><span class="line">Python <span class="number">3.6</span><span class="number">.8</span> |Anaconda, Inc.| (default, Dec <span class="number">30</span> <span class="number">2018</span>, <span class="number">01</span>:<span class="number">22</span>:<span class="number">34</span>)</span><br><span class="line">[GCC <span class="number">7.3</span><span class="number">.0</span>] on linux</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> <span class="keyword">or</span> <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> keras</span><br><span class="line">Using TensorFlow backend.</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="2-4-配置你的-Keras-后端"><a href="#2-4-配置你的-Keras-后端" class="headerlink" title="2.4 配置你的 Keras 后端"></a>2.4 配置你的 Keras 后端</h4><p>哎，怎么还要配置 Keras 后端？上面我们基于 TensorFlow 安装完 Keras 后就结束了，没有进行其它配置呀。</p>
+<p>事实上，默认情况下，Keras 将使用 TensorFlow 作为其后端。也就是说 Keras 的默认后端配置就是 TensorFlow，所以基于 TensorFlow 为后端安装 Keras 保持默认配置即可。</p>
+<p>而对于其它 Keras 后端，</p>
+<p>你需要戳 <a href="https://keras.io/zh/backend/" target="_blank" rel="noopener">这里</a> 来完成最终的后端引擎（也称为张量操作库）的配置。</p>
+<p>啦啦啦，完成后你就可以开始 Keras 的学习了。</p>
+<hr>
+<h3 id="3-Useful-Links"><a href="#3-Useful-Links" class="headerlink" title="3.  Useful Links"></a>3.  Useful Links</h3><ul>
+<li><p>官方文档：<a href="https://keras.io/" target="_blank" rel="noopener">https://keras.io/</a> </p>
+</li>
+<li><p>中文文档：<a href="https://keras.io/zh/" target="_blank" rel="noopener">https://keras.io/zh/</a> </p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-入门介绍和安装/" title="深度学习框架 Keras 之 Keras 入门介绍和安装">http://yoursite.com/Keras/深度学习框架-Keras-之-Keras-入门介绍和安装/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Keras/" rel="tag"><i class="fa fa-tag"></i> Keras</a>
+          
+            <a href="/tags/DeepLearning/" rel="tag"><i class="fa fa-tag"></i> DeepLearning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Hexo/Hexo-博客多平台协同管理问题【持续更新】/" rel="next" title="Hexo 博客多平台协同管理问题【持续更新】">
+                <i class="fa fa-chevron-left"></i> Hexo 博客多平台协同管理问题【持续更新】
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Keras/深度学习框架-Keras-之-Keras-框架结构/" rel="prev" title="深度学习框架 Keras 之 Keras 框架结构">
+                深度学习框架 Keras 之 Keras 框架结构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Keras-初识"><span class="nav-text">1. Keras 初识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-为何选用-Keras-？"><span class="nav-text">1.1 为何选用 Keras ？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-1-允许简单而快速的原型设计"><span class="nav-text">1.1.1 允许简单而快速的原型设计</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-2-被工业界和学术界广泛采用"><span class="nav-text">1.1.2  被工业界和学术界广泛采用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-3-Keras-模型适用多平台产品部署"><span class="nav-text">1.1.3  Keras 模型适用多平台产品部署</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-4-Keras-支持多个后端引擎，不会将你锁定到一个生态系统中"><span class="nav-text">1.1.4 Keras 支持多个后端引擎，不会将你锁定到一个生态系统中</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-5-Keras-支持强大的多-GPU-和分布式训练"><span class="nav-text">1.1.5 Keras 支持强大的多 GPU 和分布式训练</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-6-深度学习生态系统大佬支持"><span class="nav-text">1.1.6 深度学习生态系统大佬支持</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Keras-安装"><span class="nav-text">2. Keras 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-Python-开发环境"><span class="nav-text">2.1 Python 开发环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-选择安装一款合适的后端引擎"><span class="nav-text">2.2 选择安装一款合适的后端引擎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-Install-Keras"><span class="nav-text">2.3 Install Keras</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-配置你的-Keras-后端"><span class="nav-text">2.4 配置你的 Keras 后端</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Useful-Links"><span class="nav-text">3.  Useful Links</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

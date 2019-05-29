@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo,Backups,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇： 关于 Hexo + Github·Page + Coding·Page + Domain name 个人博客环境的搭建请参见：基于 Hexo 轻量级框架的博客搭建，博文中给出了 Hexo 新手小白如何快速搭建基于 Hexo 的个人博客进行产出。 但请注意，此时我们仅仅是将 Hexo 博文静态页面推送到了远程仓库（Github·Page">
+<meta name="keywords" content="Hexo,Backups">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo 博客多平台协同管理问题【持续更新】">
+<meta property="og:url" content="http://yoursite.com/Hexo/Hexo-博客多平台协同管理问题【持续更新】/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇： 关于 Hexo + Github·Page + Coding·Page + Domain name 个人博客环境的搭建请参见：基于 Hexo 轻量级框架的博客搭建，博文中给出了 Hexo 新手小白如何快速搭建基于 Hexo 的个人博客进行产出。 但请注意，此时我们仅仅是将 Hexo 博文静态页面推送到了远程仓库（Github·Page">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-29T03:32:44.196Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo 博客多平台协同管理问题【持续更新】">
+<meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇： 关于 Hexo + Github·Page + Coding·Page + Domain name 个人博客环境的搭建请参见：基于 Hexo 轻量级框架的博客搭建，博文中给出了 Hexo 新手小白如何快速搭建基于 Hexo 的个人博客进行产出。 但请注意，此时我们仅仅是将 Hexo 博文静态页面推送到了远程仓库（Github·Page">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Hexo/Hexo-博客多平台协同管理问题【持续更新】/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>Hexo 博客多平台协同管理问题【持续更新】 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Hexo/Hexo-博客多平台协同管理问题【持续更新】/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hexo 博客多平台协同管理问题【持续更新】</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T12:17:38+08:00">
+                2019-01-16
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:32:44+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Hexo/Hexo-博客多平台协同管理问题【持续更新】/" class="leancloud_visitors" data-flag-title="Hexo 博客多平台协同管理问题【持续更新】">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  16
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…</center>
+
+<p><strong>开篇：</strong></p>
+<p>关于 <strong>Hexo + Github·Page + Coding·Page + Domain name</strong> 个人博客环境的搭建请参见：<a href="https://www.orangeshare.cn/Hexo/基于-Hexo-轻量级框架的博客搭建/" target="_blank" rel="noopener">基于 Hexo 轻量级框架的博客搭建</a>，博文中给出了 Hexo 新手小白如何快速搭建基于 Hexo 的个人博客进行产出。</p>
+<p>但请注意，此时我们仅仅是将 Hexo 博文静态页面推送到了远程仓库（Github·Page 或 Coding·Page）上以实现公共访问，而 Hexo 个人博客框架相关配置信息都存放在本地终端。如果未进行其它备份或同步处理，一旦存放 Hexo 配置信息的本地终端出现问题（如系统崩溃），那么我们便无法再维护我们的的博客了（Game Over）。</p>
+<a id="more"></a>
+<p>所有当我们更换工作环境（公司、个人）或者原来用于搭建 Hexo 博客环境的设备需要重新更换系统，出于安全性以及灵活性考虑，我们不得不面对的一个问题就是如何将本地终端中的 Hexo 博客相关配置信息完美移植到新环境至关重要的。</p>
+<h2 id="1-使用-Git-解决-Hexo-个人博客多平台同步管理"><a href="#1-使用-Git-解决-Hexo-个人博客多平台同步管理" class="headerlink" title="1. 使用 Git 解决 Hexo 个人博客多平台同步管理"></a>1. 使用 Git 解决 Hexo 个人博客多平台同步管理</h2><p>关于 Hexo 博客多平台（多设备）协同管理以及更新教程网络上有很多，但对于刚刚接触 Hexo 、Git 的小白们不太友好，配置过程中容易出现各种问题，本文提到的所有配置方案均通过实际测试给出。</p>
+<p>本文所作的主要目的：一方面作为学习记录回顾使用；另一方面适用于类似我这样的 Git 新手以供参考分享，可以快速对应以及解决问题。所以文中有些地方可能表达有误，欢迎各位大佬指正。</p>
+<hr>
+<h3 id="1-1-模拟场景"><a href="#1-1-模拟场景" class="headerlink" title="1.1 模拟场景"></a>1.1 模拟场景</h3><p>公司和家里两台 PC：</p>
+<ul>
+<li>公司 PC_A：最初用于搭建 Hexo 个人博客的终端；</li>
+<li>个人 PC_B：移植 Hexo 个人博客项目的终端。</li>
+</ul>
+<p>为了可以随时随地创作更新个人 Blog，两台 PC 中都必须搭建有相同的 Hexo 博客环境，并且要求我们的 Hexo 博客本地配置项目要保持同步（即实现版本控制）。</p>
+<p>对于 <strong>同步</strong> 问题：</p>
+<p>由于除了静态页面以外，其它全部文件都在本地生成，所以如果在公司终端上推送了 <code>articleA</code> 文章后回家又写了篇 <code>articleB</code> 文章，在家里推送后我们会发现只有 <code>articleB</code> 文章而 <code>articleA</code>  文章没了（因为家里的 PC 上没有 <code>articleA</code>  文章的 <code>md</code> 文件），故及时同步两台 PC 终端中的 Hexo 博客项目相当重要。也就是说，对我们的 Hexo 个人博客本地项目实现版本控制是必要的。</p>
+<p>所以，这里我们首先给出解决 Hexo 个人博客多平台同步管理的通用方法：</p>
+<ol>
+<li>搭建 Hexo 个人博客环境，包括： <code>Node.js</code>、<code>git</code> 以及 <code>hexo</code> 的安装，具体安装方式可见前面提到的搭建教程。</li>
+<li>对 Hexo 个人博客本地配置信息项目实现同步，也就是版本控制。</li>
+</ol>
+<hr>
+<h3 id="1-2-实施方案分析"><a href="#1-2-实施方案分析" class="headerlink" title="1.2 实施方案分析"></a>1.2 实施方案分析</h3><p>介于模拟场景提到的解决方法，搭建 Hexo 个人博客环境本文不在做细致说明，参考前面教程即可。针对同步（备份），这里我们给出三种具体的版本控制（同步、备份）的实施方案分析：</p>
+<h4 id="1-2-1-存储设备备份"><a href="#1-2-1-存储设备备份" class="headerlink" title="1.2.1 存储设备备份"></a>1.2.1 存储设备备份</h4><p>使用存储设备备份，是指我们使用存储设备对 Hexo 个人博客项目本地文档进行备份。例如，我们可以直接对  PC_A 中最新的本地 Hexo 博客目录进行打包存储到硬盘、U盘或者云盘（大多数使用）中，然后将其移植 PC_B 中进行直接使用。</p>
+<p>下面我们来分析其优略：</p>
+<p><strong>1）优点：</strong></p>
+<p>免费且操作简单快捷。</p>
+<p>在某些场景下可以很快完成移植，而不需要进行额外的同步设置。例如，当我们的电脑需要重装系统时，我们可以直接将最新的 Hexo 博客项目进行打包，新系统中搭建好 Hexo 个人博客环境后，直接解压几乎就可以使用了。</p>
+<p><strong>2）缺点：</strong></p>
+<ol>
+<li>对于硬盘、U盘等设备，备份后的同步十分麻烦，每次其它终端都需要手动下载备份最新的 Hexo 博客文件夹，进行手动覆盖。</li>
+<li>目前大多数云盘，可以开启云端自动备份功能，写完 Blog 后可以自动备份（同步）到云端。但是很容易产生一些云盘内部文件，影响 Hexo 解析产生一些不可预期的错误。</li>
+</ol>
+<p>因此，使用存储设备备份使用的很少。</p>
+<hr>
+<h4 id="1-2-2-第三方代码仓库备份"><a href="#1-2-2-第三方代码仓库备份" class="headerlink" title="1.2.2 第三方代码仓库备份"></a>1.2.2 第三方代码仓库备份</h4><p>鉴于之前我们将 Hexo 个人博客产生的静态页面托管到了一些第三方 Git 服务平台，以实现远程访问。同样，类似于代码托管，我们可以将我们的 Hexo 个人博客项目本地配置信息文档托管到远程仓库进行版本控制，以实现多设备的同步管理。这是目前最合理，并且使用最多的解决方案。</p>
+<p>使用第三方代码仓库进行备份是目前普遍使用的对 Hexo 个人博客进行备份同步的方法。</p>
+<p>国内外现在知名的 Git 服务提供商主要有：</p>
+<p>Github、Coding 以及 Gitee（码云）等等，使用上没有比较大的差异，但国内站点访问较快。</p>
+<p>下面我们来分析其优略：</p>
+<p><strong>1）优点：</strong></p>
+<p>部署完成后同步非常方便，Hexo 更新完后只需要再更新（push）全站到 Git 远程仓库即可。</p>
+<p><strong>2）缺点：</strong></p>
+<p>部署过程相对比较麻烦，对 Git 新手不友好，但这仅仅是 Git 使用上的问题，不是难点。</p>
+<p>对于使用第三方代码仓库（以 Github 为例）进行备份的方法，目前主流的有两种方法：</p>
+<ol>
+<li>分支备份法：我们知道，<code>Hexo</code>生成的静态博客文件都是上传到 <code>GitHub</code> 上的, 且默认放在 <code>master</code> 分支上。分支备份法是将本地的 Hexo 相关环境配置文件都推送到对应仓库新创建的分支上（如 <code>hexo</code> 分支），以实现备份。</li>
+<li>将本地整个 Hexo Blog 项目进行备份：创建一个新的仓库用来对本地环境配置文件进行版本管理以及备份。</li>
+</ol>
+<hr>
+<h3 id="1-3-实施方案"><a href="#1-3-实施方案" class="headerlink" title="1.3 实施方案"></a>1.3 实施方案</h3><h4 id="1-3-1-方案一：Hexo-envs-yunpan"><a href="#1-3-1-方案一：Hexo-envs-yunpan" class="headerlink" title="1.3.1 方案一：Hexo envs + yunpan"></a>1.3.1 方案一：Hexo envs + yunpan</h4><h5 id="–-gt-步骤一：Hexo-envs"><a href="#–-gt-步骤一：Hexo-envs" class="headerlink" title="–&gt; 步骤一：Hexo envs"></a>–&gt; 步骤一：Hexo envs</h5><p>PC_A 中我们已经成功搭建和使用 Hexo 博客了，所以不需要重复安装。而关于 PC_B 中 Hexo 个人博客环境的搭建，参考：<a href="https://www.orangeshare.cn/Hexo/基于-Hexo-轻量级框架的博客搭建/" target="_blank" rel="noopener">基于 Hexo 轻量级框架的博客搭建</a> 。步骤如下：</p>
+<ul>
+<li>安装 Node.js</li>
+<li>安装 Git</li>
+<li>安装 Hexo</li>
+</ul>
+<h5 id="–-gt-步骤二：yunpan"><a href="#–-gt-步骤二：yunpan" class="headerlink" title="–&gt; 步骤二：yunpan"></a>–&gt; 步骤二：yunpan</h5><p>1）将 PC_A 终端中 Hexo 个人博客项目目录进行打包（打包格式任选，在 PC_B 中可以快速解压即可），备份到云盘。</p>
+<p>2）然后在 PC_B 中从云盘下载已经上传好的 Hexo 个人博客项目压缩文件，然后进行解压。</p>
+<p>3）PC_B 中打开浏览器，通过访问 <code>localhost:4000</code> 进行 Hexo 博客本地测试，发现已经可以成功访问到我们的 Hexo 本地博客页面。</p>
+<p>4）Hexo 个人博客本地测试通过后，由于更换设备，我们需要为Hexo Github·Page 仓库配置新设备的 SSH Key。此时只需要将新设备（PC_B ）的 SSH Key 添加到 Github 中即可。如果不进行设置，当使用 <code>hexo d</code> 进行推送时无法成功，原因在于 Hexo 无法连接到 Github·Page。</p>
+<p>关于新设备创建 SSH Key 方法以及为 Github 配置 SSH Key 可参加：<a href="https://www.orangeshare.cn/Git/Part-3-Of-Git-Tutorial/" target="_blank" rel="noopener">Git 使用指南之远程仓库</a>。</p>
+<p>除了上述添加方式外，还有一种更简单的方式，我们可以将 PC_A 生成的 <code>.ssh</code> 文件直接放到 PC_B 设备当前用户目录下即可。</p>
+<p>自此，设置完成。这种方法缺点很明显，对于同步很不友好！！！</p>
+<hr>
+<h4 id="1-3-2-方案二：Hexo-envs-hexo-备份"><a href="#1-3-2-方案二：Hexo-envs-hexo-备份" class="headerlink" title="1.3.2 方案二：Hexo envs + hexo 备份"></a>1.3.2 方案二：Hexo envs + hexo 备份</h4><p>这一小节，我们来看如何将本地整个 Hexo Blog 项目进行备份。即创建一个新的仓库用来对本地环境配置文件进行版本管理以及备份。</p>
+<h5 id="–-gt-步骤一：Hexo-envs-1"><a href="#–-gt-步骤一：Hexo-envs-1" class="headerlink" title="–&gt; 步骤一：Hexo envs"></a>–&gt; 步骤一：Hexo envs</h5><p>PC_A 中我们已经成功搭建和使用 Hexo 博客了，所以不需要重复安装。而关于 PC_B 中 Hexo 个人博客环境的搭建，参考：<a href="https://www.orangeshare.cn/Hexo/基于-Hexo-轻量级框架的博客搭建/" target="_blank" rel="noopener">基于 Hexo 轻量级框架的博客搭建</a> 。步骤如下：</p>
+<ul>
+<li>安装 Node.js</li>
+<li>安装 Git</li>
+<li>安装 Hexo</li>
+</ul>
+<p>步骤一和 1.3.1 中完全一样。</p>
+<h5 id="–-gt-步骤二：hexo-项目备份"><a href="#–-gt-步骤二：hexo-项目备份" class="headerlink" title="–&gt; 步骤二：hexo 项目备份"></a>–&gt; 步骤二：hexo 项目备份</h5><p>注意，这一部分操作全部在 <strong>PC_A</strong>（保存了 Hexo Blog 最新进度）上进行，用于将本地整个 Hexo Blog 项目托管到 Github 上的一个全新仓库（以创建 <code>HexoBackups</code> 为例）。</p>
+<p>首先，添加设备 SSH Key 到 Github 以提供访问权限（在搭建 Hexo 环境时应该已经添加过），并且在 Github 中创建 <code>HexoBackups</code> 仓库（操作方法可见：<a href="https://www.orangeshare.cn/Git/Part-3-Of-Git-Tutorial/" target="_blank" rel="noopener">Git 使用指南之远程仓库</a>）。</p>
+<p><strong>1）删除 Hexo 站点目录主题路径（<code>Hexo站点目录\themes</code>）下原有的 <code>.git*</code> 缓存文件夹，并编辑站点目录中的 <code>.gitignore</code> 文件。</strong></p>
+<ul>
+<li><p>有些插件或者主题是从 Github 上 clone 过来安装的，每个文件夹下都会有对应的 <code>.git</code> 文件夹，记得先删掉，否则会和 Blog 仓库冲突。（<code>.git</code> 默认是隐藏文件夹，需要先开启显示隐藏文件夹。<code>.git</code> 文件夹被删除后整个文件对应的 Git 仓库状态也会被清空，避免冲突）</p>
+</li>
+<li><p>编辑 <code>.gitignore</code> 文件的作用是声明不被 Git 记录的非必要文件（我们希望将必要的 Hexo 配置文件进行版本控制，而不是所有文件）。Blog 站点目录下的 <code>.gitignore</code> 是 Hexo 初始化时生成的，可以先删除或者直接编辑，对 Hexo 不会有影响。我的 Hexo 默认 <code>.gitignore</code> 文件内容如下：</p>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br><span class="line">db.json</span><br><span class="line">*.log</span><br><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy*/</span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>.deploy_git</code> 是 Hexo 默认的 .git 配置文件夹，不需要同步；</li>
+<li><code>public</code> 内文件是根据 <code>source</code> 文件夹内容自动生成，不需要备份，不然版本仓库每次修改内容太多；</li>
+<li><code>node_modules</code> 目录中存放了 Hexo 个人博客所需的所有插件，太大，使用时通过 <code>npm install</code> 安装即可。</li>
+<li><code>.DS_Store</code>、<code>Thumbs.db</code>、<code>*.log</code> 、<code>db.json</code> 等均属于非必要文件。</li>
+</ol>
+<hr>
+</li>
+</ul>
+<p><strong>2）初始化本地仓库</strong></p>
+<p>Hexo Blog 站点目录下执行以下代码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> &lt;server&gt; 是指在线仓库的地址；origin 是本地分支；remote add 操作会将本地仓库映射到云端 </span></span><br><span class="line">git init</span><br><span class="line">git remote add origin &lt;server&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>3）添加本地文件到本地仓库并同步到远程 Github 上</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 添加 Hexo Blog 站点目录下所有文件（.gitignore 声明过的文件不包含在内)</span></span><br><span class="line">git add .</span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加更新操作说明</span></span><br><span class="line">git commit -m "Hexo Blog Backups"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 推送更新到云端服务器</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+<p>在执行这步之前一定要注意检查下 <code>.gitignore</code>文件的内容，看看是否正确的把一些文件夹忽略掉了。如果加错了的话可以用：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached .</span><br></pre></td></tr></table></figure>
+<p>自此，我们已经成功将本地 Hexo 博客配置文件推送到了 Github 远程仓库 <code>HexoBackups</code>  中实现版本控制。</p>
+<h5 id="–-gt-步骤三：其它终端克隆测试"><a href="#–-gt-步骤三：其它终端克隆测试" class="headerlink" title="–&gt; 步骤三：其它终端克隆测试"></a>–&gt; 步骤三：其它终端克隆测试</h5><p><strong>1）添加 SSH Key 到 GitHub</strong></p>
+<p>首先，我们需要将设备 PC_B 的 SSH Key 添加到 GitHub 以提供访问权限。</p>
+<p><strong>2）将 Hexo Github 仓库内容同步到本地</strong></p>
+<p>之前我们已经成功将 PC_A 电脑里的 Hexo 配置信息备份到 Github <code>HexoBackups</code> 仓库了。</p>
+<p>现在在 PC_B 电脑准备通过为本地仓库配远程 Hexo Github 版本仓库以实现 Hexo 配置信息同步。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建本地博客目录</span></span><br><span class="line">mkdir HexoBlogProject</span><br><span class="line">cd HexoBlogProject</span><br><span class="line"></span><br><span class="line">git init</span><br><span class="line"><span class="meta">#</span><span class="bash"> 将本地文件和云端仓库映射起来。这步不可以跳过</span></span><br><span class="line">git remote add origin &lt;server_addr&gt;</span><br><span class="line">git fetch --all</span><br><span class="line">git reset --hard origin/master</span><br></pre></td></tr></table></figure>
+<p>当然我们还可以直接 <code>git clone</code> 将 <code>HexoBackups</code> 仓库中的 Hexo 博客配置文件拉取下来：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;server_addr&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>3）安装依赖插件</strong></p>
+<p>同步后需要安装相应的 Hexo 插件（这是由于我们之前备份时未备份 <code>node_modules</code> 插件目录），否则无法正常使用 Hexo：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p><strong>4）localhost 测试</strong></p>
+<p>PC_B 中打开浏览器，通过访问 <code>localhost:4000</code> 进行 Hexo 博客本地测试，发现已经可以成功访问到我们的 Hexo 本地博客页面。</p>
+<hr>
+<h4 id="1-3-3-方案三：Hexo-envs-hexo-分支备份"><a href="#1-3-3-方案三：Hexo-envs-hexo-分支备份" class="headerlink" title="1.3.3 方案三：Hexo envs + hexo 分支备份"></a>1.3.3 方案三：Hexo envs + hexo 分支备份</h4><p>和 1.3.2 中备份整个 Hexo 本地配置信息文件到一个新仓库不同的是，分支备份是在原 Hexo 静态页面托管仓库（<code>username.github.io</code>）重新创建一个分支（以 <code>hexo</code> 分支为例）来备份 Hexo 本地配置信息文件。</p>
+<p>最终，<code>username.github.io</code> 仓库的 <code>master</code> 分支和 <code>hexo</code> 分支各自保存着一个版本：</p>
+<p><code>master</code> 分支用于保存 Hexo 博客静态资源，提供博客页面以供人访问；<code>hexo</code>分支用于备份博客部署文件，供自己维护更新，两者在一个 <code>username.github.io</code> 仓库内也不会有任何冲突。</p>
+<h5 id="–-gt-步骤一：Hexo-envs-2"><a href="#–-gt-步骤一：Hexo-envs-2" class="headerlink" title="–&gt; 步骤一：Hexo envs"></a>–&gt; 步骤一：Hexo envs</h5><p>PC_A 中我们已经成功搭建和使用 Hexo 博客了，所以不需要重复安装。而关于 PC_B 中 Hexo 个人博客环境的搭建，参考：<a href="https://www.orangeshare.cn/Hexo/基于-Hexo-轻量级框架的博客搭建/" target="_blank" rel="noopener">基于 Hexo 轻量级框架的博客搭建</a> 。步骤如下：</p>
+<ul>
+<li>安装 Node.js</li>
+<li>安装 Git</li>
+<li>安装 Hexo</li>
+</ul>
+<p>步骤一和 1.3.1 中完全一样。</p>
+<h5 id="–-gt-步骤二：hexo-分支备份"><a href="#–-gt-步骤二：hexo-分支备份" class="headerlink" title="–&gt; 步骤二：hexo 分支备份"></a>–&gt; 步骤二：hexo 分支备份</h5><p>注意，这一部分操作全部在 <strong>PC_A</strong>（保存了 Hexo Blog 最新进度）上进行。</p>
+<p>和 1.3.2 中备份过程类似，这一部分给出 Hexo 分支备份通用流程，关于操作解读可对应 1.3.2 中的步骤二。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 消除 Git 仓库冲突</span></span><br><span class="line">rm -rf Hexo站点目录\themes\主题目录、.git*</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 即 Hexo 博客根目录</span></span><br><span class="line">cd Hexo站点目录</span><br><span class="line"><span class="meta">#</span><span class="bash"> 初始化本地仓库</span></span><br><span class="line">git init</span><br><span class="line"><span class="meta">#</span><span class="bash"> 将本地与 Github 远程仓库进行对接</span></span><br><span class="line">git remote add origin git@github.com:user/user.github.io.git</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加 Hexo Blog 站点目录下所有文件（.gitignore 声明过的文件不包含在内)</span></span><br><span class="line">git add .</span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加更新操作说明</span></span><br><span class="line">git commit -m "Hexo Blog Backups"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建名为 hexo 的分支</span></span><br><span class="line">git checkout -b hexo</span><br><span class="line"><span class="meta">#</span><span class="bash"> 推送分支到 GitHub</span></span><br><span class="line">git push origin hexo</span><br></pre></td></tr></table></figure>
+<h5 id="–-gt-步骤三：其它终端克隆测试-1"><a href="#–-gt-步骤三：其它终端克隆测试-1" class="headerlink" title="–&gt; 步骤三：其它终端克隆测试"></a>–&gt; 步骤三：其它终端克隆测试</h5><p><strong>1）添加 SSH Key 到 GitHub</strong></p>
+<p>首先，我们需要将设备 PC_B 的 SSH Key 添加到 GitHub 以提供访问权限。</p>
+<p><strong>2）克隆 Hexo 博客环境</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 将 Github 中 hexo 分支 <span class="built_in">clone</span> 到本地</span></span><br><span class="line">git clone -b hexo git@github.com:username/username.github.io.git</span><br><span class="line">cd user.github.io</span><br></pre></td></tr></table></figure>
+<p><strong>3）安装依赖插件</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装 Hexo 博客中使用到的插件</span></span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p><strong>4）localhost 测试</strong></p>
+<p>PC_B 中打开浏览器，通过访问 <code>localhost:4000</code> 进行 Hexo 博客本地测试，发现已经可以成功访问到我们的 Hexo 本地博客页面。</p>
+<hr>
+<h4 id="1-3-4-Git-Hexo-管理博文"><a href="#1-3-4-Git-Hexo-管理博文" class="headerlink" title="1.3.4 Git + Hexo 管理博文"></a>1.3.4 Git + Hexo 管理博文</h4><p>这一部分我们来看加入版本控制后，如何进行 Hexo Blog 的多平台协同创作 （Git + Hexo）？</p>
+<p>假设在 PC_B 电脑上写完了文章，然后进行发布：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+<p>接下来，我们还需要将新文章的 <code>.md</code> 文件推送到备份仓库。（其实就是提交更新给 Hexo Github 备份仓库）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
+<p>这时候可以用 <code>git status</code> 查看状态，一般会显示刚刚更改过的文件状态。如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">"git reset HEAD &lt;file&gt;..."</span> to unstage)</span><br><span class="line"></span><br><span class="line">        modified:   db.json</span><br><span class="line">        new file:   source/_posts/test.md</span><br></pre></td></tr></table></figure>
+<p>上面的输出状态即说明 <code>db.json</code> 文件做了更改，<code>source/_posts</code> 目录下新增了 <code>test.md</code> 文件。</p>
+<p>然后对更改添加说明并推送到远程仓库：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">'更新信息'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 推送</span></span><br><span class="line">git push</span><br><span class="line"><span class="comment"># 或者（取决于整体备份还是分支备份）</span></span><br><span class="line">git push origin hexo</span><br></pre></td></tr></table></figure>
+<p>当显示类似如下提示的时候，即表示备份成功：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">To git@git.oschina.net:xxxx/HexoBackups.git</span><br><span class="line"> + 2c77e1e...5616bc6 master -&gt; master (forced update)</span><br></pre></td></tr></table></figure>
+<p>再回到到 PC_A  电脑上的时候，我们需要拉取最新的 Hexo 配置信息到本地以实现本地仓库和远程仓库一致：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 拉取最新版本</span></span><br><span class="line">git pull</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者（取决于整体备份还是分支备份）</span></span><br><span class="line">git pull origin hexo</span><br></pre></td></tr></table></figure>
+<p>即可实现 Hexo 博客同步更新以及协同管理。</p>
+<hr>
+<h3 id="1-4-常见问题"><a href="#1-4-常见问题" class="headerlink" title="1.4 常见问题"></a>1.4 常见问题</h3><h4 id="1-4-1-npm-install-很慢很慢"><a href="#1-4-1-npm-install-很慢很慢" class="headerlink" title="1.4.1 npm install 很慢很慢"></a>1.4.1 npm install 很慢很慢</h4><p>安装 Hexo 博客相关依赖插件时，我们需要使用 <code>npm install</code> 下载进行安装。但是执行指令后一直没反应，这是由于 <code>npm</code> 官方资源被墙，我们可以为其更换一个国内源：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>当然，当我们的 Hexo 个人博客使用较多的插件时，<code>npm install</code> 可能看起来很慢（好像卡在某一个安装语句不再执行），此时我们可以通过 Hexo 站点目录下的 <code>node_modules</code> 目录更新时间来判断。</p>
+<p>如果 <code>node_modules</code> 目录下各种插件文件更新时间长时间不发生变化，就意外着安装已停止，<code>Ctrl + c</code> 即可。</p>
+<hr>
+<h4 id="1-4-2-Git-监测不到空文件夹"><a href="#1-4-2-Git-监测不到空文件夹" class="headerlink" title="1.4.2 Git 监测不到空文件夹"></a>1.4.2 Git 监测不到空文件夹</h4><p>Git 无法监测到空文件夹，也就意外着无法将空文件夹 <code>git add</code>、<code>git commit -m &quot;&quot;</code>、<code>git push</code> 推送到远程仓库，这会导致 Hexo 博客项目中丢失一些空的功能文件夹。这应该算是 Git 的设计失误。</p>
+<p>解决方法：</p>
+<p>需要在空文件夹中添加一个占位文件。主流做法是在空文件夹里放置一个 <code>.gitkeep</code> 文件。加个 <code>.gitconfig</code> 文件在里面比较实用，也不会觉得突兀，虽然绝大多数时候这个文件作用。</p>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/Hexo/Hexo-博客多平台协同管理问题【持续更新】/" title="Hexo 博客多平台协同管理问题【持续更新】">http://yoursite.com/Hexo/Hexo-博客多平台协同管理问题【持续更新】/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+          
+            <a href="/tags/Backups/" rel="tag"><i class="fa fa-tag"></i> Backups</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Hexo/Hexo-个人博客之主题个性优化/" rel="next" title="Hexo 个人博客主题之个性优化">
+                <i class="fa fa-chevron-left"></i> Hexo 个人博客主题之个性优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Keras/深度学习框架-Keras-之-Keras-入门介绍和安装/" rel="prev" title="深度学习框架 Keras 之 Keras 入门介绍和安装">
+                深度学习框架 Keras 之 Keras 入门介绍和安装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-使用-Git-解决-Hexo-个人博客多平台同步管理"><span class="nav-text">1. 使用 Git 解决 Hexo 个人博客多平台同步管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-模拟场景"><span class="nav-text">1.1 模拟场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-实施方案分析"><span class="nav-text">1.2 实施方案分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-存储设备备份"><span class="nav-text">1.2.1 存储设备备份</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-第三方代码仓库备份"><span class="nav-text">1.2.2 第三方代码仓库备份</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-实施方案"><span class="nav-text">1.3 实施方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1-方案一：Hexo-envs-yunpan"><span class="nav-text">1.3.1 方案一：Hexo envs + yunpan</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#–-gt-步骤一：Hexo-envs"><span class="nav-text">–&gt; 步骤一：Hexo envs</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#–-gt-步骤二：yunpan"><span class="nav-text">–&gt; 步骤二：yunpan</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-2-方案二：Hexo-envs-hexo-备份"><span class="nav-text">1.3.2 方案二：Hexo envs + hexo 备份</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#–-gt-步骤一：Hexo-envs-1"><span class="nav-text">–&gt; 步骤一：Hexo envs</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#–-gt-步骤二：hexo-项目备份"><span class="nav-text">–&gt; 步骤二：hexo 项目备份</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#–-gt-步骤三：其它终端克隆测试"><span class="nav-text">–&gt; 步骤三：其它终端克隆测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-3-方案三：Hexo-envs-hexo-分支备份"><span class="nav-text">1.3.3 方案三：Hexo envs + hexo 分支备份</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#–-gt-步骤一：Hexo-envs-2"><span class="nav-text">–&gt; 步骤一：Hexo envs</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#–-gt-步骤二：hexo-分支备份"><span class="nav-text">–&gt; 步骤二：hexo 分支备份</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#–-gt-步骤三：其它终端克隆测试-1"><span class="nav-text">–&gt; 步骤三：其它终端克隆测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-4-Git-Hexo-管理博文"><span class="nav-text">1.3.4 Git + Hexo 管理博文</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-常见问题"><span class="nav-text">1.4 常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-1-npm-install-很慢很慢"><span class="nav-text">1.4.1 npm install 很慢很慢</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-2-Git-监测不到空文件夹"><span class="nav-text">1.4.2 Git 监测不到空文件夹</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

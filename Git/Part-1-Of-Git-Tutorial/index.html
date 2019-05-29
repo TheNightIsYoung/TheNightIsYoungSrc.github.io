@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Setup,Git,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇  在日常项目开发中，我们肯定会或多或少地听说或者使用过版本管理工具。之前我刚好有幸参与过公司项目版本管理—–SVN 版本控制系统的搭建与管理，再加上项目组日常项目开发使用 SVN，也就没有花费太多精力去学习其它版本管理工具。 作为一名入行（深度学习方向）刚满一年的新手，初次接触 Git 还是因为常常会从 GitHub clone 一些大佬">
+<meta name="keywords" content="Setup,Git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git 使用指南之初识">
+<meta property="og:url" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇  在日常项目开发中，我们肯定会或多或少地听说或者使用过版本管理工具。之前我刚好有幸参与过公司项目版本管理—–SVN 版本控制系统的搭建与管理，再加上项目组日常项目开发使用 SVN，也就没有花费太多精力去学习其它版本管理工具。 作为一名入行（深度学习方向）刚满一年的新手，初次接触 Git 还是因为常常会从 GitHub clone 一些大佬">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/sample.png">
+<meta property="og:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/git_sample.png">
+<meta property="og:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/centralized.png">
+<meta property="og:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/distributed.png">
+<meta property="og:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/Git_for_windows.png">
+<meta property="og:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/git_licence.png">
+<meta property="og:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/git_location.png">
+<meta property="og:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/git_icons.png">
+<meta property="og:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/git_shortcut.png">
+<meta property="og:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/git_editor.png">
+<meta property="og:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/git_envs.png">
+<meta property="og:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/git_line.png">
+<meta property="og:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/git_bash.png">
+<meta property="og:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/git_install.png">
+<meta property="og:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/GitBash.png">
+<meta property="og:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/git_style.png">
+<meta property="og:updated_time" content="2019-05-29T03:03:51.736Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git 使用指南之初识">
+<meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇  在日常项目开发中，我们肯定会或多或少地听说或者使用过版本管理工具。之前我刚好有幸参与过公司项目版本管理—–SVN 版本控制系统的搭建与管理，再加上项目组日常项目开发使用 SVN，也就没有花费太多精力去学习其它版本管理工具。 作为一名入行（深度学习方向）刚满一年的新手，初次接触 Git 还是因为常常会从 GitHub clone 一些大佬">
+<meta name="twitter:image" content="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/Img/sample.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>Git 使用指南之初识 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git 使用指南之初识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-19T10:14:58+08:00">
+                2018-12-19
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:51+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Git/Part-1-Of-Git-Tutorial/" class="leancloud_visitors" data-flag-title="Git 使用指南之初识">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  25
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…</center>
+
+<p><strong>开篇</strong> </p>
+<p>在日常项目开发中，我们肯定会或多或少地听说或者使用过版本管理工具。之前我刚好有幸参与过公司项目版本管理—–SVN 版本控制系统的搭建与管理，再加上项目组日常项目开发使用 SVN，也就没有花费太多精力去学习其它版本管理工具。</p>
+<p>作为一名入行（深度学习方向）刚满一年的新手，初次接触 Git 还是因为常常会从 GitHub clone 一些大佬们开源的深度学习项目以供学习和借鉴，但对 Git 的使用仅限于：git clone XXX（脸红）。而随着身边越来越多的人开始使用 Git，以及学习和工作需要，才发现：这年头不会点 Git 是真不行啊…</p>
+<a id="more"></a>
+<p><strong>读取须知</strong> </p>
+<p><strong>版权说明：</strong>本文思路以及内容主要来自廖雪峰老师的 <a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">Git 教程</a> （强烈推荐膜拜原文）并结合个人使用所作，只作为学习记录使用。如内容有侵权请联系删除，禁止转载！</p>
+<p>以便日后再次回顾使用，故将 Git 学习过程进行记录留存。下面我们正式开始 Git 的学习：</p>
+<hr>
+<h2 id="1-Git-简介"><a href="#1-Git-简介" class="headerlink" title="1. Git 简介"></a>1. Git 简介</h2><p>和 SVN 类似，Git 也是用于版本控制。Git 是时下最流行的分布式版本控制系统，没有之一。</p>
+<h3 id="1-1-版本控制系统"><a href="#1-1-版本控制系统" class="headerlink" title="1.1 版本控制系统"></a>1.1 版本控制系统</h3><p>我们一直在说版本控制，那么究竟什么是版本控制？</p>
+<p>其实说到版本控制，我总会想到大学毕业写论文时的场景，你电脑上的毕业论文一定也出现过和我一样的场景：</p>
+<center><img src="/Git/Part-1-Of-Git-Tutorial/Img/sample.png" alt="avatar"></center>
+
+<p>以上就是使用最原始的方式进行版本控制，可以发现存在着显著缺点：</p>
+<ul>
+<li>当保留所有版本文件时，需要为每个版本保存一个文件…</li>
+<li>当文档需要多人协同操作时，需要将文件打包发来发去，拿到后还需要修改整合…</li>
+<li>容易丢失，被删除意味着永远失去…</li>
+</ul>
+<p><strong>通过以上样例的解读，下面我们给出关于版本控制更加严格的解读：</strong></p>
+<blockquote>
+<p><strong>版本控制是指对软件开发过程中各种程序代码、配置文件及说明文档等文件变更的管理。</strong></p>
+</blockquote>
+<p>版本控制最主要的功能就是追踪文件的变更。它将什么时候、什么人更改了文件的什么内容等信息忠实地了记录下来。每一次文件的改变，文件的版本号都将增加。</p>
+<p>除了记录版本变更外，版本控制的另一个重要功能是并行开发。软件开发往往是多人协同作业，版本控制可以有效地解决版本的同步以及不同开发者之间的开发通信问题，提高协同开发的效率。</p>
+<p><strong>为了解决以上版本控制存在问题</strong>，应运而生了一批版本控制工具：<strong>VSS、CVS、SVN、Git</strong> 等，其中 Git 已经成为当前最流行的分布式版本控制系统。通过使用这些版本控制工具，你就结束了手动管理多个 “版本” 的史前时代，进入到版本控制的新世纪。</p>
+<p>例如使用 Git 版本控制工具我们可以清晰、便捷的管理文档的不同版本，如下图所示：</p>
+<center><img src="/Git/Part-1-Of-Git-Tutorial/Img/git_sample.png" alt="avatar"></center>
+
+<hr>
+<h3 id="1-2-Git-的诞生"><a href="#1-2-Git-的诞生" class="headerlink" title="1.2 Git 的诞生"></a>1.2 Git 的诞生</h3><p>我们知道，Linux 是开源的代名词，Linux 的系统日益壮大是靠全世界热心的志愿者共同参与的，这么多人在世界各地为 Linux 编写代码，那 Linus（发起 Linux 项目） 的代码是如何管理整合的呢？</p>
+<p>事实是，起初世界各地的志愿者把源代码文件发给 Linus，然后由 Linus 本人通过手工方式合并代码！</p>
+<p>你也许会想，为什么 Linus 不把 Linux 代码放到版本控制系统里呢？不是有 CVS、SVN 这些免费的版本控制系统吗？因为 Linus 坚定地反对 CVS 和 SVN，这些集中式的版本控制系统不但速度慢，而且必须联网才能使用。有一些商用的版本控制系统，虽然比 CVS、SVN 好用，但那是付费的，这和 Linux 的开源精神不符。</p>
+<p>不过，随着 Linux 系统的不断发展，代码库之大让 Linus 很难继续通过手工方式管理了，社区的弟兄们也对这种方式表达了强烈不满，于是 Linus 选择了一个商业的版本控制系统 BitKeeper，BitKeeper 的东家 BitMover 公司出于人道主义精神，授权 Linux 社区免费使用这个版本控制系统。</p>
+<p>没几年，这种安定团结的大好局面就被打破了。原因是 Linux 社区牛人聚集，不免沾染了一些梁山好汉的江湖习气。开发 Samba 的 Andrew 试图破解 BitKeeper 的协议（这么干的其实也不只他一个），被 BitMover 公司发现了（监控工作做得不错！），于是 BitMover 公司怒了，要收回 Linux 社区的免费使用权。</p>
+<p>Linus 可以向 BitMover 公司道个歉，保证以后严格管教弟兄们，嗯，这是不可能的。实际情况是这样的：Linus 花了两周时间自己用 C 写了一个分布式版本控制系统，这就是 Git！一个月之内，Linux 系统的源码已经由 Git 管理了！牛是怎么定义的呢？大家可以体会一下。</p>
+<p><strong>Git 迅速成为最流行的分布式版本控制系统 。</strong>尤其是 GitHub 的上线，它为开源项目免费提供 Git 存储，无数开源项目开始迁移至 GitHub。</p>
+<blockquote>
+<p>GitHub 是一个基于 Git 的远程文件托管平台。Git 本身完全可以做到版本控制，但其所有内容以及版本记录只能保存在本机。如果想要将文件内容以及版本记录同时保存在远程服务器，则需要结合 GitHub 来使用。</p>
+</blockquote>
+<hr>
+<h3 id="1-3-集中式-vs-分布式"><a href="#1-3-集中式-vs-分布式" class="headerlink" title="1.3 集中式 vs 分布式"></a>1.3 集中式 vs 分布式</h3><p>Linus 一直痛恨的 CVS、SVN 都是集中式的版本控制系统，而 Git 是分布式版本控制系统，集中式和分布式版本控制系统有什么区别呢？</p>
+<h4 id="1-3-1-集中式版本控制系统"><a href="#1-3-1-集中式版本控制系统" class="headerlink" title="1.3.1 集中式版本控制系统"></a>1.3.1 集中式版本控制系统</h4><p>先说集中式版本控制系统，都有一个单一的集中管理的中央服务器，保存所有的项目版本库。而协同工作的人们首先都需要通过客户端连到这台中央服务器取出最新的文档版本进行修改，修改完成后需要提交更新给中央服务器完成服务器上的修改。 多年以来，这已成为版本控制系统的标准做法。</p>
+<center><img src="/Git/Part-1-Of-Git-Tutorial/Img/centralized.png" alt="avatar"></center>
+
+<p>集中式版本控制系统缺点在于：中央服务器的单点故障。 如果宕机一小时，那么在这一小时内，谁都无法提交更新，也就无法协同工作。 如果中心数据库所在的磁盘发生损坏，又没有做恰当备份，毫无疑问你将丢失所有数据——包括项目的整个变更历史，只剩下人们在各自机器上保留的单独快照。只要整个项目的历史记录被保存在单一位置，就有丢失所有历史更新记录的风险。</p>
+<h4 id="1-3-2-分布式版本控制系统"><a href="#1-3-2-分布式版本控制系统" class="headerlink" title="1.3.2 分布式版本控制系统"></a>1.3.2 分布式版本控制系统</h4><p>那分布式版本控制系统与集中式版本控制系统有何不同呢？</p>
+<p>首先，分布式版本控制系统根本没有“中央服务器”，每个人的电脑上都是一个完整的版本库。这也导致和集中式版本控制系统相比，分布式版本控制系统的安全性要高很多，因为每个人电脑里都有完整的版本库，某一个人的电脑坏掉了不要紧，随便从其他人那里复制一个就可以了。</p>
+<p>既然每个人电脑上都有一个完整的版本库，那多个人如何协作呢？当然可以相互之间进行推送，但在实际使用分布式版本控制系统时通常也有一台充当“中央服务器”的电脑，但这个服务器的作用仅仅是用来方便 “交换” 大家的修改，没有它大家也一样干活，只是交换修改不方便而已。</p>
+<center><img src="/Git/Part-1-Of-Git-Tutorial/Img/distributed.png" alt="avatar"></center>
+
+<p>当然，Git 的优势不单是分布式这么简单，后面我们还会看到 Git 极其强大的分支管理，把 SVN 等远远抛在了后面。</p>
+<hr>
+<h3 id="1-4-Git-安装"><a href="#1-4-Git-安装" class="headerlink" title="1.4 Git 安装"></a>1.4 Git 安装</h3><p>最早 Git 是在 Linux 上开发的，很长一段时间内，Git 也只能在 Linux 和 Unix 系统上跑。目前，Git 已经为 Linux、Unix、Mac 和 Windows 等多平台提供了支持。这一部分我们来看如何在不同平台完成 Git 的安装：</p>
+<h4 id="1-4-1-Linux-平台上安装-Git"><a href="#1-4-1-Linux-平台上安装-Git" class="headerlink" title="1.4.1 Linux 平台上安装 Git"></a>1.4.1 Linux 平台上安装 Git</h4><h5 id="1-4-1-1-Centos-安装方法"><a href="#1-4-1-1-Centos-安装方法" class="headerlink" title="1.4.1-1 Centos 安装方法"></a>1.4.1-1 Centos 安装方法</h5><p><strong>YUM 方法安装</strong></p>
+<p>1）检测系统是否安装有 Git</p>
+<pre><code>$ git
+The program &apos;git&apos; is currently not installed. You can install it by typing:
+sudo yum install git
+</code></pre><p>如果系统已安装 Git，你可以使用 <code>git --version</code> 查看相应的安装版本，确定是否需要重新安装 Git（一般 Centos 系统 Git 版本较低，以 Centos7 为例为：git version 1.8.3.1）。这里我们给出 GitHub 上的 <a href="https://github.com/git/git/releases" target="_blank" rel="noopener">Git 版本发布界面</a>，你可以查看最新的 Git 版本。</p>
+<p>如果未安装有 Git，则执行 Git 安装：</p>
+<p>2）安装 Git</p>
+<p>登陆待安装服务器，输入如下命令进行下载安装：</p>
+<pre><code>$ yum install git
+
+## 日志信息如下：
+
+已加载插件：fastestmirror, langpacks
+gitlab_gitlab-ee/x86_64/signature                                                                                                                                                  |  836 B  00:00:00     
+gitlab_gitlab-ee/x86_64/signature                                                                                                                                                  | 1.0 kB  00:00:00 !!! 
+gitlab_gitlab-ee-source/signature                                                                                                                                                  |  836 B  00:00:00     
+gitlab_gitlab-ee-source/signature                                                                                                                                                  |  951 B  00:00:00 !!! 
+Loading mirror speeds from cached hostfile
+ * base: centos.ustc.edu.cn
+ * extras: centos.ustc.edu.cn
+ * updates: centos-mirror.rbc.ru
+正在解决依赖关系
+--&gt; 正在检查事务
+---&gt; 软件包 git.x86_64.0.1.8.3.1-14.el7_5 将被 升级
+--&gt; 正在处理依赖关系 git = 1.8.3.1-14.el7_5，它被软件包 perl-Git-1.8.3.1-14.el7_5.noarch 需要
+---&gt; 软件包 git.x86_64.0.1.8.3.1-20.el7 将被 更新
+--&gt; 正在检查事务
+---&gt; 软件包 perl-Git.noarch.0.1.8.3.1-14.el7_5 将被 升级
+---&gt; 软件包 perl-Git.noarch.0.1.8.3.1-20.el7 将被 更新
+--&gt; 解决依赖关系完成
+
+依赖关系解决
+
+==========================================================================================================================================================================================================
+ Package                                         架构                                          版本                                                  源                                              大小
+==========================================================================================================================================================================================================
+正在更新:
+ git                                             x86_64                                        1.8.3.1-20.el7                                        updates                                        4.4 M
+为依赖而更新:
+ perl-Git                                        noarch                                        1.8.3.1-20.el7                                        updates                                         55 k
+
+事务概要
+==========================================================================================================================================================================================================
+升级  1 软件包 (+1 依赖软件包)
+
+总下载量：4.4 M
+</code></pre><p>接着询问是否进行安装，输入 y，然后等待安装完成即可（接上）：</p>
+<pre><code>## 日志信息如下：
+
+总下载量：4.4 M
+Is this ok [y/d/N]: y
+Downloading packages:
+updates/7/x86_64/prestodelta                                                                                                                                                       | 182 kB  00:00:04     
+Delta RPMs reduced 4.4 M of updates to 2.6 M (41% saved)
+(1/2): perl-Git-1.8.3.1-14.el7_5_1.8.3.1-20.el7.noarch.drpm                                                                                                                        |  28 kB  00:00:02     
+(2/2): git-1.8.3.1-14.el7_5_1.8.3.1-20.el7.x86_64.drpm                                                                                                                             | 2.6 MB  00:00:18     
+Finishing delta rebuilds of 1 package(s) (4.4 M)
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+总计                                                                                                                                                                      126 kB/s | 2.6 MB  00:00:21     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  正在更新    : git-1.8.3.1-20.el7.x86_64                                                                                                                                                             1/4 
+  正在更新    : perl-Git-1.8.3.1-20.el7.noarch                                                                                                                                                        2/4 
+  清理        : git-1.8.3.1-14.el7_5.x86_64                                                                                                                                                           3/4 
+  清理        : perl-Git-1.8.3.1-14.el7_5.noarch                                                                                                                                                      4/4 
+  验证中      : perl-Git-1.8.3.1-20.el7.noarch                                                                                                                                                        1/4 
+  验证中      : git-1.8.3.1-20.el7.x86_64                                                                                                                                                             2/4 
+  验证中      : git-1.8.3.1-14.el7_5.x86_64                                                                                                                                                           3/4 
+  验证中      : perl-Git-1.8.3.1-14.el7_5.noarch                                                                                                                                                      4/4 
+
+更新完毕:
+  git.x86_64 0:1.8.3.1-20.el7                                                                                                                                                                             
+
+作为依赖被升级:
+  perl-Git.noarch 0:1.8.3.1-20.el7                                                                                                                                                                        
+
+完毕！
+</code></pre><p>3）验证安装是否成功</p>
+<p>输入命令： <code>git --version</code>，查看安装好的 Git 版本，验证是否安装成功：</p>
+<pre><code>[root@node3 ~]# git --version
+git version 1.8.3.1
+</code></pre><hr>
+<p><strong>源码安装 Git</strong></p>
+<p>我们会发现，使用 yum 安装之后 Git 版本和当前最新版本之间仍然差很多版本号（Git 版本号不太好控制，取决于 yum 源最新 Git 版本），那么如何解决这个问题？除了使用 yum 安装，还可以使用 Git 源码进行编译安装，我们可以根据需要下载相应版本的 Git 源码包进行安装（源码下载请前往：<a href="https://github.com/git/git/releases" target="_blank" rel="noopener">Git 版本发布界面</a>）。下面我将给出 Centos7 下如何通过源码安装 Git v2.20.0：</p>
+<p>安装前我们首先移除系统原有 Git：</p>
+<pre><code>[root@node3 Download]# yum remove git
+</code></pre><p>1）在目录 Download 中下载相应 Git 版本源码包：</p>
+<pre><code>[root@node3 Download]# wget https://github.com/git/git/archive/v2.20.0.tar.gz
+</code></pre><p>2）解压 v2.20.0.tar.gz 安装包：</p>
+<pre><code>[root@node3 Download]# tar -zxvf v2.20.0.tar.gz
+
+# 查看当前目录，可看到解压文件：
+[root@node3 Download]# ls
+git-2.20.0  v2.20.0.tar.gz
+</code></pre><p>3）准备编译环境，否则后续安装可能发生 Error：</p>
+<pre><code>[root@node3 Download]# yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker
+
+# 等待安装或更新完成即可...
+</code></pre><p>4）进入解压文件目录 git-2.20.0，然后进行 Git 源码的配置、编译以及安装命令，耐心等待即可：</p>
+<pre><code>[root@node3 Download]# cd git-2.20.0
+
+# 配置 Git 的安装路径：
+[root@node3 Download]# ./configure prefix=/usr/local/git/
+
+|--------------------------------------------------------------|
+### 注意此处可能报错：&apos;-bash: ./configure: 没有那个文件或目录&apos;。
+# 按照如下步骤解决：
+
+# 生成 configure：
+$ make configure 
+$ ./configure prefix=/usr/local/git/
+
+# 如果 make configure 的时候报错：/bin/sh: autoconf: command not found
+$ yum install install autoconf automake libtool
+|--------------------------------------------------------------|
+
+# 编译以及安装 Git 源码：
+[root@node3 Download]# make &amp;&amp; make install
+</code></pre><p>5）配置环境变量：</p>
+<pre><code># 打开系统配置文件：/etc/profile
+[root@node3 Download]# vim /etc/profile
+# 添加如下环境变量：
+export PATH=$PATH:/usr/local/git/bin
+
+# 生效环境变量：
+$ source /etc/profile
+</code></pre><p>6）验证安装是否成功</p>
+<pre><code>[root@node3 Download]# git --version
+git version 2.20.0
+</code></pre><hr>
+<h5 id="1-4-1-2-Ubuntu-安装方法"><a href="#1-4-1-2-Ubuntu-安装方法" class="headerlink" title="1.4.1-2 Ubuntu 安装方法"></a>1.4.1-2 Ubuntu 安装方法</h5><p>较新版本的 Debian 或 Ubuntu Linux 系统一般都自带较高版本的 Git。如果没有，直接可通过下列命令就可以完成 Git 的安装:</p>
+<pre><code>$ sudo apt-get install git
+</code></pre><p>老一点的 Debian 或 Ubuntu Linux，要把命令改为:</p>
+<pre><code>$ sudo apt-get install git-core
+</code></pre><p>这是由于：有个软件也叫 GIT（GNU Interactive Tools），结果 Git 就只能叫 git-core 了。由于 Git 名气实在太大，后来就把 GNU Interactive Tools 改成 gnuit，git-core 正式改为 git。</p>
+<h5 id="1-4-1-3-其它版本-Linux-安装方法"><a href="#1-4-1-3-其它版本-Linux-安装方法" class="headerlink" title="1.4.1-3 其它版本 Linux 安装方法"></a>1.4.1-3 其它版本 Linux 安装方法</h5><p>其它版本 <code>Linux</code> 可以统一采用源码安装。</p>
+<hr>
+<h4 id="1-4-2-Windows-平台上安装-Git"><a href="#1-4-2-Windows-平台上安装-Git" class="headerlink" title="1.4.2 Windows 平台上安装 Git"></a>1.4.2 Windows 平台上安装 Git</h4><p>这一部分我们来看 Win 下如何安装和配置 Git（未提到安装页面选择默认即可）：</p>
+<p><strong>Git 安装</strong></p>
+<p>1）从 Git 官网下载一个 Git For Windows 安装包（<a href="https://www.git-scm.com/download/" target="_blank" rel="noopener">官网下载地址</a>）：</p>
+<center><img src="/Git/Part-1-Of-Git-Tutorial/Img/Git_for_windows.png" alt="avatar"></center>
+
+<p>2）双击安装程序，进入欢迎界面阅读协议，然后点击 【 Next 】：</p>
+<center><img src="/Git/Part-1-Of-Git-Tutorial/Img/git_licence.png" alt="avatar"></center>
+
+<p>3）选择 Git 安装位置，点击 【 Next 】：</p>
+<center><img src="/Git/Part-1-Of-Git-Tutorial/Img/git_location.png" alt="avatar"></center>
+
+<p>4）选择安装组件：推荐使用默认选项，然后点击 【 Next 】：</p>
+<ul>
+<li>图标组件（Additional icons）：选择是否创建快速启动图标和桌面快捷方式</li>
+<li>桌面浏览（Windows Explorer integration）使用 Git Bash 方式、Shell 方式</li>
+<li>是否关联 Git 配置文件：该配置文件主要显示文本编辑器样式</li>
+<li>是否关联 Shell 脚本文件：是否关联 Bash 命令执行脚本文件</li>
+<li>使用 TrueType 编码：在命令行中是否使用 TrueType 编码，该编码是微软和苹果公司制定的通用编码</li>
+</ul>
+<center><img src="/Git/Part-1-Of-Git-Tutorial/Img/git_icons.png" alt="avatar"></center>
+
+<p>5）在开始菜单创建快捷方式，然后点击 【 Next 】：</p>
+<center><img src="/Git/Part-1-Of-Git-Tutorial/Img/git_shortcut.png" alt="avatar"></center>
+
+<p>6）选择默认的 Git 编辑器（默认 VIM），然后点击 【 Next 】：</p>
+<center><img src="/Git/Part-1-Of-Git-Tutorial/Img/git_editor.png" alt="avatar"></center>
+
+<p>7）设置环境，设置命令行工具（默认配置即可），然后点击 【 Next 】：</p>
+<ul>
+<li>Git自带：使用 Git 自带的 Git Bash 命令行工具；</li>
+<li>系统自带以及第三方软件：使用 windows 系统以及第三方软件命令行工具；</li>
+<li>Git 自带和 Unix Tools：注意，这样会将 windows 中的 find.exe 和 sort.exe 工具覆盖，如果不懂这些尽量不要选择。</li>
+</ul>
+<center><img src="/Git/Part-1-Of-Git-Tutorial/Img/git_envs.png" alt="avatar"></center>
+
+<p>8）选择换行格式，然后点击 【 Next 】：</p>
+<ul>
+<li>检查出 Windows 格式转换为 Unix 格式：将 Windows 格式的换行转为 Unix 格式的换行再进行提交;</li>
+<li>检查出原来格式转换为 Unix 格式：不管什么格式的，一律转换为 Unix 格式的换行再进行提交；</li>
+<li>不进行格式转换：不进行转换，检查出什么格式就提交什么格式。</li>
+</ul>
+<center><img src="/Git/Part-1-Of-Git-Tutorial/Img/git_line.png" alt="avatar"></center>
+
+<p>9）配置 Git bash 终端仿真器（默认即可），然后点击 【 Next 】：</p>
+<ul>
+<li>使用 MinTTY 终端</li>
+<li>使用 Windows 默认的命令行</li>
+</ul>
+<center><img src="/Git/Part-1-Of-Git-Tutorial/Img/git_bash.png" alt="avatar"></center>
+
+<p>10）性能配置，是否启用文件系统缓存（默认即可），然后点击 【 install 】 等待安装完成即可：</p>
+<center><img src="/Git/Part-1-Of-Git-Tutorial/Img/git_install.png" alt="avatar"></center>
+
+<p><strong>Git 环境变量配置</strong></p>
+<p>有时安装完成以后可能在 Windows CMD 中无法正常使用 Git，可以将 <code>GIT_HOME/bin</code> 添加到系统环境变量 path 中，就可以在 CMD 中正常使用 Git了。</p>
+<hr>
+<h4 id="1-4-3-Git-Bash-Here"><a href="#1-4-3-Git-Bash-Here" class="headerlink" title="1.4.3 Git Bash Here"></a>1.4.3 Git Bash Here</h4><p>自此我们已经完成了 Git 的安装以及配置，这里我们可以尝试在 Windows 下打开 Git Bash 来看一下：</p>
+<center><img src="/Git/Part-1-Of-Git-Tutorial/Img/GitBash.png" alt="avatar"></center>
+
+<p>是不是不同于我们熟悉的 Linux shell 或者 Windows CMD？下面给出一种 Git 控制台美化方法：</p>
+<p><strong>Git 控制台格式以及字体美化</strong></p>
+<p>1）下载必要的配置文件：</p>
+<pre><code>### Git 控制台中 clone 美化配置仓库：
+$ git clone https://github.com/shaonianruntu/Git-setting.git
+
+# 查看项目可以发现有 3 个文件：
+$ ls Git-setting
+bash_profile_course  git-completion.bash  git-prompt.sh
+
+### Git 控制台中 clone 字体文件仓库：
+$ git clone https://github.com/shaonianruntu/YaHei-Consolas-Hybrid-1.12.git
+</code></pre><p>2）配置格式以及字体</p>
+<pre><code># 将 git-completion.bash 配置文件 copy 当前用户主目录；
+# 将 git-prompt.sh 配置文件 copy 当前用户主目录；
+
+# 将 bash_profile_course 配置文件 copy 当前用户主目录，如果当前用户主目录中已存在名为 .bash_profile 的文件，则将 bash_profile_course 中的内容复制并粘贴到 .bash_profile 的尾部。如果不存在，通过 mv 命令将 bash_profile_course 重命名为 .bash_profile。
+</code></pre><p>自此，关闭 Git Bash 再重新打开，你会发现其格式已经变为我们熟悉的 Linux Shell 样式：</p>
+<center><img src="/Git/Part-1-Of-Git-Tutorial/Img/git_style.png" alt="avatar"></center>
+
+<p>有一个 Yahei 和 Consolas 的混合字体，相当漂亮，很适合在 Windows 平台下编程使用，我们之前已经从 GitHub 上 clone 了下来。下面我们通过 <strong>注册表配置</strong> 来将其应用于控制台：</p>
+<pre><code># Win+R 输入 regedit 命令打开注册表。
+
+# 在 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Console\TrueTypeFont] 设置：
+
+“936” = ”YaHei Consolas Hybrid”
+</code></pre><hr>
+<h2 id="2-版本仓库用户以及邮箱设置"><a href="#2-版本仓库用户以及邮箱设置" class="headerlink" title="2. 版本仓库用户以及邮箱设置"></a>2. 版本仓库用户以及邮箱设置</h2><p>我们知道，Git 是分布式版本控制系统，所以每个机器都必须自报家门：你的名字和 Email 地址。也就是说在使用之前我们还需要为 Git 中的版本仓库设置用户以及邮箱。</p>
+<p>通常我们会面临一种场景：公司工作时，我们一般会参与多个项目开发，而向不同的项目提交变更时，一般请求情况下提供的用户都是同一个，而我们为了方便可能会使用全局进行 Git 用户名的配置。但当我们处于学习变更自己的学习项目时，我们可能更多地不希望使用公司公用的用户以及邮箱配置。</p>
+<p>模拟场景：</p>
+<ul>
+<li>公司参与多个项目：A、B、C、D，用于提交的公司用户名是：”staff_ming”，会使用 Git 全局配置；</li>
+<li>个人学习项目：E，用于提交的个人学习用户名是：”Pilot_ming”,会为项目 E 进行单独配置。</li>
+</ul>
+<p><strong>全局配置步骤</strong></p>
+<p>1）Git Bash 控制台执行：</p>
+<pre><code>$ git config --global user.name &quot;staff_ming&quot;
+
+$ git config --global user.email &quot;staff_ming@xxxx.com&quot;
+
+# 使用 git config --list 可查看到 Git 全局配置 
+</code></pre><p>2）可在当前用户目录下生成一个 <code>.gitconfig</code> 配置文件，可以查看文件内容中的配置信息：</p>
+<pre><code>[user]
+    name = staff_ming
+    email = staff_ming@163.com
+</code></pre><p>注意 <code>git config</code> 命令的 <code>--global</code> 参数表示：当前机器上所有的 Git 版本仓库都会使用这个配置。</p>
+<p><strong>单独配置项目步骤</strong></p>
+<p>1）Git Bash 中进入项目所在目录（后续学习后你会知道 Git 管理下的项目目录会产生一个 .git 目录），执行：</p>
+<pre><code>$ git config user.name &quot;Pilot_ming&quot;
+
+$ git config user.email &quot;Pilot_ming@163.com&quot;
+
+# 使用 git config --list 可同时查看到 Git 全局以及当前项目配置
+</code></pre><p>2）可在当前项目目录下的 <code>.git</code> 目录中生成一个 config 配置文件，可以查看其配置信息</p>
+<hr>
+<h2 id="3-初识-Git-版本库"><a href="#3-初识-Git-版本库" class="headerlink" title="3. 初识 Git 版本库"></a>3. 初识 Git 版本库</h2><p>前面我们一直在提 Git 分布式系统中的每一个节点（用户设备）都是一个完整的版本库。那什么是版本库呢？版本库又名版本仓库（repository）。</p>
+<p>repository 可以简单理解成一个目录，这个目录里面的所有文件都可以被 Git 管理起来。什么时候、什么人更改了目录下文件的什么内容等信息都能被 Git 忠实地跟踪以及记录下来。以便 Git 任何时刻都可以追踪历史，或者在将来某个时刻可以“还原”。</p>
+<p>以下实操部分测试均在 Windows10 下完成：</p>
+<h3 id="3-1-如何创建-Git-版本库"><a href="#3-1-如何创建-Git-版本库" class="headerlink" title="3.1 如何创建 Git 版本库"></a>3.1 如何创建 Git 版本库</h3><p>其实创建一个全新的 Git 版本库非常简单:</p>
+<p>1）创建版本库目录（项目目录）</p>
+<pre><code># Windows 系统下，为了避免遇到各种莫名其妙的问题，请确保目录名（包括父目录）不包含中文。
+$ mkdir GitTestProject
+$ cd GitTestProject
+</code></pre><p>2）创建（初始化）版本库：</p>
+<pre><code># git init 命令可以将当前目录变成 Git 可以管理的版本库：
+$ git init
+Initialized empty Git repository in F:/GitTestProject/.git/
+
+# 查看版本库（产生一个 .git 目录）：
+$ ll -al
+total 8
+drwxr-xr-x 1 staff_ming 197121 0 12月 20 18:55 ./
+drwxr-xr-x 1 staff_ming 197121 0 12月 20 18:46 ../
+drwxr-xr-x 1 staff_ming 197121 0 12月 20 18:55 .git/
+</code></pre><p>注意：初始化后，会在当前目录自动创建 <code>.git</code> 目录（是 Git 来跟踪管理版本库的），该文件是 Git 中最重要的文件夹，因为 Git 相关文件以及版本都将保存 <code>.git</code> 中，<code>.git</code> 受损 Git 版本仓库就会被破坏掉。</p>
+<p>事实上，我们更多的时候是需要在非空目录下创建 Git 版本库（Git 管理既有项目），这也是可以的（但不意味着当前目录下的文件或目录已被 Git 所管理）。</p>
+<h3 id="3-2-如何添加文件到版本库进行管理"><a href="#3-2-如何添加文件到版本库进行管理" class="headerlink" title="3.2 如何添加文件到版本库进行管理"></a>3.2 如何添加文件到版本库进行管理</h3><p>在介绍如何使文件能够被 Git 版本库管理之前，我们先来补充一部分很重要内容：</p>
+<p>|—————————————————————–</p>
+<p>首先我们必须明确：所有的版本控制系统，其实只能跟踪文本文件的改动，比如TXT文件，网页，所有的程序代码等等，Git 也不例外。</p>
+<p>版本控制系统可以告诉你文件每次的变更，比如在第 5 行加了一个单词 “Linux”，在第 8 行删了一个单词 “Windows”。</p>
+<p>而图片、视频这些二进制文件，虽然也能由版本控制系统管理，但没法跟踪文件的变化，只能把二进制文件每次改动串起来，也就是只知道图片从 100KB 改成了 120KB，但到底改了啥，版本控制系统不知道，也没法知道。最初我使用过一个毕设论文示例其实是不恰当的，Microsoft Word 格式是二进制格式，因此 <strong>Git 是没法跟踪 Word 文件的改动的。</strong></p>
+<p>还有一个很重要的问题就是<strong>文本的编码问题</strong>。强烈建议使用标准的 <strong>UTF-8</strong> 编码，所有语言使用同一种编码，既没有冲突，又被所有平台所支持。</p>
+<p>—————————————————————–|</p>
+<p>接下来我们简单来看一下文件如何能够被 Git 版本库管理：</p>
+<pre><code># 1. 在版本库 GitTestProject 中创建一个用于 Git 管理的新文档：readme.txt，内容如下
+
+Git is a version control system.
+Git is free software.
+
+
+# 2. 创建好 readme.txt 之后并不意味着文档已被版本库所管理，需要告知 Git 把文件添加到仓库：
+$ git add readme.txt
+# 执行上面的命令，没有任何显示。Unix 的哲学是“没有消息就是好消息”，说明添加成功。
+
+
+# 3. git add 之后，我们还需要提交操作到仓库（后续我们会做解释）：
+$ git commit -m &quot;wrote a readme file&quot;
+
+# 日志信息如下表示成功：
+# 1 file changed：1 个文件被改动；2 insertions：插入了两行内容
+[master (root-commit) c31b827] wrote a readme file
+ 1 file changed, 2 insertions(+)
+ create mode 100644 readme.txt
+</code></pre><p>注意：<code>git commit</code> 命令之后的 <code>-m</code> 参数表示的是：本次向 Git 版本库提交的说明（变更注释）。强烈建议添加变更说明！！！不加 <code>-m</code> 参数 Git 会跳转进入 VIM。</p>
+<p>我们之前提到过需要在非空目录下创建 Git 版本库，git init 之后版本库目录下的文件其实并没有被 Git 管理，想要将其填加到版本库的话可以（以 GitTestProject 版本库下 <code>git init</code> 有一个 Server 目录，Server 目录下有一个文件 service.sh 为例）：</p>
+<pre><code># git add + dir(目录)会将 dir 以及其下所有文件添加到 Git 版本库：
+$ git add Server/ Client/
+
+# 提交：
+$ git commit -m &apos;Add Server&amp;Client API to Project&apos;
+[master d9e0247] Add Server API
+ 1 file changed, 1 insertion(+)
+ create mode 100644 Server/service.py
+</code></pre><p>补充：<code>git add .</code> 可以将当前目录下所有文件添加到版本库。</p>
+<hr>
+<p>​    </p>
+<p>​        </p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/Git/Part-1-Of-Git-Tutorial/" title="Git 使用指南之初识">http://yoursite.com/Git/Part-1-Of-Git-Tutorial/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Setup/" rel="tag"><i class="fa fa-tag"></i> Setup</a>
+          
+            <a href="/tags/Git/" rel="tag"><i class="fa fa-tag"></i> Git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Anaconda/Jupyter-Notebook（JupyterLab）-远程访问服务器/" rel="next" title="Jupyter Notebook（JupyterLab） 远程访问服务器">
+                <i class="fa fa-chevron-left"></i> Jupyter Notebook（JupyterLab） 远程访问服务器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Git/Part-2-Of-Git-Tutorial/" rel="prev" title="Git 使用指南之时光穿梭机">
+                Git 使用指南之时光穿梭机 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Git-简介"><span class="nav-text">1. Git 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-版本控制系统"><span class="nav-text">1.1 版本控制系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Git-的诞生"><span class="nav-text">1.2 Git 的诞生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-集中式-vs-分布式"><span class="nav-text">1.3 集中式 vs 分布式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1-集中式版本控制系统"><span class="nav-text">1.3.1 集中式版本控制系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-2-分布式版本控制系统"><span class="nav-text">1.3.2 分布式版本控制系统</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Git-安装"><span class="nav-text">1.4 Git 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-1-Linux-平台上安装-Git"><span class="nav-text">1.4.1 Linux 平台上安装 Git</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-1-1-Centos-安装方法"><span class="nav-text">1.4.1-1 Centos 安装方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-1-2-Ubuntu-安装方法"><span class="nav-text">1.4.1-2 Ubuntu 安装方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-1-3-其它版本-Linux-安装方法"><span class="nav-text">1.4.1-3 其它版本 Linux 安装方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-2-Windows-平台上安装-Git"><span class="nav-text">1.4.2 Windows 平台上安装 Git</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-3-Git-Bash-Here"><span class="nav-text">1.4.3 Git Bash Here</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-版本仓库用户以及邮箱设置"><span class="nav-text">2. 版本仓库用户以及邮箱设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-初识-Git-版本库"><span class="nav-text">3. 初识 Git 版本库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-如何创建-Git-版本库"><span class="nav-text">3.1 如何创建 Git 版本库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-如何添加文件到版本库进行管理"><span class="nav-text">3.2 如何添加文件到版本库进行管理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

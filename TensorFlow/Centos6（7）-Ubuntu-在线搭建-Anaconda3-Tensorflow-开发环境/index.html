@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Anaconda,TensorFlow,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 工欲善其事，必先利其器。在开始深度学习课程之前，首要的是需要选择一台性能合适的机器来部署深度学习环境以进行学习试验。关于“选择性能合适的机器”，一般意味着“好的CPU”，“大内存”，“大硬盘”，”GPU支持“，DIY 组机参见 深度学习攒机小记。当然考虑到经济问题以及以学习为优先，利用我们手头闲置的配置最好的机器就可以开始配置深度学习环境了（性能">
+<meta name="keywords" content="Anaconda,TensorFlow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos6（7）&#x2F;Ubuntu 在线搭建 Anaconda &amp; Tensorflow 开发环境【持续更新】">
+<meta property="og:url" content="http://yoursite.com/TensorFlow/Centos6（7）-Ubuntu-在线搭建-Anaconda3-Tensorflow-开发环境/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 工欲善其事，必先利其器。在开始深度学习课程之前，首要的是需要选择一台性能合适的机器来部署深度学习环境以进行学习试验。关于“选择性能合适的机器”，一般意味着“好的CPU”，“大内存”，“大硬盘”，”GPU支持“，DIY 组机参见 深度学习攒机小记。当然考虑到经济问题以及以学习为优先，利用我们手头闲置的配置最好的机器就可以开始配置深度学习环境了（性能">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-29T03:03:51.611Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Centos6（7）&#x2F;Ubuntu 在线搭建 Anaconda &amp; Tensorflow 开发环境【持续更新】">
+<meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 工欲善其事，必先利其器。在开始深度学习课程之前，首要的是需要选择一台性能合适的机器来部署深度学习环境以进行学习试验。关于“选择性能合适的机器”，一般意味着“好的CPU”，“大内存”，“大硬盘”，”GPU支持“，DIY 组机参见 深度学习攒机小记。当然考虑到经济问题以及以学习为优先，利用我们手头闲置的配置最好的机器就可以开始配置深度学习环境了（性能">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/TensorFlow/Centos6（7）-Ubuntu-在线搭建-Anaconda3-Tensorflow-开发环境/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>Centos6（7）/Ubuntu 在线搭建 Anaconda & Tensorflow 开发环境【持续更新】 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/TensorFlow/Centos6（7）-Ubuntu-在线搭建-Anaconda3-Tensorflow-开发环境/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Centos6（7）/Ubuntu 在线搭建 Anaconda & Tensorflow 开发环境【持续更新】</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-01T14:19:52+08:00">
+                2018-06-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:51+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/TensorFlow/Centos6（7）-Ubuntu-在线搭建-Anaconda3-Tensorflow-开发环境/" class="leancloud_visitors" data-flag-title="Centos6（7）/Ubuntu 在线搭建 Anaconda & Tensorflow 开发环境【持续更新】">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  10.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  48
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center> 愿你每天欢喜多于悲，孤独有人陪… </center>
+
+<p><strong>写在前面：</strong></p>
+<p>工欲善其事，必先利其器。在开始深度学习课程之前，首要的是需要选择一台性能合适的机器来部署深度学习环境以进行学习试验。关于“选择性能合适的机器”，一般意味着“好的CPU”，“大内存”，“大硬盘”，”GPU支持“，DIY 组机参见 <a href="">深度学习攒机小记</a>。当然考虑到经济问题以及以学习为优先，利用我们手头闲置的配置最好的机器就可以开始配置深度学习环境了（性能低）。</p>
+<p>本文我们将详细介绍如何基于 <strong>Centos6(7) / Ubuntu</strong> 单机或集群服务器搭建 <strong>TensorFlow [ CPU/GPU Support ]</strong> 深度学习单机或集群分布式学习开发环境。事实上，TensorFlow 集群分布式环境搭建就是多台单机服务器的重复安装过程，可以通过自动化部署完成。</p>
+<p>最后，我们将在安装好的环境中运行和测试简单的 TensorFlow 样例程序以验证安装是否成功。</p>
+<a id="more"></a>
+<h3 id="Setup-Reference"><a href="#Setup-Reference" class="headerlink" title="Setup Reference"></a>Setup Reference</h3><p>在安装 TensorFlow 之前，我们需要知道的是: <strong>TensorFlow 属于很高层的应用。</strong> 高层应用的一个比较大的麻烦就是需要依赖的底层相关很多，如果底层依赖没有弄好的话，高层应用是没法玩转的。那么 <strong>解决 Tensorflow 应用和其相关底层的依赖关系</strong> 对于开发者的安装而言尤为重要。</p>
+<p>TensorFlow 教程中，提供了五种 Tensorflow 常用的安装方式：<code>&#39;原生&#39; Pip</code>、<code>Docker</code>、 <code>Virtualenv</code>、 <code>Anaconda</code> 或 <code>源码编译</code> 来安装 <strong>TensorFlow</strong>。后文会对以上五种方式分别进行介绍，以方便我们根据具体的软硬件以及应用需求采用不同的安装方式。</p>
+<p>这里，首先给出一般场景下的 TensorFlow 开发环境搭建来帮助我们明确安装需求：</p>
+<ol>
+<li><p>搭建 TensorFlow [CPU Support] 环境：搭建基于 CPU 运算的 TensorFlow 深度学习环境是最简单常见的，性能较低。</p>
+</li>
+<li><p>搭建 TensorFlow [GPU Support] 环境：搭建基于 GPU 运算的 TensorFlow 深度学习环境。建议先明确当前服务器独立显卡（GPU）信息（型号、计算性能等），然后参考后文附录 <strong>Tensorflow&amp;&amp;NVIDIA版本信息对照表</strong>，选择安装相互兼容的显卡驱动（CUDA）、显卡加速包（CUDNN）以及 Tensorflow 版本。</p>
+</li>
+<li><p>搭建 TensorFlow 集群（既有集群/新建集群）分布式开发环境：在新建的服务器集群上搭建 TensorFlow 深度学习环境可以不断尝试安装，不用担心把服务器系统搞崩。但对于在既有集群搭建 TensorFlow 环境（生产环境），建议先从集群子节点开始一台台安装 TensorFlow，将安装风险降到最低。当然，如果还是担心有风险，可以先通过虚拟机重构伪集群开发环境测试安装过程。熟悉安装过程后，再开始实际安装，将风险降到最低。</p>
+</li>
+</ol>
+<p>初学者一般推荐使用 Anaconda 进行 TensorFlow 学习环境的安装。更多关于 <strong>Anaconda</strong> 的了解，建议参考文档 –&gt; <a href="https://www.orangeshare.cn/Anaconda/Anaconda-%E4%BB%8B%E7%BB%8D%E3%80%81%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" target="_blank" rel="noopener">Anaconda 介绍、安装以及使用教程</a>。</p>
+<hr>
+<h3 id="1-TensorFlow-预安装环境准备"><a href="#1-TensorFlow-预安装环境准备" class="headerlink" title="1. TensorFlow 预安装环境准备"></a>1. TensorFlow 预安装环境准备</h3><p>关于下面给出的 3 点开发环境要求不用深究，后文你会看到相关详细解释。</p>
+<ol>
+<li>Linux 系统需要包含 GNU 较高版本的 Glibc 库（Centos7）；</li>
+<li>源码安装要求 Java_JDK 1.8 以上版本；</li>
+<li>Python 2.7 或 Python 3.3 以上版本。</li>
+</ol>
+<hr>
+<h4 id="1-1-服务器操作系统选择"><a href="#1-1-服务器操作系统选择" class="headerlink" title="1.1 服务器操作系统选择"></a>1.1 服务器操作系统选择</h4><p>下面两项注意事项是关于用于搭建 TensorFlow 深度学习开发环境的服务器（Server）的操作系统的选择，选择一个合适的 OS 可以帮我们减少很多的麻烦。</p>
+<p>对于初学 TensorFlow 深度学习框架，仅仅想做做简单测试，强烈建议选择 Ubuntu！！！当然，在既有 Server 中搭建 Tensorflow Envs 则需要对当前服务器信息进行近一步的了解。</p>
+<p><strong>Centos/Ubuntu Server Select：</strong></p>
+<ol>
+<li>如果我们选择的是 <strong>Centos Server</strong> 来安装 TensorFlow。那么我们的 Centos 版本最好选择 <code>Centos7</code>。<code>Centos6</code> 因为版本较低，其操作系统内置的库无法很好兼容 TensorFlow。虽可以解决，但会为安装带来更多的麻烦(可以通过升级一些运行时库得以解决）。当然对于操作系统为 <code>Centos6</code> 的既有服务器，且不可以更换操作系统的安装需求，后文会对解决方法做详细说明。注意，为了可以进行分布式运算，对于 TensorFlow 要求版本大于 0.8，Tensorflow 0.8 之前版本不支持分布式。</li>
+<li>如果我们选择的是 <strong>Ubuntu Server</strong> 来安装 TensorFlow，那么我们的 Ubuntu 版本最好是 Ubuntu 14.04/16.04。这里只是因为使用 Ubuntu14.04/16.04 的人较多，可以更好的帮我们解决安装以及使用 TensorFlow 过程中遇到的问题。</li>
+</ol>
+<hr>
+<h4 id="1-2-关于-TensorFlow-服务器"><a href="#1-2-关于-TensorFlow-服务器" class="headerlink" title="1.2 关于 TensorFlow 服务器"></a>1.2 关于 TensorFlow 服务器</h4><p>根据实际搭建过程中的现有资源以及实际安装需求，给出两种选择: 【 1. 安装以及配置全新的 Linux Server For TensorFlow 】，还是 【 2. 基于既有服务器环境部署 Tensorflow 开发框架 】。这一部分，我们分别介绍上述两种需求下 Linux Server 的注意事项。</p>
+<h5 id="1-2-1-安装以及配置新的-Linux-Server-For-TensorFlow-Frame"><a href="#1-2-1-安装以及配置新的-Linux-Server-For-TensorFlow-Frame" class="headerlink" title="1.2.1 安装以及配置新的 Linux Server For TensorFlow Frame"></a>1.2.1 安装以及配置新的 Linux Server For TensorFlow Frame</h5><h6 id="1-2-1-1-gt-Centos6（7）-Ubuntu-Server-安装"><a href="#1-2-1-1-gt-Centos6（7）-Ubuntu-Server-安装" class="headerlink" title="1.2.1_1 &gt; Centos6（7）/Ubuntu Server 安装"></a>1.2.1_1 &gt; Centos6（7）/Ubuntu Server 安装</h6><p><strong>–&gt; 工具准备</strong></p>
+<pre><code>% I. Windows 操作系统电脑一台；
+% II. 官网或其它下载源下载 Centos6（7）/Ubuntu IOS 镜像文件；
+% III. Windows 安装两款软件：大白菜 U 盘启动盘制作工具、UltraISO Linux U盘启动盘制作工具；具体使用方法百度，不做赘述。
+       大白菜 官方下载地址：[ http://dabaicai.csmd4.com/dbcpe/ ]
+       UltraISO 官方下载地址：[ https://cn.ultraiso.net/ ]
+% IV. U 盘 2 个：一个安装 PE 系统 U 盘启动盘，可以用来格式化 Server 机原有的磁盘分区，并设置 MBR（可防止 Linux 分区时磁盘柱头自动产生 1M 大小的空闲分区，无法引导）；另一个用来制作 Linux 系统 U 盘启动盘；
+</code></pre><p><strong>–&gt; 安装 Ubuntu/Centos Server</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 使用 Linux 系统 U 盘启动盘安装系统：安装方法见网络教程，网上有较为详细的安装教程，这里不做详细介绍。特别提到的是：安装系统时会进行系统分区。推荐手动分区，详细分区教程参考个人磁盘空间情况以及网络分区教程。</span><br></pre></td></tr></table></figure>
+<h6 id="1-2-1-2-gt-Centos6（7）-Ubuntu-Server-快速配置"><a href="#1-2-1-2-gt-Centos6（7）-Ubuntu-Server-快速配置" class="headerlink" title="1.2.1_2 &gt; Centos6（7）/Ubuntu Server 快速配置"></a>1.2.1_2 &gt; Centos6（7）/Ubuntu Server 快速配置</h6><p><strong>–&gt; Server 基础配置</strong></p>
+<p>[1] Ubuntu 基础配置参见：<a href="https://www.orangeshare.cn/Ubuntu/Ubuntu-Server-快速配置指南/" target="_blank" rel="noopener">Ubuntu Server 快速配置指南</a>。</p>
+<p>[2] Centos 基础配置参见：<a href="">Centos Server 快速配置指南</a>。</p>
+<hr>
+<h5 id="1-2-2-基于既有开发环境部署-Tensorflow-Frame"><a href="#1-2-2-基于既有开发环境部署-Tensorflow-Frame" class="headerlink" title="1.2.2 基于既有开发环境部署 Tensorflow Frame"></a>1.2.2 基于既有开发环境部署 Tensorflow Frame</h5><p>对于在既有服务器搭建 TensorFlow 环境，需要明确当前服务器操作系统信息以及已部署环境信息：</p>
+<p><strong>1）察看 Linux 操作系统版本信息</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> lsb_release -a</span></span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash"> 运行输出：</span></span><br><span class="line">LSB Version:	:base-4.0-amd64:base-4.0-noarch:core-4.0-amd64:core-4.0-noarch:graphics-4.0-amd64:graphics-4.0-noarch:printing-4.0-amd64:printing-4.0-noarch</span><br><span class="line">Distributor ID:	CentOS</span><br><span class="line">Description:	CentOS release 6.9 (Final)</span><br><span class="line">Release:	6.9</span><br><span class="line">Codename:	Final</span><br></pre></td></tr></table></figure>
+<p><strong>2）察看 Linux 系统内核版本（包括 GCC 版本信息）</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat /proc/version</span></span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash"> 运行输出：</span></span><br><span class="line">Linux version 2.6.32-696.10.1.el6.x86_64 (mockbuild@c1bl.rdu2.centos.org) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-18) (GCC) ) #1 SMP Tue Aug 22 18:51:35 UTC 2017</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="2-TensorFlow-正式安装"><a href="#2-TensorFlow-正式安装" class="headerlink" title="2. TensorFlow 正式安装"></a>2. TensorFlow 正式安装</h3><p>准备好 TensorFlow 预安装环境之后，接下来我们正式来看官方提供的不同安装方式的实现：</p>
+<h4 id="2-1-使用原生-Pip-安装"><a href="#2-1-使用原生-Pip-安装" class="headerlink" title="2.1 使用原生 Pip 安装"></a>2.1 使用原生 Pip 安装</h4><p>我们知道，PIP 是一种包管理工具，用于安装和管理用 Python 的库。同样的，通过 <code>pip</code> 可以安装已经打包好的 TensorFlow 应用以及 TensorFlow 所需要的依赖，可以较为方便地解决 Tensorflow 应用和其相关底层的依赖关系。</p>
+<blockquote>
+<p>注意：<code>Centos6（7）</code>服务器环境下还可能需要如下准备（<code>2.1.1 Centos6/7 环境准备</code>），<code>Ubuntu14.04（16.04）</code> 服务器环境可以直接跳过此处（推荐阅读）。</p>
+</blockquote>
+<h5 id="2-1-1-Centos6-7-环境准备"><a href="#2-1-1-Centos6-7-环境准备" class="headerlink" title="2.1.1 Centos6/7 环境准备"></a>2.1.1 Centos6/7 环境准备</h5><h6 id="1）Python-更新"><a href="#1）Python-更新" class="headerlink" title="1）Python 更新"></a>1）Python 更新</h6><p>安装 <strong>TensorFlow</strong> 环境要求我们，Python 版本必须选择 <code>2.7</code> 以 <code>3.3</code> 以上版本。而 <code>Centos6/7</code> 中原生 Python 版本可能很老，所以需要我们在不影响到系统使用的前提下升级 Python。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 察看当前 Centos 中系统 Python 版本：</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python -V</span></span><br></pre></td></tr></table></figure>
+<p>例如我的 <code>Centos6.9</code> 系统，通过查阅版本号发现：Centos 原生 Python 版本是 <code>2.4.3</code>，版本很旧了，升级系统 Python 版本是必须选择的。</p>
+<p><strong>Python3.X &amp;&amp; Python2.X</strong></p>
+<p>同样, <code>Python3.X</code> 和 <code>Python2.X</code> 的选择也很重要。我们知道 <code>3.X</code> 和 <code>2.X</code> 有很多不同，基于 <code>Python3.X</code> 和 <code>Python2.X</code> 的 Python 脚本不能很好互相兼容。这里我们推荐使用 <code>Python3.X</code> （原因不解释…）。于是，我们的一般想法是更新 Python 版本到 Python3.X，让其可以正常运行 <code>Python3.X</code> 的脚本。</p>
+<p>事实上，还有更好的方法 –&gt; <strong>Python 多版本并存</strong></p>
+<p>一个系统中可以存在多个 <code>Python</code> 版本，也就是说新老版本 <code>Python</code> 是可以共存的。但需要注意的是：很多基本的命令、软件包都要依赖系统默认的老版本 <code>Python</code> 的，比如 <code>yum</code> 等，更新 Python 版本后，相关依赖软件可能无法正常使用（后面会给出解决办法）。故，更新<code>Python</code>千万不要把老版本的删除，可以随时恢复！！！下面让我们来开始 Python 的更新:</p>
+<p><strong>First Step –&gt; 更新 GCC</strong> </p>
+<p><code>GCC</code> 版本太旧会导致新版本 Python 包编译不成功，安装 Python 前首先需要更新系统 <code>gcc</code> 版本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> yum -y install gcc</span></span><br></pre></td></tr></table></figure>
+<p><strong>Second Step –&gt; 下载 Python 安装包</strong></p>
+<p>以 <code>Python-3.3.0</code> 为例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> wget http://python.org/ftp/python/3.3.0/Python-3.3.0.tar.bz2</span></span><br></pre></td></tr></table></figure>
+<p>注意：按照上述命令下载的软件包会存放在你当前的工作目录下。链接中的数字对应的是 Python 版本号，你也可以把 <code>3.3.0</code> 换成你需要的版本。</p>
+<p><strong>Third Step –&gt; 解压已下载的二进制包并编译安装</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> tar -jxvf Python-3.3.0.tar.bz2 </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> Python-3.3.0 </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ./configure </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make all </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make install </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make clean </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make distclean</span></span><br></pre></td></tr></table></figure>
+<p><strong>Fourth Step –&gt; 设置软链接</strong></p>
+<p>建立软连接指向到当前系统默认 Python 命令的 bin 目录，让系统使用新版本 Python：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 原始 Python 的版本为 2.4，所以为了保留 Python2.4，将原始 /usr/bin/python 改名为 Python2.4</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> mv /usr/bin/python /usr/bin/python2.4</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将更新后的 python3.3 指向 /usr/bin/python，替换原始的 python2.4</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ln -s /usr/<span class="built_in">local</span>/bin/python3.3 /usr/bin/python</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看当前默认 Python 版本  </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python -V</span></span><br></pre></td></tr></table></figure>
+<p>这样配置之后，默认的 Python 成功指向 <code>Python3.3.0</code> 。<code>yum(依赖 Python2.4 的应用程序)</code> 不能正常使用，还需要修改 <code>yum</code> 的配置文件。 下面我们给出如何通过修改相关配置文件来解决依赖 <code>Python2.4</code> 的应用程序无法正常调用的问题。以修改 <code>yum</code> 配置文件（其它应用程序类似）为例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim /usr/bin/yum</span><br></pre></td></tr></table></figure>
+<p>把文件头部的 <code>#!/usr/bin/python</code> <strong>改成</strong> <code>#!/usr/bin/python2.4</code> 即可。</p>
+<p><strong>最终方案：</strong></p>
+<p>当然，很多同学可能回说：“那我怎么能知道都有哪些应用程序的配置文件需要修改呢？”。故为了更安全的使用更新后的 Python 版本，我们可以不覆盖原本的 <code>/usr/bin/python</code> ，而是在  <code>/usr/bin/</code> 下新建一个 <code>python3.3</code> 链接。如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ln -s /usr/<span class="built_in">local</span>/bin/python3.3 /usr/bin/python3.3</span><br></pre></td></tr></table></figure>
+<p>这样，调用系统命令 <code>python</code> 时仍然指向的老版本的 <code>Python2.4</code>。当我们需要使用新版本的 Python 时，只需要使用 <code>python3.3</code> 即可实现调用。</p>
+<hr>
+<h6 id="2）GNU-GLIBC-库版本更新"><a href="#2）GNU-GLIBC-库版本更新" class="headerlink" title="2）GNU GLIBC 库版本更新"></a>2）GNU GLIBC 库版本更新</h6><p>注意：此处更新有风险，升级需谨慎（一般不要随意升级内核运行库）！！！</p>
+<p>服务器是 <code>Centos6.X</code> 系统，即使通过 <code>pip</code> 安装好了 TensorFlow，在运行的时候我们也会发现仍然会报 <code>glibc</code> 版本过低的错误。这是由于 Centos6 上 <code>glibc</code> 最多到 <code>2.12</code> 版本，而强行使用高版本的 <code>glibc</code> 会导致程序意外崩溃。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Error：import tensorflow 时提示 GLIBC_2.14 找不到</span></span><br><span class="line">importError: /lib64/libc.so.6: version `GLIBC_2.14<span class="string">' not found</span></span><br></pre></td></tr></table></figure>
+<p><strong>解决方法如下：</strong></p>
+<p><strong>First Step –&gt; 安装或更新 GCC</strong></p>
+<p>首先察看当前系统的 <code>gcc</code> 版本: <code>gcc –-version</code>，然后 <code>yum update gcc</code>；如果没有 <code>gcc</code> 需要安装 <code>gcc</code>。后续 <code>GLIBC</code> 库升级需要使用 <code>gcc 编译</code>。</p>
+<p>注意，由于在 Python 更新时我们安装或更新过 GCC，故可以直接跳过。否则首先需要完成 <code>安装或更新 GCC</code> 。</p>
+<p>下面我们开始看如何更新系统中的 <code>GNU GLIBC 库</code>：</p>
+<p><strong>Second Step –&gt; 查看当前 GLIBC 支持的版本</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root]$ strings /lib64/libc.so.6 |grep GLIBC_</span><br><span class="line">GLIBC_2.2.5</span><br><span class="line">GLIBC_2.2.6</span><br><span class="line">GLIBC_2.3</span><br><span class="line">GLIBC_2.3.2</span><br><span class="line">GLIBC_2.3.3</span><br><span class="line">GLIBC_2.3.4</span><br><span class="line">GLIBC_2.4</span><br><span class="line">GLIBC_2.5</span><br><span class="line">GLIBC_2.6</span><br><span class="line">GLIBC_2.7</span><br><span class="line">GLIBC_2.8</span><br><span class="line">GLIBC_2.9</span><br><span class="line">GLIBC_2.10</span><br><span class="line">GLIBC_2.11</span><br><span class="line">GLIBC_2.12</span><br><span class="line">GLIBC_PRIVATE</span><br></pre></td></tr></table></figure>
+<p>可以看到，<code>Centos6.9</code> 自带的 <code>Glibc</code> 库最高版本是 <code>2.12</code> ，所以需要对当前版本进行升级。</p>
+<p><strong>Third Step –&gt; 安装 GLIBC_2.17</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://ftp.gnu.org/pub/gnu/glibc/glibc-2.17.tar.xz</span><br><span class="line"></span><br><span class="line">$ tar -zxvf glibc-2.17.tar</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span> glibc-2.17</span><br><span class="line"></span><br><span class="line">$ mkdir build</span><br><span class="line">$ <span class="built_in">cd</span> build</span><br><span class="line"></span><br><span class="line">$ ../configure --prefix=/usr --<span class="built_in">disable</span>-profile --<span class="built_in">enable</span>-add-ons --with-headers=/usr/include --with-binutils=/usr/bin</span><br><span class="line"></span><br><span class="line">$ make -j4</span><br><span class="line">$ make install</span><br><span class="line"></span><br><span class="line">% 等待安装成功即可。</span><br></pre></td></tr></table></figure>
+<p><strong>Fourth Step –&gt; 察看更新</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root]$ strings /lib64/libc.so.6 |grep GLIBC</span><br><span class="line">GLIBC_2.2.5</span><br><span class="line">GLIBC_2.2.6</span><br><span class="line">GLIBC_2.3</span><br><span class="line">GLIBC_2.3.2</span><br><span class="line">GLIBC_2.3.3</span><br><span class="line">GLIBC_2.3.4</span><br><span class="line">GLIBC_2.4</span><br><span class="line">GLIBC_2.5</span><br><span class="line">GLIBC_2.6</span><br><span class="line">GLIBC_2.7</span><br><span class="line">GLIBC_2.8</span><br><span class="line">GLIBC_2.9</span><br><span class="line">GLIBC_2.10</span><br><span class="line">GLIBC_2.11</span><br><span class="line">GLIBC_2.12</span><br><span class="line">GLIBC_2.13</span><br><span class="line">GLIBC_2.14</span><br><span class="line">GLIBC_2.15</span><br><span class="line">GLIBC_2.16</span><br><span class="line">GLIBC_2.17</span><br><span class="line">GLIBC_PRIVATE</span><br></pre></td></tr></table></figure>
+<p>此时，我们发现 <code>Centos6</code> 中 <code>glibc</code> 库版本过低问题得以解决！如果升级不成功可以使用如下语句简单还原:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ rm -rf /lib64/libc.so.6</span><br><span class="line">$ LD_PRELOAD=/lib64/libc-2.12.so ln -s /lib64/libc-2.12.so /lib64/libc.so.6</span><br></pre></td></tr></table></figure>
+<p>如果发生系统崩溃，可参见文档 <a href="https://www.orangeshare.cn/TensorFlow/GLIBC-%E5%8D%87%E7%BA%A7%E5%A4%B1%E8%B4%A5%E5%AF%BC%E8%87%B4%E7%B3%BB%E7%BB%9F%E5%B4%A9%E6%BA%83%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" target="_blank" rel="noopener">GLIBC 升级失败导致系统崩溃解决方法</a>。</p>
+<p><strong>Fifth Step –&gt; libstdc++.so.6: version `CXXABI_1.3.9’ not found</strong></p>
+<p>更新 <code>GLIBC</code> 后，在 <code>import tensorflow</code> 测试时可能还会产生一个问题：<code>libstdc++.so.6: version &#39;CXXABI_1.3.9&#39; not found (required by bin/opencv_test_core)?</code></p>
+<p>这是由于 <code>更新和安装 GCC</code> 导致的。需要使用升级后的 <code>gcc</code> 的动态库去替换老版本的 <code>gcc</code> 动态库。 </p>
+<p>解决方法参见文档：<a href="https://www.orangeshare.cn/TensorFlow/libstdc-so-6-version-CXXABI-1-3-X-not-found/" target="_blank" rel="noopener">libstdc++.so.6: version `CXXABI_1.3.9’ not found.doc</a>。</p>
+<hr>
+<h5 id="2-1-2-Setup"><a href="#2-1-2-Setup" class="headerlink" title="2.1.2 Setup"></a>2.1.2 Setup</h5><h6 id="1）Install-Pip"><a href="#1）Install-Pip" class="headerlink" title="1）Install Pip"></a>1）Install Pip</h6><p>首先检查是否安装有 pip：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip -V</span><br></pre></td></tr></table></figure>
+<p>如果有的话，可以看到 Pip 版本信息。否则，执行如下指令进行安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Ubuntu/Linux 64-bit</span></span><br><span class="line">$ sudo apt-get install python-pip python-dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># CentOS, Fedora, RHEL</span></span><br><span class="line">$ sudo yum install python-pip python-devel</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mac OS X</span></span><br><span class="line">$ sudo easy_install pip</span><br></pre></td></tr></table></figure>
+<h6 id="2）Export-TensorFlow（CPU-GPU）URL"><a href="#2）Export-TensorFlow（CPU-GPU）URL" class="headerlink" title="2）Export TensorFlow（CPU/GPU）URL"></a>2）Export TensorFlow（CPU/GPU）URL</h6><p>首先，我们给出一个 <a href="https://mirrors.tuna.tsinghua.edu.cn/tensorflow/linux/" target="_blank" rel="noopener">TensorFlow.whl 安装包</a> 下载地址（清华大学开源镜像站），提供了不同平台下不同安装版本的 <code>TensorFlow</code> 安装包下载 <code>URL</code>，从这里我们可以获取到我们需要的 <code>TensorFlow</code> 版本。</p>
+<p>然后，将TensorFlow URL 导入系统环境变量中，用于后续的下载：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">####### 1. 寻找合适的 Tensorflow 安装包下载链接 #######</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 环境变量 $TF_BINARY_URL 根据你的实际需求(想要下载的 Tensorflow 版本)进行设置，典型选项如下：</span></span><br><span class="line"><span class="comment"># 注意，以下给出的 URL 均属于 Google 官方链接，下载时可能出现网络中断，你可以将其更换为清华大学开源镜像站 URL。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Ubuntu/Linux 64-bit, CPU only, Python 2.7</span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.1-cp27-none-linux_x86_64.whl</span><br><span class="line"><span class="comment"># Ubuntu/Linux 64-bit, GPU enabled, Python 2.7</span></span><br><span class="line"><span class="comment"># 需要 CUDA toolkit 8.0（7.5） and CuDNN v5（v4）.</span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.1-cp27-none-linux_x86_64.whl</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mac OS X, CPU only, Python 2.7:</span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-0.12.1-py2-none-any.whl</span><br><span class="line"><span class="comment"># Mac OS X, GPU enabled, Python 2.7:</span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/gpu/tensorflow_gpu-0.12.1-py2-none-any.whl</span><br><span class="line"></span><br><span class="line"><span class="comment"># Ubuntu/Linux 64-bit, CPU only, Python 3.4</span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.1-cp34-cp34m-linux_x86_64.whl</span><br><span class="line"><span class="comment"># Ubuntu/Linux 64-bit, GPU enabled, Python 3.4</span></span><br><span class="line"><span class="comment"># 需要 CUDA toolkit 8.0 and CuDNN v5.0 </span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.1-cp34-cp34m-linux_x86_64.whl</span><br><span class="line"></span><br><span class="line"><span class="comment"># Ubuntu/Linux 64-bit, CPU only, Python 3.5</span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.1-cp35-cp35m-linux_x86_64.whl</span><br><span class="line"><span class="comment"># Ubuntu/Linux 64-bit, GPU enabled, Python 3.5</span></span><br><span class="line"><span class="comment"># Requires CUDA toolkit 8.0 and CuDNN v5. For other versions, see "Installing from sources" below.</span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.1-cp35-cp35m-linux_x86_64.whl</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mac OS X, CPU only, Python 3.4 or 3.5:</span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-0.12.1-py3-none-any.whl</span><br><span class="line"><span class="comment"># Mac OS X, GPU enabled, Python 3.4 or 3.5: </span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/gpu/tensorflow_gpu-0.12.1-py3-none-any.whl</span><br></pre></td></tr></table></figure>
+<p><strong>搭建 TensorFlow GPU 计算环境时请注意：</strong></p>
+<p>目前只有在安装了特定（ <code>CUDA</code> 和 <code>CuDNN</code> 版本）版本的环境（如：<code>CUDA toolkit 8.0（7.5）</code> and <code>CuDNN v5.1（v4）</code> 的 <code>64</code> 位 <code>Ubuntu</code> ）下才可以通过 Pip 安装支持 GPU 的 TensorFlow，详情参见 <code>Tensorflow &amp;&amp; NVIDIA 版本信息对照表</code>（已测试）。</p>
+<p>前面我们提到过，搭建基于 <code>GPU</code> 的 <code>TensorFlow</code> 深度学习环境前，我们需要部署 <code>CUDA/CuDNN</code> 环境。关于 <code>CUDA/CuDNN</code> 的安装见：<a href="https://www.orangeshare.cn/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/" target="_blank" rel="noopener">Ubuntu16.04 + Nvidia GTX 960+CUDA8.0 + CUDNN+ TensorFlow1.2</a>。</p>
+<p><code>Only CPU</code> 和 <code>GPU enabled</code> 版本区别：当处理数据量较大时，支持 GPU 版本处理速度要比支持 CPU 版本运行速度更快。当数据量较小时，GPU 可能运行更慢。</p>
+<hr>
+<h6 id="3）Install-TensorFlow"><a href="#3）Install-TensorFlow" class="headerlink" title="3）Install TensorFlow"></a>3）Install TensorFlow</h6><p>在 2）中我们已经选择了合适版本的 <code>TensorFlow URL</code>，运行如下命令可完成 <code>TensorFlow</code> 的安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Python 2 环境 </span></span><br><span class="line">$ sudo pip install --upgrade <span class="variable">$TF_BINARY_URL</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python 3 环境 </span></span><br><span class="line">$ sudo pip3 install --upgrade <span class="variable">$TF_BINARY_URL</span></span><br></pre></td></tr></table></figure>
+<p>这是完成环境搭建的最后一步,过程中会出现 <strong>网络连接超时</strong> 等问题。如果一次无法成功安装 <code>$TF_BINARY_URL</code>,并且你确定你所配置的网络或网络代理等都正常。那么，多试几次，不厌其烦，如果出现下面的信息，则表示你快要成功了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">###### Python 3 成功运行记录如下 ######</span></span><br><span class="line">	</span><br><span class="line">You are using pip version 7.1.0, however version 9.0.1 is available.  </span><br><span class="line">You should consider upgrading via the <span class="string">'pip install --upgrade pip'</span> <span class="built_in">command</span>.  </span><br><span class="line">Processing ./tensorflow_gpu-0.12.1-cp27-none-linux_x86_64.whl  </span><br><span class="line">Collecting mock&gt;=2.0.0 (from tensorflow-cpu==0.12.1)  </span><br><span class="line">  Using cached mock-2.0.0-py2.py3-none-any.whl  </span><br><span class="line">Collecting protobuf&gt;=3.1.0 (from tensorflow-cpu==0.12.1)  </span><br><span class="line">  Downloading protobuf-3.1.0.post1-py2.py3-none-any.whl (347kB)  </span><br><span class="line">    100% |████████████████████████████████| 348kB 164kB/s  </span><br><span class="line">Collecting numpy&gt;=1.11.0 (from tensorflow-cpu==0.12.1)  </span><br><span class="line">  Downloading numpy-1.11.3.zip (4.7MB)  </span><br><span class="line">    100% |████████████████████████████████| 4.7MB 34kB/s  </span><br><span class="line">Collecting wheel (from tensorflow-cpu==0.12.1)  </span><br><span class="line">  Downloading wheel-0.29.0-py2.py3-none-any.whl (66kB)  </span><br><span class="line">    100% |████████████████████████████████| 69kB 58kB/s  </span><br><span class="line">Collecting six&gt;=1.10.0 (from tensorflow-cpu==0.12.1)  </span><br><span class="line">  Downloading six-1.10.0-py2.py3-none-any.whl  </span><br><span class="line">Collecting funcsigs&gt;=1 (from mock&gt;=2.0.0-&gt;tensorflow-cpu==0.12.1)  </span><br><span class="line">  Downloading funcsigs-1.0.2-py2.py3-none-any.whl  </span><br><span class="line">Collecting pbr&gt;=0.11 (from mock&gt;=2.0.0-&gt;tensorflow-cpu==0.12.1)  </span><br><span class="line">  Downloading pbr-1.10.0-py2.py3-none-any.whl (96kB)  </span><br><span class="line">    100% |████████████████████████████████| 98kB 93kB/s  </span><br><span class="line">Requirement already satisfied (use --upgrade to upgrade): setuptools <span class="keyword">in</span> /usr/lib/python2.7/site-packages (from protobuf&gt;=3.1.0-&gt;tensorflow-cpu==0.12.1)  </span><br><span class="line">Installing collected packages: funcsigs, six, pbr, mock, protobuf, numpy, wheel, tensorflow-cpu  </span><br><span class="line">  Found existing installation: six 1.9.0  </span><br><span class="line">    Uninstalling six-1.9.0:  </span><br><span class="line">      Successfully uninstalled six-1.9.0  </span><br><span class="line">  Running setup.py install <span class="keyword">for</span> numpy  </span><br><span class="line">Successfully installed funcsigs-1.0.2 mock-2.0.0 numpy-1.11.3 pbr-1.10.0 protobuf-3.1.0.post1 six-1.10.0 tensorflow-cpu-0.12.1 wheel-0.29.0</span><br></pre></td></tr></table></figure>
+<p>如果以上下载过程发生中断，重新执行命令即可。如果你一次成功，那么恭喜。否则此处需要耐性！！！如若上述一直不成功，这里还提供一种解决思路：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/tensorflow-0.8.0rc0-py2-none-any.whl</span><br><span class="line"><span class="comment"># 先 wget $TF_BINARY_URL（或浏览器）下载 tensorflow—xxx.whl 文件到本地；</span></span><br><span class="line"><span class="comment"># 然后使用 pip install *.whl进行安装.</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h5 id="2-1-3-Pip-安装总结"><a href="#2-1-3-Pip-安装总结" class="headerlink" title="2.1.3 Pip 安装总结"></a>2.1.3 Pip 安装总结</h5><p>注意，以上安装过程在 <code>Centos6.9(7)</code>、<code>ubuntu14.04/16.04</code> 服务器环境下已测试通过。</p>
+<p><strong>优缺点：</strong></p>
+<blockquote>
+<p><strong>优点：</strong>应该是几种安装方法中最简单、最快的一种。</p>
+</blockquote>
+<blockquote>
+<p><strong>缺点：</strong>不能灵活定制。操作系统、GPU 硬件、CUDA 版本、cuDNN 版本必须与官方标称一致。由于属于直接安装于本机 Python 环境中，对原生开发环境有较大影响，不推荐使用该方法。</p>
+</blockquote>
+<hr>
+<h4 id="2-2-使用-Docker-镜像安装（未测试）"><a href="#2-2-使用-Docker-镜像安装（未测试）" class="headerlink" title="2.2 使用 Docker 镜像安装（未测试）"></a>2.2 使用 Docker 镜像安装（未测试）</h4><p><code>Docker</code> 是新一代的虚拟化技术，让开发者可以打包他们的应用以及相关依赖包到一个可移植的容器中，然后发布到任何流行的 Linux（内核版本高于 <code>3.10</code>） 机器上（Docker 支持大部分的操作系统：Linux[Ubunto / Centos / Debian / Red Hat等]、Windows7 以上以及 Mac OS 等）。</p>
+<p>它可以将 TensorFlow 以及 TensorFlow 的所有依赖关系统一到 Docker 镜像中，从而大大简化安装过程。当你通过 <code>Docker</code> 安装和运行 TensorFlow 时，它与你机器上之前已安装的软件包完全隔离。</p>
+<p>详细教程可参考网络。后续如有需要再做补充。</p>
+<h5 id="2-2-3-Docker-镜像安装总结"><a href="#2-2-3-Docker-镜像安装总结" class="headerlink" title="2.2.3 Docker 镜像安装总结"></a>2.2.3 Docker 镜像安装总结</h5><p><strong>优缺点：</strong></p>
+<blockquote>
+<p><strong>优点：</strong>适合在大量相同环境机器构成的集群上批量部署；</p>
+</blockquote>
+<blockquote>
+<p><strong>缺点：</strong>有墙的孩子像根草，增加了 Docker 学习成本；</p>
+</blockquote>
+<hr>
+<h4 id="2-3-使用源码编译安装"><a href="#2-3-使用源码编译安装" class="headerlink" title="2.3 使用源码编译安装"></a>2.3 使用源码编译安装</h4><p>新手不推荐使用此方法。详细教程可参考网络。后续如有需要再做补充。</p>
+<hr>
+<h4 id="2-4-使用-Anaconda-安装"><a href="#2-4-使用-Anaconda-安装" class="headerlink" title="2.4 使用 Anaconda 安装"></a>2.4 使用 Anaconda 安装</h4><p><strong>Anaconda</strong> 是 Python 的一个发行版，如果把 Python 比作 Linux，那么 Anancoda 就是 CentOS 或者 Ubuntu。它通过 <code>conda</code> 工具解决了 Python 开发者的两大痛点：</p>
+<ol>
+<li><p><strong>提供包管理</strong>，功能类似于 <code>pip</code>，Windows 平台安装第三方包经常失败的场景得以解决。</p>
+</li>
+<li><p><strong>提供虚拟环境管理</strong>，功能类似于 <code>virtualenv</code>，解决了多版本 Python 并存问题。</p>
+</li>
+</ol>
+<p><strong>通俗的讲：</strong></p>
+<p>使用 Anaconda 安装 TensorFlow 进行开发时，相当于将所有的 TensorFlow 底层依赖细节全部已经打包封装好了！并且，Anaconda 还能创建自己的计算环境，相当于将 TensorFlow 的环境与其他环境做了隔离，这样你就可以将 TensorFlow 随便玩，爱怎么玩怎么玩，也不用担心破坏之前的环境！！！</p>
+<p>如果是玩数据玩 <code>ML</code> 的同学，如果你还不知道 Anaconda，你就 out 啦！ Anaconda 是一个基于 Python 的科学计算平台，这个平台里包含有 <code>Python</code>、<code>R</code>、<code>Scala</code> 等绝大部分主流的用于科学计算的包，这极大的方便了开发人员的使用。</p>
+<p>想了解更多关于 <code>Anaconda</code> 的介绍以及使用请参见博文 <a href="https://www.orangeshare.cn/Anaconda/Anaconda-%E4%BB%8B%E7%BB%8D%E3%80%81%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" target="_blank" rel="noopener">Anaconda 介绍、安装以及使用教程</a>。</p>
+<hr>
+<h5 id="2-4-1-Anaconda-安装以及配置"><a href="#2-4-1-Anaconda-安装以及配置" class="headerlink" title="2.4.1 Anaconda 安装以及配置"></a>2.4.1 Anaconda 安装以及配置</h5><h6 id="1）Anaconda-的安装指南"><a href="#1）Anaconda-的安装指南" class="headerlink" title="1）Anaconda 的安装指南"></a>1）Anaconda 的安装指南</h6><p>首先，我们给出 <a href="https://www.anaconda.com/download/" target="_blank" rel="noopener">Anaconda 官方网址</a> 用于下载相应的安装包（下载较慢的话可以尝试前往：<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/" target="_blank" rel="noopener">清华大学开源软件镜像站</a>）。</p>
+<p>可以发现，<code>Anaconda</code> 对 <code>Linux</code>、<code>Mac</code> 以及 <code>Windows</code> 等系统均提供支持。下载 <code>Linux Anaconda</code> 安装包时，会发现有两个不同版本的 <code>Anaconda</code>，分别对应 <code>Python 2.7</code> 和 <code>Python 3.6</code>，两个版本其实除了这点区别外其他都一样。后面我们会看到，安装哪个版本并不是本质，因为通过 <code>conda</code> 环境管理，我们可以很方便地切换运行时的 Python 版本以适应不同 Python 版本开发需求（这里我们选择安装 <code>Python3.6</code> 为例）。</p>
+<p>下载完成后，Centos/ubuntu系统<code>~/Downloads（下载目录）</code>下会有一个文件：<code>Anaconda3-5.0.1-Linux-x86_64.sh</code>,它就是我们要安装的 <code>Anaconda3</code> 的安装包。</p>
+<h6 id="2）Anaconda-安装及配置"><a href="#2）Anaconda-安装及配置" class="headerlink" title="2）Anaconda 安装及配置"></a>2）Anaconda 安装及配置</h6><p><strong>First Step –&gt; 在 ~/Downloads 路径下执行</strong></p>
+<pre><code>$ sudo bash Anaconda3-5.0.1-Linux-x86_64.sh
+
+% 可能报错:
+PREFIX=/home/cdh/anaconda3
+Anaconda3-5.0.1-Linux-x86_64.sh: line 335: bunzip2: command not found
+tar: This does not look like a tar archive
+tar: Exiting with failure status due to previous errors
+
+% 安装 bzip2 即可解决:
+$ yum install -y bzip2
+</code></pre><p>安装过程中很简单，<code>Enter（/yes）</code> 即可（提前参看：<code>Second Step</code>）。安装完成后，会产生一个 <code>~/Anaconda3</code> 目录，即安装目录。</p>
+<p><strong>Second Step –&gt; Anaconda PATH 设置</strong></p>
+<p>在 Linux 安装 Anaconda3 时，安装最后会询问是否自动配置了 <code>PATH</code>，输入 <code>yes</code> 即可完成自动配置。安装完成后，建议察看 <code>~/.bashrc</code> 文件末尾是否有追加 <code>export PATH</code>，自动配置后会在<code>~/.bashrc</code> 文件末尾是否有追加 <code>export PATH</code>。</p>
+<p>如果没有配置环境变量，则执行以下命令也可以完成相同功能：</p>
+<pre><code>$ echo &apos;export PATH=&quot;~/anaconda3/bin:$PATH&quot;&apos; &gt;&gt; ~/.bashrc
+</code></pre><p><strong>Third Step –&gt; 更新 bashrc 使其生效</strong></p>
+<pre><code>$ source ~/.bashrc
+</code></pre><hr>
+<h5 id="2-4-2-Conda-管理工具使用"><a href="#2-4-2-Conda-管理工具使用" class="headerlink" title="2.4.2 Conda 管理工具使用"></a>2.4.2 Conda 管理工具使用</h5><p><code>conda</code> 是 Anaconda 下用于包管理和环境管理的命令行工具，可以看作是 <code>pip</code> 和 <code>vitualenv</code> 的组合。 Anaconda 安装成功后 <code>conda</code> 会默认加入到环境变量中，因此可直接在命令行窗口运行 <code>conda</code> 命令:</p>
+<pre><code># 测试安装是否成功
+$ conda –V 或 which conda
+
+# 假如安装的是 Python 2.7 对应的版本,运行：
+$ python -V
+# 可以看到：Python 2.7.12 :: Anaconda 4.3.30 (64-bit)，说明安装成功。
+</code></pre><h6 id="1）conda-多环境管理（实现多版本-Python-环境切换）"><a href="#1）conda-多环境管理（实现多版本-Python-环境切换）" class="headerlink" title="1）conda 多环境管理（实现多版本 Python 环境切换）"></a>1）conda 多环境管理（实现多版本 Python 环境切换）</h6><p><code>conda</code> 工具可以隔离出一个和当前系统 Python 环境分离的虚拟环境： </p>
+<pre><code>### [1] 创建虚拟环境：
+
+# 基于 python3.6 创建一个名 Python3 的环境
+$ conda create --name Python3 python=3.5 
+# 基于 python2.7 创建一个名为 Python2 的环境
+$ conda create --name Python2 python=2.7
+
+# 删除环境
+conda remove -n Python2 --all
+
+
+### [2] 切换虚拟环境：
+
+# 激活 Python3 环境
+$ activate Python3 # windows
+$ source activate Python3 # linux/mac
+# 退出 Python3 环境
+$ source deactivate
+
+# Python3 切换到 python2
+activate python2
+</code></pre><h6 id="2）conda-包管理（实现依赖包管理）"><a href="#2）conda-包管理（实现依赖包管理）" class="headerlink" title="2）conda 包管理（实现依赖包管理）"></a>2）conda 包管理（实现依赖包管理）</h6><p><code>conda（类似于 pip）</code> 的包管理功能是对 <code>pip</code> 的一种补充。如果当前已经激活了某个 Python 环境，那么就可以在当前环境开始安装第三方包。</p>
+<p>对于那些用 <code>pip</code> 无法安装成功的模块你都可以尝试用 <code>conda</code> 来安装，如果用 <code>conda</code> 找不到相应的包，当然你继续选择 <code>pip</code> 来安装包也是没问题的。</p>
+<h6 id="3）conda-常用命令"><a href="#3）conda-常用命令" class="headerlink" title="3）conda 常用命令"></a>3）conda 常用命令</h6><pre><code># 察看 conda 命令帮助
+$ conda -h
+# 查看某个指定环境的已安装包 
+$ conda list -n python27 
+# 查找 package信息 
+$ conda search numpy 
+# 向某个虚拟环境安装 package 
+$ conda install -n python27 numpy 
+# 更新 package 
+$ conda update -n python27 numpy 
+# 删除 package 
+$ conda remove -n python27 numpy
+</code></pre><hr>
+<h5 id="2-4-3-Pip-amp-amp-Anaconda-换源"><a href="#2-4-3-Pip-amp-amp-Anaconda-换源" class="headerlink" title="2.4.3 Pip &amp;&amp; Anaconda 换源"></a>2.4.3 Pip &amp;&amp; Anaconda 换源</h5><h6 id="1-gt-更换-Anaconda-镜像地址"><a href="#1-gt-更换-Anaconda-镜像地址" class="headerlink" title="1 &gt; 更换 Anaconda 镜像地址"></a>1 &gt; 更换 Anaconda 镜像地址</h6><p>类似于 <code>conda install</code> 创建环境失败 或 <code>conda update</code> 更新失败等操作，Anaconda 使用过程中可能产生类似如下错误信息（和 Pip 换源一个道理）：</p>
+<pre><code>Fetching package metadata .......
+CondaHTTPError: HTTP 000 CONNECTION FAILED for url &lt;https://nanomirrors.tuna.tsinghua.edu.cn/anaconda/cloud/linux-64/rpodata.json&gt;
+Elapsed: -
+
+An HTTP error occurred when trying to retrieve this URL.
+HTTP errors are often intermittent, and a simple retry will get you on your way.
+ConnectTimeout(MaxRetryError(&quot;HTTPSConnectionPool(host=&apos;nanomirrors.tuna.tsinghua.edu.cn&apos;, port=443): Max retries exceded with url: /anaconda/cloud/linux-64/repodata.json (Caused by ConnectTimeoutError(&lt;requests.packages.urllib3.connecton.VerifiedHTTPSConnection object at 0x7fb6d340dcc0&gt;, &apos;Connection to nanomirrors.tuna.tsinghua.edu.cn timed out. (connct timeout=9.15)&apos;))&quot;,),)
+</code></pre><p>产生原因以及解决方法如下：</p>
+<p><strong>1）Packages Install</strong></p>
+<p>如果需要安装很多 <code>Packages</code>，你会发现 <code>conda</code> 下载的速度经常很慢，最后导致崩掉。或创建环境时间太长崩掉。因为 <code>Anaconda.org</code> 的服务器在国外。</p>
+<p>所幸的是，<code>清华TUNA</code> 、中科大等国内镜像源有 Anaconda 仓库的镜像。这意味着我们可以将 Anaconda 默认的镜像源换为 <code>清华TUNA</code> 镜像源等：</p>
+<blockquote>
+<p>注意：清华、中科大由于暂时未获取到 Anaconda 授权，宣布将于 2019.5 月底暂停 Anaconda 镜像服务。等吧….</p>
+</blockquote>
+<pre><code>#  Linux/Mac：修改或新创建 ~/.condarc 配置文件添加如下内容：
+$ vim ~/.condarc
+
+channes:
+ - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+ - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
+ - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+ - defaults
+show_channel_urls: true
+</code></pre><p>或通过命令行运行如下命令也可以将Anaconda 默认的镜像源换为 <code>清华TUNA</code> 镜像源：</p>
+<pre><code>$ conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
+$ conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+$ conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+$ conda config --set show_channel_urls yes
+</code></pre><p>命令行设置后如何快速换回默认源：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda config --force --remove-key channels</span><br></pre></td></tr></table></figure>
+<h6 id="2-gt-更换-Pip-源地址"><a href="#2-gt-更换-Pip-源地址" class="headerlink" title="2 &gt; 更换 Pip 源地址"></a>2 &gt; 更换 Pip 源地址</h6><p><code>pip</code> 安装（本地 <code>.whl</code> 文件）或从源下载软件，经常出现下载后安装出错问题。除此之外，你也可以把 <code>pip</code> 的镜像源地址也换成国内的，豆瓣源速度比较快。</p>
+<p>国内常用源（新版 Ubuntu 要求使用 https 源，要注意。）：</p>
+<pre><code>清华：https://pypi.tuna.tsinghua.edu.cn/simple
+阿里云：http://mirrors.aliyun.com/pypi/simple/
+中国科技大学 https://pypi.mirrors.ustc.edu.cn/simple/
+华中理工大学：http://pypi.hustunique.com/
+山东理工大学：http://pypi.sdutlinux.org/ 
+豆瓣：http://pypi.douban.com/simple/
+</code></pre><p>以设置阿里 <code>pip</code> 源为例，加速 <code>pip</code> 下载速度：</p>
+<pre><code>$ mkdir ~/.pip
+$ cat &gt; ~/.pip/pip.conf &lt;&lt; EOF
+&gt;[global]
+&gt;trusted-host=mirrors.aliyun.com
+&gt;index-url=http://mirrors.aliyun.com/pypi/simple/
+&gt;EOF
+</code></pre><p><code>pip</code> 换源后,可直接从 <code>pip</code> 下载源下载需要的 tensorflow 版本:</p>
+<pre><code>$ pip install tensorflow==1.2
+</code></pre><hr>
+<h5 id="2-4-4-Setup-TensorFlow"><a href="#2-4-4-Setup-TensorFlow" class="headerlink" title="2.4.4 Setup TensorFlow"></a>2.4.4 Setup TensorFlow</h5><p>熟悉了 Anaconda 环境后，我们来看如何基于 Anaconda 虚拟环境来搭建 TensorFlow 学习环境：</p>
+<h6 id="1）CUDA-amp-amp-CUDNN（GPU-Support-版需要执行该步骤，CPU-Support-跳过这一部分即可）"><a href="#1）CUDA-amp-amp-CUDNN（GPU-Support-版需要执行该步骤，CPU-Support-跳过这一部分即可）" class="headerlink" title="1）CUDA &amp;&amp; CUDNN（GPU Support 版需要执行该步骤，CPU Support 跳过这一部分即可）"></a>1）CUDA &amp;&amp; CUDNN（GPU Support 版需要执行该步骤，CPU Support 跳过这一部分即可）</h6><p><code>Tensorflow</code> 同 <code>Caffe</code> 一样，也是支持 <code>CPU</code> 和 <code>GPU</code> 两个版本。故也需要安装 <code>CUDA</code> 和 <code>CUDNN</code>。根据上文版本对照表信息推荐安装 <code>CUDA</code> 版本为 <code>8.0</code>，<code>CUDNN</code> 版本为 <code>5.1</code>。</p>
+<p>详细安装教程见文档：<a href="https://www.orangeshare.cn/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/" target="_blank" rel="noopener">Ubuntu16.04+Nvidia GTX 960+CUDA8.0.+CUDNN+TensorFlow1.2</a>。</p>
+<h6 id="2）建立名叫-tensorflow-的计算环境"><a href="#2）建立名叫-tensorflow-的计算环境" class="headerlink" title="2）建立名叫 tensorflow 的计算环境"></a>2）建立名叫 tensorflow 的计算环境</h6><p>Anaconda 的环境准备好了以后，接下来我们建立一个 conda 的计算环境，给这个环境取名叫 tensorflow:</p>
+<pre><code># Python 2.7
+$ conda create -n tensorflow python=2.7
+
+# Python 3.5
+$ conda create -n tensorflow python=3.5
+</code></pre><p>如果发现，无法成功创建，不要灰心，多创建几次会成功的。</p>
+<h6 id="3）激活-tensorflow-环境，然后用-pip-安装-TensorFlow"><a href="#3）激活-tensorflow-环境，然后用-pip-安装-TensorFlow" class="headerlink" title="3）激活 tensorflow 环境，然后用 pip 安装 TensorFlow"></a>3）激活 tensorflow 环境，然后用 pip 安装 TensorFlow</h6><p>先给出<a href="https://mirrors.tuna.tsinghua.edu.cn/tensorflow/linux/" target="_blank" rel="noopener">TensorFlow.whl安装包</a>下载地址（清华大学开源镜像站），提供了不同平台下不同安装版本的 <code>TensorFlow</code> 安装包下载 <code>URL</code>，从这里，我们可以获取到我们需要的 <code>TensorFlow</code> 版本。</p>
+<p><strong>–&gt; [1]：</strong>建立了名叫 tensorflow 的计算环境后，先激活 tensorflow 环境。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># source activate tensorflow</span></span><br></pre></td></tr></table></figure>
+<p>注意，激活 tensorflow 环境后会发现用户名前出现 (tensorflow) 的标识。实际上我们这样切换，是更换了环境变量里不同版本的 pip 和 python ，实现了多环境多版本管理。</p>
+<p><strong>–&gt; [2]：</strong>切换到 tensorflow 的计算环境中，安装 Tensorflow 应用程序有两种方法（以安装 TensorFlow1.2 为例）：</p>
+<p><strong>2.1] 简单安装方式：</strong> </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ pip install tensorflow==1.2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或：</span></span><br><span class="line"></span><br><span class="line">pip install tensorflow-gpu==1.2</span><br></pre></td></tr></table></figure>
+<p><strong>2.2] 虚拟环境中使用类原生 pip 安装</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 和 2.1 中安装方法一样，唯一有区别的是这里我们不是原生 Pip 环境，而是处于 conda 管理的虚拟环境（如下）：</span></span><br><span class="line">(tensorflow)[root@localhost ~]$ <span class="built_in">export</span> TF_BINARY_URL= https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.1-cp27-none-linux_x86_64.whl</span><br><span class="line">(tensorflow)[root@localhost ~]$ pip install --ignore-installed --upgrade <span class="variable">$TF_BINARY_URL</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.2.1] 当然上面的命令对应的是 python2.7，系统为 linux，cpu only。</span></span><br><span class="line"><span class="comment"># 注意 TensorFlow 0.8.0 版本不支持分布式计算。想支持分布式计算，TensorFlow 版本 &gt;= 1.0。</span></span><br><span class="line"><span class="comment"># 根据 TensorFlow 官方提供的资料，不同的系统与不同的版本命令如下：</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## ---&gt; Python2.7</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Ubuntu/Linux 64-bit, CPU only, Python 2.7</span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.1-cp27-none-linux_x86_64.whl</span><br><span class="line"><span class="comment"># Ubuntu/Linux 64-bit, GPU enabled, Python 2.7</span></span><br><span class="line"><span class="comment"># 需要 CUDA toolkit 8.0（7.5） and CuDNN v5（v4）.</span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.1-cp27-none-linux_x86_64.whl</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mac OS X, CPU only, Python 2.7:</span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-0.12.1-py2-none-any.whl</span><br><span class="line"><span class="comment"># Mac OS X, GPU enabled, Python 2.7:</span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/gpu/tensorflow_gpu-0.12.1-py2-none-any.whl</span><br><span class="line"></span><br><span class="line"><span class="comment">## ---&gt; Python3.4/3.5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Ubuntu/Linux 64-bit, CPU only, Python 3.4</span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.1-cp34-cp34m-linux_x86_64.whl</span><br><span class="line"><span class="comment"># Ubuntu/Linux 64-bit, GPU enabled, Python 3.4</span></span><br><span class="line"><span class="comment"># 需要 CUDA toolkit 8.0 and CuDNN v5.0 </span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.1-cp34-cp34m-linux_x86_64.whl</span><br><span class="line"></span><br><span class="line"><span class="comment"># Ubuntu/Linux 64-bit, CPU only, Python 3.5</span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.1-cp35-cp35m-linux_x86_64.whl</span><br><span class="line"><span class="comment"># Ubuntu/Linux 64-bit, GPU enabled, Python 3.5</span></span><br><span class="line"><span class="comment"># Requires CUDA toolkit 8.0 and CuDNN v5. For other versions, see "Installing from sources" below.</span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.1-cp35-cp35m-linux_x86_64.whl</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mac OS X, CPU only, Python 3.4 or 3.5:</span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-0.12.1-py3-none-any.whl</span><br><span class="line"><span class="comment"># Mac OS X, GPU enabled, Python 3.4 or 3.5: </span></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/gpu/tensorflow_gpu-0.12.1-py3-none-any.whl</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.2.2] 命令提交以后，等待 pip 安装成功信息即可。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.2.3] 如果以上下载过程发生中断，重新执行命令即可。如果你一次成功，那么恭喜。否则此处需要耐性！！！如若上述一直不成功，这里还提供一种解决思路：</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/tensorflow-0.8.0rc0-py2-none-any.whl</span><br><span class="line"><span class="comment"># 先 wget $TF_BINARY_URL 下载 .whl 文件到本地；</span></span><br><span class="line"><span class="comment"># 然后使用 pip install *.whl 进行安装。</span></span><br></pre></td></tr></table></figure>
+<h6 id="4）Glibc-amp-amp-libstdc-so-6-version-CXXABI-1-3-9’-not-found"><a href="#4）Glibc-amp-amp-libstdc-so-6-version-CXXABI-1-3-9’-not-found" class="headerlink" title="4）Glibc &amp;&amp; libstdc++.so.6: version `CXXABI_1.3.9’ not found"></a>4）Glibc &amp;&amp; libstdc++.so.6: version `CXXABI_1.3.9’ not found</h6><p>Centos6/7 下可能出现 <code>Glibc 库升级</code> 与 <code>libstdc++.so.6: version &#39;CXXABI_1.3.9&#39; not found</code>报错。Ubuntu 下安装不会出现该问题。</p>
+<p>解决方法见 <code>原生 pip 安装</code> 部分。</p>
+<hr>
+<h5 id="2-4-5-Anaconda-多环境多版本-Python-指南"><a href="#2-4-5-Anaconda-多环境多版本-Python-指南" class="headerlink" title="2.4.5 Anaconda 多环境多版本 Python 指南"></a>2.4.5 Anaconda 多环境多版本 Python 指南</h5><p>借鉴 <code>2.4.2 Conda 管理工具</code> 中 <code>conda 多环境管理</code> 使用方法，解决如何在一个 Anaconda 上装两个不同 python 版本。</p>
+<p>参看过博文 <a href="https://www.orangeshare.cn/Anaconda/Anaconda-%E4%BB%8B%E7%BB%8D%E3%80%81%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" target="_blank" rel="noopener">Anaconda 介绍、安装以及使用教程</a> 的同学肯定了解过 Anaconda 生态。例如：我们安装的是 <code>Anaconda3</code>。里面默认安装的是 <code>python3</code> 的 <code>Spyder</code> 和 <code>Jupter notebook</code>。那么我们如何在 <code>Anaconda3</code> 里面装上 <code>python2</code> 的 <code>Spyder</code> 和 <code>Jupter notebook</code> 呢？</p>
+<p><strong>方法一：Terminal</strong></p>
+<pre><code># 使用 conda 创建一个名为 tensorflow2 的环境，并下载对应版本python2.7
+$ conda create --name tensorflow2 python=2.7 
+
+# 激活 tensorflow2 环境
+$ source activate python2 
+
+# 在 tensorflow2 的环境下下载 spyder 和 Jupter notebook
+$ conda install spyder
+$ conda install jupyter
+# 使用 pip 安装 tensorflow（教程见上）
+</code></pre><p>这样，你想用 <code>python3</code> 编写代码时，就打开 <code>python3</code> 的 <code>spyder</code>；你想用 <code>python2</code> 编写代码时，就打开 <code>python2</code> 的 <code>spyder</code>。两种环境的切换非常方便（当然这里是存在问题的，感兴趣的同学可以考虑以下）。</p>
+<p><strong>方法二：Desktop Anaconda Navigator（简单、直观、耗时；不推荐）</strong></p>
+<pre><code># 1. Terminal下打开 Anaconda Navigator
+$ anaconda-navigator
+
+# 2. 点击界面左侧 environment，可以看到已安装
+
+# 3. 然后选择在你的想要的环境中下载spyder和jupyter notebook。 
+</code></pre><p>但是，因为 <code>Anaconda Navigator</code> 的环境不稳定，容易出现屏幕卡死或者闪退现象，不推荐这种方法。</p>
+<hr>
+<h5 id="2-4-6-Anaconda-安装总结"><a href="#2-4-6-Anaconda-安装总结" class="headerlink" title="2.4.6 Anaconda 安装总结"></a>2.4.6 Anaconda 安装总结</h5><p>1.强烈推荐使用Anaconda环境安装，真的不是一般的简单方便。</p>
+<p>2.梯子，还是梯子，不解释。</p>
+<p>3.激活与退出 tensorflow 计算环境：</p>
+<pre><code>#激活TensorFlow环境
+source activate tensorflow
+
+#退出
+source deactivate
+</code></pre><hr>
+<h5 id="2-4-7-Anaconda-激活环境困扰"><a href="#2-4-7-Anaconda-激活环境困扰" class="headerlink" title="2.4.7 Anaconda 激活环境困扰"></a>2.4.7 Anaconda 激活环境困扰</h5><h6 id="1）设置-TensorFlow-永久环境"><a href="#1）设置-TensorFlow-永久环境" class="headerlink" title="1）设置 TensorFlow 永久环境"></a>1）设置 TensorFlow 永久环境</h6><p>每次运行 tensorflow 环境都需要启动环境，如何设置永久环境：</p>
+<pre><code>$ printf &apos;. /root/anaconda3/bin/activate tensorflow-3.5&apos; &gt;&gt;~/.bashrc
+$ source ~/.bashrc
+</code></pre><h6 id="2）TensorFlow-环境快捷启动"><a href="#2）TensorFlow-环境快捷启动" class="headerlink" title="2）TensorFlow 环境快捷启动"></a>2）TensorFlow 环境快捷启动</h6><p>每次启动 tensorflow 环境时命令太长，如何设置命令别名：</p>
+<pre><code>## tensorflow 启动：tensorflow-py3.5 环境
+$ printf &apos;\nalias tensorflow=&quot;source /root/anaconda3/bin/activate tensorflow-py3.5&quot;&apos; &gt;&gt;~/.bashrc
+## exittensorflow 退出环境
+$ printf &apos;\nalias exittensorflow=&quot;source deactivate&quot;&apos; &gt;&gt;~/.bashrc
+</code></pre><h6 id="3）Tensorflow-服务"><a href="#3）Tensorflow-服务" class="headerlink" title="3）Tensorflow 服务"></a>3）Tensorflow 服务</h6><p>Tensorflow 程序作为项目一部分，嵌入其它开发环境使用，调用该 Python 程序时启动环境问题：</p>
+<pre><code>% 1. 提供了一个 python 通过调用 shell 命令实现启动 tensorflow 环境并执行目标程序的接口；
+
+% 2. 将 Python 写成一个服务（例如：Flask），通过 Http 请求访问。
+</code></pre><hr>
+<h4 id="2-5-使用-VirtualEnv-安装"><a href="#2-5-使用-VirtualEnv-安装" class="headerlink" title="2.5 使用 VirtualEnv 安装"></a>2.5 使用 VirtualEnv 安装</h4><hr>
+<h3 id="3-TensorFlow-环境测试"><a href="#3-TensorFlow-环境测试" class="headerlink" title="3. TensorFlow 环境测试"></a>3. TensorFlow 环境测试</h3><h4 id="3-1-HelloWorld-样例测试"><a href="#3-1-HelloWorld-样例测试" class="headerlink" title="3.1 HelloWorld 样例测试"></a>3.1 HelloWorld 样例测试</h4><pre><code>(tensorflow-3.5) root@ubuntu-Lenovo-Product:~# python
+Python 3.5.4 | packaged by conda-forge | (default, Dec 18 2017, 06:30:33) 
+[GCC 4.8.2 20140120 (Red Hat 4.8.2-15)] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import tensorflow as tf
+&gt;&gt;&gt; hello = tf.constant(&apos;Hello, TensorFlow!&apos;)
+&gt;&gt;&gt; sess = tf.Session()
+&gt;&gt;&gt; print (sess.run(hello))
+b&apos;Hello, TensorFlow!&apos;
+&gt;&gt;&gt; a = tf.constant(10)
+&gt;&gt;&gt; b = tf.constant(32)
+&gt;&gt;&gt; print (sess.run(a+b))
+42
+&gt;&gt;&gt;
+</code></pre><p>样例结果与上述输出信息一致则表示 TensorFlow 安装成功！</p>
+<p>如果 <code>tf.Session()</code> 时遇到问题：</p>
+<pre><code>I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use:SSE4.1 SSE4.2 AVX
+</code></pre><p>上述输出是不影响 TensorFlow 使用的，可能你觉得这看起来也太难受了。解决方法如下:</p>
+<pre><code># 1. 在代码开始导入：
+&gt;&gt;&gt;import os
+&gt;&gt;&gt;os.environ[&apos;TF_CPP_MIN_LOG_LEVEL&apos;]=&apos;2&apos;
+&gt;&gt;&gt;import tensorflow as tf
+
+# 2. 使用 TensorFlow 源码编译安装 TensorFlow
+</code></pre><hr>
+<h3 id="Tensorflow-amp-amp-NVIDIA-版本信息对照表"><a href="#Tensorflow-amp-amp-NVIDIA-版本信息对照表" class="headerlink" title="Tensorflow &amp;&amp; NVIDIA 版本信息对照表"></a>Tensorflow &amp;&amp; NVIDIA 版本信息对照表</h3><h4 id="For-Windows"><a href="#For-Windows" class="headerlink" title="For Windows"></a>For Windows</h4><p>官方经过测试的 Tensorflow &amp;&amp; CUDA &amp;&amp; cuDNN 版本对应关系（持续更新）：<a href="https://tensorflow.google.cn/install/source_windows#tested_build_configurations" target="_blank" rel="noopener">https://tensorflow.google.cn/install/source_windows#tested_build_configurations</a> 。</p>
+<blockquote>
+<p>Windows</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">TensorFlow 版本：         CPU/GPU:   Python 版本:    编译器:                 构建工具:           CUDNN:  CUDA:</span><br><span class="line">----------------------------------------------------------------------------------------------------------------------</span><br><span class="line">tensorflow-1.13.0         CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.13.0     GPU           3.5-3.6      MSVC 2015 update 3     Bazel 0.15.0        7        9</span><br><span class="line">tensorflow-1.12.0         CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.12.0     GPU           3.5-3.6      MSVC 2015 update 3     Bazel 0.15.0        7        9</span><br><span class="line">tensorflow-1.11.0         CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.11.0     GPU           3.5-3.6      MSVC 2015 update 3     Bazel 0.15.0        7        9</span><br><span class="line">tensorflow-1.10.0         CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.10.0     GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        7        9</span><br><span class="line">tensorflow-1.9.0          CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.9.0      GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        7        9</span><br><span class="line">tensorflow-1.8.0          CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.8.0      GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        7        9</span><br><span class="line">tensorflow-1.7.0          CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.7.0      GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        7        9</span><br><span class="line">tensorflow-1.6.0          CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.6.0      GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        7        9</span><br><span class="line">tensorflow-1.5.0          CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.5.0      GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        7        9</span><br><span class="line">tensorflow-1.4.0          CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.4.0      GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        6        8</span><br><span class="line">tensorflow-1.3.0          CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.3.0      GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        6        8</span><br><span class="line">tensorflow-1.2.0          CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.2.0      GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        5.1      8</span><br><span class="line">tensorflow-1.1.0          CPU           3.5          MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.1.0      GPU           3.5          MSVC 2015 update 3     Cmake v3.6.3        5.1      8</span><br><span class="line">tensorflow-1.0.0          CPU           3.5          MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.0.0      GPU           3.5          MSVC 2015 update 3     Cmake v3.6.3        5.1      8</span><br></pre></td></tr></table></figure>
+<h4 id="For-Linux-amp-amp-Mac"><a href="#For-Linux-amp-amp-Mac" class="headerlink" title="For Linux &amp;&amp; Mac"></a>For Linux &amp;&amp; Mac</h4><p>官方经过测试的 Tensorflow &amp;&amp; CUDA &amp;&amp; cuDNN 版本对应关系（持续更新）：<a href="https://tensorflow.google.cn/install/source#tested_build_configurations" target="_blank" rel="noopener">https://tensorflow.google.cn/install/source#tested_build_configurations</a> 。</p>
+<blockquote>
+<p>Linux</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">TensorFlow 版本：        CPU/GPU:    Python 版本:     编译器:       构建工具:        CUDNN:   CUDA:</span><br><span class="line">----------------------------------------------------------------------------------------------------------------------</span><br><span class="line">tensorflow-1.13.1          CPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.19.2        N       N</span><br><span class="line">tensorflow_gpu-1.13.1      GPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.15.0        7.4     10.0</span><br><span class="line">tensorflow-1.12.0          CPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.15.0        N       N</span><br><span class="line">tensorflow_gpu-1.12.0      GPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.15.0        7       9</span><br><span class="line">tensorflow-1.11.0          CPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.15.0        N       N</span><br><span class="line">tensorflow_gpu-1.11.0      GPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.15.0        7       9</span><br><span class="line">tensorflow-1.10.0          CPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.15.0        N       N</span><br><span class="line">tensorflow_gpu-1.10.0      GPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.15.0        7       9</span><br><span class="line">tensorflow-1.9.0           CPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.11.0        N       N</span><br><span class="line">tensorflow_gpu-1.9.0       GPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.11.0        7       9</span><br><span class="line">tensorflow-1.8.0           CPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.10.0        N       N</span><br><span class="line">tensorflow_gpu-1.8.0       GPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.10.0        7       9</span><br><span class="line">tensorflow-1.7.0           CPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.10.0        N       N</span><br><span class="line">tensorflow_gpu-1.7.0       GPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.9.0         7       9</span><br><span class="line">tensorflow-1.6.0           CPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.9.0         N       N</span><br><span class="line">tensorflow_gpu-1.6.0       GPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.9.0         7       9</span><br><span class="line">tensorflow-1.5.0           CPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.8.0         N       N</span><br><span class="line">tensorflow_gpu-1.5.0       GPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.8.0         7       9</span><br><span class="line">tensorflow-1.4.0           CPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.5.4         N       N</span><br><span class="line">tensorflow_gpu-1.4.0       GPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.5.4         6       8</span><br><span class="line">tensorflow-1.3.0           CPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.4.5         N       N</span><br><span class="line">tensorflow_gpu-1.3.0       GPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.4.5         6       8</span><br><span class="line">tensorflow-1.2.0           CPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.4.5         N       N</span><br><span class="line">tensorflow_gpu-1.2.0       GPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.4.5         5.1     8</span><br><span class="line">tensorflow-1.1.0           CPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.4.2         N       N</span><br><span class="line">tensorflow_gpu-1.1.0       GPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.4.2         5.1     8</span><br><span class="line">tensorflow-1.0.0           CPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.4.2         N       N</span><br><span class="line">tensorflow_gpu-1.0.0       GPU      2.7、3.3-3.6     GCC 4.8       Bazel 0.4.2         5.1     8</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Mac</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">TensorFlow 版本：     CPU/GPU:     Python 版本:      编译器:                 构建工具:      CUDNN:   CUDA:</span><br><span class="line">----------------------------------------------------------------------------------------------------------------------</span><br><span class="line">tensorflow-1.13.1      CPU         2.7、3.3-3.6     XCode 中的 Clang      Bazel 0.19.2        N       N</span><br><span class="line">tensorflow-1.12.0      CPU         2.7、3.3-3.6     XCode 中的 Clang      Bazel 0.15.1        N       N</span><br><span class="line">tensorflow-1.11.0      CPU         2.7、3.3-3.6     XCode 中的 Clang      Bazel 0.15.1        N       N</span><br><span class="line">tensorflow-1.10.0      CPU         2.7、3.3-3.6     XCode 中的 Clang      Bazel 0.15.1        N       N</span><br><span class="line">tensorflow-1.9.0       CPU         2.7、3.3-3.6     XCode 中的 Clang      Bazel 0.11.1        N       N</span><br><span class="line">tensorflow-1.8.0       CPU         2.7、3.3-3.6     XCode 中的 Clang      Bazel 0.10.1        N       N</span><br><span class="line">tensorflow-1.7.0       CPU         2.7、3.3-3.6     XCode 中的 Clang      Bazel 0.10.1        N       N</span><br><span class="line">tensorflow-1.6.0       CPU         2.7、3.3-3.6     XCode 中的 Clang      Bazel  0.8.1        N       N</span><br><span class="line">tensorflow-1.5.0       CPU         2.7、3.3-3.6     XCode 中的 Clang      Bazel  0.8.1        N       N</span><br><span class="line">tensorflow-1.4.0       CPU         2.7、3.3-3.6     XCode 中的 Clang      Bazel  0.5.4        N       N</span><br><span class="line">tensorflow-1.3.0       CPU         2.7、3.3-3.6     XCode 中的 Clang      Bazel  0.4.5        N       N</span><br><span class="line">tensorflow-1.2.0       CPU         2.7、3.3-3.6     XCode 中的 Clang      Bazel  0.4.5        N       N</span><br><span class="line"></span><br><span class="line">tensorflow-1.1.0       CPU         2.7、3.3-3.6     XCode 中的 Clang      Bazel  0.4.2        N       N</span><br><span class="line">tensorflow_gpu-1.1.0   GPU         2.7、3.3-3.6     XCode 中的 Clang      Bazel  0.4.2        5.1     8</span><br><span class="line">tensorflow-1.0.0       CPU         2.7、3.3-3.6     XCode 中的 Clang      Bazel  0.4.2        N       N</span><br><span class="line">tensorflow_gpu-1.0.0   GPU         2.7、3.3-3.6     XCode 中的 Clang      Bazel  0.4.2        5.1     8</span><br></pre></td></tr></table></figure>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/TensorFlow/Centos6（7）-Ubuntu-在线搭建-Anaconda3-Tensorflow-开发环境/" title="Centos6（7）/Ubuntu 在线搭建 Anaconda & Tensorflow 开发环境【持续更新】">http://yoursite.com/TensorFlow/Centos6（7）-Ubuntu-在线搭建-Anaconda3-Tensorflow-开发环境/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Anaconda/" rel="tag"><i class="fa fa-tag"></i> Anaconda</a>
+          
+            <a href="/tags/TensorFlow/" rel="tag"><i class="fa fa-tag"></i> TensorFlow</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Linux-Shell/Linux-之磁盘空间信息查询/" rel="next" title="Linux 之磁盘空间信息查询">
+                <i class="fa fa-chevron-left"></i> Linux 之磁盘空间信息查询
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/TensorFlow/GLIBC-升级失败导致系统崩溃解决方法/" rel="prev" title="GLIBC 升级失败导致系统崩溃解决方法">
+                GLIBC 升级失败导致系统崩溃解决方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup-Reference"><span class="nav-text">Setup Reference</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-TensorFlow-预安装环境准备"><span class="nav-text">1. TensorFlow 预安装环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-服务器操作系统选择"><span class="nav-text">1.1 服务器操作系统选择</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-关于-TensorFlow-服务器"><span class="nav-text">1.2 关于 TensorFlow 服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-1-安装以及配置新的-Linux-Server-For-TensorFlow-Frame"><span class="nav-text">1.2.1 安装以及配置新的 Linux Server For TensorFlow Frame</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-2-1-1-gt-Centos6（7）-Ubuntu-Server-安装"><span class="nav-text">1.2.1_1 &gt; Centos6（7）/Ubuntu Server 安装</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-2-1-2-gt-Centos6（7）-Ubuntu-Server-快速配置"><span class="nav-text">1.2.1_2 &gt; Centos6（7）/Ubuntu Server 快速配置</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-2-基于既有开发环境部署-Tensorflow-Frame"><span class="nav-text">1.2.2 基于既有开发环境部署 Tensorflow Frame</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-TensorFlow-正式安装"><span class="nav-text">2. TensorFlow 正式安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-使用原生-Pip-安装"><span class="nav-text">2.1 使用原生 Pip 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-1-Centos6-7-环境准备"><span class="nav-text">2.1.1 Centos6/7 环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）Python-更新"><span class="nav-text">1）Python 更新</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）GNU-GLIBC-库版本更新"><span class="nav-text">2）GNU GLIBC 库版本更新</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-2-Setup"><span class="nav-text">2.1.2 Setup</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）Install-Pip"><span class="nav-text">1）Install Pip</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）Export-TensorFlow（CPU-GPU）URL"><span class="nav-text">2）Export TensorFlow（CPU/GPU）URL</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3）Install-TensorFlow"><span class="nav-text">3）Install TensorFlow</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-3-Pip-安装总结"><span class="nav-text">2.1.3 Pip 安装总结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-使用-Docker-镜像安装（未测试）"><span class="nav-text">2.2 使用 Docker 镜像安装（未测试）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-3-Docker-镜像安装总结"><span class="nav-text">2.2.3 Docker 镜像安装总结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-使用源码编译安装"><span class="nav-text">2.3 使用源码编译安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-使用-Anaconda-安装"><span class="nav-text">2.4 使用 Anaconda 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-1-Anaconda-安装以及配置"><span class="nav-text">2.4.1 Anaconda 安装以及配置</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）Anaconda-的安装指南"><span class="nav-text">1）Anaconda 的安装指南</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）Anaconda-安装及配置"><span class="nav-text">2）Anaconda 安装及配置</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-2-Conda-管理工具使用"><span class="nav-text">2.4.2 Conda 管理工具使用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）conda-多环境管理（实现多版本-Python-环境切换）"><span class="nav-text">1）conda 多环境管理（实现多版本 Python 环境切换）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）conda-包管理（实现依赖包管理）"><span class="nav-text">2）conda 包管理（实现依赖包管理）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3）conda-常用命令"><span class="nav-text">3）conda 常用命令</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-3-Pip-amp-amp-Anaconda-换源"><span class="nav-text">2.4.3 Pip &amp;&amp; Anaconda 换源</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-gt-更换-Anaconda-镜像地址"><span class="nav-text">1 &gt; 更换 Anaconda 镜像地址</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-gt-更换-Pip-源地址"><span class="nav-text">2 &gt; 更换 Pip 源地址</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-4-Setup-TensorFlow"><span class="nav-text">2.4.4 Setup TensorFlow</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）CUDA-amp-amp-CUDNN（GPU-Support-版需要执行该步骤，CPU-Support-跳过这一部分即可）"><span class="nav-text">1）CUDA &amp;&amp; CUDNN（GPU Support 版需要执行该步骤，CPU Support 跳过这一部分即可）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）建立名叫-tensorflow-的计算环境"><span class="nav-text">2）建立名叫 tensorflow 的计算环境</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3）激活-tensorflow-环境，然后用-pip-安装-TensorFlow"><span class="nav-text">3）激活 tensorflow 环境，然后用 pip 安装 TensorFlow</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4）Glibc-amp-amp-libstdc-so-6-version-CXXABI-1-3-9’-not-found"><span class="nav-text">4）Glibc &amp;&amp; libstdc++.so.6: version `CXXABI_1.3.9’ not found</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-5-Anaconda-多环境多版本-Python-指南"><span class="nav-text">2.4.5 Anaconda 多环境多版本 Python 指南</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-6-Anaconda-安装总结"><span class="nav-text">2.4.6 Anaconda 安装总结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-7-Anaconda-激活环境困扰"><span class="nav-text">2.4.7 Anaconda 激活环境困扰</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）设置-TensorFlow-永久环境"><span class="nav-text">1）设置 TensorFlow 永久环境</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）TensorFlow-环境快捷启动"><span class="nav-text">2）TensorFlow 环境快捷启动</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3）Tensorflow-服务"><span class="nav-text">3）Tensorflow 服务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-使用-VirtualEnv-安装"><span class="nav-text">2.5 使用 VirtualEnv 安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-TensorFlow-环境测试"><span class="nav-text">3. TensorFlow 环境测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-HelloWorld-样例测试"><span class="nav-text">3.1 HelloWorld 样例测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tensorflow-amp-amp-NVIDIA-版本信息对照表"><span class="nav-text">Tensorflow &amp;&amp; NVIDIA 版本信息对照表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#For-Windows"><span class="nav-text">For Windows</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#For-Linux-amp-amp-Mac"><span class="nav-text">For Linux &amp;&amp; Mac</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

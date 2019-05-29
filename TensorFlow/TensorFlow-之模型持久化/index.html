@@ -1,0 +1,2091 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="TensorFlow,MNIST,Checkpoint,Model,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="愿你每天欢喜多于悲，孤独有人陪…   开篇： 前面章节（TensorFlow 之 MNIST 手写体数字图像识别问题）中给出的神经网络模型优化样例代码在训练完成后就直接退出了，并没有将学得的模型（训练成果物）保存下来以便下次使用（测试、预测），这样模型的训练是没有意义的。为了让学得模型可以复用，我们需要将训练的神经网络模型持久化。">
+<meta name="keywords" content="TensorFlow,MNIST,Checkpoint,Model">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow 之模型持久化">
+<meta property="og:url" content="http://yoursite.com/TensorFlow/TensorFlow-之模型持久化/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   开篇： 前面章节（TensorFlow 之 MNIST 手写体数字图像识别问题）中给出的神经网络模型优化样例代码在训练完成后就直接退出了，并没有将学得的模型（训练成果物）保存下来以便下次使用（测试、预测），这样模型的训练是没有意义的。为了让学得模型可以复用，我们需要将训练的神经网络模型持久化。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-29T03:03:52.111Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TensorFlow 之模型持久化">
+<meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   开篇： 前面章节（TensorFlow 之 MNIST 手写体数字图像识别问题）中给出的神经网络模型优化样例代码在训练完成后就直接退出了，并没有将学得的模型（训练成果物）保存下来以便下次使用（测试、预测），这样模型的训练是没有意义的。为了让学得模型可以复用，我们需要将训练的神经网络模型持久化。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/TensorFlow/TensorFlow-之模型持久化/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>TensorFlow 之模型持久化 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/TensorFlow/TensorFlow-之模型持久化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TensorFlow 之模型持久化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-05T10:56:41+08:00">
+                2018-10-05
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:52+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/TensorFlow/TensorFlow-之模型持久化/" class="leancloud_visitors" data-flag-title="TensorFlow 之模型持久化">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  8.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  35
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center> 愿你每天欢喜多于悲，孤独有人陪… </center>
+
+<p><strong>开篇：</strong></p>
+<p>前面章节（<a href="https://www.orangeshare.cn/TensorFlow/TensorFlow-%E4%B9%8B-MNIST-%E6%89%8B%E5%86%99%E4%BD%93%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E9%97%AE%E9%A2%98/" target="_blank" rel="noopener">TensorFlow 之 MNIST 手写体数字图像识别问题</a>）中给出的神经网络模型优化样例代码在训练完成后就直接退出了，并没有将学得的模型（训练成果物）保存下来以便下次使用（测试、预测），这样模型的训练是没有意义的。为了让学得模型可以复用，我们需要将训练的神经网络模型持久化。</p>
+<a id="more"></a>
+<p>这一章节我们总共安排了 <strong>两个部分</strong> 来进行学习：</p>
+<p>第一部分：针对 <code>TensorFlow 之 MNIST 手写体数字图像识别问题</code> 章节中给出的 MNIST 手写体数字图像识别 TensorFlow 程序实现，介绍如何将一个神经网络模型持久化，使得之后可以直接使用（复用）训练好的模型；</p>
+<p>第二部分：综合之前学过的所有 TensorFlow 知识，给出一个目前掌握程度下使用 TensorFlow 训练神经网络的最佳实践，这是必要的。</p>
+<hr>
+<h2 id="1-TensorFlow-模型持久化"><a href="#1-TensorFlow-模型持久化" class="headerlink" title="1. TensorFlow 模型持久化"></a>1. TensorFlow 模型持久化</h2><p>这一部分内容我们分为两个小节来介绍：第一小节将介绍如何通过 TensorFlow 程序来持久化一个训练好的模型，并从持久化之后的模型文件中还原被保存的模型；第二小节将介绍 TensorFlow 持久化的工作原理和持久化之后文件中的数据格式。</p>
+<h3 id="1-1-模型持久化实现"><a href="#1-1-模型持久化实现" class="headerlink" title="1.1 模型持久化实现"></a>1.1 模型持久化实现</h3><p>TensorFlow 中提供了两种一般的持久化模型方法，分别是：<code>CKPT（checkpoint）</code> 模型以及 <code>pb</code> 模型。</p>
+<h4 id="1-1-1-持久化-CKPT（checkpoint）模型"><a href="#1-1-1-持久化-CKPT（checkpoint）模型" class="headerlink" title="1.1.1 持久化 CKPT（checkpoint）模型"></a>1.1.1 持久化 CKPT（checkpoint）模型</h4><p>TensorFlow 提供了一个非常简单的 API 来保存和还原神经网络模型的方法：使用 <code>tf.train.Saver()</code> 对象。采用这种方法，下面将分别各给出一个简单的模型保存和还原的样例:</p>
+<hr>
+<h5 id="1-1-模型保存"><a href="#1-1-模型保存" class="headerlink" title="1-1 模型保存"></a>1-1 模型保存</h5><pre><code>import tensorflow as tf
+
+# 为了更加关注 tf.train.Saver 的使用：
+# 这里简化神经网络模型，使用变量和来代表其它复杂神经网络模型的训练过程：
+v1 = tf.Variable(tf.constant(1.0, shape=[1]), name=&apos;v1&apos;)
+v2 = tf.Variable(tf.constant(2.0, shape=[1]), name=&apos;v2&apos;)
+result = v1 + v2
+
+# 定义模型持久化以及日志存储路径：
+Model_And_Logs = &apos;./Output/&apos;
+checkpoints_path = Model_And_Logs + &apos;Checkpoints&apos;
+
+init_op = tf.global_variables_initializer()
+saver = tf.train.Saver()
+
+with tf.Session() as sess:
+    sess.run(init_op)
+    saver.save(sess, checkpoints_path + &apos;/model.ckpt&apos;)
+</code></pre><p>上面的代码实现了持久化一个简单的 TensorFlow 模型的方法，我们通过 <code>tf.train.Saver()</code> 函数将 TensorFlow 模型信息保存到了 <code>./Output/Checkpoints/model.ckpt</code> 文件中。虽然上面程序只指定了一个文件路径，但是你可以在存储路径下分别看到四个文件：</p>
+<pre><code>checkpoint
+model.ckpt.data-00000-of-00001
+model.ckpt.index
+model.ckpt.meta
+</code></pre><p><strong>–&gt; （1）模型持久化文件说明：</strong></p>
+<p>上述我们知道 <code>tf.train.Saver()</code> 函数将 TensorFlow 模型信息保存到了 <code>model.ckpt</code> 持久化文件中，那么这些模型持久化文件是如何存储模型信息的？我们知道：Tensorflow 神经网络模型主要包含网络结构或者计算图（Graph）和我们已经训练好的网络参数的值。因此，Tensorflow 模型持久化结果应当两个主要的部分：</p>
+<p><strong>[1] 元图（Meta Graph）</strong>: 保存完整的 Tensorflow graph 结构。比如说，所有的 <code>variables</code>, <code>operations</code>, <code>collections</code> 等等。持久化图的文件后缀: <code>.meta</code> 。</p>
+<p><strong>[2] 检查点文件（checkpoint file）</strong>：保存了所有权重（<code>weights</code>），偏置（<code>biases</code>），梯度（<code>gradients</code>）和所有其他保存的变量（<code>variables</code>）的二进制文件。它由两个文件构成：</p>
+<ul>
+<li><code>mymodel.data</code> ：保存了模型的所有变量的值。</li>
+<li><code>mymodel.index</code> ：是一个 <code>string-string table</code>，<code>table</code> 的 <code>key</code> 值为 <code>tensor</code> 名，<code>value</code> 为 <code>BundleEntryProto</code>。</li>
+</ul>
+<p><strong>注意： Tensorflow 0.11 版本之前版本，检查点文件（checkpoint file）是一个后缀名为 <code>.ckpt</code> 的文件。其模型持久化结果文件如下所示：</strong></p>
+<pre><code>checkpoint
+model.ckpt
+model.ckpt.meta
+</code></pre><p>除了上述两个文件之外，Tensorflow 模型持久化结果中还有一个叫做 <code>checkpoint</code> 的文件:</p>
+<p><strong>[3] 检查点记录文件（checkpoint）</strong>: 这个文件保存了目录下所有已存储的模型文件列表和当前状态最新保存的模型文件。<code>checkpoint</code> 文件有 <code>model_checkpoint_path</code> 和 <code>all_model_checkpoint_paths</code> 两个属性：</p>
+<ul>
+<li><code>model_checkpoint_path</code>：保存了最新的 TensorFlow 模型文件的文件名；</li>
+<li><code>all_model_checkpoint_paths</code>：保存未被删除的所有 TensorFlow 模型文件的文件名。</li>
+</ul>
+<hr>
+<p><strong>–&gt; （2）tf.train.Saver() 函数实际应用：</strong></p>
+<p>[1] 根据训练时间保存最新的几个模型：</p>
+<pre><code># 如果你只想要保存最新的4个模型，并且想要在训练的时候每2个小时保存一个模型：
+# 使用 max_to_keep 和 keep_checkpoint_every_n_hours：
+
+# saves a model every 2 hours and maximum 4 latest models are saved.
+saver = tf.train.Saver(max_to_keep=4, keep_checkpoint_every_n_hours=2)
+</code></pre><p>[2] 根据迭代次数保存模型：</p>
+<pre><code># 为了防止程序异常退出而导致模型没有成功持久化，可以采取边训练边保存模型：
+# 但实际不会迭代一次后就保存模型（资源开销很大），我们可以设置每多少次迭代存储一次模型:
+if iter % 1000 == 0:
+    saver.save(sess, &apos;path/mymodel.ckpt&apos;,global_step=iter)
+</code></pre><p>这种方法将在模型名字的后面追加上类似于 <code>-1000</code> 的迭代版本区分，下面的文件将会被创建：</p>
+<pre><code>mymodel.ckptl-1000.index
+mymodel.ckpt-1000.meta
+mymodel.ckpt-1000.data-00000-of-00001
+checkpoint
+</code></pre><p>[3] write_meta_graph 参数</p>
+<pre><code># 由于网络的图（graph）在训练的时候是不会改变的，因此，我们没有必要每次都重复保存.meta文件，可以使用如下方法：
+
+saver.save(sess, &apos;path/mymodel.ckpt&apos;,global_step=step, write_meta_graph=False)
+</code></pre><p>[4] 一个实际使用策略</p>
+<p>我们再来谈一点实际中的应用：在实际优化模型时，我们一般不会只保存最新的模型（最新的模型不一定是验证精度最高的模型），故通常会保存多个模型结果。但是保存模型多过是消耗磁盘存储的，我们更加倾向的是存储固定个数的精确度最高的几个模型。需要加一个变量以及条件语句，如下实现：</p>
+<pre><code>saver=tf.train.Saver(max_to_keep=3)
+
+max_acc=0
+
+for iter in range(100):
+    batch_xs, batch_ys = mnist.train.next_batch(100)
+
+    sess.run(train_op, feed_dict={x: batch_xs, y_: batch_ys})
+    val_loss, val_acc=sess.run([loss,acc], feed_dict={x: mnist.test.images, y_: mnist.test.labels})
+    print(&apos;epoch:%d, val_loss:%f, val_acc:%f&apos;%(i,val_loss,val_acc))
+
+    # 存储正确率排名最高的3个模型：
+    if val_acc &gt; max_acc:
+        max_acc=val_acc
+        saver.save(sess,&apos;ckpt/mmodel.ckpt&apos;,global_step=iter+1)
+
+sess.close()
+</code></pre><hr>
+<h5 id="1-2-加载持久化模型"><a href="#1-2-加载持久化模型" class="headerlink" title="1-2 加载持久化模型"></a>1-2 加载持久化模型</h5><p>这里，首先我们给出一个加载 <code>1-1 模型保存</code> 中 TensorFlow 模型的样例：</p>
+<pre><code>import tensorflow as tf 
+
+# 重新定义持久化模型中神经网络结构：
+v1 = tf.Variable(tf.constant(1.0, shape=[1]), name=&apos;v1&apos;)
+v2 = tf.Variable(tf.constant(2.0, shape=[1]), name=&apos;v2&apos;)
+result = v1 + v2
+
+saver = tf.train.Saver()
+
+with tf.Session() as sess:
+    # 加载已经保存好的模型，并且通过保存的模型中变量的值来计算上述神经网络值：
+    saver.restore(sess, &apos;./Output/Checkpoints/model.ckpt&apos;)
+    print (sess.run(result))
+</code></pre><p>样例输出如下：</p>
+<pre><code>INFO:tensorflow:Restoring parameters from ./Output/Checkpoints/model.ckpt
+[3.]
+</code></pre><p>前面我们已经知道，在神经网络训练过程中我们可以保存不同迭代次数以及不同时刻下的模型，而 <code>checkpoint</code> 检查点记录文件中维护了所有已存储的模型文件列表（<code>all_model_checkpoint_paths</code>）和最新的保存的模型文件（<code>model_checkpoint_path</code>）。那么，我们如何加载存储的不同模型：</p>
+<pre><code>import tensorflow as tf 
+
+# 重新定义持久化模型中神经网络结构：
+v1 = tf.Variable(tf.constant(1.0, shape=[1]), name=&apos;v1&apos;)
+v2 = tf.Variable(tf.constant(2.0, shape=[1]), name=&apos;v2&apos;)
+result = v1 + v2
+
+saver=tf.train.Saver()
+
+with tf.Session() as sess:
+
+    # 获取所有存储的模型信息 ckpt ：
+    ckpt = tf.train.get_checkpoint_state(&apos;./Output/Checkpoints&apos;)
+
+    # 1. 加载最新模型：
+    if ckpt and ckpt.model_checkpoint_path:
+        saver.restore(sess, ckpt.model_checkpoint_path)
+    else:
+        print (&apos;Please Checking your all_model_checkpoint_paths list !&apos;)
+
+    # 2. 遍历加载所有已保存模型：
+    if ckpt and ckpt.all_model_checkpoint_paths:
+        for model_path in ckpt.all_model_checkpoint_paths:
+            saver.restore(sess, model_path)
+</code></pre><p><strong>–&gt; （1） tf.train.latest_checkpoint()：函数</strong></p>
+<pre><code># 使用 tf.train.latest_checkpoint() 函数也可以加载最新模型：
+
+checkpoint_path = tf.train.latest_checkpoint(./Output/Checkpoints&apos;)
+saver.restore(sess, checkpoint_path)
+</code></pre><hr>
+<h5 id="1-3-直接加载持久化后的图（Graph）"><a href="#1-3-直接加载持久化后的图（Graph）" class="headerlink" title="1-3 直接加载持久化后的图（Graph）"></a>1-3 直接加载持久化后的图（Graph）</h5><p>在 <code>1-2 加载持久化模型</code> 加载模型的过程中，我们需要重新定义 Tensorflow 计算图上的所有运算（唯一不同的区别：加载模型时没有明确调用变量初始化过程，而是将变量的值通过已经保存的模型直接加载进来）。这样我们需要加载模型时必须根据原有神经网络重新定义一遍，这是很繁琐的。</p>
+<p>如果你仔细想的话，持久化模型的时候我们已经将模型的 <code>Graph</code> 保存在了 <code>.meta</code> 文件中， TensorFlow 中还提供了 <code>tf.train.import_meta_graph()</code> 函数用于直接加载持久化的计算图。如下：</p>
+<pre><code>saver = tf.train.import_meta_graph(&apos;mymodel.ckpt-1000.meta&apos;)
+</code></pre><p>但是注意，这仅仅是将已经定义的网络导入到当前的 <code>Graph</code> 中，但是我们还是需要加载网络中关注的参数值。TensorFlow 支持 <code>graph.get_tensor_by_name()</code> 函数来获取关注的张量（变量、运算等）。如下样例：</p>
+<pre><code>import tensorflow as tf
+
+# 直接加载持久化的图
+saver = tf.train.import_meta_graph(&apos;./Output/Checkpoints/model.ckpt.meta&apos;)
+
+with tf.Session() as sess:
+    saver.restore(sess,&apos;./Output/Checkpoints/model.ckpt&apos;)
+
+    # 需要通过张量的名称来获取关注的张量：
+    print(sess.run(tf.get_default_graph().get_tensor_by_name(&apos;add:0&apos;)))
+</code></pre><p>样例结果输出如下:</p>
+<pre><code>INFO:tensorflow:Restoring parameters from ./Output/Checkpoints/model.ckpt
+[3.]
+</code></pre><blockquote>
+<p><strong>注意：</strong>我们知道定义神经网络时我们会使用 <code>placeholder</code> 占位符来准备输入，当网络被保存时，给 <code>placeholder</code> <code>feed_dict</code> 的值是不会被保存。预测新数据（或补充训练）时需要使用 <code>feed_dict</code> 来将新的数据传递给网络。</p>
+</blockquote>
+<p><strong>结论：</strong></p>
+<p>现在我们已经知道，如果想要通过直接加载持久化图的方法恢复存储的网络，我们不仅需要恢复图（<code>Graph</code>）和权重，而且也需要准备一个新的 <code>feed_dict</code>，将新的训练数据喂给网络（迁移学习）。同时我们可以通过使用 <code>graph.get_tensor_by_name()</code> 方法来获得已经保存的变量、操作（<code>operations</code>）以及 <code>placeholder variables</code>。</p>
+<p>===================================================================</p>
+<p>至此，如 [1-2 加载持久化模型]、[1-3 直接加载持久化后的图（Graph）] 小节， 我们已经了解了两种加载学得模型的方法。那么实际应用时，我们如何做出选择呢？！这里谈一些我自己的想法：如果你对于使用的模型十分了解的话（熟知网络结构、操作节点名称等），你可以使用第二种方法。无需重新定义网络结构，精简代码产量；如果你对学得模型使用不太熟练，不能很好指出各操作节点名称，推荐第一种方法。此时，你需要重构网络结构，但可以直接在代码中使用定义的各种操作节点。</p>
+<p>===================================================================</p>
+<hr>
+<h5 id="1-4-变量重命名"><a href="#1-4-变量重命名" class="headerlink" title="1-4 变量重命名"></a>1-4 变量重命名</h5><p><code>tf.train.Saver()</code> 类默认情况下保存和加载 TensorFlow 计算图上定义的全部变量。还支持保存和加载模型的部分变量或在保存和加载模型时给变量重命名。</p>
+<p><strong>（1）保存或加载部分变量：</strong></p>
+<p>在声明 <code>tf.train.Saver</code> 类时，可以提供其一个列表来指定需要保存或者加载的变量。但注意，不常用！模型复杂时，你不可能把需要的那部分全部罗列出来（了解即可）。</p>
+<p>比如，我们之前已经训练好了一个五层神经网络模型，但现在想尝试一个六层的神经网络，那我们就可以将前面五层神经网络中的参数直接加载到新的模型，而仅仅将最后一层神经网络重新训练（需要我们将前五层的所有变量以列表的形式提供，实际中这是不太现实的）。</p>
+<p>例如加载模型时，使用 <code>tf.train.Saver([v1])</code> 命令来构建 <code>tf.train.Saver</code> 类。此时只有变量 <code>v1</code> 被加载进来，下面程序会报错。代码如下：</p>
+<pre><code>import tensorflow as tf 
+
+# 重新定义持久化模型中神经网络结构：
+v1 = tf.Variable(tf.constant(1.0, shape=[1]), name=&apos;v1&apos;)
+v2 = tf.Variable(tf.constant(2.0, shape=[1]), name=&apos;v2&apos;)
+result = v1 + v2
+
+saver = tf.train.Saver([v1])
+
+with tf.Session() as sess:
+    # 加载已经保存好的模型，并且通过保存的模型中变量的值来计算上述神经网络值：
+    saver.restore(sess, &apos;./Output/Checkpoints/model.ckpt&apos;)
+
+    # 报错：tensorflow.python.framework.error.FailedPreconditionError:Attempting to use uninitialized value v2 and value add:0
+    # 这是由于 v2 ，add:0没有加载进来（没有被初始化）。
+    print (sess.run(result))
+</code></pre><p><strong>（2）变量重命名：</strong></p>
+<p>除了可以选取需要被保存或加载的变量， tf.train.Saver 类也支持通过字典（dictionary）在保存和加载模型时给模型的变量重命名。如下代码展示变量重命名是如何被使用的：</p>
+<pre><code>import tensorflow as tf
+# 这里声明的变量名称和已经保存的模型中变量的名称不同。
+v1 = tf.Variable(tf.constant(1.0, shape=[1]), name=&apos;new-v1&apos;)
+v2 = tf.Variable(tf.constant(2.0, shape=[1]), name=&apos;new-v2&apos;)
+
+# 直接使用tf.train.Saver()加载模型会提示变量找不到的错误# 需要使用一个字典来重命名变量。这个字典指定
+# 原来名称为v1的变量现在加载在变量v1中(&apos;new-v1&apos;),名称为v2的变量加载到变量v2中(&apos;new-v2&apos;)
+saver=tf.train.Saver({&apos;v1&apos;:v1,&apos;v2&apos;:v2})
+
+with tf.Session() as sess:
+    saver.restore(sess, &apos;./Output/Checkpoints/model.ckpt&apos;)
+
+    print (sess.run(v1) , sess.run(v2))
+</code></pre><p>样例输出结果如下：</p>
+<pre><code>INFO:tensorflow:Restoring parameters from ./Output/Checkpoints/model.ckpt
+[1.] [2.]
+</code></pre><p><strong>[2.1] 变量重命名的作用</strong></p>
+<p>在保存或加载模型时给模型中变量重命名<strong>主要目的之一</strong>是方便使用变量的滑动平均值。</p>
+<p>使用变量的滑动平均值可以让神经网络模型更加健壮。在 TensorFlow 中，每一个变量的滑动平均值是通过影子变量维护的，获取变量的滑动平均值实际上就是获取这个影子变量的取值。如果在保存或加载模型时直接将影子变量映射到变量自身，那么在使用训练好的模型时就不需要再调用函数来获取变量的滑动平均值了。这样方便了滑动平均模型的使用。</p>
+<p>以下代码先给出了一个保存滑动平均模型的样例：</p>
+<pre><code>import tensorflow as tf 
+
+v1 = tf.Variable(0, dtype=tf.float32, name=&apos;v1&apos;)
+v2 = tf.Variable(1, dtype=tf.float32, name=&apos;v2&apos;)
+# 没有声明滑动平均模型时，有两个变量 v1\v2，所以下面语句会输出&apos;v1:0\v2:0&apos;
+for variables in tf.global_variables():
+    print(variables.name)
+
+ema=tf.train.ExponentialMovingAverage(0.99)
+maintain_averages_op=ema.apply(tf.global_variables())
+# 在声明滑动平均模型后，对于每一个变量 TensorFlow 会自动生成一个影子变量
+# 下面语句会输出：&apos;v1:0&apos;和&apos;v1/ExponentialMovingAverage:0&apos;\&apos;v2:0&apos;和&apos;v2/ExponentialMovingAverage:0&apos;
+for variables in tf.global_variables():
+    print(variables.name)
+
+saver=tf.train.Saver()
+with tf.Session() as sess:
+    init_op=tf.global_variables_initializer()
+
+    sess.run(init_op)
+    sess.run(tf.assign(v1,10))
+    sess.run(tf.assign(v2,5))
+    sess.run(maintain_averages_op)
+
+    # 保存时，tensorflow会将&apos;v:0&apos;和&apos;v/ExponentialMovingAverage:0&apos;两个变量都保存下来
+    saver.save(sess,&apos;./Output/Checkpoints_avg/model.ckpt&apos;)
+    print(sess.run([v1,ema.average(v1)])) # 输出：[10.0, 0.099999905]
+    print(sess.run([v2,ema.average(v2)])) # 输出：[10.0, 0.099999905]
+</code></pre><p>样例输出结果如下：</p>
+<pre><code>v1:0
+v2:0
+v1:0
+v2:0
+v1/ExponentialMovingAverage:0
+v2/ExponentialMovingAverage:0
+[10.0, 0.099999905]
+[5.0, 1.04]
+</code></pre><p>下面我们来加载上面模型并对滑动平均变量重命名：</p>
+<pre><code>import tensorflow as tf 
+
+v1 = tf.Variable(0, dtype=tf.float32, name=&apos;v1&apos;)
+
+saver = tf.train.Saver({&apos;v1/ExponentialMovingAverage&apos;:v1})
+with tf.Session() as sess:
+    saver.restore(sess,&apos;./Output/Checkpoints_avg/model.ckpt&apos;)
+
+    print (sess.run(v1))
+</code></pre><p>样例结果输出如下:</p>
+<pre><code>INFO:tensorflow:Restoring parameters from ./Output/Checkpoints_avg/model.ckpt
+0.099999905
+</code></pre><p>就如保存或加载部分变量中一样，给出所有关注的滑动平均变量重命名字典以提供给 <code>tf.train.Saver()</code> 是不现实的。为了方便加载时重命名滑动平均变量，<code>tf.train.ExpoentialMovingAverage</code> 类提供了 <code>variables_to_restore</code> 函数来生成 <code>tf.train.Saver</code> 类所需要的变量重命名字典。示例代码如下：</p>
+<pre><code>import tensorflow as tf 
+
+v1 = tf.Variable(0, dtype=tf.float32, name=&apos;v1&apos;)
+v2 = tf.Variable(1, dtype=tf.float32, name=&apos;v2&apos;)
+# 没有声明滑动平均模型时，有两个变量 v1\v2，所以下面语句会输出&apos;v1:0\v2:0&apos;
+for variables in tf.global_variables():
+    print(variables.name)
+
+ema = tf.train.ExponentialMovingAverage(0.99)
+
+# 自动维护重命名字典：
+print (ema.variables_to_restore())
+saver = tf.train.Saver(ema.variables_to_restore())
+with tf.Session() as sess:
+    saver.restore(sess,&apos;./Output/Checkpoints_avg/model.ckpt&apos;)
+    print (sess.run(v1))
+    print (sess.run(v2))
+</code></pre><p>样例结果输出如下：</p>
+<pre><code>v1:0
+v2:0
+{&apos;v2/ExponentialMovingAverage&apos;: &lt;tf.Variable &apos;v2:0&apos; shape=() dtype=float32_ref&gt;, &apos;v1/ExponentialMovingAverage&apos;: &lt;tf.Variable &apos;v1:0&apos; shape=() dtype=float32_ref&gt;}
+INFO:tensorflow:Restoring parameters from ./Output/Checkpoints_avg/model.ckpt
+0.099999905
+1.04
+</code></pre><hr>
+<h4 id="1-1-2-持久化-PB-模型"><a href="#1-1-2-持久化-PB-模型" class="headerlink" title="1.1.2 持久化 PB 模型"></a>1.1.2 持久化 PB 模型</h4><p>我们知道，使用 <code>tf.train.Saver</code> 会保存运行 TensorFlow 程序所需要的全部信息，然而有时我们并不需要某些信息。例如：在测试或者离线预测时，只需要知道如何从神经网络的输入层经过前向传播过程计算得到输出层即可（不需要变量输出话、模型保存、损失函数、反向传播算法等），类似的还有我们即将学习的迁移学习，你会发现我们只需要原神经网络模型的一部分计算图结构。而且，将变量和计算图结构分成不同的文件存储有时也不方便。</p>
+<p>TensorFlow 提供了 <code>convert_variables_to_constants()</code> 函数。通过这个函数可以将计算图中的变量以及其取值通过常量的形式保存。这样使得整个 TensorFlow 计算图可以统一存放在一个文件中。示例代码如下：</p>
+<pre><code>import tensorflow as tf
+from tensorflow.python.framework import graph_util
+
+v1 = tf.Variable(tf.constant(1.0, shape=[1]), name=&apos;v1&apos;)
+v2 = tf.Variable(tf.constant(2.0, shape=[1]), name=&apos;v2&apos;)
+result = v1 + v2
+
+init_op = tf.global_variables_initializer()
+
+with tf.Session() as sess:
+    sess.run(init_op)
+
+    # 导出当前计算图的 GraphDef 部分：完成从输入层到输出层的计算过程
+    graph_def = tf.get_default_graph().as_graph_def()
+
+    # 将图中的变量及其取值转化为常量，同时将图中不必要的结点去掉。在下面一行代码中，
+    # 最后一个参数[&apos;add&apos;]给出了需要保存的节点名称。
+    # add节点是上面定义的两个变量相加操作。注意，&apos;add:0&apos;表示某个计算节点的第一个输出，是一个张量名。
+    output_graph_def = graph_util.convert_variables_to_constants(sess, graph_def, [&apos;add&apos;])
+
+    # 将导出的模型存入文件
+    with tf.gfile.GFile(&apos;./Output/combined_pb/model.pb&apos;,&apos;wb&apos;) as f:
+        f.write(output_graph_def.SerializeToString())    # 序列化输出
+
+    # for op in tf.get_default_graph().get_operations(): 打印模型节点信息
+    #     print (op.name)
+</code></pre><p>样例结果输出如下：</p>
+<pre><code>INFO:tensorflow:Froze 2 variables.
+INFO:tensorflow:Converted 2 variables to const ops.
+</code></pre><p>上面我们将神经网络学得模型持久化为 pb 文件（计算图以及常量固化为常量）。通过上面的程序可以直接计算模型中定义的加法运算的结果。当只需要得到计算图中某个节点的的取值时，TensorFlow 提供了一个更加方便的方法: tf.import_graph_def() 。后面基于此方法来使用训练好的模型完成迁移学习。</p>
+<p>上面我们将神经网络学得模型持久化为 pb 文件（计算图以及常量固化为常量）。通过上面的程序可以直接计算模型中定义的加法运算的结果。当只需要得到计算图中某个节点的的取值时，TensorFlow 提供了一个更加方便的方法: <code>tf.import_graph_def()</code> 。后面我们会基于此方法来使用训练好的模型完成迁移学习。</p>
+<pre><code>import tensorflow as tf
+
+with tf.Session() as sess:
+    model_filename = &apos;./Output/combined_pb/model.pb&apos;
+
+    # 读取保存的 pb 模型文件，将文件解析成对应的 GraphDef Protocol Buffer 格式：
+    with tf.gfile.FastGFile(model_filename,&apos;rb&apos;) as f:
+        graph_def=tf.GraphDef()
+        graph_def.ParseFromString(f.read())
+
+    # 将 graph_def 中保存的图加载到当前图中。return_elements=[&apos;add:0&apos;]给出了返回的
+    # 张量的名称。在保存时给出的是计算节点的名称，所以为 &apos;add&apos; 。
+    # 在加载时给出的是张量的名称，所以是 add:0
+    result = tf.import_graph_def(graph_def,return_elements=[&apos;add:0&apos;])
+    print (sess.run(result))
+</code></pre><p>样例结果输出如下：</p>
+<pre><code>[array([3.], dtype=float32)]
+</code></pre><hr>
+<h4 id="1-1-3-CKPT-转换成-PB-格式"><a href="#1-1-3-CKPT-转换成-PB-格式" class="headerlink" title="1.1.3 CKPT 转换成 PB 格式"></a>1.1.3 CKPT 转换成 PB 格式</h4><hr>
+<h3 id="1-2-持久化原理以及数据格式化"><a href="#1-2-持久化原理以及数据格式化" class="headerlink" title="1.2 持久化原理以及数据格式化"></a>1.2 持久化原理以及数据格式化</h3><h4 id="1-2-1-图的持久化文件详解"><a href="#1-2-1-图的持久化文件详解" class="headerlink" title="1.2.1 图的持久化文件详解"></a>1.2.1 图的持久化文件详解</h4><p>通过前面章节介绍，我们知道 TensorFlow 是一个通过图的形式来表述计算的编程系统，TensorFlow 中所有的计算都会被表达成计算图上的节点。事实上，TensorFlow 通过元图（MetaGraph）来记录计算图中的信息，以及运行计算图中节点所需要的元数据。</p>
+<p>而 TensorFlow 中元图是由 <code>MetaGraphDef Protocol Buffer</code> 来定义的，以下代码给出了 <code>MetaGraphDef</code> 类型的定义：</p>
+<pre><code>message MetaGraphDef{
+
+    MeatInfoDef meta_info_def = 1;
+
+    GraphDef graph_def = 2;
+    SaverDef saver_def = 3;
+    map&lt;string, CollectionDef&gt; collection_def = 4;
+    map&lt;string, SignatureDef&gt; signature_def = 5;
+}
+</code></pre><p>上面小节中我们在介绍 <code>tf.train.Saver</code> 类时知道模型的持久化结果会生成一个 <code>.meta</code> 图持久化文件。这里 <code>MetaGraphDef</code> 中的内容（元图信息）构成了 TensorFlow 持久化的一个文件，以 <code>.meta</code> 为后缀名，也就是我们上面所介绍的图持久化文件。也就是说：文件 <code>model.ckpt.meta</code> 中存储的就是元图的数据。</p>
+<p>下面我们来结合上面 [1.x] 小节中变量相加样例的持久化结果，逐一介绍 <code>MetaGraphDef</code> 类型的每一个属性中存储的信息，存储于 <code>model.ckpt.meta</code> 文件。</p>
+<hr>
+<p><strong>（1）查看 MetaGraphDef Protocol Buffer 信息</strong></p>
+<p>由于持久化模型之后得到的是二进制文件，不方便查看。为了方便调试，Tensorflow提供了 <code>export_meta_graph()</code> 函数，这个函数支持以 <code>JSON</code> 格式导出 <code>MetaGraphDef（计算图元图）</code>,并将其存储在 <code>model.ckpt.meta.json</code> 文件。下面为实现的代码:</p>
+<pre><code>import tensorflow as tf
+
+v1 = tf.Variable(tf.constant(1.0, shape=[1]), name =&quot;v1&quot;)
+v2 = tf.Variable(tf.constant(2.0, shape=[1]), name =&quot;v2&quot;)
+result1 = v1 + v2
+
+saver = tf.train.Saver()
+
+#通过 export_meta_graph 函数导出 TensorFlow 的计算图的元图，并保存为json格式
+saver.export_meta_graph(&quot;./Output/Checkpoints/model.ckpt.meta.json&quot;, as_text=True) 
+</code></pre><p>查看 <code>model.ckpt.meta.json</code> 文件内容如下（只给出一部分）：</p>
+<pre><code>meta_info_def {
+  stripped_op_list {
+    op {
+      name: &quot;Add&quot;
+      input_arg {
+        name: &quot;x&quot;
+        type_attr: &quot;T&quot;
+      }
+      input_arg {
+        name: &quot;y&quot;
+        type_attr: &quot;T&quot;
+      }
+      output_arg {
+        name: &quot;z&quot;
+        type_attr: &quot;T&quot;
+      }
+      attr {
+        name: &quot;T&quot;
+        type: &quot;type&quot;
+        allowed_values {
+          list {
+            type: DT_BFLOAT16
+            type: DT_HALF
+            type: DT_FLOAT
+            type: DT_DOUBLE
+            type: DT_UINT8
+            type: DT_INT8
+            type: DT_INT16
+            type: DT_INT32
+            type: DT_INT64
+            type: DT_COMPLEX64
+            type: DT_COMPLEX128
+            type: DT_STRING
+          }
+        }
+      }
+    }
+
+......
+</code></pre><hr>
+<p><strong>（2）MetaGraphDef Protocol Buffer 信息解读</strong></p>
+<p>上面我们已经获取到了 <code>MetaGraphDef Protocol Buffer</code> 中定义的信息文件，下文将结合 <code>model.ckpt.meta.json</code> 文件具体介绍 TensorFlow 元图中存储的信息：</p>
+<p><strong>[2.1] meta_info_def 属性</strong></p>
+<p><code>meta_info_def</code> 属性通过 <code>MetaInfoDef</code> 定义，它记录了 TensorFlow 计算图中的 <strong>元数据</strong> 以及 TensorFlow 程序中 <strong>所有使用到的运算方法</strong> 的信息。下面给出 <code>MetaInfoDef</code> 的定义：</p>
+<pre><code>message MetaInfoDef{
+    string meta_graph_version = 1;
+    OpList stripped_op_list = 2;
+    google.protobuf.Any any_info = 3;
+    repeated string tags = 4;
+}
+</code></pre><p><strong>–&gt; meta_graph_version 属性和 tags 属性：</strong></p>
+<p>TensorFlow 计算图中元数据包括了计算图的版本号（<code>meta_graph_version</code> 属性）以及用户指定的一些标签（<code>tags</code> 属性）。如果没有在 <code>Saver</code> 中特殊指定，那么这些属性都默认为空。</p>
+<p><strong>–&gt; stripped_op_list 属性：</strong></p>
+<p>在 <code>model.ckpt.meta.json</code> 中，<code>meta_info_def</code> 属性里只有 <code>stripped_op_list</code> 属性不为空。<code>stripped_op_list</code> 属性记录了 TensorFlow 计算图上使用到的所有运算方法信息。</p>
+<p>注意 <code>stripped_op_list</code> 属性保存的是 TensorFlow 运算方法的信息，所有如果某一个运算在 TensorFlow 计算图中出现了很多次，那么在 <code>stripped_op_list</code> 中也只会出现一次。（比如：在 <code>model.ckpt.meta.json</code> 文件的 <code>stripped_op_list</code> 属性中只有一个 <code>Variable</code> 运算，但这个运算在程序中被使用了两次。）</p>
+<p><code>stripped_op_list</code> 属性的类型是 <code>OpList</code>。<code>OpList</code> 类型是一个 <code>OpDef</code> 类型的列表。一下代码给出了 <code>OpDef</code> 类型的定义：</p>
+<pre><code>message opDef{
+    string name = 1;
+    repeated ArgDef input_arg = 2; 
+    repeated ArgDef output_arg =3;
+    repeated AttrDef attr = 4;
+
+    string summary = 5;
+    string description = 6;
+    OpDeprecation deprecation = 8;
+    bool is_commutative = 18;
+    bool is_aggregate = 16
+    bool is_stateful = 17;
+    bool allows_uninitialized_input = 19;
+};
+</code></pre><p><code>OpDef</code> 类型中前四个属性定义了一个运算最核心的信息：</p>
+<p><code>OpDef</code> 中的第一个属性 <code>name</code> 定义了运算的名称，这也是一个运算唯一的标识符。在 TensorFlow 计算图元图的其他属性，比如下面要介绍的 <code>GraphDef</code> 属性，将通过运算名称来引用不同的运算；<br><code>OpDef</code> 的第二个和第三个属性为：<code>input_arg</code> 和 <code>output_arg</code>，它们定义了运算的输入和输出。因为输入和输出可以有多个，所有这两个属性都是列表(repeated)；<br><code>OpDef</code> 的四个属性为：<code>attr</code>，它给出了运算参数的其他信息；</p>
+<p>在 <code>model.ckpt.meta.json</code> 文件中总共定义了 <code>7</code> 个运算，下面将给出一个比较有代表性的运算来辅助说明 <code>OpDef</code> 的数据结构：</p>
+<pre><code>op {
+    name: &quot;Add&quot;
+    input_arg{
+        name: &quot;x&quot;
+        type_attr:&quot;T&quot;
+    }
+    input_arg{
+        name: &quot;y&quot;
+        type_attr:&quot;T&quot;
+    }
+    output_arg{
+        name: &quot;z&quot;
+        type_attr:&quot;T&quot;
+    }
+    attr{
+        name:&quot;T&quot;
+        type:&quot;type&quot;
+        allow_values{
+            list{
+                type:DT_HALF
+                type:DT_FLOAT
+                ...
+            }
+        }
+    }
+
+
+}
+</code></pre><p>如上所示：给出了名称为 <code>&quot;Add&quot;</code> 的运算。这个运算有两个输入 <code>&quot;x&quot;</code> , <code>&quot;y&quot;</code> 和一个输出 <code>&quot;z&quot;</code>。输入输出属性都指定了属性 <code>type_attr</code>，并且 <code>type_attr</code> 属性值为：<code>T</code>。在 <code>OpDef</code> 的 <code>attr</code> 属性中，必须要出现名称(<code>name</code>)为 <code>T</code> 的属性。在以上样例，<code>attr</code> 属性给出了运算输入、输出允许的参数类型（<code>allowed_values</code>）。</p>
+<p><strong>[2.2] graph_def 属性</strong></p>
+<p><code>graph_def</code> 属性主要记录了计算图中的节点信息。TensorFlow 计算图中的一个节点对应 TensorFlow 中的一个运算。因为 <code>meta_info_def</code> 中已经包含所有运算的具体信息，所以 <code>graph_def</code> 属性只关注节点（运算）的连接结构。</p>
+<p><code>graph_def</code> 属性是通过 <code>GraphDef Protocol Buffer</code> 定义的。<code>GraphDef</code> 主要包含了一个 <code>NodeDef</code> 类型的列表。以下代码给出 <code>GraphDef</code> 和 <code>NodeDef</code> 类型中包含的信息：</p>
+<pre><code>message GraphDef{
+    repeated NodeDef node = 1;
+    VersionDef versions = 4; 
+};
+
+message NodeDef{
+    string name = 1;
+    string op = 2;
+    repeated string input = 3;
+    string device = 4;
+    map&lt;string, AttrValue&gt; attr = 5;
+};
+</code></pre><p><code>GraphDef</code> 类型中的 <code>versions</code> 属性比较简单，它主要存储了 TensorFlow 的版本号。<code>GraphDef</code> 的主要信息都存在 <code>node</code> 属性中，它记录了 TensorFlow 计算图上所有的节点信息。</p>
+<p><strong>–&gt; node 属性</strong></p>
+<p><code>GraphDef</code> 中的 <code>node</code> 是由 <code>NodeDef</code> 类型定义的。<code>NodeDef</code> 类型中有一个名称属性，它是一个节点的唯一标识符。在 TensorFlow 程序中可以通过节点的名称来获取相应的节点。</p>
+<p><code>NodeDef</code> 类型中的 <code>op</code> 属性给出了该节点使用的 TensorFlow 运算方法的名称，通过这个名称可以在 TensorFlow 计算图元图的 <code>meta_info_def</code> 属性中找到该运算的具体信息。</p>
+<p>NodeDef 类型中的 <code>input</code> 属性是一个字符串列表，它定义了运算的输入。<code>input</code> 属性中每个字符串的取值格式为 <code>node:src_output</code>（是不很熟悉~），表示 <code>node</code> 节点的第 <code>src_outpu</code> 个输出结果。</p>
+<p><code>NodeDef</code> 类型中的 <code>device</code> 属性指定了处理这个运算的设备。运行 TensorFlow 运算的设备可以是本地机器的 <code>CPU</code> 或者 <code>GPU</code>，也可以是另一台远程机器的 <code>CPU</code> 或者 <code>GPU</code>。后面我们会介绍如何给 TensorFlow 运算指定运行设备。当 <code>device</code> 属性为空时，TensorFlow 在运行时会自动选择一个最合适的设备来运行这个运算。</p>
+<p><code>NodeDef</code> 类型中的 <code>attr</code> 属性指定了和当前运算相关的配置信息。</p>
+<p>下面列举了 <code>model.ckpt.meta.json</code> 文件中的一些计算节点来更加详细地介绍 <code>graph_def</code> 属性：</p>
+<pre><code>graph def {
+    node {
+        name: &quot;v1&quot;
+        op: &quot;Variable&quot;
+        attr {
+            key:&quot;_output_shapes&quot;
+            value {
+                list{ shape { dim { size: 1 } } }
+            }
+        }
+    }
+    attr { 
+        key :&quot;dtype&quot;
+        value {
+            type: DT_FLOAT
+            }
+        }           
+        ...
+    }
+    node {
+        name :&quot;add&quot;
+        op :&quot;Add&quot;
+        input :&quot;v1/read&quot;
+        input: &quot;v2/read&quot;
+        ...
+    }
+    node {
+        name: &quot;save/control_dependency&quot;
+        op:&quot;Identity&quot;
+        ...
+    }
+    versions {
+        producer :12
+    }
+}
+</code></pre><p>上面给出了 <code>model.ckpt.meta.json</code> 文件中 <code>graph_def</code> 属性中 比较有代表性的几个节点：</p>
+<p>第一个节点给出的是变量定义的运算。在 TensorFlow 中变量定义也是一个运算，合格运算的名称为: <code>v1( name:&quot;v1&quot; )</code>，运算方法的名称为 <code>Variable( op:&quot;Variable&quot; )</code>。但定义变量的运算方法只用到了一个，于是在 <code>MetaInfoDef</code> 类型的 <code>stripped_op_list</code> 属性中只有一个名称为 <code>Variable</code> 的运算方法。除了指定计算图中节点的名称和运算方法， <code>NodeDef</code> 类型中还定义了运算相关的属性。在节点 <code>v1</code>中，<code>attr</code> 属性指定了这个变量的维度以及类型。</p>
+<p>第二个节点是代表加法运算的节点。它指定了两个输入：一个为 <code>v1/read</code> ，另一个为 <code>v2/read</code>。其中，<code>v1/read</code> 代表的节点可以读取变量 <code>v1</code> 的值。因为 <code>v1</code> 的值是节点 <code>v1/read</code> 的第一个输出，所以后面的 <code>:0</code> 就可以省略了。同理，<code>v2/read</code> 也代表了变量 <code>v2</code> 的值。</p>
+<p>以上样例给出的最后一个节点名称为 <code>save/contro_dependency</code>，该节点是系统完成 TensorFlow 模型持久化过程中自动生成的一个运算。</p>
+<p>在样例文件最后的属性 <code>versions</code> 给出了生成 <code>model.ckpt.meta.json</code> 文件时使用的 TensorFlow 版本。</p>
+<p><strong>[2.3] saver_def 属性</strong></p>
+<p><code>saver_def</code> 属性中记录了持久化模型时需要用到的一些参数，比如保存到文件的文件名、保存操作和加载操作的名称以及保存频率、清理历史纪录等。<code>saver_def</code> 属性的类型为：<code>SaverDef</code>,其定义如下:</p>
+<pre><code>message SaverDef {
+    string filename_tensor_name = 1;
+    string save_tensor_name = 2;
+    string restore_op_name = 3;
+    int32 max_to_keep = 4;
+    bool sharded = 5;
+    float keep_checkpoint_every_n_hours = 6;
+    enum CheckpointFormatVersion {
+        LEGACY = 0;
+        V1 = 1;
+        V2 = 2;
+    }
+    CheckpointFormatVersion version = 7;
+}
+</code></pre><p>下面给出 model.ckpt.meta.json 文件中 saver_def 属性的内容:</p>
+<pre><code>saver_def {
+  filename_tensor_name: &quot;save_1/Const:0&quot;
+  save_tensor_name: &quot;save_1/control_dependency:0&quot;
+  restore_op_name: &quot;save_1/restore_all&quot;
+  max_to_keep: 5
+  keep_checkpoint_every_n_hours: 10000.0
+  version: V2
+}
+</code></pre><p><code>filename_tensor_name</code> 属性给出了保存文件名的张量名称，这个张量就是节点 <code>save/Const</code> 的第一个输出；</p>
+<p><code>save_tensor_name</code> 属性给出了持久化 TensorFlow 模型的运算所对应的节点名称。从上面的文件可以看出，这个节点就是在 <code>graph_def</code> 属性中给出的 <code>save/control_dependency</code> 节点；</p>
+<p>和持久化 TensorFlow 模型对应的是加载 TensorFlow 模型的运算，这个运算的名称由 <code>restore_op_name</code> 属性指定；</p>
+<p><code>max_to_keep</code> 属性和 <code>keep_checkpoint_every_n_hours</code> 属性设定了 <code>tf.train.Saver</code> 类清理之前保存的模型的策略。比如 <code>max_to_keep=5</code> 时，在第六次调用 <code>saver.save()</code> 函数时，第一次保存的模型就会被自动删除。通过设置 <code>keep_checkpoint_every_n_hours=5</code> 时，表示每 <code>5</code> 个小时可以在 <code>max_to_keep</code> 的基础上多保存一个模型。</p>
+<p><strong>[2.4] collection_def 属性</strong></p>
+<p>我们知道，在 TensorFlow 的计算图(<code>tf.Graph</code>)中可以维护不同的集合，而维护这些集合的底层实现就是通过 <code>collection_def</code> 这个属性。<code>collection_def</code> 属性是一个集合名称到集合内容的映射，其中集合的名称为字符串；而集合内容为 <code>CollectionDef Protocol Buffer</code>。以下代码先给出 <code>CollectionDef</code> 类型的定义：</p>
+<pre><code>message CollectionDef {
+    message Nodelist {
+        repeated string value = 1;
+    }
+
+    message BytesList {
+        repeated bytes value = 1 ;
+    }
+
+    message Int64List {
+        repeated int64 value = 1[packed = true];
+    }
+    message FloatList {
+        repeated float value = 1[packed = true] ;
+    }
+    message AnyList {
+        repeated google.protobuf.Any value= 1;
+    }
+    oneof kind {
+        NodeList node_list = 1;
+        BytesList bytes_lista = 2;
+        Int64List int64_list = 3;
+        Floatlist float_list = 4;
+        AnyList any_list = 5;
+    }
+}
+</code></pre><p>通过上面的定义可以看出，TensorFlow 计算图上的集合主要可以维护 4 种不同的集合：</p>
+<p><code>Nodelist</code> 用于维护计算图上节点的集合； <code>BytesList</code> 用于维护字符串或者系列化之后的 <code>Protocol Buffer</code> 的集合。比如张量是通过 <code>Protocol Buffer</code> 表示的，而张量的集合是通过 <code>BytesList</code> 维护的； <code>Int64List</code> 用于维护整数集合； <code>Floatlist</code> 用于维护实数集合；</p>
+<p>下面给出了 <code>model.ckpt.meta.json</code> 文件中 <code>collecion_def</code> 属性的内容：</p>
+<pre><code>collection_def {
+  key: &quot;trainable_variables&quot;
+  value {
+    bytes_list {
+      value: &quot;\n\004v1:0\022\tv1/Assign\032\tv1/read:02\007Const:08\001&quot;
+      value: &quot;\n\004v2:0\022\tv2/Assign\032\tv2/read:02\tConst_1:08\001&quot;
+      value: &quot;\n\006v1_1:0\022\013v1_1/Assign\032\013v1_1/read:02\tConst_2:08\001&quot;
+      value: &quot;\n\006v2_1:0\022\013v2_1/Assign\032\013v2_1/read:02\tConst_3:08\001&quot;
+    }
+  }
+}
+collection_def {
+  key: &quot;variables&quot;
+  value {
+    bytes_list {
+      value: &quot;\n\004v1:0\022\tv1/Assign\032\tv1/read:02\007Const:08\001&quot;
+      value: &quot;\n\004v2:0\022\tv2/Assign\032\tv2/read:02\tConst_1:08\001&quot;
+      value: &quot;\n\006v1_1:0\022\013v1_1/Assign\032\013v1_1/read:02\tConst_2:08\001&quot;
+      value: &quot;\n\006v2_1:0\022\013v2_1/Assign\032\013v2_1/read:02\tConst_3:08\001&quot;
+    }
+  }
+}
+</code></pre><p>可以看到，样例程序维护了两个集合。一个是所有变量的集合，这个集合的名称为：<code>&quot;variables&quot;</code>。另外一个是可训练变量的集合，名称为：<code>&quot;trainable_variables&quot;</code>。在样例程序中，这两个集合中的元素是一样的，都是变量 <code>v1</code>、<code>v2</code> 。它们都是系统自动维护的。</p>
+<hr>
+<h4 id="1-2-2-变量文件和-checkpoint-文件介绍"><a href="#1-2-2-变量文件和-checkpoint-文件介绍" class="headerlink" title="1.2.2 变量文件和 checkpoint 文件介绍"></a>1.2.2 变量文件和 checkpoint 文件介绍</h4><p><strong>（1）.data 和 .index 文件（或 .ckpt 文件）</strong></p>
+<p>通过读 <code>MetaGraphDef</code> 类型中主要属性的讲解。上面我们已经理解了 TensorFlow 模型持久化得到的 <code>.meta</code> 文件内容。</p>
+<p>除了持久化 TensorFlow 计算图的结构，持久化 TensorFlow 中变量的取值也是非常重要的一部分，由 <code>tf.Saver()</code> 得到的 <code>model.ckpt.data</code> 和 <code>model.ckpt.index</code> 文件保存了所有变量的取值，我们可以大致理解为：一个 <code>（key,value）</code> 的变量取值列表。</p>
+<p><strong>（2）checkpoint 文件</strong></p>
+<p><code>checkpoint</code> 文件是 <code>tf.train.Saver</code> 类自动生成并且自动维护的。在 <code>checkpoint</code> 文件中维护由一个 <code>tf.train.Saver</code> 类持久化的所有 TensorFlow 模型文件名。当某个保存的 TensorFlow 模型文件被删除时，这个模型所对应的文件名也会从 <code>checkpoint</code> 文件列表中删除。</p>
+<p>至此，神经网络模型持久化介绍终于完成（撒花…）！！！</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/TensorFlow/TensorFlow-之模型持久化/" title="TensorFlow 之模型持久化">http://yoursite.com/TensorFlow/TensorFlow-之模型持久化/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TensorFlow/" rel="tag"><i class="fa fa-tag"></i> TensorFlow</a>
+          
+            <a href="/tags/MNIST/" rel="tag"><i class="fa fa-tag"></i> MNIST</a>
+          
+            <a href="/tags/Checkpoint/" rel="tag"><i class="fa fa-tag"></i> Checkpoint</a>
+          
+            <a href="/tags/Model/" rel="tag"><i class="fa fa-tag"></i> Model</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/TensorFlow/TensorFlow-之-MNIST-手写体数字图像识别问题/" rel="next" title="TensorFlow 之 MNIST 手写体数字图像识别问题">
+                <i class="fa fa-chevron-left"></i> TensorFlow 之 MNIST 手写体数字图像识别问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/" rel="prev" title="Centos 6/7 SVN + Apache（HTTP）服务器配置与使用指南">
+                Centos 6/7 SVN + Apache（HTTP）服务器配置与使用指南 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-TensorFlow-模型持久化"><span class="nav-text">1. TensorFlow 模型持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-模型持久化实现"><span class="nav-text">1.1 模型持久化实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-1-持久化-CKPT（checkpoint）模型"><span class="nav-text">1.1.1 持久化 CKPT（checkpoint）模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-模型保存"><span class="nav-text">1-1 模型保存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-加载持久化模型"><span class="nav-text">1-2 加载持久化模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-直接加载持久化后的图（Graph）"><span class="nav-text">1-3 直接加载持久化后的图（Graph）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-变量重命名"><span class="nav-text">1-4 变量重命名</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-2-持久化-PB-模型"><span class="nav-text">1.1.2 持久化 PB 模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-3-CKPT-转换成-PB-格式"><span class="nav-text">1.1.3 CKPT 转换成 PB 格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-持久化原理以及数据格式化"><span class="nav-text">1.2 持久化原理以及数据格式化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-图的持久化文件详解"><span class="nav-text">1.2.1 图的持久化文件详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-变量文件和-checkpoint-文件介绍"><span class="nav-text">1.2.2 变量文件和 checkpoint 文件介绍</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

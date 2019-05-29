@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Anaconda,Python,Setup,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇 我们知道：Python是一种面向对象的解释型计算机程序设计语言，其使用具有跨平台的特点，可以在 Linux、macOS 以及 Windows 系统中安装环境并使用。也就是说，其编写的代码在不同平台上运行时，几乎不需要做较大的改动，使用者无不受益于它的便捷性。 此外，Python的强大之处在于它的应用领域范围之广，遍及人工智能、科学计算、W">
+<meta name="keywords" content="Anaconda,Python,Setup">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Anaconda 介绍、安装以及使用教程">
+<meta property="og:url" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇 我们知道：Python是一种面向对象的解释型计算机程序设计语言，其使用具有跨平台的特点，可以在 Linux、macOS 以及 Windows 系统中安装环境并使用。也就是说，其编写的代码在不同平台上运行时，几乎不需要做较大的改动，使用者无不受益于它的便捷性。 此外，Python的强大之处在于它的应用领域范围之广，遍及人工智能、科学计算、W">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_download.png">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_setup.png">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_rights.png">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_user.png">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_DIR.png">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_install.png">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_VSCode.png">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_finish.png">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_Navigator.png">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_base.png">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_condalist.png">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_Cloud.png">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_Cloud_search.png">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_Cloud_search_DL.png">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_setup_dir.png">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_envs.png">
+<meta property="og:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_in_envs.png">
+<meta property="og:updated_time" content="2019-05-29T03:03:51.501Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Anaconda 介绍、安装以及使用教程">
+<meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇 我们知道：Python是一种面向对象的解释型计算机程序设计语言，其使用具有跨平台的特点，可以在 Linux、macOS 以及 Windows 系统中安装环境并使用。也就是说，其编写的代码在不同平台上运行时，几乎不需要做较大的改动，使用者无不受益于它的便捷性。 此外，Python的强大之处在于它的应用领域范围之广，遍及人工智能、科学计算、W">
+<meta name="twitter:image" content="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_download.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>Anaconda 介绍、安装以及使用教程 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Anaconda 介绍、安装以及使用教程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-03T17:23:13+08:00">
+                2018-12-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:51+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Anaconda/" itemprop="url" rel="index">
+                    <span itemprop="name">Anaconda</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Anaconda/Anaconda-介绍、安装以及使用教程/" class="leancloud_visitors" data-flag-title="Anaconda 介绍、安装以及使用教程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  24
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…</center>
+
+<p><strong>开篇</strong></p>
+<p>我们知道：<strong>Python</strong>是一种面向对象的解释型计算机程序设计语言，其使用具有跨平台的特点，可以在 Linux、macOS 以及 Windows 系统中安装环境并使用。也就是说，其编写的代码在不同平台上运行时，几乎不需要做较大的改动，使用者无不受益于它的便捷性。</p>
+<p>此外，Python的强大之处在于它的应用领域范围之广，遍及人工智能、科学计算、Web开发、系统运维、大数据及云计算、金融、游戏开发等等。而实现其强大功能的前提，就是 Python 具有数量庞大且功能相对完善的标准库和第三方库。通过对库的引用，能够实现对不同领域业务的开发。</p>
+<p>然而正是由于库的数量庞大，对于这些库的管理维护成为既重要但复杂度又高的事情，这对于 Python 开发人员来说是极不友好的。同时 Python 多版本控制也是 Python 开发过程中极其常见的并且难以管理的。此时，Anaconda 粉墨登场…</p>
+<a id="more"></a>
+<p>Anaconda 提供一种使用虚拟隔离环境来解决库管理以及维护问题的策略，它通过 conda 工具解决了 Python 开发者的两大痛点：</p>
+<ol>
+<li>提供包管理，功能类似于 pip，Windows 平台安装第三方包经常失败的场景得以解决。</li>
+<li>提供虚拟环境管理，功能类似于 virtualenv，解决了多版本 Python 并存问题。</li>
+</ol>
+<p>话不多说，下面我们开始 Anaconda 学习：</p>
+<hr>
+<h2 id="1-What-is-Anaconda？"><a href="#1-What-is-Anaconda？" class="headerlink" title="1. What is Anaconda？"></a>1. What is Anaconda？</h2><p>Anaconda 官方地址：<a href="https://www.anaconda.com/" target="_blank" rel="noopener">https://www.anaconda.com/</a></p>
+<h3 id="1-1-简介"><a href="#1-1-简介" class="headerlink" title="1.1 简介"></a>1.1 简介</h3><p>Anaconda 就是可以便捷获取包且对包进行管理，同时对环境可以统一管理的开源的 Python 发行版本。其包含了conda、Python 等 180 多个科学包及其依赖项。 </p>
+<p>由于包含了大量的科学计算包，Anaconda 的下载文件比较大（约 531 MB），如果只需要某些包，或者需要节省带宽或存储空间，也可以使用 Miniconda 这个较小的发行版（仅包含 conda 和 Python）。</p>
+<hr>
+<h3 id="1-2-特点（优点）"><a href="#1-2-特点（优点）" class="headerlink" title="1.2 特点（优点）"></a>1.2 特点（优点）</h3><p>鉴于 Anaconda 拥有的 <strong>conda 环境管理器</strong>、<strong>conda 包</strong>、<strong>1,000+ 开源库</strong> 等，Anaconda 具有如下特点：</p>
+<ul>
+<li>开源</li>
+<li>安装过程简单</li>
+<li>高性能使用 Python 和 R 语言</li>
+<li>免费的社区支持</li>
+</ul>
+<hr>
+<h3 id="1-3-Anaconda、conda、pip、virtualenv-的区别"><a href="#1-3-Anaconda、conda、pip、virtualenv-的区别" class="headerlink" title="1.3 Anaconda、conda、pip、virtualenv 的区别"></a>1.3 Anaconda、conda、pip、virtualenv 的区别</h3><p>进行Python开发过程中，你肯定使用或者听说过 Pip、Virtualenv，再加上这里我们介绍的 Anaconda、conda 工具。下面我们来横向比较一下这些工具的特点:</p>
+<h4 id="1）Anaconda"><a href="#1）Anaconda" class="headerlink" title="1）Anaconda"></a>1）Anaconda</h4><p>Anaconda 是一个包含 180+ 的科学包及其依赖项的 Python 发行版本。其包含的科学包包括：conda, numpy, scipy, ipython notebook 等。</p>
+<h4 id="2）conda"><a href="#2）conda" class="headerlink" title="2）conda"></a>2）conda</h4><ol>
+<li><p>conda 是包及其依赖项和环境的管理以及维护工具</p>
+</li>
+<li><p>conda 为 Python 项目而创造，但同样也适用于：Python, R, Ruby, Lua, Scala, Java, JavaScript, C/C++, FORTRAN 等语言。</p>
+</li>
+<li><p>适用平台：Windows, macOS, Linux</p>
+</li>
+<li><p>conda 用途：</p>
+</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 通过 conda 快速安装、运行和升级包及其依赖项。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用 conda 可以在计算机中便捷地创建、保存、加载和切换环境。</span></span><br></pre></td></tr></table></figure>
+<p>前面我们提到过多版本 Pyhton 环境的问题。如果使用 conda ，仅需要几条命令，你就可以创建一个个完全独立的环境来运行不同的 Python 版本，同时你可以继续在常规的环境中使用你常用的 Python 版本。</p>
+<h4 id="3）pip"><a href="#3）pip" class="headerlink" title="3）pip"></a>3）pip</h4><ol>
+<li><p>pip 是常用的用于安装和管理软件包的包管理器。</p>
+</li>
+<li><p>pip 编写语言：Python。</p>
+</li>
+<li><p>Python 中默认安装的版本：</p>
+</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Python 2.7.9 及后续版本：默认安装，命令为 pip</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Python 3.4 及后续版本：默认安装，命令为 pip3</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>pip 名称的由来：pip 采用的是递归缩写进行命名的。其名字被普遍认为来源于两处：</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> “Pip installs Packages”（“ pip 安装包”）</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> “Pip installs Python”（“pip 安装 Python”）</span></span><br></pre></td></tr></table></figure>
+<h4 id="4）Virtualenv"><a href="#4）Virtualenv" class="headerlink" title="4）Virtualenv"></a>4）Virtualenv</h4><ol>
+<li><p>Virtualenv：用于创建一个独立的 Python 环境的工具。</p>
+</li>
+<li><p>解决问题：</p>
+</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 当一个程序需要使用 Python 2.7 版本，而另一个程序需要使用 Python 3.6 版本，如何同时使用这两个程序？</span><br><span class="line">2. 如果将所有程序都安装在系统下的默认路径（如：/usr/lib/python2.7/site-packages），当不小心升级了本不该升级的程序时，将会对其他的程序造成影响。</span><br><span class="line">3. 如果想要安装程序并在程序运行时对其库或库的版本进行修改，都会导致程序的中断。</span><br><span class="line">4. 在共享主机时，无法在全局 site-packages 目录中安装包。</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>Virtualenv 将会为它自己的安装目录创建一个环境，这并不与其他 virtualenv 环境共享库；同时也可以选择性地不连接已安装的全局库。</li>
+</ol>
+<hr>
+<p>我们已经知道，<strong>pip 和 conda</strong> 都可以用于安装和管理 Python 相关软件包以及其依赖项。那么它们有什么区别？</p>
+<h4 id="5）pip-与-conda-比较"><a href="#5）pip-与-conda-比较" class="headerlink" title="5）pip 与 conda 比较"></a>5）pip 与 conda 比较</h4><p>1 –&gt; 依赖项检查</p>
+<ul>
+<li>pip：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 不一定会展示所需其他依赖包。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装包时或许会直接忽略依赖项而安装，仅在结果中提示错误。</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>conda： </p>
+<ol>
+<li><p>罗列出所需其他依赖包。</p>
+</li>
+<li><p>安装包时自动安装其依赖项。</p>
+</li>
+<li><p>可以便捷地在包的不同版本中自由切换。</p>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>注意：</strong>同样可以在 conda 独立环境中使用环境内安装的 pip 进行软件包的安装，所以在 conda 封装的独立环境中我们可以同时使用 conda、pip 进行包管理。</p>
+<p>2 –&gt; 环境管理</p>
+<ul>
+<li><p>pip：维护多个环境难度较大。</p>
+</li>
+<li><p>conda： 比较方便地在不同环境之间进行切换，环境管理较为简单。</p>
+</li>
+</ul>
+<p>3 –&gt; 对系统自带 Python 的影响</p>
+<ul>
+<li><p>pip：在系统自带 Python 中包的 <strong>更新/回退版本/卸载</strong> 将影响其他程序。</p>
+</li>
+<li><p>conda：多版本环境实现隔离，不会影响系统自带 Python。</p>
+</li>
+</ul>
+<p>4 –&gt; 适用语言</p>
+<ul>
+<li><p>pip：仅适用于 Python。</p>
+</li>
+<li><p>conda：适用于 Python, R, Ruby, Lua, Scala, Java, JavaScript, C/C++, FORTRAN。</p>
+</li>
+</ul>
+<p>5 –&gt; conda 与 pip、Virtualenv 的关系</p>
+<ul>
+<li>你可以认为：conda 结合了 pip 和 virtualenv 的功能。</li>
+</ul>
+<hr>
+<h2 id="2-How-to-setup-Anaconda？"><a href="#2-How-to-setup-Anaconda？" class="headerlink" title="2. How to setup Anaconda？"></a>2. How to setup Anaconda？</h2><p>这一部分我们来看，Anaconda 安装环境要求以及如何快速完成 Anaconda 的安装。</p>
+<h3 id="2-1-安装环境需求"><a href="#2-1-安装环境需求" class="headerlink" title="2.1 安装环境需求"></a>2.1 安装环境需求</h3><ol>
+<li><p>Anaconda 平台支持：Windows、macOS、Linux（x86 / Power8）</p>
+</li>
+<li><p>系统位数要求：32 位或 64 位系统均可</p>
+</li>
+<li><p>下载文件大小：约 500 MB（建议预留一定空间（至少 3 G），用于存放各种科学包以及 Python 库）</p>
+</li>
+</ol>
+<hr>
+<h3 id="2-2-Anaconda-安装"><a href="#2-2-Anaconda-安装" class="headerlink" title="2.2 Anaconda 安装"></a>2.2 Anaconda 安装</h3><p>Anaconda 官方下载地址：<a href="https://www.anaconda.com/download/" target="_blank" rel="noopener">https://www.anaconda.com/download/</a></p>
+<p>检测好安装环境后，下面我们正式开始 Anaconda 的安装过程（Windows、Linux）：</p>
+<h4 id="2-2-1-在-Windows-平台安装-Anaconda"><a href="#2-2-1-在-Windows-平台安装-Anaconda" class="headerlink" title="2.2.1 在 Windows 平台安装 Anaconda"></a>2.2.1 在 Windows 平台安装 Anaconda</h4><p>1) 安装包下载</p>
+<p>前往官方下载页面选择 Windows 下载项。你会发现，有两个版本可供选择：Python 3.7（最新 Python3.X） 和 Python 2.7。选择版之后根据自己操作系统的情况点击 “64-Bit Graphical Installer” 或 “32-Bit Graphical Installer” 进行安装包下载。 例如：Anaconda3-5.2.0-Windows-x86_64.exe</p>
+<p><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_download.png" alt="avatar"></p>
+<p>2）完成下载之后，双击下载文件，启动安装程序开始安装,Next：</p>
+<p><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_setup.png" alt="avatar"></p>
+<p>3）阅读许可证协议条款，然后勾选 “I Agree” 进行下一步。</p>
+<p><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_rights.png" alt="avatar"></p>
+<p>4）Install for: Just me 还是 All Users。假如你的电脑有多个 Users ，可以选择考虑 All Users，一般选择 Just me 即可。Next：</p>
+<p><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_user.png" alt="avatar"></p>
+<p>5）设置 Anaconda 安装位置，默认是安装到 C:\Users\XXX\Anaconda3。Next:</p>
+<p><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_DIR.png" alt="avatar"></p>
+<p>6） 配置 Advanced Options（高级选项）：</p>
+<p>在 “Advanced Options” 设置中，不要勾选 “Add Anaconda to my PATH environment variable.” （“添加 Anaconda 至我的环境变量。”）。因为如果勾选，则将会影响其他程序的使用。如果想要使用 Anaconda，则通过打开 Anaconda Navigator 或者在开始菜单中的 “Anaconda Prompt”（类似 DOS）中进行使用。</p>
+<p>我们选择 “Register Anaconda as my default Python 3.6” 。Insatll：</p>
+<p><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_install.png" alt="avatar"></p>
+<p>Anaconda 安装过程还是很漫长的，请耐心等待…</p>
+<p>经过漫长的等待，终于安装完成 Installation Complete （安装完成）了，点击最后一个 Next&gt;。之后会出现推荐安装 IDE：Microsoft Visual Studio Code 界面：</p>
+<p>如果需要安装 Microsoft VSCode，点击 Install Microsoft VSCode；否则我们选择 Skip&gt;:</p>
+<p><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_VSCode.png" alt="avatar"></p>
+<p>7）“Thanks for installing Anaconda!”</p>
+<p>进入 “Thanks for installing Anaconda!” 界面则意味着安装成功，点击 “Finish” 完成安装即可。</p>
+<p><strong>注意：</strong>如果你不想了解 “Anaconda云” 和 “Anaconda支持” ，则可以选择不勾选 “Learn more about Anaconda Cloud” 和 “Learn more about Anaconda Support”。</p>
+<p><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_finish.png" alt="avatar"></p>
+<p><strong>8）安装验证。可选用以下任意方法</strong></p>
+<ol>
+<li>“开始（Win） → Anaconda3（64-bit）→ Anaconda Navigator”。若可以成功启动 Anaconda Navigator，进入如下界面，则说明安装成功。</li>
+</ol>
+<p><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_Navigator.png" alt="avatar"></p>
+<ol start="2">
+<li>“开始（Win） → Anaconda3（64-bit）→ 右键点击 Anaconda Prompt → 以管理员身份运行”，在 Anaconda Prompt 中输入 conda list / conda –version，可以查看已经安装的包名和版本号。若结果可以正常显示，则说明安装成功。</li>
+</ol>
+<p><strong>9）配置环境变量</strong></p>
+<p>可能你不太信任 Anaconda Prompt 或者你更加习惯在 windows DOS 下使用命令行，这时时需要配置环境变量的。【控制面板\系统和安全\系统\高级系统设置\环境变量\用户变量\PATH】 中添加 anaconda 的安装目录的 Scripts 文件夹, 比如我的路径是 【E:\Anaconda3\Scripts 】，看个人安装路径不同需要自行调整。</p>
+<p>之后就可以打开命令行提示符界面(最好用管理员模式打开) 输入 conda –version 完成验证了。</p>
+<hr>
+<h4 id="2-2-2-在-Linux-平台安装-Anaconda"><a href="#2-2-2-在-Linux-平台安装-Anaconda" class="headerlink" title="2.2.2 在 Linux 平台安装 Anaconda"></a>2.2.2 在 Linux 平台安装 Anaconda</h4><h5 id="1）获取安装包"><a href="#1）获取安装包" class="headerlink" title="1）获取安装包"></a>1）获取安装包</h5><p>前往官方下载页面选择 Linux 下载项。你会发现，有两个版本可供选择：Python 3.7（最新 Python3.X） 和 Python 2.7。这里我们提供两种方式用于下载适用于 Linux 的 Anaconda 版本：</p>
+<ol>
+<li><p>如果是从官网直接下载安装包，我们需要将下载好的安装包上传到服务器。局域网还好，上传速度一般都比较快。如果服务器是一台阿里云服务器（外网服务器），上传速度是很慢的，而直接采用 wget 方式直接下载的速度取决于服务器网络带宽。</p>
+</li>
+<li><p>获取下载链接，然后通过 wget 直接下载到服务器。如下：</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Python 2.7：</span></span><br><span class="line">$ wget -c https://repo.anaconda.com/archive/Anaconda2-5.3.1-Linux-x86_64.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># Python 3.7：</span></span><br><span class="line">$ wget -c https://repo.anaconda.com/archive/Anaconda3-5.3.1-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
+<p>下载完成后，Centos/ubuntu系统 <code>~/Downloads</code> 下会有一个文件：Anaconda3-5.3.1-Linux-x86_64.sh（或：Anaconda2-5.3.1-Linux-x86_64.sh）；它就是我们要安装的 anaconda3（anaconda2） 的安装包。</p>
+<p>下面我以 “ Anaconda3 in Linux 的安装以及配置” 为样例介绍 Anaconda 安装过程（Anaconda2 安装过程同理）：</p>
+<hr>
+<h5 id="2）Anaconda3-in-Linux-的安装以及配置过程"><a href="#2）Anaconda3-in-Linux-的安装以及配置过程" class="headerlink" title="2）Anaconda3 in Linux 的安装以及配置过程"></a>2）Anaconda3 in Linux 的安装以及配置过程</h5><p><strong>注意：安装前请确认 anaconda3 的安装用户（user）！！！</strong>假设我们的 anaconda3 安装包存放路径为： <code>~/Downloads</code>。</p>
+<p><strong>[1] 在 ~/Downloads 路径下执行：</strong></p>
+<pre><code>$ bash ~/Downloads/Anaconda3-5.0.1-Linux-x86_64.sh
+</code></pre><p>注意：除非被要求使用 root 权限，否则均选择 “Install Anaconda as a user”。 </p>
+<p><strong>[2] “In order to continue the installation process, please review the license agreement.”</strong></p>
+<p>安装过程中，你会看到提示 “In order to continue the installation process, please review the license agreement.”（“请浏览许可证协议以便继续安装。”），点击 “Enter” 查看 “许可证协议”。</p>
+<p>在 “许可证协议” 界面将屏幕滚动至底，输入 “yes” 表示同意许可证协议内容。然后进行下一步。。</p>
+<p><strong>[3] 设置安装路径</strong></p>
+<p>安装过程中，提示 “Press Enter to accept the default install location, CTRL-C to cancel the installation or specify an alternate installation directory.”（“ 按回车键确认安装路径，按 ‘CTRL-C’ 取消安装或者指定安装目录。 ”）</p>
+<p>如果接受默认安装路径，则会显示 “PREFIX=/home/{~username}/anaconda<2 3="" or="">” 并且继续安装。安装过程大约需要几分钟的时间。</2></p>
+<p><strong>建议：</strong>直接接受默认安装路径。</p>
+<p><strong>[4] 设置环境变量</strong></p>
+<p>安装过程中最后安装器会询问 “Do you wish the installer to prepend the Anaconda<2 3="" or=""> install location to PATH in your /home/{~username}/.bashrc ?”（“ 你希望安装器添加 Anaconda 安装路径在 【/home/{~username}/.bashrc 】文件中吗？ ”）。建议输入 “yes” 进行自动配置。</2></p>
+<p>注意：</p>
+<ul>
+<li><p>路径 /home/{~username}/.bash_rc 中 “{~username}” 即用户目录，取决于安装用户。</p>
+</li>
+<li><p>如果输入 “no”，则需要手动添加路径，否则 conda 将无法正常运行。</p>
+</li>
+</ul>
+<p>–&gt; 如何手动添加环境变量？：</p>
+<p>安装完成后，可以察看 ~/.bashrc 文件末尾是否有追加 anaconda相关的 export PATH,如果没有，则执行以下命令：</p>
+<pre><code>$ echo &apos;export PATH=&quot;~/anaconda3/bin:$PATH&quot;&apos; &gt;&gt; ~/.bashrc
+</code></pre><p><strong>[5] Thank you for installing Anaconda<2 3="" or="">!</2></strong></p>
+<p>当看到 “Thank you for installing Anaconda<2 3="" or="">!” 则说明已经成功完成安装。安装完成后，会产生一个 ~/anaconda3 目录，即安装目录。</2></p>
+<p><strong>[6] 更新 .bashrc 使其生效</strong></p>
+<p>关闭终端，然后再打开终端以使安装后的 Anaconda 启动。或者直接在终端中输入以下命令：</p>
+<pre><code>$ source ~/.bashrc
+</code></pre><p><strong>[7] 安装验证。可选用以下任意方法:</strong></p>
+<ol>
+<li><p>在终端中输入命令 <code>condal list</code> / <code>conda --version</code>，如果 Anaconda 被成功安装，则会显示 conda 已经安装的包名和版本号。</p>
+</li>
+<li><p>在终端中输入 python，这条命令将会启动 Python 交互解释器界面。如果 Anaconda 被成功安装并且可以运行，则将会在 Python 版本号的右边显示 “Anaconda custom (64-bit)”。退出 Python 交互界面则输入 exit() 或 quit() 即可。</p>
+</li>
+<li><p>在终端中输入 anaconda-navigator。如果 Anaconda 被成功安装，则 Anaconda Navigator 将会被启动。</p>
+</li>
+</ol>
+<hr>
+<h2 id="3-Anaconda-包以及虚拟环境管理工具：conda"><a href="#3-Anaconda-包以及虚拟环境管理工具：conda" class="headerlink" title="3. Anaconda 包以及虚拟环境管理工具：conda"></a>3. Anaconda 包以及虚拟环境管理工具：conda</h2><p>安装好 Anaconda 后，我们就可以用 Anaconda 来创建我们一个个独立的 Python 环境了。接下来均是以命令行模式进行操作的，Windows 用户请打开 “Anaconda Prompt”（配置 DOS 环境后可以之间在 DOS 下操作）；macOS 和 Linux 用户请打开 “Terminal”（“终端”）进行操作。</p>
+<h3 id="3-1-conda"><a href="#3-1-conda" class="headerlink" title="3.1 conda"></a>3.1 conda</h3><p>前面我们提过，Anaconda 下的包管理和环境管理是鉴于 conda 命令行工具得以实现的。我们先来看一下 anaconda 安装之后，如何来快速管理 conda：</p>
+<p>1）验证 conda 已被安装</p>
+<pre><code>$ conda --version / conda -V
+# 或
+$ which conda（Linxu）
+</code></pre><p>终端上将会以 conda 版本号的形式显示当前安装 conda 的版本号。如：conda 3.11.0</p>
+<p>注意：如果出现错误信息，则需核实是否出现以下情况： </p>
+<ul>
+<li><p>使用的用户是否是安装 Anaconda 时的账户。</p>
+</li>
+<li><p>是否在安装 Anaconda 之后重启了终端。</p>
+</li>
+</ul>
+<p>2）更新 conda 至最新版本</p>
+<pre><code># 升级 conda：
+$ conda update conda
+</code></pre><p>执行命令后，conda 将会对版本进行比较并列出可以升级的版本。同时，也会告知用户其他相关包也会升级到相应版本。当较新的版本可以用于升级时，终端会显示 Proceed ([y]/n)?，此时输入 y 即可进行升级。</p>
+<p>3）如何查看 conda 帮助信息？</p>
+<pre><code>$ conda --help
+#或
+$ conda -h
+</code></pre><p>4）卸载 conda</p>
+<p>[1] Linux 或 macOS：</p>
+<pre><code>$ rm -rf ~/anaconda2(anaconda3)
+</code></pre><p>即删除 Anaconda 的安装目录。根据安装的 Anaconda 版本选择相应的卸载命令。</p>
+<p>[2] Windows</p>
+<p>控制面板 → 添加或删除程序–&gt; 选择 “Python X.X (Anaconda)” –&gt; 点击“删除程序” 即可。</p>
+<hr>
+<h3 id="3-2-conda-多环境管理"><a href="#3-2-conda-多环境管理" class="headerlink" title="3.2 conda 多环境管理"></a>3.2 conda 多环境管理</h3><p><strong>base 环境</strong></p>
+<p>Window 下 activate 命令（Linxu/Mac 下是 source activate）能将我们引入 anaconda 设定的虚拟环境中, 如果你后面什么参数都不加那么会进入 anaconda 自带的 base 环境（anaconda 基础运行环境，anaconda 运行也是需要 Pyhton 支持的）。命令行前面也会多一个(base) 说明当前我们处于的是 base 环境下。</p>
+<p>安装配置好 anaconda 之后，通过在终端输入 python，我们可以进入一个 Python 交互式解释器（带有 Anaconda custom (64-bit)，已经不是系统原生的 Pyhton 解释器了），这个解释器实质就是 base 环境中的 python 解释器。</p>
+<center><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_base.png" alt="avatar"></center>
+
+<p>我们当然不满足一个 base 环境, 我们更加期望的是更加广阔的天地—<strong>可以自由定制的使用多版本虚拟环境</strong>。</p>
+<h4 id="3-2-1-如何创建新环境？"><a href="#3-2-1-如何创建新环境？" class="headerlink" title="3.2.1 如何创建新环境？"></a>3.2.1 如何创建新环境？</h4><p>conda 创建环境指令：</p>
+<pre><code>$ conda create --name &lt;env_name&gt; &lt;package_names&gt;
+#或
+$ conda create -n &lt;env_name&gt; &lt;package_names&gt;
+</code></pre><p>命令说明：</p>
+<ul>
+<li><p>&lt;env_name&gt; 即创建的环境名。建议以英文命名，且不加空格（名称两边不需要加尖括号 “&lt;&gt;”）。</p>
+</li>
+<li><p>&lt;package_names&gt; 即安装在环境中的包名（名称两边不加尖括号 “&lt;&gt;”），如：python。</p>
+<p>  如果要安装指定的版本号，则只需要在包名后面以 “=” 和版本号的形式执行。如：conda create –name python2 python=2.7，即创建一个名为 “python2” 的环境，环境中安装版本为 2.7 的 python。</p>
+<p>  如果要在新创建的环境中创建多个包，则直接在 &lt;package_names&gt; 后以空格隔开，添加多个包名即可。如：conda create -n python3 python=3.5 numpy pandas，即创建一个名为 “python3” 的环境，环境中安装版本为 3.5 的 python，同时也安装了 numpy 和 pandas。</p>
+</li>
+</ul>
+<h4 id="3-2-2-如何切换环境？"><a href="#3-2-2-如何切换环境？" class="headerlink" title="3.2.2 如何切换环境？"></a>3.2.2 如何切换环境？</h4><p><strong>1）激活环境</strong></p>
+<p>[1] Linux 或 macOS</p>
+<pre><code>$ source activate &lt;env_name&gt;
+</code></pre><p>例如：source activate python3</p>
+<p>[2] Windows</p>
+<pre><code>$ activate &lt;env_name&gt;
+</code></pre><p>例如：activate python3</p>
+<p><strong>提示信息</strong>：</p>
+<ol>
+<li><p>如果创建环境后安装 Python 时没有指定 Python 的版本，那么将会安装与 Anaconda 版本相同的 Python 版本，即如果安装 Anaconda 第2版，则会自动安装 Python2.x；如果安装 Anaconda 第3版，则会自动安装 Python 3.x。</p>
+</li>
+<li><p>当成功切换环境之后，在该行行首将以 “(env_name)” 或 “[env_name]” 开头。其中，“env_name” 为切换到的环境名。</p>
+</li>
+</ol>
+<p><strong>2) 退出环境</strong></p>
+<p>[1] Linux 或 macOS</p>
+<pre><code>$ source deactivate
+</code></pre><p>[2] Windows</p>
+<pre><code>$ deactivate
+</code></pre><p><strong>提示信息</strong>：</p>
+<p>当执行退出当前环境命令后，原本行首以 “(env_name)” 或 “[env_name]” 开头的字符将不再显示。</p>
+<h4 id="3-2-3-如何查看已创建环境？"><a href="#3-2-3-如何查看已创建环境？" class="headerlink" title="3.2.3 如何查看已创建环境？"></a>3.2.3 如何查看已创建环境？</h4><p>当我们同时管理多个版本环境时，很容易忘记环境名称，那么如何查看 anaconda 中已经创建好的环境呢？</p>
+<pre><code>$ conda info --envs
+或
+$ conda info -e
+或
+$ conda env list
+</code></pre><p>如下显示，星号 “*” 所在行即为当前所在环境：</p>
+<center><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_condalist.png" alt="avatar"></center>
+
+<h4 id="3-2-4-如何复制已创建环境？"><a href="#3-2-4-如何复制已创建环境？" class="headerlink" title="3.2.4 如何复制已创建环境？"></a>3.2.4 如何复制已创建环境？</h4><pre><code>$ conda create --name &lt;new_env_name&gt; --clone &lt;copied_env_name&gt;
+</code></pre><p><strong>命令说明：</strong></p>
+<ul>
+<li><p>&lt;copied_env_name&gt;：为被 复制/克隆 的环境名（环境名两边不加尖括号 “&lt;&gt;”）。</p>
+</li>
+<li><p>&lt;new_env_name&gt;：为复制之后新环境的名称（环境名两边不加尖括号 “&lt;&gt;”）。</p>
+</li>
+<li><p>如：conda create –name py2 –clone python2 。即为克隆名为 “python2” 的环境，克隆后的新环境名为 “py2”。此时，环境中将同时存在 “python2” 和 “py2” 环境，且两个环境的配置相同。</p>
+</li>
+</ul>
+<h4 id="3-2-5-如何删除已创建环境？"><a href="#3-2-5-如何删除已创建环境？" class="headerlink" title="3.2.5 如何删除已创建环境？"></a>3.2.5 如何删除已创建环境？</h4><pre><code>$ conda remove --name &lt;env_name&gt; --all
+</code></pre><p><strong>命令说明：</strong></p>
+<p>&lt;env_name&gt;:为被删除环境的名称（环境名两边不加尖括号 “&lt;&gt;”）。</p>
+<h4 id="3-2-6-如何导入导出环境？"><a href="#3-2-6-如何导入导出环境？" class="headerlink" title="3.2.6 如何导入导出环境？"></a>3.2.6 如何导入导出环境？</h4><p>如果想要导出当前环境的所有包的信息，即将包信息存入 yaml 文件中：</p>
+<pre><code>$ conda env export &gt; environment.yaml
+</code></pre><p>此时，如果需要重新创建一个相同的虚拟环境时可以用（用配置文件创建新的虚拟环境）：</p>
+<pre><code>$ conda env create -f environment.yaml
+</code></pre><h3 id="3-3-conda-包管理"><a href="#3-3-conda-包管理" class="headerlink" title="3.3 conda 包管理"></a>3.3 conda 包管理</h3><p>conda 除了多环节管理功能之外，还具有包管理功能（类似于 pip）。</p>
+<h4 id="3-3-1-查找可供安装的包版本"><a href="#3-3-1-查找可供安装的包版本" class="headerlink" title="3.3.1 查找可供安装的包版本"></a>3.3.1 查找可供安装的包版本</h4><p>1）精确查找</p>
+<pre><code>$ conda search --full-name &lt;package_full_name&gt;
+</code></pre><p><strong>命令说明：</strong></p>
+<ul>
+<li><p>–full-name：为精确查找的参数。</p>
+</li>
+<li><p>&lt;package_full_name&gt;：是被查找包的全名（包名两边不加尖括号 “&lt;&gt;”）。</p>
+</li>
+</ul>
+<p>例如：conda search –full-name python 即查找全名为 “python” 的包有哪些版本可供安装。</p>
+<p>2）模糊查找</p>
+<pre><code>$ conda search &lt;text&gt;
+</code></pre><p><strong>命令说明：</strong></p>
+<ul>
+<li><text> 是查找含有此字段的包名（此字段两边不加尖括号 “&lt;&gt;”）。</text></li>
+</ul>
+<p>例如：conda search py 即查找含有 “py” 字段的包，有哪些版本可供安装。</p>
+<blockquote>
+<h4 id="3-3-2-获取当前环境中已安装的包信息"><a href="#3-3-2-获取当前环境中已安装的包信息" class="headerlink" title="3.3.2 获取当前环境中已安装的包信息"></a>3.3.2 获取当前环境中已安装的包信息</h4></blockquote>
+<p>执行以下命令后将在终端显示当前环境已安装包的包名及其版本号:</p>
+<pre><code>$ conda list
+</code></pre><hr>
+<h4 id="3-3-3-如何安装第三方包"><a href="#3-3-3-如何安装第三方包" class="headerlink" title="3.3.3 如何安装第三方包"></a>3.3.3 如何安装第三方包</h4><p>1）在指定环境中安装包</p>
+<pre><code>$ conda install --name &lt;env_name&gt; &lt;package_name&gt;
+</code></pre><p><strong>命令说明：</strong></p>
+<ul>
+<li><p>&lt;env_name&gt;：即将包安装的指定环境名（环境名两边不加尖括号 “&lt;&gt;”）。</p>
+</li>
+<li><p>&lt;package_name&gt;：即要安装的包名（包名两边不加尖括号“&lt;&gt;”）。</p>
+</li>
+</ul>
+<p>例如：conda install –name python2 pandas 即在名为 “python2” 的环境中安装 pandas 包。</p>
+<p>2）在当前环境中安装包</p>
+<pre><code>$ conda install &lt;package_name&gt;
+</code></pre><p><strong>命令说明：</strong></p>
+<ul>
+<li><p>&lt;package_name&gt;:即要安装的包名(包名两边不加尖括号 “&lt;&gt;”)。</p>
+</li>
+<li><p>执行命令后在当前环境中安装包。</p>
+</li>
+</ul>
+<p>例如：conda install pandas 即在当前环境中安装 pandas 包。</p>
+<p>3) 使用 pip 安装包</p>
+<p>–&gt; 使用场景</p>
+<p>当使用 conda install 无法进行安装时，可以使用 pip 进行安装。例如：see 包。</p>
+<p>–&gt; 命令</p>
+<pre><code>$ pip install &lt;package_name&gt;
+</code></pre><p>–&gt; 注意</p>
+<ol>
+<li><p>pip 只是包管理器，无法对环境进行管理。因此如果想在指定环境中使用 pip 进行安装包，则需要先切换到指定环境中，再使用 pip 命令安装包。</p>
+</li>
+<li><p>pip 无法更新 python，因为 pip 并不将 python 视为包。</p>
+</li>
+<li><p>pip 可以安装一些 conda 无法安装的包；conda 也可以安装一些 pip 无法安装的包。因此当使用一种命令无法安装包时，可以尝试用另一种命令。</p>
+</li>
+</ol>
+<p>4）从 Anaconda.org 安装包</p>
+<p>Anaconda.org 官方网址：<a href="http://anaconda.org" target="_blank" rel="noopener">http://anaconda.org</a></p>
+<p>–&gt; 使用场景</p>
+<p>当使用 conda install 无法进行安装时，可以考虑从 Anaconda.org 中获取安装包的命令，并进行安装。</p>
+<p>–&gt; 注意</p>
+<ol>
+<li><p>从 Anaconda.org 安装包时，无需注册。</p>
+</li>
+<li><p>在当前环境中安装来自于 Anaconda.org 的包时，需要通过输入要安装的包在 Anaconda.org 中的路径作为获取途径（channel）。查询路径的方式如下：</p>
+<p> 进入 Anaconda Cloud 官方网址：<a href="http://anaconda.org" target="_blank" rel="noopener">http://anaconda.org</a></p>
+<p> 在页面 “Anaconda Cloud” 的上方搜索框中输入要安装的包名，search&gt;。</p>
+</li>
+</ol>
+<center><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_Cloud.png" alt="avatar"></center>
+
+<pre><code>搜索结果中有数以千计的包可供选择，此时点击 “Downloads” 可根据下载量进行排序，最上面的为下载最多的包,（图中以搜索 pymysql 包为例）。选择满足需求的包或下载量最多的包，点击包名。
+</code></pre><center><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_Cloud_search.png" alt="avatar"></center>
+
+<p>3 复制 “To install this package with conda run:” 下方的命令，并粘贴在终端中执行即可完成安装。</p>
+<center><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_Cloud_search_DL.png" alt="avatar"></center>
+
+<hr>
+<h4 id="3-3-4-如何卸载已安装第三方包"><a href="#3-3-4-如何卸载已安装第三方包" class="headerlink" title="3.3.4 如何卸载已安装第三方包"></a>3.3.4 如何卸载已安装第三方包</h4><p>1）卸载指定环境中的包</p>
+<pre><code>$ conda remove --name &lt;env_name&gt; &lt;package_name&gt;
+</code></pre><p><strong>命令说明：</strong></p>
+<ul>
+<li><p>&lt;env_name&gt;：即卸载包所在指定环境的名称（环境名两边不加尖括号 “&lt;&gt;”）。</p>
+</li>
+<li><p>&lt;package_name&gt;即要卸载包的名称（包名两边不加尖括号 “&lt;&gt;”）。</p>
+</li>
+</ul>
+<p>例如：conda remove –name python2 pandas 即卸载名为 “python2” 中的 pandas 包。</p>
+<p>2）卸载当前环境中的包</p>
+<pre><code>$ conda remove &lt;package_name&gt;
+</code></pre><p><strong>命令说明：</strong></p>
+<ul>
+<li><p>&lt;package_name&gt;：即要卸载包的名称（包名两边不加尖括号“&lt;&gt;”）。</p>
+</li>
+<li><p>执行命令后即在当前环境中卸载指定包。</p>
+</li>
+</ul>
+<p>例如：conda remove pandas 即在当前环境中卸载 pandas 包。</p>
+<hr>
+<h4 id="3-3-5-如何更新已安装第三方包"><a href="#3-3-5-如何更新已安装第三方包" class="headerlink" title="3.3.5 如何更新已安装第三方包"></a>3.3.5 如何更新已安装第三方包</h4><p>1）更新所有包</p>
+<pre><code>$ conda update --all
+#或
+$ conda upgrade --all
+</code></pre><p>建议：在安装 Anaconda 之后执行上述命令更新 Anaconda 中的所有包至最新版本，便于使用。</p>
+<p>2) 更新指定包</p>
+<pre><code>$ conda update &lt;package_name&gt;
+#或
+$ conda upgrade &lt;package_name&gt;
+</code></pre><p>注意：</p>
+<ul>
+<li><p>&lt;package_name&gt;：为指定更新的包名（包名两边不加尖括号 “&lt;&gt;”）。</p>
+</li>
+<li><p>更新多个指定包，则包名以空格隔开，向后排列。如：conda update pandas numpy matplotlib 即更新 pandas、numpy、matplotlib 等包。</p>
+</li>
+</ul>
+<hr>
+<h3 id="3-4-深入了解-Anaconda"><a href="#3-4-深入了解-Anaconda" class="headerlink" title="3.4 深入了解 Anaconda"></a>3.4 深入了解 Anaconda</h3><p>了解了以上内容，或许你会觉得奇怪为啥 anaconda 能做这些事, 他的原理到底是什么？我们来看看 anaconda 的安装目录：</p>
+<center><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_setup_dir.png" alt="avatar"></center>
+
+<p>这里只截取了一部分, 其实这里就是我们前面介绍的 base 环境. 里面有着一个基本的 python 解释器, Lib 里面也有 base 环境下的各种包文件。</p>
+<p>那我们自己创建的环境去哪了呢, 我们可以看见一个 envs, 这里就是我们自己创建的各种虚拟环境的入口, 点进去看看：</p>
+<center><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_envs.png" alt="avatar"></center>
+
+<p>可以发现我们之前创建的所有虚拟环境目录就在下面, 再点进去：</p>
+<center><img src="/Anaconda/Anaconda-介绍、安装以及使用教程/Img/Anaconda_in_envs.png" alt="avatar"></center>
+
+<p>这不就是一个标准的 Python 环境目录吗？这么一看, anaconda 所谓的创建虚拟环境其实就是安装了一个真实的 Python 环境, 只不过我们可以通过 activate,conda 等命令去随意的切换我们当前的 Python 环境, 用不同版本的解释器和不同的包环境去运行 Python 脚本。</p>
+<p>至此，你已经掌握了 Anaconda 的日常使用方法。下面我会补充一部分内容用于提升使用体验（推荐阅读），参见：<a href="https://www.orangeshare.cn/Anaconda/Anaconda-生态环境初体验/" target="_blank" rel="noopener">Anaconda 生态环境初体验</a>。</p>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/" title="Anaconda 介绍、安装以及使用教程">http://yoursite.com/Anaconda/Anaconda-介绍、安装以及使用教程/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Anaconda/" rel="tag"><i class="fa fa-tag"></i> Anaconda</a>
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/Setup/" rel="tag"><i class="fa fa-tag"></i> Setup</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Anaconda/Anaconda-JupyterLab（Jupyter-Notebook）-Home/" rel="next" title="Anaconda JupyterLab（Jupyter Notebook） Home">
+                <i class="fa fa-chevron-left"></i> Anaconda JupyterLab（Jupyter Notebook） Home
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Anaconda/Anaconda-生态环境初体验/" rel="prev" title="Anaconda 生态环境初体验">
+                Anaconda 生态环境初体验 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-What-is-Anaconda？"><span class="nav-text">1. What is Anaconda？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-简介"><span class="nav-text">1.1 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-特点（优点）"><span class="nav-text">1.2 特点（优点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Anaconda、conda、pip、virtualenv-的区别"><span class="nav-text">1.3 Anaconda、conda、pip、virtualenv 的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）Anaconda"><span class="nav-text">1）Anaconda</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）conda"><span class="nav-text">2）conda</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3）pip"><span class="nav-text">3）pip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4）Virtualenv"><span class="nav-text">4）Virtualenv</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5）pip-与-conda-比较"><span class="nav-text">5）pip 与 conda 比较</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-How-to-setup-Anaconda？"><span class="nav-text">2. How to setup Anaconda？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-安装环境需求"><span class="nav-text">2.1 安装环境需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Anaconda-安装"><span class="nav-text">2.2 Anaconda 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-在-Windows-平台安装-Anaconda"><span class="nav-text">2.2.1 在 Windows 平台安装 Anaconda</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-在-Linux-平台安装-Anaconda"><span class="nav-text">2.2.2 在 Linux 平台安装 Anaconda</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1）获取安装包"><span class="nav-text">1）获取安装包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）Anaconda3-in-Linux-的安装以及配置过程"><span class="nav-text">2）Anaconda3 in Linux 的安装以及配置过程</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Anaconda-包以及虚拟环境管理工具：conda"><span class="nav-text">3. Anaconda 包以及虚拟环境管理工具：conda</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-conda"><span class="nav-text">3.1 conda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-conda-多环境管理"><span class="nav-text">3.2 conda 多环境管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-如何创建新环境？"><span class="nav-text">3.2.1 如何创建新环境？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-如何切换环境？"><span class="nav-text">3.2.2 如何切换环境？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-3-如何查看已创建环境？"><span class="nav-text">3.2.3 如何查看已创建环境？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-4-如何复制已创建环境？"><span class="nav-text">3.2.4 如何复制已创建环境？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-5-如何删除已创建环境？"><span class="nav-text">3.2.5 如何删除已创建环境？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-6-如何导入导出环境？"><span class="nav-text">3.2.6 如何导入导出环境？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-conda-包管理"><span class="nav-text">3.3 conda 包管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-查找可供安装的包版本"><span class="nav-text">3.3.1 查找可供安装的包版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-2-获取当前环境中已安装的包信息"><span class="nav-text">3.3.2 获取当前环境中已安装的包信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-3-如何安装第三方包"><span class="nav-text">3.3.3 如何安装第三方包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-4-如何卸载已安装第三方包"><span class="nav-text">3.3.4 如何卸载已安装第三方包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-5-如何更新已安装第三方包"><span class="nav-text">3.3.5 如何更新已安装第三方包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-深入了解-Anaconda"><span class="nav-text">3.4 深入了解 Anaconda</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

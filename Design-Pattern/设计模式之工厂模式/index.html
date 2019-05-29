@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Design Pattern,Factory Pattern,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  引言： 如果想成为一名更加优秀的软件设计师，了解优秀软件设计的演变过程比学习优秀软件设计本身更有价值，因为设计的演变过程中蕴藏着大智慧。—《重构与模式》">
+<meta name="keywords" content="Design Pattern,Factory Pattern">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之工厂模式">
+<meta property="og:url" content="http://yoursite.com/Design-Pattern/设计模式之工厂模式/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  引言： 如果想成为一名更加优秀的软件设计师，了解优秀软件设计的演变过程比学习优秀软件设计本身更有价值，因为设计的演变过程中蕴藏着大智慧。—《重构与模式》">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/Design-Pattern/设计模式之工厂模式/Img/SimpleFactoryMode.png">
+<meta property="og:image" content="http://yoursite.com/Design-Pattern/设计模式之工厂模式/Img/FactoryMethodMode.png">
+<meta property="og:image" content="http://yoursite.com/Design-Pattern/设计模式之工厂模式/Img/FactoryMethodMode_sample0.png">
+<meta property="og:image" content="http://yoursite.com/Design-Pattern/设计模式之工厂模式/Img/AbstractFactoryMode.png">
+<meta property="og:updated_time" content="2019-05-29T03:03:52.611Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式之工厂模式">
+<meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  引言： 如果想成为一名更加优秀的软件设计师，了解优秀软件设计的演变过程比学习优秀软件设计本身更有价值，因为设计的演变过程中蕴藏着大智慧。—《重构与模式》">
+<meta name="twitter:image" content="http://yoursite.com/Design-Pattern/设计模式之工厂模式/Img/SimpleFactoryMode.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Design-Pattern/设计模式之工厂模式/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>设计模式之工厂模式 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Design-Pattern/设计模式之工厂模式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">设计模式之工厂模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-03T11:09:34+08:00">
+                2019-01-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:52+08:00">
+                2019-05-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
+                    <span itemprop="name">Design Pattern</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Design-Pattern/设计模式之工厂模式/" class="leancloud_visitors" data-flag-title="设计模式之工厂模式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  24
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…</center>
+
+<p><strong>引言：</strong></p>
+<p>如果想成为一名更加优秀的软件设计师，了解优秀软件设计的演变过程比学习优秀软件设计本身更有价值，因为设计的演变过程中蕴藏着大智慧。—《重构与模式》</p>
+<a id="more"></a>
+<p>这里，我们首先给出<strong>工厂模式定义及其分类：</strong></p>
+<p>工厂模式：通过专门定义的工厂类来决定具体实例化哪个产品对象（对应多个产品类）。也就是说 <strong>产品对象的创建统一交由工厂去生产</strong>。简言之，工厂设计模式是用来实例化对象的。</p>
+<p>工厂设计模式可以分为 3 类，分别是：</p>
+<p><strong>1 &gt;</strong>：简单工厂模式；<br><strong>2 &gt;</strong>：工厂方法模式；<br><strong>3 &gt;</strong>：抽象工厂模式。</p>
+<p>下面我们分别来详细解读上述的各个模式：</p>
+<hr>
+<h2 id="1-gt-简单工厂模式"><a href="#1-gt-简单工厂模式" class="headerlink" title="1 &gt; 简单工厂模式"></a>1 &gt; 简单工厂模式</h2><h3 id="1-1-初识简单工厂模式"><a href="#1-1-初识简单工厂模式" class="headerlink" title="1.1 初识简单工厂模式"></a>1.1 初识简单工厂模式</h3><p>简单工厂模式是工厂模式家族中最简单常见，但最实用的模式。</p>
+<p><strong>简单工厂模式</strong>，又叫做静态工厂方法（Static Factory Method）模式，是通过专门定义的工厂类来负责创建产品类（其他类）实例的方法。也就是说，由一个工厂对象决定创建出哪一种产品类的实例。并且注意，<strong>被创建的实例通常都具有共同的父类。</strong></p>
+<hr>
+<h3 id="1-2-场景模拟"><a href="#1-2-场景模拟" class="headerlink" title="1.2 场景模拟"></a>1.2 场景模拟</h3><p>我们来模拟一个简单工厂模式的使用场景：使用 Java 面向对象语言实现一个计算机控制台程序，要求输入两个操作数以及运算符，得到计算结果。 </p>
+<p>可能你会觉得这有什么难的？So easy！于是你开始：</p>
+<pre><code>import java.util.Scanner;
+
+public class Computer {
+    public static void main(String[] args) {
+
+        try {
+
+            Scanner in = new Scanner(System.in);
+            System.out.println(&quot;请输入操作数 A ：&quot;);
+            float numberA  = in.nextFloat();
+            System.out.println(&quot;请输入运算符号：&quot;);
+            String strOperate = in.next();
+            System.out.println(&quot;请输入操作数 B ：&quot;);
+            float numberB  = in.nextFloat();
+
+            float operResult = 0;
+            switch (strOperate) {
+            case &quot;+&quot;:
+                operResult = numberA + numberB;
+                break;
+            case &quot;-&quot;:    
+                operResult = numberA - numberB;
+                break;    
+            case &quot;*&quot;:    
+                operResult = numberA * numberB;
+                break;
+            case &quot;/&quot;:
+                if (numberB != 0) {
+                    operResult = numberA / numberB;
+                }else{
+                    System.out.println(&quot;Value Error : Divisor is zero ! Please check again !&quot;);
+                }
+                break;
+            }
+
+            System.out.println(&quot;The operation result is : &quot; + operResult);
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(&quot;Operation Error !!!&quot;);
+        }
+    }
+}
+</code></pre><p>写完后，你可能还会觉得：Perfect！我已经实现了场景需求，并且在编程过程我还注意了编码规范问题。但是你真的瞒住了场景需求了吗？</p>
+<p>其实不然，上述编码其实犯了所有编程初学者都会犯的一个问题，仍然是以面向过程的思维来解决问题，本身代码没有错，但却没有表达出场景描述中面向对象的特性。导致，我们只满足了当前场景功能需求，后续代码不易维护、扩展，灵活性差，更不易复用。</p>
+<hr>
+<p>实现“精彩”的代码，我们需要 <strong>面向对象的编程</strong>，以实现代码的易维护、易扩展、易复用，以及良好灵活性：</p>
+<p><strong>1）逻辑分离</strong></p>
+<p>基于之前你写的代码，假设如果我们项目内其它板块要使用计算功能时，你会怎么做？通过 Ctrl + C or Ctrl V？</p>
+<p>编程中有一个原则就是尽可能想办法避免代码重复。其实，我们很容易可以想到如果可以将计算模块 <strong>封装</strong> 出来（实现业务逻辑和界面逻辑分离），不就可以自由复用定义好的计算功能了么。</p>
+<p>我们先来封装 Operation 运算类（业务逻辑）：</p>
+<pre><code>public class Operation {
+
+    public static float getOperResult(float numberA, float numberB, String strOperate) {
+
+        float operResult = 0;
+
+        switch (strOperate) {
+        case &quot;+&quot;:
+            operResult = numberA + numberB;
+            break;
+        case &quot;-&quot;:    
+            operResult = numberA - numberB;
+            break;    
+        case &quot;*&quot;:    
+            operResult = numberA * numberB;
+            break;
+        case &quot;/&quot;:
+            if (numberB != 0) {
+                operResult = numberA / numberB;
+            }else{
+                System.out.println(&quot;Value Error : Divisor is zero ! Please check again !&quot;);
+            }
+            break;
+        }
+
+        return operResult;    
+    }
+}
+</code></pre><p>此时界面逻辑如下（客户端）：</p>
+<pre><code>import java.util.Scanner;
+
+public class Computer {
+    public static void main(String[] args) {
+
+        try {
+
+            Scanner in = new Scanner(System.in);
+            System.out.println(&quot;请输入操作数 A ：&quot;);
+            float numberA  = in.nextFloat();
+            System.out.println(&quot;请输入运算符号：&quot;);
+            String strOperate = in.next();
+            System.out.println(&quot;请输入操作数 B：&quot;);
+            float numberB  = in.nextFloat();
+
+            float operResult = 0;
+            operResult = Operation.getOperResult(numberA, numberB, strOperate);
+
+            System.out.println(&quot;The operation result is : &quot; + operResult);
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(&quot;Operation Error !!!&quot;);
+        }
+    }
+}
+</code></pre><p>业务逻辑和界面逻辑分离后，不管在哪里使用，我们可以很容易复用之前我们写过的 Operation 运算类。</p>
+<hr>
+<p><strong>2）降低耦合</strong></p>
+<p>上面我们通过面向对象的 <strong>封装</strong> 特性，提高了代码的复用性。那么现在再来考虑一个问题：上述项目代码中 Operation 运算类是否可以灵活<strong>修改以及扩展</strong>？</p>
+<p>假设我们现在想要在其中 <strong>添加取整运算</strong>，或我们想要 <strong>修改除法运算为求平方根</strong>，我们需要拿到这一部分完整的代码（其它功能代码也暴露）才可以进行更改。并且开发完成后减法、乘法、加法等又参与一次编译，我们很容易在修改过程中在其它功能代码中引入错误，这是由于各运算功能代码耦合性太紧。所以如何降低各个功能模块耦合性在实际项目开发是非常必要且重要的！</p>
+<p>通过面向对象的<strong>继承和多态</strong>，我们很容易想到：将不同运算操作分别封装成一个个具有相同抽象父类（也可以是接口）的运算类，它们彼此不可见。同时，如果想要增加其它运算功能类时，只需要继承其抽象父类即可实现。如下：</p>
+<p>|————————————————-</p>
+<p>首先，定义一个 <strong>Operation 运算基类（抽象父类）</strong>，其它运算相关操作类继承至父类 Operation：</p>
+<pre><code>public abstract class Operation {
+
+    public abstract float getOperResult(float numberA, float numberB) ;
+
+}
+</code></pre><p>|— 加减乘除运算类定义 —|</p>
+<p><strong>加法类：</strong></p>
+<pre><code>public class  AddOperation extends Operation {
+
+    @Override
+    public float getOperResult(float numberA, float numberB) {
+        // TODO Auto-generated method stub
+        return numberA + numberB;
+    }
+}
+</code></pre><p><strong>减法类：</strong></p>
+<pre><code>public class SubOperation extends Operation{
+
+    @Override
+    public float getOperResult(float numberA, float numberB) {
+        // TODO Auto-generated method stub
+        return numberA - numberB;
+    }
+
+}
+</code></pre><p><strong>乘法类：</strong></p>
+<pre><code>public class MulOperation extends Operation {
+
+    @Override
+    public float getOperResult(float numberA, float numberB) {
+        // TODO Auto-generated method stub
+        return numberA * numberB;
+    }
+
+}
+</code></pre><p><strong>除法类：</strong></p>
+<p>public class DivOperation extends Operation {</p>
+<pre><code>@Override
+public float getOperResult(float numberA, float numberB) {
+    // TODO Auto-generated method stub
+    if (numberB == 0) {
+        System.out.println(&quot;Value Error : Divisor is zero ! Please check again !&quot;);
+    }
+    return numberA / numberB;
+}
+</code></pre><p>}</p>
+<p>————————————————-|</p>
+<p>通过封装、继承以及多态我们已经成功对 Operation 运算类完成解耦。此时，如果我们想要修改加法功能运算，只需要被提供加法类代码即可；如果想要增加一个运算功能只需要增加一个继承自 Operation 运算父类的功能类即可。</p>
+<hr>
+<h3 id="1-3-简单工厂模式应用"><a href="#1-3-简单工厂模式应用" class="headerlink" title="1.3 简单工厂模式应用"></a>1.3 简单工厂模式应用</h3><p>上面我们已经完成了计算器控制台程序项目代码复用、维护以及扩展的思考。此时我们面临的问题是：客户端程序（界面逻辑）如何根据输入的运算符去实例化不同的运算类？<strong><code>简单工厂设计模式</code></strong> 可以帮助我们解决这个应用场景。</p>
+<p>根据简单工厂设计模式说明，这里，需要实例化的运算类（加减乘除类）对应简单工厂模式中的产品类，简单工厂模式通过专门定义一个工厂类来创建运算类（产品类）目标实例。并且正如我们前面提过的简单工厂设计模式产品类（运算类）有一个公共的抽象父类—Operation 基类。</p>
+<p><strong>工厂类实现：</strong></p>
+<pre><code>public class OperationFactory {
+
+    public static Operation createOperate(String strOperate) {
+
+        Operation oper = null;
+        switch (strOperate) {
+        case &quot;+&quot;:
+            oper = new AddOperation();
+            break;
+        case &quot;-&quot;:    
+            oper = new SubOperation();
+            break;    
+        case &quot;*&quot;:    
+            oper = new MulOperation();
+            break;
+        case &quot;/&quot;:
+            oper = new DivOperation();
+            break;
+        }
+
+        return oper;
+    }
+
+}
+</code></pre><p>最后，客户端（界面逻辑）别可以根据输入的运算符去实例化不同的运算类：</p>
+<pre><code>public class Computer {
+
+    public static void main(String[] args) {
+
+        try {
+
+            Scanner in = new Scanner(System.in);
+            System.out.println(&quot;请输入操作数 A ：&quot;);
+            float numberA  = in.nextFloat();
+            System.out.println(&quot;请输入运算符号：&quot;);
+            String strOperate = in.next();
+            System.out.println(&quot;请输入操作数 B：&quot;);
+            float numberB  = in.nextFloat();
+
+            float operResult = 0;
+            operResult = operate(numberA, numberB,strOperate);
+
+            System.out.println(&quot;The operation result is : &quot; + operResult);
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(&quot;Operation Error !!!&quot;);
+        }
+
+    }
+
+    private static float operate(float numberA, float numberB, String strOperate){
+        Operation oper = OperationFactory.createOperate(strOperate);
+        return oper.getOperResult(numberA, numberB);
+    }
+}
+</code></pre><hr>
+<h3 id="1-4-简单工厂模式-UML-类图"><a href="#1-4-简单工厂模式-UML-类图" class="headerlink" title="1.4 简单工厂模式 UML 类图"></a>1.4 简单工厂模式 UML 类图</h3><p>以简单工厂设计模式在上述场景应用为例，我们给出其 UML 类图：</p>
+<center><img src="/Design-Pattern/设计模式之工厂模式/Img/SimpleFactoryMode.png" alt="avatar"></center>
+
+<hr>
+<h3 id="1-5-简单工厂模式优缺点"><a href="#1-5-简单工厂模式优缺点" class="headerlink" title="1.5 简单工厂模式优缺点"></a>1.5 简单工厂模式优缺点</h3><p><strong>1）优点：</strong></p>
+<p>对于客户端：简单工厂将对象的创建过程进行了封装，用户不需要知道具体的创建过程，只需要根据选择条件动态调用工厂类获取相应产品对象即可。</p>
+<p>对于软件体系结构：简单工厂模式能够根据输入信息，决定究竟应该创建哪个具体（产品）类的对象（包含了必要的逻辑判断）。明确区分了各自的权力和义务，优化了软件体系结构。</p>
+<p>降低代码耦合，遵循最少知识原则。</p>
+<p><strong>2）缺点：</strong></p>
+<p>简单工厂模式是通过 <code>switch-case</code> 来进行产品对象的创建，违背了<strong>开放-关闭原则（对维护和扩展同时开放）</strong>。因为如果需要增加产品类的话需要在工厂类中增加 <code>case</code> 语句。有些情况下我们可以通过 <strong>反射调用</strong> 来弥补这种不足。</p>
+<hr>
+<h2 id="2-gt-工厂方法模式"><a href="#2-gt-工厂方法模式" class="headerlink" title="2 &gt; 工厂方法模式"></a>2 &gt; 工厂方法模式</h2><h3 id="2-1-初识工厂方法模式"><a href="#2-1-初识工厂方法模式" class="headerlink" title="2.1 初识工厂方法模式"></a>2.1 初识工厂方法模式</h3><p>工厂方法模式可以看作是简单工厂模式的衍生，解决了许多简单工厂模式中存在的问题。</p>
+<p><strong>工厂方法模式</strong>（Factory Method），又称多态性工厂模式。是定义一个用于创建产品对象的工厂接口，让其子类（产品工厂类）决定具体实例化哪一个类。工厂方法模式使得一个产品类的实例化延迟到了子类。换句话说：在工厂方法模式中，核心的工厂类（对应工厂接口）不再负责所有的产品的创建，而是将具体创建的工作交给工厂子类去做。</p>
+<p>工厂方法模式将核心工厂类定义为一个抽象工厂角色，仅负责提供具体工厂子类必须实现的接口方法，而不接触哪一个产品类应当被实例化这种细节，具体实例化哪个产品类的细节由工厂子类去做。</p>
+<p><strong>注意：一个工厂子类只用于生成它相对应的产品，也就是说每一个产品都对应一个工厂子类。</strong></p>
+<hr>
+<h3 id="2-2-场景模拟以及工厂方法模式应用"><a href="#2-2-场景模拟以及工厂方法模式应用" class="headerlink" title="2.2 场景模拟以及工厂方法模式应用"></a>2.2 场景模拟以及工厂方法模式应用</h3><p>还是以简单工厂模式中计算机控制台程序实现计算功能为说明样例，这里我们会给出使用工厂方法模式来实例化不同的产品类（加减乘除运算类）的具体方法。</p>
+<p>首先我们给出计算功能的工厂方法模式实现的 UML 类图：</p>
+<center><img src="/Design-Pattern/设计模式之工厂模式/Img/FactoryMethodMode.png" alt="avatar"></center>
+
+<p>产品类实例化实现过程如下：</p>
+<p>|————————————————-</p>
+<p><strong>将核心工厂类抽象为抽象工厂接口：</strong></p>
+<pre><code>public interface IFactory { 
+    public Operation generateOper();
+}
+</code></pre><p><strong>加减乘除各对应一个工厂子类去实现核心工厂接口：</strong></p>
+<p><strong>1）加法工厂子类：</strong></p>
+<pre><code>public class AddOperationFactory implements IFactory{
+
+    @Override
+    public Operation generateOper() {
+        // TODO Auto-generated method stub
+        return new AddOperation();
+    }
+
+}
+</code></pre><p><strong>2）减法工厂子类：</strong></p>
+<pre><code>public class SubOperationFactory implements IFactory{
+
+    @Override
+    public Operation generateOper() {
+        // TODO Auto-generated method stub
+        return new SubOperation();
+    }
+
+}
+</code></pre><p><strong>3）乘法工厂子类：</strong></p>
+<pre><code>public class MulOperationFactory implements IFactory{
+
+    @Override
+    public Operation generateOper() {
+        // TODO Auto-generated method stub
+        return  new MulOperation();
+    }
+
+}
+</code></pre><p><strong>4）除法工厂子类：</strong></p>
+<pre><code>public class DivOperationFactory implements IFactory{
+
+    @Override
+    public Operation generateOper() {
+        // TODO Auto-generated method stub
+        return new DivOperation();
+    }
+
+}
+</code></pre><p>|————————————————-</p>
+<p>最后我们来看客户端如何进行调用（以实例化加法类为例）：</p>
+<pre><code>public class Computer {
+
+    public static void main(String[] args) {
+
+        try {
+
+            Scanner in = new Scanner(System.in);
+            System.out.println(&quot;请输入操作数 A ：&quot;);
+            float numberA  = in.nextFloat();
+            System.out.println(&quot;请输入操作数 B：&quot;);
+            float numberB  = in.nextFloat();
+
+            float operResult = 0;
+
+            //　实例化加法类：
+            IFactory operFactory = new AddOperationFactory();
+            Operation oper = operFactory.generateOper();
+            operResult = oper.getOperResult(numberA, numberB);
+
+            System.out.println(&quot;The operation result is : &quot; + operResult);
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(&quot;Operation Error !!!&quot;);
+        }
+
+    }
+
+}
+</code></pre><hr>
+<h3 id="2-3-简单工厂-VS-工厂方法"><a href="#2-3-简单工厂-VS-工厂方法" class="headerlink" title="2.3 简单工厂 VS. 工厂方法"></a>2.3 简单工厂 VS. 工厂方法</h3><p>我们知道，简单工厂模式在工厂类中包含了必要的逻辑判断，可以根据客户端的选择条件动态的选择实例化哪个产品类。对于客户端来说，这去除了与具体产品类的依赖。但带来的一个问题就是：<strong>工厂类和分支耦合。</strong> 而工厂方法模式将产品类的实例化从核心工厂类推迟到了其工厂子类，并且一个工厂子类只用于生成它相对应的产品对象，降低了核心工厂类与分支的耦合度。</p>
+<p>但我们发现：使用工厂方法模式时，仍需要界面逻辑（客户端）决定实例化哪一个工厂子类，选择判断问题仍然是存在。相较于简单工厂模式，工厂方法将简单工厂的内部逻辑判断转移到了客户端代码来进行。</p>
+<p><strong>存在一个疑惑</strong>：当我们想增加新运算功能时，简单工厂模式需要增加运算类以及修改工厂类（修改原有的类，违反了“开放-关闭”原则），而工厂方法模式下我们除了增加运算类、产品工厂类，还需要去修改客户端。看起来这不但没有减化难度，反而增加了很多类和方法，这不是变得更加复杂了？</p>
+<p>|————————————————-</p>
+<p><strong>工厂方法适用场景：</strong></p>
+<p>通过简单工厂模式和工厂方法模式的对比，我们发现工厂方法模式的使用好像使得实现更加复杂了。</p>
+<p>其实，在 <strong>【某些场景下】</strong> 通过工厂方法，只需要修改一行实例化的代码就可以极其方便地实现软件系统元素的切换（例如：切换数据源等，后续我们会给出一个场景使用实例来进行说明）。</p>
+<p>————————————————-|</p>
+<hr>
+<h3 id="2-4-工厂方法模式优缺点"><a href="#2-4-工厂方法模式优缺点" class="headerlink" title="2.4 工厂方法模式优缺点"></a>2.4 工厂方法模式优缺点</h3><p><strong>1）优点</strong></p>
+<p>工厂方法解决了简单工厂违背“开放-封闭”原则的缺点（降低了简单工厂中工厂类和分支的耦合），又保持了产品对象创建的封装。</p>
+<p>不需要修改原来的工厂类就可以增加新功能。</p>
+<p><strong>2）缺点</strong></p>
+<p>每新增一种产品，类会不断增加，而且逻辑基本一样，在一定程度上，代码冗余（感觉可以接受，毕竟我们不能要求十全十美）。</p>
+<p>并且对于工厂方法模式中 “仍然存在着逻辑判断存在，无法避免修改客户端” 的问题，是可以通过 <strong>“反射”</strong> 来解决的（分支判断问题）。</p>
+<p><strong>注意：</strong>后续我们还好说明如何优化进工厂方法模式，这里明确抽象工厂模式的优缺点即可。</p>
+<hr>
+<h2 id="3-gt-抽象工厂模式"><a href="#3-gt-抽象工厂模式" class="headerlink" title="3 &gt; 抽象工厂模式"></a>3 &gt; 抽象工厂模式</h2><h3 id="3-1-初识抽象工厂模式"><a href="#3-1-初识抽象工厂模式" class="headerlink" title="3.1 初识抽象工厂模式"></a>3.1 初识抽象工厂模式</h3><p>相较于简单工厂以及工厂方法设计模式，<strong>抽象工厂模式</strong>是所有形态的工厂模式中最为抽象（最具一般性）的一种形态。</p>
+<p>这一部分让我们通过模拟一个抽象工厂设计模式适用场景一起来认识抽象工厂设计模式：</p>
+<h4 id="3-1-1-场景模拟"><a href="#3-1-1-场景模拟" class="headerlink" title="3.1.1 场景模拟"></a>3.1.1 场景模拟</h4><p>假设我们现在已经开发了一个线上平台，使用 MySQL 作为数据库，并且线上平台测试通过。正美滋滋的想着晚上（周五）整点什么活动，此时我们突然接到来自另一家公司一个类似的项目：紧急！！！唯一不同的是，需要将项目使用的数据库由 MySQL 变更为 Access。</p>
+<p>MMP，尽管内心早就奔腾过无数…咳，本着可以提升个人能（xin）力（zi），干吧！然后就是痛苦的开始…</p>
+<p>Access 和 MySQL 使用上有不少的差异，替换数据库开始后，出现了各种问题（头皮发麻）…。终于改完了，一看时间已经晚上 10 点了,美好的周五泡汤了…</p>
+<p>事后想想，之后线上平台的维护可就麻烦了，同时需要维护两个项目，工作量很大啊。如果哪一天需要用到其它数据库（例如：Oracle），改动的地方会更大，想想就头大，这个问题得解决啊！！！</p>
+<p><strong>1）最基本的数据访问程序</strong></p>
+<p>这里先给出原先的（MySQL）数据访问方式，以访问用户表 User 为例：</p>
+<p>先定义一个 User 用户类，包含两个字段 ID 和 Name：</p>
+<pre><code>public class User {
+
+    private String name;
+    public int id;
+
+    public void setName(String value) {
+        name = value;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public void setId(int value) {
+        id = value;
+    }
+    public int getId() {
+        return id;
+    }
+}
+</code></pre><p>然后定义一个操作 User 表的 mysqlUser 类，只包含 “新增用户” 以及 “获取用户” 的方法，其它 mysql 具体相关语句屏蔽掉不作涉及：</p>
+<pre><code>public class MysqlUser {
+
+    public void insert(User user) {
+        System.out.println(&quot; Insert into mysql db. &quot;);
+    }
+
+    public User getUser(int id) {
+        System.out.println(&quot; Get user by id mysql db. &quot;);
+        return null;
+    }
+}
+</code></pre><p>客户端逻辑调用：</p>
+<pre><code>public class Client {
+
+    public static void main(String args[]) {
+        User user = new User();
+
+        mysqlUser clients = new mysqlUser();
+        clients.insert(user);
+        clients.getUser(0);
+    }
+}
+</code></pre><hr>
+<p><strong>2）使用工厂方法设计模式的数据访问程序</strong></p>
+<p>我们发现，上述实现之所以无法更换数据库在于数据库对象 clients 被高耦合到了 MySQL 上，我们自然而然地能够想到可以通过工厂方法模式来决定具体数据源：</p>
+<p>我们先来看工厂方法模式实现上述数据访问的 UML 类图：</p>
+<center><img src="/Design-Pattern/设计模式之工厂模式/Img/FactoryMethodMode_sample0.png" alt="avatar"></center>
+
+<p>编程实现如下：</p>
+<p>定义 IUser 抽象产品接口，解除和具体数据库访问的耦合：</p>
+<pre><code>public interface IUser {
+
+    void insert(User user);
+
+    IUser getUser(int id);
+}
+</code></pre><p>定义 MysqlUser 类，用户访问 MySQL 数据库的 User：</p>
+<pre><code>public class MysqlUser implements IUser{
+
+    public void insert(User user) {
+        System.out.println(&quot; Insert into MySql db. &quot;);
+    }
+
+    public User getUser(int id) {
+        System.out.println(&quot; Get user by id MySql db. &quot;);
+        return null;
+    }
+}
+</code></pre><p>定义 AccessUser 类，用户访问 Access 的 User：</p>
+<pre><code>public class AccessUser implements IUser{
+
+    public void insert(User user) {
+        System.out.println(&quot; Insert into Access db. &quot;);
+    }
+
+    public User getUser(int id) {
+        System.out.println(&quot; Get user by id Access db. &quot;);
+        return null;
+    }
+}
+</code></pre><p>接下来我们来看工厂类定义：</p>
+<p>定义 IFactory 抽象工厂接口，用于创建 User 表访问对象：</p>
+<pre><code>public interface IFactory {
+
+    public IUser createUser();
+}
+</code></pre><p>定义 MysqlFactory 工厂子类，用于实例化产品类：</p>
+<pre><code>public class MysqlFactory implements IFactory{
+
+    @Override
+    public IUser createUser() {
+        // TODO Auto-generated method stub
+        return new MysqlUser();
+    }
+
+}
+</code></pre><p>定义 AccessFactory 工厂子类，用于实例化产品类：</p>
+<pre><code>public class AccessFactory implements IFactory{
+
+    @Override
+    public IUser createUser() {
+        // TODO Auto-generated method stub
+        return new AccessUser();
+    }
+
+}
+</code></pre><p>最后，我们来看客户端调用：</p>
+<pre><code>public class Client {
+
+    public static void main(String args[]) {
+        User user = new User();
+
+        IFactory factory = new MysqlFactory();
+
+        IUser iUser = factory.createUser();
+
+        iUser.insert(user);
+        iUser.getUser(0);
+    }
+}
+</code></pre><p>可以发现，数据库访问对象 iUser 事先是无法知道正在访问哪个数据库的，这是由工厂类决定的。</p>
+<hr>
+<p><strong>3）使用抽象工厂设计模式的数据访问程序</strong></p>
+<p>项目设计更改为工厂方法设计模式后仍存在问题：实际使用时，数据库不可能只有一个 User 表，很可能存在其它表，例如 Department 表（部门表）。如何做？</p>
+<p>先给出 Department 类定义：</p>
+<pre><code>public class Department {
+
+    private String deparName;
+    public int id;
+
+    public void setdeparName(String value) {
+        deparName = value;
+    }
+    public String getdeparName() {
+        return deparName;
+    }
+
+    public void setId(int value) {
+        id = value;
+    }
+    public int getId() {
+        return id;
+    }
+}
+</code></pre><p>在增加 Department 表数据访问之前，我们还是先给出其 UML 类图：</p>
+<center><img src="/Design-Pattern/设计模式之工厂模式/Img/AbstractFactoryMode.png" alt="avatar"></center>
+
+<p>接下来，定义 IDepartment 抽象产品接口，解除和具体数据库访问的耦合：</p>
+<pre><code>public interface IDepartment {
+
+    void insert(Department department);
+
+    Department getDepartment(int id);
+}
+</code></pre><p>定义 MysqlDepartment 类，用户访问 MySQL 数据库的 Department：</p>
+<pre><code>public class MysqlDepartment implements IDepartment{
+
+    public void insert(Department department) {
+        System.out.println(&quot; Insert into MySql db. &quot;);
+    }
+
+    public Department getDepartment(int id) {
+        System.out.println(&quot; Get department by id from MySql db. &quot;);
+        return null;
+    }
+}
+</code></pre><p>定义 AccessDepartment 类，用户访问 Access 的 Department：</p>
+<pre><code>public class AccessDepartment implements IDepartment{
+
+    public void insert(Department department) {
+        System.out.println(&quot; Insert into Access db. &quot;);
+    }
+
+    public Department getDepartment(int id) {
+        System.out.println(&quot; Get department by id from Access db. &quot;);
+        return null;
+    }
+}
+</code></pre><p>接下来我们来看工厂类变化：</p>
+<p>IFactory 抽象工厂接口：用于创建 User 或 Department 表访问对象：</p>
+<pre><code>public interface IFactory {
+
+    public IUser createUser();
+
+    public IDepartment createDepartment();
+}
+</code></pre><p>MysqlFactory 工厂子类：用于实例化产品类：</p>
+<pre><code>public class MysqlFactory implements IFactory{
+
+    @Override
+    public IUser createUser() {
+        // TODO Auto-generated method stub
+        return new MysqlUser();
+    }
+
+    @Override
+    public IDepartment createDepartment() {
+        // TODO Auto-generated method stub
+        return new MysqlDepartment();
+    }
+}
+</code></pre><p>AccessFactory 工厂子类：用于实例化产品类：</p>
+<pre><code>public class AccessFactory implements IFactory{
+
+    @Override
+    public IUser createUser() {
+        // TODO Auto-generated method stub
+        return new AccessUser();
+    }
+
+    @Override
+    public IDepartment createDepartment() {
+        // TODO Auto-generated method stub
+        return new AccessDepartment();
+    }
+}
+</code></pre><p>此时我们来看客户端调用：</p>
+<pre><code>public class Client {
+
+    public static void main(String args[]) {
+
+        User user = new User();
+        Department department = new Department();
+
+        // IFactory factory = new MysqlFactory();
+        IFactory factory = new AccessFactory();
+
+        // 解除了与具体数据访问的耦合：
+        IUser iUser = factory.createUser();
+        iUser.insert(user);
+        iUser.getUser(0);
+
+        // 解除了与具体数据访问的耦合：
+        IDepartment iDepartment = factory.createDepartment();
+        iDepartment.insert(department);
+        iDepartment.getDepartment(0);
+
+    }
+}
+</code></pre><p>此时我们可以发现，通过 <code>IFactory factory = new AccessFactory();</code> 我们已经成功完成数据源的切换。</p>
+<p>其实，在上面不知不觉的过程中，我们已经完成了抽象工厂模式的使用，我们可以发现使用抽象工厂模式可以解决涉及多个产品系列（产品族）的问题。</p>
+<hr>
+<p>下面我们来看抽象工厂模式严格说明。</p>
+<h4 id="3-1-2-抽象工厂设计模式"><a href="#3-1-2-抽象工厂设计模式" class="headerlink" title="3.1.2 抽象工厂设计模式"></a>3.1.2 抽象工厂设计模式</h4><p>抽象工厂模式（Abstract Factory）严格定义是：提供一个创建一系列相关或互相依赖对象的接口，而无需指定它们具体的类。可以为 <strong>不同产品族</strong> 的对象创建提供接口，系统可以在不同的产品族进行切换。</p>
+<p>不好理解？不要紧。这里我们来看一个经典的例子：生产汽车。</p>
+<p>由于生产汽车的品牌有很多（比如奔驰、宝马、大众等等），因此将会有很多个工厂（工厂子类）。此时我们需要将这些工厂抽象出来成一个工厂接口（核心工厂接口），这个工厂接口不用去关心这些工厂具体怎么生产产品以及这些产品在不同的工厂之间的差异，它只需要定义出来生产车的哪些部件就好了。比如 CreateWheel（车轮）、CreateFrame（车架）、CreateEngine（发动机）等。</p>
+<p>不同的工厂（工厂子类）由于各自工艺不同，它在具体制造这些产品的时候必然要重写这些方法，且具体实现方式在具体工厂间的差异可能非常大。</p>
+<p>假设现在有 M 家工厂，N 种部件。按照抽象工厂模式去设计的话，最终将会有 1 个抽象工厂接口（客户端用来初始化并决定具体用哪家工厂去生产产品），N 个抽象部件接口（抽象产品接口，取决于具体工厂子类），M 个具体工厂子类（每个工厂有 N 个方法，用来初始化 N 个具体部件生产类），M*N 个具体部件类（这些类是真正生产产品的类）。是不是很形象？</p>
+<p>还不好理解？我们来对应一下之前的数据访问样例。IFactory 是一个抽象工厂接口（决定具体由哪个工厂子类去生产具体产品）。而 MysqlFactory、AccessFactory 是由 IFactory 所管理的工厂子类，用于决定生产那种具体的产品。User or Department？</p>
+<p>是不是很牛X？</p>
+<hr>
+<h3 id="3-2-抽象工厂模式优缺点"><a href="#3-2-抽象工厂模式优缺点" class="headerlink" title="3.2 抽象工厂模式优缺点"></a>3.2 抽象工厂模式优缺点</h3><p><strong>1）优点：</strong></p>
+<p>抽象工厂模式最大的好处就是如果要切换工厂，只需要在最开始初始化工厂类的时候换另一家工厂就好了，而整个结构都无需改动。我们的设计不能防止需求的变更，最理想的就是让这种改动变得最小，现在如果我们想更改数据库访问，只需要更改到具体的工厂就可以做到了。</p>
+<p><strong>2）缺点：</strong></p>
+<p><strong>抽象工厂模式下扩展困难：</strong>如果我们要增加功能，以数据访问为例，假设我们要增加一个项目表 Project，我们需要作哪些改动？</p>
+<p>我们需要至少增加 IProject、MysqlProject、AccessProject 类（必须的）。并且还需要修改 IFactory、MysqlFactory、AccessFactory 才可以实现，是不相当糟糕？</p>
+<p><strong>抽象工厂模式下维护困难：</strong>项目对数据访问的客户端不仅一个，故需要在很多地方都使用 IUser、IDepartment，而每一次使用之前都需要类似 <code>IFactory factory = new MysqlFactory</code> 初始化一次。</p>
+<p>如果要更换数据访问时，需要多次更改初始化操作，这是很繁琐的！</p>
+<p><strong>注意：</strong>后续我们还好说明如何优化进抽象工厂模式，这里明确抽象工厂模式的优缺点即可。</p>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/Design-Pattern/设计模式之工厂模式/" title="设计模式之工厂模式">http://yoursite.com/Design-Pattern/设计模式之工厂模式/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Design-Pattern/" rel="tag"><i class="fa fa-tag"></i> Design Pattern</a>
+          
+            <a href="/tags/Factory-Pattern/" rel="tag"><i class="fa fa-tag"></i> Factory Pattern</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Design-Pattern/设计模式之初识篇/" rel="next" title="设计模式之初识篇">
+                <i class="fa fa-chevron-left"></i> 设计模式之初识篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Hexo/基于-Hexo-轻量级框架的博客搭建/" rel="prev" title="基于 Hexo 轻量级框架的博客搭建">
+                基于 Hexo 轻量级框架的博客搭建 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-gt-简单工厂模式"><span class="nav-text">1 &gt; 简单工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-初识简单工厂模式"><span class="nav-text">1.1 初识简单工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-场景模拟"><span class="nav-text">1.2 场景模拟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-简单工厂模式应用"><span class="nav-text">1.3 简单工厂模式应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-简单工厂模式-UML-类图"><span class="nav-text">1.4 简单工厂模式 UML 类图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-简单工厂模式优缺点"><span class="nav-text">1.5 简单工厂模式优缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-gt-工厂方法模式"><span class="nav-text">2 &gt; 工厂方法模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-初识工厂方法模式"><span class="nav-text">2.1 初识工厂方法模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-场景模拟以及工厂方法模式应用"><span class="nav-text">2.2 场景模拟以及工厂方法模式应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-简单工厂-VS-工厂方法"><span class="nav-text">2.3 简单工厂 VS. 工厂方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-工厂方法模式优缺点"><span class="nav-text">2.4 工厂方法模式优缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-gt-抽象工厂模式"><span class="nav-text">3 &gt; 抽象工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-初识抽象工厂模式"><span class="nav-text">3.1 初识抽象工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-场景模拟"><span class="nav-text">3.1.1 场景模拟</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-抽象工厂设计模式"><span class="nav-text">3.1.2 抽象工厂设计模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-抽象工厂模式优缺点"><span class="nav-text">3.2 抽象工厂模式优缺点</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

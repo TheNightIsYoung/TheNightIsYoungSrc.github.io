@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="TensorFlow,CNN,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 在 前面的章节 中，我们通过最简单的 MNIST 手写数字图像识别问题验证了神经网络结构和优化方法对神经网络模型的影响，我们知道，神经网络结构设计对神经网络模型预测准确率有着本质影响。前面的章节我们主要是基于 全连接神经网络结构（传统神经网络）  来学习 TensorFlow 实现深度学习算法（MNIST 手写数字图像识别等）的一般过程。 本文我">
+<meta name="keywords" content="TensorFlow,CNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow 系列之初识卷积神经网络（CNN）与图像识别">
+<meta property="og:url" content="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 在 前面的章节 中，我们通过最简单的 MNIST 手写数字图像识别问题验证了神经网络结构和优化方法对神经网络模型的影响，我们知道，神经网络结构设计对神经网络模型预测准确率有着本质影响。前面的章节我们主要是基于 全连接神经网络结构（传统神经网络）  来学习 TensorFlow 实现深度学习算法（MNIST 手写数字图像识别等）的一般过程。 本文我">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/mnist_accuracy.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/cifar_mnist.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/imagenet.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/image_cnn.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/cnn.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/CNN_NET.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/filter.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/filter_fp.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/image_cov.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/cov_fp.gif">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/filter_fp_comp.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/zero_padding.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/set_strides.png">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/pool_fp.png">
+<meta property="og:updated_time" content="2019-05-31T10:22:18.562Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TensorFlow 系列之初识卷积神经网络（CNN）与图像识别">
+<meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 在 前面的章节 中，我们通过最简单的 MNIST 手写数字图像识别问题验证了神经网络结构和优化方法对神经网络模型的影响，我们知道，神经网络结构设计对神经网络模型预测准确率有着本质影响。前面的章节我们主要是基于 全连接神经网络结构（传统神经网络）  来学习 TensorFlow 实现深度学习算法（MNIST 手写数字图像识别等）的一般过程。 本文我">
+<meta name="twitter:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/mnist_accuracy.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>TensorFlow 系列之初识卷积神经网络（CNN）与图像识别 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TensorFlow 系列之初识卷积神经网络（CNN）与图像识别</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-07T15:10:44+08:00">
+                2018-10-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-31T18:22:18+08:00">
+                2019-05-31
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/" class="leancloud_visitors" data-flag-title="TensorFlow 系列之初识卷积神经网络（CNN）与图像识别">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  10.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  38
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center> 愿你每天欢喜多于悲，孤独有人陪… </center>
+
+<p><strong>写在前面：</strong></p>
+<p>在 <a href="https://www.orangeshare.cn/TensorFlow/深层神经网络和深度学习/" target="_blank" rel="noopener">前面的章节</a> 中，我们通过最简单的 MNIST 手写数字图像识别问题验证了神经网络结构和优化方法对神经网络模型的影响，我们知道，神经网络结构设计对神经网络模型预测准确率有着本质影响。前面的章节我们主要是基于 <strong>全连接神经网络结构（传统神经网络） </strong> 来学习 TensorFlow 实现深度学习算法（MNIST 手写数字图像识别等）的一般过程。</p>
+<p>本文我们将详细地介绍深度学习中的图像识别问题以及一个非常经典有用的神经网络结构：卷积神经网络（Convolutional Neural Network）。</p>
+<a id="more"></a>
+<p>卷积神经网络的应用非常广泛，在自然语言处理、医疗、灾难气候发现甚至围棋人工智能程序都有应用，特别是在计算机视觉相关领域的使用。</p>
+<p>卷积神经网络（CNN）近年来取得了爆发式的发展，是深度学习中的一颗耀眼明珠。CNN 不仅能用来对图像进行分类，还在图像分割（目标检测）任务中有着广泛的应用。CNN 已经成为了 <strong>图像分类的黄金基准</strong> ，一直在不断的发展和改进，成为了图像识别领域取得突破性进展的主要技术支持。</p>
+<hr>
+<h2 id="图像识别与卷积神经网络"><a href="#图像识别与卷积神经网络" class="headerlink" title="图像识别与卷积神经网络"></a>图像识别与卷积神经网络</h2><p> 本文我们将主要通过卷积神经网络在图像识别领域的应用来讲解卷积神经网络的基本原理以及 TensorFlow 对卷积神经网络实现的支持。这一部分的内容我们主要分为四个部分：</p>
+<ol>
+<li><p>第一部分，将介绍图像识别领域解决的问题以及图像识别领域中常用的经典数据集；</p>
+</li>
+<li><p>第二部分，我们将介绍卷积神经网络的主体思想和整体架构，以及详细讲解卷积神经网络中的卷积层和池化层网络结构；</p>
+</li>
+<li>第三部分，将通过两个经典的卷积神经网络模型来介绍如何设计卷积神经网络架构以及如何设置每一层神经网络配置；</li>
+<li>第四部分，我们将介绍如何通过 TensorFlow 实现卷积神经网络的迁移学习。</li>
+</ol>
+<hr>
+<h3 id="Part-1：图像识别"><a href="#Part-1：图像识别" class="headerlink" title="Part 1：图像识别"></a>Part 1：图像识别</h3><h4 id="1-图像识别问题以及经典数据集"><a href="#1-图像识别问题以及经典数据集" class="headerlink" title="1. 图像识别问题以及经典数据集"></a>1. 图像识别问题以及经典数据集</h4><p>视觉是人类认识世界非常重要的一种知觉。对于人类来说，通过视觉来识别手写体数字（图像识别）、识别图片中的物体（图像识别）或者找出图片中人脸的轮廓（人脸识别）都是非常简单的任务。</p>
+<h5 id="1-1-图像识别任务"><a href="#1-1-图像识别任务" class="headerlink" title="1.1 图像识别任务"></a>1.1 图像识别任务</h5><p>然而对于计算机而言，让计算机识别图片中的内容就不是一件容易的事情了，这也是 <strong>计算机视觉</strong> 领域的难题。图像识别问题是人工智能的一个重要领域。</p>
+<p>图像识别就是：希望计算机程序来处理、分析和理解图像中的内容，使得计算机可以从图片中自动识别各种不同模式的目标或对象。</p>
+<p>就像我们在前面博文中 MNIST 手写数字图像识别任务就是利用计算机来识别图片中的手写体数字。下图展示了 2013 年之前图像识别的主流技术在 MNIST 数据集上的错误率随年份的发展趋势图：</p>
+<p><img src="/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/./mnist_accuracy.png" alt="avatar"></p>
+<p>上图最下方的虚线表示人工标注的错误率，其他不同样式的线段表示了不同算法的错误率。可以看出：相比其它传统算法，<strong>卷积神经网络可以得到更低的错误率</strong>。而且通过卷积神经网络达到的错误率以及非常接近人工标注的错误率。</p>
+<hr>
+<h5 id="1-2-计算机视觉领域经典数据集"><a href="#1-2-计算机视觉领域经典数据集" class="headerlink" title="1.2 计算机视觉领域经典数据集"></a>1.2 计算机视觉领域经典数据集</h5><p>MNIST 手写体识别数据集是一个入门级的简单数据集，在其它更加复杂的图像识别数据集上，卷积神经网络有更加突出的表现。下面我们来看一下都有哪些经常使用的经典图像数据集：</p>
+<p><strong>1）CIFAR</strong></p>
+<p>Cifar 数据集是一个影响力很大的图像分类数据集。Cifar 数据集分为两种：Cifar-10 和 Cifar-100 ，它们都是图像词典项目（Visual Dictionary）中 800 万张图片的子集。</p>
+<p><strong>–&gt; Cifar-10</strong></p>
+<p>Cifar-10 数据集收集了来至 10 个不同种类的 60000 张图片（每类 6000 张），类别包含有：airplane、automobile、bird、cat、deer、dog、frog、horse、ship、truck。这些图片像素都是 32 * 32 的彩色图像（3 通道）。和 MNIST 数据集类似，Cifar-10 中的每一张图片仅包含一个种类实体（一张图片对应分类）。</p>
+<p>和 MNIST 数据集相比，Cifar 数据集的最大区别在于图片由单通道的黑白图像变成三通道的彩色图像。</p>
+<p>另外，分类的难度也相对更高（由手写数字变成了现实中的物体）。在 Cifar-10 数据集上，人工标注的正确率大概为 94%，这比 MNIST 数据集上的人工表现要低的多。下图给出了 MNIST 和 CIFAR-10 数据集上比较难以分类的图片。</p>
+<p><img src="/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/./cifar_mnist.png" alt="avatar"></p>
+<p>Cifar-10 数据集中，直接从图片上看，人类也很难判断图片中的实体类别。而在 MNIST 数据集上，人类还可以有一个比较准确的猜测。目前，在 Cifar-10 数据集上最好的算法的图像识别正确率为 95.59%，达到这个准确率的算法同样都使用了<strong>卷积神经网络</strong>。</p>
+<p><strong>–&gt; MNIST 和 CIFAR 局限性</strong></p>
+<p>无论是 MNIST 数据集还是 CIFAR 数据集，相比真实环境下的图像识别问题，有两个最大的问题：</p>
+<ol>
+<li>现实生活中的图片分辨率要远高于 32 * 32，而且图像的分辨率也不会是固定的；</li>
+<li>现实生活中的物体类别很多，无论是 10 种还是 100 种都远远不够，而且图片种类不会仅仅对应一个种类的物体。</li>
+</ol>
+<p>为了更贴近自然场景（真实环境）下的图像识别问题，由斯坦福大学的李飞飞教授带头整理的 ImageNet 很大程度地解决了这两个问题。（2018 年底腾讯 AI Lab 公布了一个 ML-Images（1800W）常见物体类别数据集，比 ImageNet 还要大。）</p>
+<hr>
+<p><strong>2）ImageNet</strong></p>
+<p>ImageNet 是一个基于 WordNet 的大型图像数据库。在 ImageNet 中，将近 1500W 图片被关联到了 WordNet 的大约 2W 个名词同义词集上。目前每一个与 ImageNet 相关的 WordNet 同义词集都代表了现实世界中的一个实体，可以被认为是分类问题中的一个类别。</p>
+<p>ImageNet 中的图片都是从互联网上爬去下来的，并通过亚马逊的人工标注服务将图片分类到 WordNet 的同义词集。在 ImageNet 的图片中，一张图片中可能出现多个同义词集所代表的实体。</p>
+<p>下图展示了 ImageNet 中的一张包含多个实体的图片，这张图片上用几个矩形框出了不同实体的轮廓。在物体识别问题中，一般将用于框出实体的矩形称为： bounding box。例如在图片中标出了四个实体，其中有两把椅子、一个人和一条狗。</p>
+<p><img src="/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/./imagenet.png" alt="avatar"></p>
+<p>–&gt; <strong>ILSVRC 竞赛</strong></p>
+<p>mageNet 每年都举办图像识别相关的竞赛（ImageNet Large Scala Visual Recognition Challenge），而且每年的竞赛都会有一些不同的问题（目标定位、识别、检测以及分割等），这些问题基本涵盖了图像识别的主要研究方向。ImageNet 官网：<a href="http://www.image-net.org/challenges/LSVRC" target="_blank" rel="noopener">http://www.image-net.org/challenges/LSVRC</a> 列出了历届 ILSVRC 竞赛的题目和数据集。不同年份的 ImageNet 竞赛提供不同的数据集。</p>
+<p>其中，ILSVRC2012、ILSVRC2014 是使用最多的图像分类数据集。</p>
+<p><strong>ILSVRC2012 数据集：</strong></p>
+<p>ILSVRC2012 图像分类数据集的任务和 Cifar 数据集是基本一致的，也是识别图像中的主要物体。ILSVRC2012 图像分类数据集包含了来至 1000 个类别的 120W 张图片，其中每张图片属于且只属于一个类别，分辨率大小不固定。</p>
+<p>下图给出了不同算法在 ImageNet 图像分类数据集上的 Top-5 的正确率。从图中可以看出，在更加复杂的 ImageNet 问题上，深度学习，特别是<strong>卷积神经网络，给图像识别问题带来了质的飞跃</strong>，基于卷积神经网络的图像识别算法可以远远超过人类的表现。</p>
+<p><img src="/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/./image_cnn.png" alt="avatar"></p>
+<p><strong>–&gt; top-N</strong></p>
+<p>top-N 正确率指的是：图像识别算法给出的前 N 个答案中有一个是正确的概率。在图像分类问题上，很多学术论文都将前 N 个答案的正确率作为比较的方法，其中，N 的取值一般为 3 或 5。</p>
+<p>当然，除了上述我们简单介绍到的MNIST， Cifar，ImageNet 数据集，还有一些其它比较经典的图像数据集可以使用。如：Pascal VOC、COCO 等，使用到时会进行详细介绍。</p>
+<hr>
+<h3 id="Part-2：卷积神经网络（CNN）"><a href="#Part-2：卷积神经网络（CNN）" class="headerlink" title="Part 2：卷积神经网络（CNN）"></a>Part 2：卷积神经网络（CNN）</h3><p>在介绍图像识别领域经典数据集时，我们给出了不同算法（包括传统算法以及卷积神经网络）的识别表现。我们发现，在上述的所有图像分类数据集上卷积神经网络都有非常突出的表现。 <strong>图像分类的黄金基准 </strong>果然名不虚传！！！</p>
+<p>在前面的博文所介绍的神经网络结构每两层之间的所有节点都是有边相连的，我们称这种网络结构为全连接层网络结构（传统神经网络），这里是为了与卷积神经网络、循环神经网络等做区分。</p>
+<p>Part2 部分我们将分为三个小节内容：</p>
+<ol>
+<li>从全连接网络结构到卷积神经网络结构；</li>
+<li>介绍卷积神经网络的整体架构；</li>
+<li>我们将详细介绍卷积神经网络中的卷积层、池化层网络结构以及其前向传播过程，并介绍如何通过 TensorFlow 实现这些网络结构。</li>
+</ol>
+<p>话不多说，开始了…</p>
+<hr>
+<h4 id="2-1-从全连接神经网络结构到卷积神经网络架构"><a href="#2-1-从全连接神经网络结构到卷积神经网络架构" class="headerlink" title="2.1 从全连接神经网络结构到卷积神经网络架构"></a>2.1 从全连接神经网络结构到卷积神经网络架构</h4><p>卷积神经网络结构可以看作是传统的全连接神经网络的一个改进。</p>
+<p>有参照才能看出不同，这一小节将讲解卷积神经网络与全连接神经网络的差异。下面先给出一个显示了全连接神经网络与卷积神经网络结构的对比图：</p>
+<p><img src="/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/./cnn.png" alt="avatr"></p>
+<h5 id="2-1-1-–-gt-你能看出啥？"><a href="#2-1-1-–-gt-你能看出啥？" class="headerlink" title="2.1.1 –&gt; 你能看出啥？"></a>2.1.1 –&gt; 你能看出啥？</h5><p>–&gt; 连接结构</p>
+<p>如上图所示，尽管全连接神经网络结构和卷积神经网络结构直观上看差异比较大，但实际上它们的整体架构是非常相似的。啥，看不出来？</p>
+<p>卷积神经网络也是通过一层一层的节点组织起来的。在全连接神经网络结构中，每相邻两层之间的节点都有边相连，于是一般会将每一层全连接层中的节点组织成一列，这样方便显示连接结构。</p>
+<p>而对于卷积神经网络，相邻两层之间只有部分节点相连，为了展示每一层神经元的维度，一般会将每一层卷积层的节点组织成一个三维矩阵。</p>
+<p>–&gt; 输入输出以及优化</p>
+<p>事实上，除了结构相似，卷积神经网络的输入输出以及训练流程与全连接神经网络也基本一致（意味着 TensorFlow 实现流程也基本相同）。</p>
+<p>以图像分类为例：卷积神经网络的输入层就是图像的原始像素矩阵，而输出层的每一个节点代表了不同类别的可信度。这和全连接神经网络的输入和输出是一致的。类似的，在前面博文介绍的损失函数以及参数优化过程也适用于卷积神经网络。</p>
+<p>在后面我们还会介绍到，在 TensorFlow 中训练一个卷积神经网络的流程和训练一个全连接神经网络没有任何区别。卷积神经网络和全连接神经网络的唯一区别在于神经网络中相邻两层之间的连接方式。</p>
+<hr>
+<h5 id="2-1-2-–-gt-全连接神经网络结构存在的缺点"><a href="#2-1-2-–-gt-全连接神经网络结构存在的缺点" class="headerlink" title="2.1.2 –&gt; 全连接神经网络结构存在的缺点"></a>2.1.2 –&gt; 全连接神经网络结构存在的缺点</h5><p>我们知道，相较于传统的全连接网络结构，卷积神经网络可以更好的处理图像问题。在进一步介绍卷积神经网络结构之前，我们先说明相较于卷积神经网络，为什么全连接神经网络无法很好地处理图像数据？！（事实上，导致这种差异取决于网络层的连接方式，导致了图像对全连接结构的不友好）</p>
+<p>–&gt; 参数太 TM 多了！</p>
+<p>使用全连接神经网络处理图像的最大问题在于全连接层的参数太多：</p>
+<p>对于 MNIST 数据，每一张图片的大小都是 $28∗28∗1$，其中 $28∗28$ 是图片的大小，$∗1$ 表示图像是黑白（单通道）的，只有一个颜色通道。假设第一次隐藏层的节点数为 500 个，那么一个全连接层的神经网络将有 $28∗28∗500+500=392500$ 个参数。</p>
+<p>当图片尺寸更大时，比如在 Cifar-10 数据集中，每一张图片的大小均为：$32∗32∗3$ ，其中 $32∗32$ 表示图片的大小， $∗3$ 表示图片是三通道彩色图像。这样输入层就有 3072 个节点，如果第一层全连接层仍然是 500 个节点，那么这一层全连接神经网络就将有 $3072∗500+500$ 近似 $150W$ 个参数，这还是仅一层隐藏层的前提下，相当可怕啊。</p>
+<p>–&gt; 参数太多，怎么了？</p>
+<p>参数增多除了导致计算速度减慢，还很容易导致过拟合（overfitting）的问题。所以，从计算资源和调参的角度都不建议用传统的全连接神经网络，我们需要的是一个更加合理的神经网络结构来有效减少神经网络中的参数个数。卷积神经网络就可以达到这个目的。</p>
+<hr>
+<h5 id="2-1-3-–-gt-图像的局部特征"><a href="#2-1-3-–-gt-图像的局部特征" class="headerlink" title="2.1.3 –&gt; 图像的局部特征"></a>2.1.3 –&gt; 图像的局部特征</h5><p>既然全连接结构导致了参数过多，那么如何能够减少参数量？思考一下：全连接的方式是必须的吗？</p>
+<p>全连接层的方式对于图像数据来说似乎显得不这么友好，因为图像本身拥有 <strong>局部特性</strong>。举个例子，譬如我们看一张猫的图片，可能看到猫的眼镜或者嘴巴就已经知道这是张猫片，而不需要说每个部分都看完了才知道是猫。</p>
+<p>所以，如果我们可以使用某种方式可以对一张图片的某个局部典型特征进行提取，然后识别，那么这张图片的类别也就知道了。这个时候就产生了卷积的概念。</p>
+<hr>
+<p>下面我们来详细讲解卷积神经网络结构：</p>
+<h4 id="2-2-卷积神经网络架构详解"><a href="#2-2-卷积神经网络架构详解" class="headerlink" title="2.2 卷积神经网络架构详解"></a>2.2 卷积神经网络架构详解</h4><p>首先给出一个更加具体的卷积神经网络架构图：</p>
+<p><img src="/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/./CNN_NET.png" alt="avatar"></p>
+<h5 id="2-2-1-–-gt-卷积神经网络的基本结构"><a href="#2-2-1-–-gt-卷积神经网络的基本结构" class="headerlink" title="2.2.1 –&gt; 卷积神经网络的基本结构"></a>2.2.1 –&gt; 卷积神经网络的基本结构</h5><p>可以看到，在卷积神经网络的前几层中，每一层的节点都被组织成一个三维矩阵。比如处理 Cifar-10 数据集中的图片时，可以将输入层组织成一个 $32∗32∗3$ 的三维矩阵。</p>
+<p>图中虚线部分展示了卷积神经网络的一个连接示意图，从图中可以看出卷积神经网络中前几层中每一个节点只有和上一层中部分的节点相连。</p>
+<p>一个通用的卷积神经网络主要由以下 5 种结构组成：</p>
+<p><strong>–&gt; 1）输入层</strong></p>
+<p>输入层是整个神经网络的输入，在处理图像的卷积神经网络中，它一般代表了一张图片的像素矩阵。</p>
+<p>例如图中最左侧的三维矩阵（输入层）就可以代表一张图片。其中三维矩阵的长和宽代表了图像的大小，三维矩阵的深度代表了图像的色彩通道（channel）。比如灰度图像（H, W, 1）的深度为 1，而在 RGB 色彩模式（H, W, 3）下，图像的深度为 3。</p>
+<p>从输入层开始，卷积神经网络通过不同的神经网络结构将上一层的三维矩阵转化为下一层的三维矩阵，直到最后的全连接层。</p>
+<p><strong>–&gt; 2）卷积层</strong></p>
+<p>卷积层，从名字可以看出，卷积层是一个卷积神经网络中最为重要的部分。</p>
+<p>和传统全连接层不同的是， <strong>卷积层中每一个节点的输入只是对应上一层神经网络的一小块</strong>，这个小块常用的大小有 $3∗3$ 或者 $5∗5$。</p>
+<p>卷积层试图将神经网络中的每一小块进行更加深入地分析从而得到 <strong>某一小块抽象程度更高的特征</strong> （是不有点局部特征提取的感觉了）。一般来说，通过卷积层处理过的节点矩阵会变得更深，所以在图中可以看到经过卷积层之后的节点矩阵的深度会增加。</p>
+<p><strong>–&gt; 3）池化层 Pooling（采样层 Sample / Subsample）</strong></p>
+<p>池化层神经网络不会（而非不能）改变三维矩阵的深度，但是它可以缩小矩阵的大小。池化操作可以认为是将一张分辨率较高的图片转化为分辨率较低的图片。</p>
+<p>通过池化层，可以进一步缩小最后全连接层中节点的个数（减小全连接层输入矩阵大小），从而达到减少整个神经网络中参数的目的。</p>
+<p><strong>–&gt; 4）全连接层</strong></p>
+<p>如图所示，在经过多轮卷积层和池化层处理后，在卷积神经网络的最后一般会是由 1 到 2 个全连接层来给出最后的分类结果。经过几轮卷积层和池化层处理后，可以认为图像中的信息已经被抽象成了信息含量更高的特征。</p>
+<p>我们可以将卷积层和池化层看成自动图像特征提取的过程。在特征提取完成之后，仍然需要使用全连接层来完成分类任务。</p>
+<p><strong>–&gt; 5）Softmax 层</strong></p>
+<p>和全连接中一样，Softmax 层主要用于分类问题。通过 Softmax 层，可以得到当前样例属于不同种类的概率分布情况。</p>
+<p>至此，卷积神经网络的整体架构已经介绍完了。</p>
+<hr>
+<p>输出层，全连接层以及 Softmax 层很好理解，下面我们将详细介绍卷积神经网络中特殊的两个网络结构：卷积层和池化层。</p>
+<h5 id="2-2-2-–-gt-CNN-中的卷积层和池化层"><a href="#2-2-2-–-gt-CNN-中的卷积层和池化层" class="headerlink" title="2.2.2 –&gt; CNN 中的卷积层和池化层"></a>2.2.2 –&gt; CNN 中的卷积层和池化层</h5><p>这一小节将详细介绍卷积层和池化层网络结构以及其前向传播过程，并介绍它们在 TensorFlow 中支持。</p>
+<h6 id="1-–-gt-卷积层网络结构"><a href="#1-–-gt-卷积层网络结构" class="headerlink" title="1 –&gt; 卷积层网络结构"></a>1 –&gt; 卷积层网络结构</h6><p>下面首先给出卷积神经网络结构中最重要的部分：卷积核（convolution kerner）或者也称为过滤器（filter）。</p>
+<p><strong>1.1 –&gt; 卷积核以及其运算</strong></p>
+<p><strong>–&gt; 1）卷积核（过滤器）</strong></p>
+<p><img src="/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/./filter.png" alt="avatar"></p>
+<p>过滤器可以将当前网络层上的一个 <strong>子节点矩阵（N × N × C1）</strong> 转化为下一网络层（卷积层）上的一个 <strong>单位节点矩阵（1 × 1 × C2）</strong>。单位节点矩阵指的是一个长和宽都为 1，但深度不限的节点矩阵。如上图所示，表示了一个过滤器结构。左侧表示当前层的子节点矩阵，右侧表示下一层的单位节点矩阵。</p>
+<p>噢~原来卷积核就是指卷积层的连接结构。可以看出，卷积层上的一个连接就是一个卷积核结构。</p>
+<p><strong>–&gt; 2）设置卷积核（过滤器）</strong></p>
+<p>–&gt; 卷积核尺寸</p>
+<p>在一个卷积层结构中，过滤器所处理的子节点矩阵的长和宽都是由人工指定的，这个节点矩阵的尺寸也称之为 <strong>过滤器的尺寸</strong> 。常用的过滤器尺寸有 $3×3​$ 或 $5×5​$。注意，因为过滤器处理的矩阵深度和当前层神经网络节点矩阵的深度是一致的，所以虽然当前节点矩阵是三维的，但过滤器的尺寸只需要指定两个维度。</p>
+<p>–&gt; 卷积核深度</p>
+<p>过滤器中另外一个需要人工指定的设置是处理得到的单位节点矩阵的深度，这个设置称之为 <strong>过滤器的深度</strong> 。注意过滤器的尺寸指的是一个过滤器输入节点矩阵的大小，而深度指定是输出单位节点矩阵的深度。</p>
+<hr>
+<p><strong>–&gt; 3） 卷积核（过滤器）运算</strong></p>
+<p><strong>过滤器的运算过程也称之为过滤器的前向传播过程。</strong></p>
+<p>我们知道，卷积层上的每一个单位节点矩阵都对应一个过滤器结构。所以，在介绍卷积层的前向传播过程之前，我们必须先搞明白每一个单位节点矩阵，即每一个过滤器（卷积核）的前向传播过程是什么样子的？！</p>
+<p>过滤器的前向传播过程就是通过左侧小矩阵中的节点计算出右侧单位矩阵中节点的过程。</p>
+<p>为了直观地解释过滤器的前向传播过程，下面将给出一个具体的样例，这个样例中将展示如何通过过滤器将一个 $2∗2∗3$ 的子节点矩阵变化为一个 $1∗1∗5$ 的单位节点矩阵。</p>
+<p>↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓</p>
+<p><strong>一个过滤器的前向传播过程和全连接层类似</strong>，可以将其想象成一个全连接的前向传播过程：</p>
+<p>它总共需要 $2∗2∗3∗5+5=65​$ 个参数，其中最后的 $+5​$ 为偏置项参数的个数。假设使用 $𝑊^𝑖_{𝑥,𝑦,𝑧} ​$来表示对于输出单位节点矩阵中的第 $𝑖​$ 个节点，过滤器输入的子节点矩阵中节点 $(𝑥, 𝑦, 𝑧)​$ 的对应的权重，使用 $𝑏^𝑖​$ 表示第 $𝑖​$ 个输出节点对应的偏置项参数，那么单位矩阵中的第 $𝑖​$ 个节点的取值 $𝑔(𝑖)​$ 为：</p>
+<p>$$ g(i) = f(\sum_{x=1}^{2}\sum_{y=1}^{2}\sum_{z=1}^{3}a_{x,y,z} ·  W^i_{x,y,z} + b^i) $$</p>
+<p>可以看出，$a_{x,y,z}$ 对应的是过滤器中输入的子节点矩阵中节点 $(𝑥,𝑦,𝑧)$ 的取值，f 为激活函数。下图展示了给定 $𝑎$, $𝑊^0$ 和 $𝑏^0$ 的情况下，使用 Relu 作为激活函数时 $𝑔(0)$的计算过程:</p>
+<p><img src="/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/./filter_fp.png" alt="avatar"></p>
+<p>左侧给出了 $𝑎$, $𝑊^0$ 的取值，这里通过 3 个二维矩阵来表示一个三维矩阵的取值，其中每一个二维矩阵表示三维矩阵在某一个深度上的取值。 $·$ 符号表示点积，也就是矩阵中对应元素乘积的和。右侧显示了 $𝑔(0)$ 的计算过程。</p>
+<p>↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑</p>
+<p>同理，如果给出 $w^1$ 到 $w^4$ 和 $b^1$ 到 $b^4$，那么也可以类似地计算出 $g(1)$ 到 $g(4)$ 的取值。如果将 $a$ 和 $W^i$ 组织成两个向量，那么一个过滤器的计算过程完全可以通过向量点乘来完成。</p>
+<hr>
+<p><strong>–&gt; 4） 为什么卷积核有效？</strong></p>
+<p>前面我们一直在说，卷积核可以提取出图像某一小块区域的典型特征….什么什么地。既然现在我们以及知道了卷积核是如何计算的，那现在考虑一下：为什么使用卷积核计算后分类效果要由于普通的神经网络呢？</p>
+<p>请看下图，原始图像经过第一个卷积核计算后的 feature_map 是一个三维数据，在第三列的绝对值最大，说明原始图片上对应的地方有一条垂直方向的特征，即像素数值变化较大；而通过第二个卷积核计算后，第三列的数值为 0，第二行的数值绝对值最大，说明原始图片上对应的地方有一条水平方向的特征。</p>
+<p>哎呀，两个卷积核分别能够提取，或者说检测出原始图片的特定的特征。把卷积核就理解为特征提取器没毛病啊！</p>
+<hr>
+<p><strong>1.2 –&gt; 卷积层的前向传播过程</strong></p>
+<p>好，前面我们已经完成了卷积层上一个单位节点矩阵，即一个过滤器的前向传播。事实上，卷积层结构的前向传播过程就是通过将一个过滤器从神经网络当前层的左上角移动到右下角，并且在移动中计算每一个对应的单位矩阵得到的。</p>
+<p>下图展示了卷积层结构前向传播的过程。为了更好地可视化过滤器的移动过程，节点矩阵深度均为 1。图中展示了在 $4∗4​$ 子节点矩阵上使用 $2∗2​$ 过滤器的卷积层前向传播过程。</p>
+<p><img src="/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/./image_cov.png" alt="avatar"></p>
+<p>注意，原始图像经过卷积运算提取特征后的卷积层也称为：feature map（特征映射图）。</p>
+<p>在这个过程中，这个过滤器会被从当前层的左上角移动到右下角。并且过滤器每移动一次，可以计算得到一个值（当过滤器深度为 K 时会计算出 K 个值）。将这些数值拼接成一个新的矩阵，就完成了卷积层前向传播的过程。</p>
+<p>下面给出一个输入层为 $7 × 7 × 3​$，卷积核尺寸为 $3 × 3​$，输出卷积层深度为 2 的前向传播过程演示：</p>
+<p><img src="/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/./cov_fp.gif" alt="avatar"></p>
+<p>可以看出，卷积核的深度也为 2，并且各个深度上的参数矩阵分别为：$W0$，$W1$ ，且均为 <strong>3 × 3 × 3</strong> 的矩阵。</p>
+<hr>
+<p><strong>–&gt; 1）卷积网络层矩阵尺寸变化</strong></p>
+<p>–&gt; 使用填充</p>
+<p>可以看出，当过滤器的大小不为 $1∗1$时，前向传播得到的卷积层矩阵的尺寸要小于当前层矩阵的尺寸。正如上面演示，当前层（Input Volume）矩阵的大小为 <strong>7 × 7 </strong>的，而通过前向传播算法之后，得到的卷积层矩阵大小为 <strong>3 × 3</strong>。</p>
+<p>为了避免尺寸的变化，可以在当前层矩阵的边界上加入全 0 填充（zero-padding）。这样可以使得卷积层前向传播结果矩阵的大小和当前层矩阵保持一致。</p>
+<p>给出一个节点矩阵深度均为 1 的在 $3 × 3​$ 子节点矩阵上使用 $2 × 2​$ 过滤器的卷积层前向传播过程：</p>
+<p><img src="/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/./filter_fp_comp.png" alt="avatar"></p>
+<p>此时我们给 $3 × 3$ 子节点矩阵边界增加全 0 填充，再来看卷积层矩阵尺寸的变化：</p>
+<p><img src="/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/./zero_padding.png" alt="avatar"></p>
+<p>可以看到结果矩阵的大小和当前层矩阵保持一致。</p>
+<p>–&gt; 设置过滤器移动步长</p>
+<p>除了使用全 0 填充，还可以通过设置过滤器移动的步长来调整结果矩阵的大小。</p>
+<p>可以看到，在图 6-10 和图 6-11 中，过滤器每次都只移动一格，事实上，我们还可以对其设置其它的移动步数。</p>
+<p>下图显示了当移动步长为 2 且使用全 0 填充时，卷积层前向传播过程：</p>
+<p><img src="/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/./set_strides.png" alt="avatar"></p>
+<p>从图 6-12 上可以看出，当矩阵长和宽的步长均为 2 时，即过滤器每隔 2 步计算一次结果，所以得到的结果矩阵的长和宽也就都只有原来的一半。下面的公式给出了在同时使用全 0 填充时结果矩阵的大小：</p>
+<p>$$ out_{length} = [in_{length} / stride_{length}] ​$$</p>
+<p>$$ out_{width} = [in_{width} / stride_{width}] ​$$</p>
+<p>也就是说：在使用全 0 填充，长和宽步长均为 2 时，$ out_length / out_width $ （表示输出层矩阵的长度或宽度）等于输入层矩阵长度（宽度）除以该长度方向上的步长的向上取整值。</p>
+<p>如果不使用全 0 填充，下面的公式给出了结果矩阵的大小：</p>
+<p>$$ out_{length} = [（in_{length} - filter_length + 1） / stride_{length}] $$</p>
+<p>$$ out_{width} = [(in_{width} - filter_width + 1) / stride_{width}] $$</p>
+<hr>
+<p><strong>–&gt; 2）卷积核（过滤器）参数共享</strong></p>
+<p>这里再补充一个卷积神经网络中的非常重要的一个关于卷积核参数概念。</p>
+<p>在卷积神经网络中，同一个卷积层中使用的过滤器中的参数都是一样的。这是卷积神经网络中一个非常重要的性质。也就是说，过滤器在网络层移动过程中其内部的参数，对所有单位节点矩阵都是都是共享，训练时优化的是同一套参数（参考前面给出的卷积层前向传播过程演示理解）。</p>
+<p><strong>–&gt; 卷积核参数共享有什么好处？</strong></p>
+<p>1 –&gt; 从直观上理解，共享过滤器参数可以使得图像上的内容不受位置的影响。</p>
+<p>以 MNIST 手写数字识别为例，无论数字 “1”出现在左上角还是右下角，图片中的种类都是不变的。这是因为在左上角和右下角使用的过滤器参数相同，所以通过卷积层之后无论数字在图像的哪个位置，得到的结果都是一样的。</p>
+<p>想想这也是合理的，不然对于原始图像中的不同内容，由于位置不同，竟然生成了不同的特征图，那还干个luan…</p>
+<p>2 –&gt; 共享每一个卷积层中过滤器中的参数可以巨幅减少神经网络上的参数。</p>
+<p>以 Cifar-10 问题为例，输入层矩阵的维度是 $32 × 32 × 3$。假设第一层卷积层使用尺寸为 $5 × 5$，深度为 16 的过滤器，那么这个卷积层的参数个数为 $5 × 5 × 3 × 16 + 16 = 1216$ 个。这和前面提到过的，使用 500 个隐藏节点的全连接层将近 150W 个参数相比，卷积层的参数个数要远远小于全连接层。</p>
+<p>3 –&gt; 而且卷积层的参数个数和图片的大小无关，它只和过滤器的尺寸、深度以及当前层节点矩阵的深度有关系。这使得卷积神经网络可以很好的扩展到更大的图像数据集上。</p>
+<hr>
+<p><strong>1.3 –&gt; 卷积层前向传播过程的 TensorFlow 实现</strong></p>
+<p>我们知道，卷积层结构的前向传播过程就是通过将一个过滤器从神经网络当前层的左上角移动到右下角，并且在移动中计算每一个对应的单位矩阵得到的。</p>
+<p>TensorFlow 对卷积神经网络提供了非常好的支持，通过它实现卷积层网络是非常方便的。下面程序实现了一个卷积层的前向传播过程。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过 tf.get_variable() 函数创建过滤器权重变量和偏置项变量。</span></span><br><span class="line"><span class="comment"># 上面介绍了卷积层的参数个数只和过滤器的尺寸、深度以及当前层节点矩阵的深度有关。</span></span><br><span class="line"><span class="comment"># 所以这里声明的参数变量是一个四维矩阵，其依次存储了过滤器尺寸（length / width）、当前层深度、过滤器深度共四个维度信息：</span></span><br><span class="line">filter_weight = tf.get_variable(</span><br><span class="line">    <span class="string">'weights'</span>, [<span class="number">5</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">16</span>],</span><br><span class="line">    initializer=tf.truncated_normal_initializer(stddev=<span class="number">0.1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 和卷积层的权重类似，当前层矩阵上不同位置的偏置项也是共享的，所以总共有下一层深度个不同的偏置项：</span></span><br><span class="line">biases = tf.get_variable(</span><br><span class="line">    <span class="string">'biases'</span>, [<span class="number">16</span>], </span><br><span class="line">    initializer=tf.constant_initializer(<span class="number">0.1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># TensorFlow 提供了一个非常方便的函数来实现卷积层前向传播的算法：</span></span><br><span class="line"><span class="comment"># tf.nn.conv2d 第一个参数为当前层的节点矩阵。注意这个矩阵是一个四维矩阵：[训练时一个batch图像的数量，图像高度，图像宽度， 图像通道数]</span></span><br><span class="line"><span class="comment"># 例如：输入层，input[0,:,:,:]表示一张图片，input[1,:,:,:]表示第二张图片。</span></span><br><span class="line"><span class="comment"># tf.nn.conv2d 第二个参数提供了卷积层的权重</span></span><br><span class="line"><span class="comment"># tf.nn.conv2d 第三个参数为不同维度上的步长，是一个长度为 4 的数组。但第一维（对应 batch_size）和最后一维度（深度）的数字要求一定是“1”，</span></span><br><span class="line"><span class="comment">#              这是因为卷积层步长只对过滤器尺寸有效</span></span><br><span class="line"><span class="comment"># tf.nn.conv2d 最后一个参数是表示填充方法。TensorFlow 提供了两种填充方式：SAME（全 0 填充）、VALID（有效填充）</span></span><br><span class="line">conv = tf.nn.conv2d(</span><br><span class="line">    input, filter_weight, strides=[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>], padding=<span class="string">'SAME'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># tf.nn.bias_add 提供了一个方便的函数给每一个节点添加偏置项</span></span><br><span class="line">bias = tf.nn.bias_add(conv, biases)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ReLU 去线性化：</span></span><br><span class="line">actived_conv = tf.nn.relu(bias)</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="2-–-gt-池化层网络结构"><a href="#2-–-gt-池化层网络结构" class="headerlink" title="2 –&gt; 池化层网络结构"></a>2 –&gt; 池化层网络结构</h6><p>在讲解卷积神经网络的架构时，我们知道，在卷积层之间往往会加一个池化层（Pooling layer）。</p>
+<p>池化层可以通过降采样（Subsample）的方式，在不影响特征图质量的情况下，非常有效地缩小矩阵的尺寸，从而减少最后全连接层中的参数。虽然池化层也可以减少矩阵的深度，但是实践中一般不会这样使用。</p>
+<p>和上一小节中介绍的卷积层类似，池化层前向传播的过程也是通过移动一个类似卷积核（过滤器）的结构完成的，也可以称为滑动窗口。不过池化层过滤器中的计算的不是节点的加权和，而是采用更加简单的最大值或者平均值运算。</p>
+<p>使用最大值操作的池化层被称之为最大池化层（max pooling），这是被使用得最多的池化层结构。使用平均操作的池化层被称之为平均池化层（average pooling）。</p>
+<p><strong>2.1 –&gt; 池化层中的过滤器</strong></p>
+<p>和卷积层中的过滤器类似，池化层的过滤器也需要人工设定过滤器的尺寸、是否使用全 0 填充以及过滤器移动的步长设置等，而且这些设置的意义也是一样的。</p>
+<p>卷积层和池化层中过滤器移动的方式也是相似，唯一的区别在于卷积层使用的过滤器是横跨整个深度的，而池化层使用的过滤器只影响一个深度上的节点。故，池化层的过滤器除了在长和宽两个维度上移动之外，故它还需要在深度这个维度移动。</p>
+<p>下面给出一个最大池化层前向传播计算过程示意图：</p>
+<p><img src="/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/./pool_fp.png" alt="avatar"></p>
+<p>图中，不同颜色或者不同线段（虚线或实线）代表了不同的池化层过滤器。可以看出，池化层的过滤器除了在长和宽的维度上移动，它还需要在深度的维度上移动。</p>
+<hr>
+<p><strong>2.2 –&gt; 为什么可以 Max Pooling？</strong></p>
+<p>从计算方式来看，算是最简单的一种了，对滑动窗口取 max 即可，但是这也引发一个思考：取 Max Pooling 意义在哪里？如果我们只取最大值，那其他的值被舍弃难道就没有影响吗？不会损失这部分信息吗？能取就说明这些信息是可损失的，那么是否意味着我们在进行卷积操作后仍然产生了一些不必要的冗余信息呢？</p>
+<p>其实从上文分析卷积核为什么有效的原因来看，每一个卷积核可以看做一个特征提取器，不同的卷积核负责提取不同的特征。我们例子中设计的第一个卷积核能够提取出“垂直”方向的特征，第二个卷积核能够提取出“水平”方向的特征，那么我们对其进行Max Pooling操作后，提取出的是真正能够识别特征的数值，其余被舍弃的数值，对于我提取特定的特征并没有特别大的帮助。</p>
+<p>同时，在进行后续计算时，由于减小了 feature map 的尺寸，从而减少参数，达到减小计算量，却不损失效果的情况。</p>
+<p>当然，并不是所有情况 Max Pooling 的效果都很好，有时候有些周边信息也会对某个特定特征的识别产生一定效果，那么这个时候舍弃这部分“不重要”的信息，就不划算了。所以具体情况得具体分析，如果加了 Max Pooling 后效果反而变差了，不如把卷积后不加 Max Pooling 的结果与卷积后加了 Max Pooling 的结果输出对比一下，看看 Max Pooling 是否对卷积核提取特征起了反效果。</p>
+<hr>
+<p><strong>2.3 –&gt; 池化层前向传播过程的 TensorFlow 实现</strong></p>
+<p>池化层的前向传播也很简答，下面的 TensorFlow 程序实现了池化层的前向传播算法：</p>
+<p><strong>1 –&gt; 最大池化层</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># tf.nn.max_pool 实现了最大池化层的前向传播过程：</span><br><span class="line"># ksize 提供了过滤器的尺寸，strides 提供了步长信息，padding 提供了是否使用全 0 填充：</span><br><span class="line">pool = tf.nn.max_pool(actived_conv, ksize=[1,3,3,1],</span><br><span class="line">                     strides=[1,2,2,1], padding=&apos;SAME&apos;)</span><br></pre></td></tr></table></figure>
+<p>对比池化层和卷积层前向传播在 TensorFlow 中的实现，可以发现函数的参数形式是相似的:</p>
+<p>tf.nn.max_pool 函数中首先需要传入当前层的节点矩阵，这个矩阵是一个四维矩阵，格式和 tf.nn.conv2d 函数中的第一个参数一致。</p>
+<p>第二个参数为过滤器的尺寸，虽然给出的是一个长度为 4 的一维数组，但是这个数组的第一个和最后一个数必须为 “1”。这意味着池化层的过滤器是不可以跨不同输入样例或者节点矩阵深度的。在实际应用中使用的最多的池化层过滤器尺寸为:<strong>[1,2,2,1]</strong> 或者 <strong>[1,3,3,1]</strong>。</p>
+<p>第三个参数为步长，它和 tf.nn.conv2d 函数中步长的意义是一样的。而且第一维和最后一维也只能维“1”。<strong>这意味着在 TensorFlow 中，池化层不能减少节点矩阵的深度或者输入样例的个数</strong> </p>
+<p><strong>2 –&gt; 平均池化层</strong></p>
+<p>TensorFlow 还提供了 tf.nn.avg_pool 来实现平均池化层。tf.nn.avg_pool 函数的调用格式和 tf.nn.max_pool 函数是一致。</p>
+<hr>
+<h6 id="3-–-gt-Reading-（Recommended）"><a href="#3-–-gt-Reading-（Recommended）" class="headerlink" title="3 –&gt; Reading （Recommended）"></a>3 –&gt; Reading （Recommended）</h6><p>如果你对上面的讲述的理解的产不多的化，其实下面几个问题并不难回答：</p>
+<ol>
+<li>卷积核的尺寸必须为正方形吗？可以为长方形吗？如果是长方形应该怎么计算？</li>
+<li>搭建卷积神经网络时，卷积核的个数如何确定？</li>
+<li>Feature Map 如何理解？</li>
+</ol>
+<hr>
+<p><strong>3.1 –&gt; 卷积核的尺寸不一定非得为正方形</strong></p>
+<p>长方形也可以，只不过通常情况下为正方形。如果要设置为长方形，那么首先得保证卷积层的输出形状是整数，不能是小数。比如你的图像是边长为 28 的正方形。那么卷积层的输出就满足 [ (28 - kernel_size)/ stride ] + 1 ，这个数值得是整数才行，否则没有物理意义。</p>
+<p>Pooling 层同理。</p>
+<p>而 FC 层的输出形状总是满足整数，其唯一的要求就是整个训练过程中 FC 层的输入得是定长的（全连接层无法改变网络层尺寸）。</p>
+<p>如果你的图像不是正方形。那么在制作数据时，可以缩放到统一大小（非正方形），再使用非正方形的 kernel_size 来使得卷积层的输出依然是整数。</p>
+<p>总之，撇开网络结果设定的好坏不谈，其本质上就是在做算术应用题：如何使得各层的输出是整数。</p>
+<hr>
+<p><strong>3.2 –&gt; 卷积核的个数</strong></p>
+<p>我们知道，卷积核的深度与输出卷积层的深度相同，而卷积核的个数就等于输出卷积层的深度。</p>
+<p>那么产生一个问题：如何更加合理的设置卷积核数（卷积核深度）？</p>
+<p>通常情况下，靠近输入的卷积层，譬如第一层卷积层，会找出一些共性的特征，如手写数字识别中第一层我们设定卷积核个数为 5 个，一般是找出诸如”横线”、“竖线”、“斜线”等共性特征，我们称之为 <strong>basic feature</strong>；</p>
+<p>然后经过 max pooling 后，一般卷积层尺寸会缩小，可以看作在不影响其质量的情况下进行压缩；</p>
+<p>在第二层卷积层，设定卷积核个数为 20 个，可以找出一些相对复杂的特征，如“横折”、“左半圆”、“右半圆”等特征；并且越往后，卷积核设定的数目越多，越能体现 label 的特征就越细致，就越容易分类（一般是成倍增加，不过具体论文会根据实验情况具体设置）。</p>
+<hr>
+<p><strong>3.3 –&gt; Feature Map</strong> </p>
+<p>如何理解 Feature Map？</p>
+<p>我们知道，在 CNN 中的每个卷积层，数据都是以三维数据形式存在。我们可以把它看作是<strong>“深度”</strong>个二维图片叠在一起构成，其中每个二维图片就是一个 Feature Map。</p>
+<p>–&gt; Feature Map 在卷积神经网络中的生成</p>
+<p>对于输入层：如果是灰度图片，那就只有一个feature map；而对于彩色图片一般就是 3 个feature map（三通道）；</p>
+<p>对于其他层：层与层之间会有若干个卷积核，上一层所有 feature map 会跟每个卷积核做卷积，都会产生下一层的一个 feature map。也即是说，有几个卷积核就会生成几个 feature map（每个 feature map 都是提取到的典型特征）。</p>
+<p>篇幅原因，更详细的关于卷积神经网络中卷积层以及池化层的理解可以见：<a href="https://zhuanlan.zhihu.com/p/33855959" target="_blank" rel="noopener">一文理解卷积神经网络结构</a> 。</p>
+<hr>
+<p>如果，你已确实了解了卷积神经网络结构，Part 3 和 Part 4 内容参见 <a href="">TensorFlow 系列之经典卷积神经网络模型（LeNet-5 &amp;&amp; Inception-v3）</a> 。</p>
+<h4 id="2-3-Reference-Links"><a href="#2-3-Reference-Links" class="headerlink" title="2.3 Reference Links"></a>2.3 Reference Links</h4><p><a href="https://www.cnblogs.com/charlotte77/p/7759802.html" target="_blank" rel="noopener">https://www.cnblogs.com/charlotte77/p/7759802.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/" title="TensorFlow 系列之初识卷积神经网络（CNN）与图像识别">http://yoursite.com/TensorFlow/TensorFlow-系列之初识卷积神经网络（CNN）与图像识别/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TensorFlow/" rel="tag"><i class="fa fa-tag"></i> TensorFlow</a>
+          
+            <a href="/tags/CNN/" rel="tag"><i class="fa fa-tag"></i> CNN</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/TensorFlow/TensorFlow-之模型持久化/" rel="next" title="TensorFlow 之模型持久化">
+                <i class="fa fa-chevron-left"></i> TensorFlow 之模型持久化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/TensorFlow/TensorFlow-系列之经典卷积神经网络模型（LeNet-5-Inception-v3）/" rel="prev" title="TensorFlow 系列之经典卷积神经网络模型（LeNet-5 && Inception-v3）">
+                TensorFlow 系列之经典卷积神经网络模型（LeNet-5 && Inception-v3） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">80</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#图像识别与卷积神经网络"><span class="nav-text">图像识别与卷积神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Part-1：图像识别"><span class="nav-text">Part 1：图像识别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-图像识别问题以及经典数据集"><span class="nav-text">1. 图像识别问题以及经典数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-图像识别任务"><span class="nav-text">1.1 图像识别任务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-计算机视觉领域经典数据集"><span class="nav-text">1.2 计算机视觉领域经典数据集</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part-2：卷积神经网络（CNN）"><span class="nav-text">Part 2：卷积神经网络（CNN）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-从全连接神经网络结构到卷积神经网络架构"><span class="nav-text">2.1 从全连接神经网络结构到卷积神经网络架构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-1-–-gt-你能看出啥？"><span class="nav-text">2.1.1 –&gt; 你能看出啥？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-2-–-gt-全连接神经网络结构存在的缺点"><span class="nav-text">2.1.2 –&gt; 全连接神经网络结构存在的缺点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-3-–-gt-图像的局部特征"><span class="nav-text">2.1.3 –&gt; 图像的局部特征</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-卷积神经网络架构详解"><span class="nav-text">2.2 卷积神经网络架构详解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-–-gt-卷积神经网络的基本结构"><span class="nav-text">2.2.1 –&gt; 卷积神经网络的基本结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-2-–-gt-CNN-中的卷积层和池化层"><span class="nav-text">2.2.2 –&gt; CNN 中的卷积层和池化层</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-–-gt-卷积层网络结构"><span class="nav-text">1 –&gt; 卷积层网络结构</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-–-gt-池化层网络结构"><span class="nav-text">2 –&gt; 池化层网络结构</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-–-gt-Reading-（Recommended）"><span class="nav-text">3 –&gt; Reading （Recommended）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-Reference-Links"><span class="nav-text">2.3 Reference Links</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

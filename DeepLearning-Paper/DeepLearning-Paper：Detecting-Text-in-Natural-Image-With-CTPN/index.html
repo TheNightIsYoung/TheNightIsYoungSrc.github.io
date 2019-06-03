@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="DeepLearning Paper,CTPN,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="愿你每天欢喜多于悲，孤独有人陪…   阅读指南 推荐在查看这篇论文之前，大家先去了解图像目标检测与识别项目 Faster Region-CNN（R-CNN）的相关实现原理，CTPN 的提出和实现受 Faster R-CNN 影响很大。熟知 Faster R-CNN 算法原理和实现可以帮助你更快、更准确的理解文中内容。 声明：本文 “ CTPN Paper 中英文对照与细节解读 ” 仅供交流学习。">
+<meta name="keywords" content="DeepLearning Paper,CTPN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DeepLearning Paper：Detecting Text in Natural Image With CTPN">
+<meta property="og:url" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   阅读指南 推荐在查看这篇论文之前，大家先去了解图像目标检测与识别项目 Faster Region-CNN（R-CNN）的相关实现原理，CTPN 的提出和实现受 Faster R-CNN 影响很大。熟知 Faster R-CNN 算法原理和实现可以帮助你更快、更准确的理解文中内容。 声明：本文 “ CTPN Paper 中英文对照与细节解读 ” 仅供交流学习。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/text_proposal.png">
+<meta property="og:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/CTPN_construct.png">
+<meta property="og:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/RPN_text_proposal.png">
+<meta property="og:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/anchor.jpg">
+<meta property="og:updated_time" content="2019-06-03T08:18:16.905Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DeepLearning Paper：Detecting Text in Natural Image With CTPN">
+<meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   阅读指南 推荐在查看这篇论文之前，大家先去了解图像目标检测与识别项目 Faster Region-CNN（R-CNN）的相关实现原理，CTPN 的提出和实现受 Faster R-CNN 影响很大。熟知 Faster R-CNN 算法原理和实现可以帮助你更快、更准确的理解文中内容。 声明：本文 “ CTPN Paper 中英文对照与细节解读 ” 仅供交流学习。">
+<meta name="twitter:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/text_proposal.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>DeepLearning Paper：Detecting Text in Natural Image With CTPN | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DeepLearning Paper：Detecting Text in Natural Image With CTPN</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-03T12:00:12+08:00">
+                2019-06-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-03T16:18:16+08:00">
+                2019-06-03
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/DeepLearning-Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">DeepLearning Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/" class="leancloud_visitors" data-flag-title="DeepLearning Paper：Detecting Text in Natural Image With CTPN">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  9.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  41
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center> 愿你每天欢喜多于悲，孤独有人陪… </center>
+
+<p><strong>阅读指南</strong></p>
+<p>推荐在查看这篇论文之前，大家先去了解图像目标检测与识别项目 Faster Region-CNN（R-CNN）的相关实现原理，CTPN 的提出和实现受 Faster R-CNN 影响很大。熟知 Faster R-CNN 算法原理和实现可以帮助你更快、更准确的理解文中内容。</p>
+<p>声明：本文 “ CTPN Paper 中英文对照与细节解读 ” 仅供交流学习。如有转载请注明出处，如有侵权请联系删除，谢谢！</p>
+<a id="more"></a>
+<hr>
+<h2 id="Detecting-Text-in-Natural-Image-with-Connectionist-Text-Proposal-Network"><a href="#Detecting-Text-in-Natural-Image-with-Connectionist-Text-Proposal-Network" class="headerlink" title="Detecting Text in Natural Image with Connectionist Text Proposal Network"></a>Detecting Text in Natural Image with Connectionist Text Proposal Network</h2><p><strong>Paper Name： </strong>使用连接文本提议网络实现自然场景文本检测</p>
+<p><strong>Paper Authors：</strong>Zhi Tian, Weilin Huang, Tong He, Pan He, and Yu Qiao, …</p>
+<p><strong>Release Time：</strong>12 Sep 2016</p>
+<hr>
+<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>We propose a novel Connectionist Text Proposal Network (CTPN) that accurately localizes text lines in natural image. The CTPN detects a text line in a sequence of fine-scale text proposals directly in convolutional feature maps. We develop a vertical anchor mechanism that jointly predicts location and text/non-text score of each fixed-width proposal, considerably improving localization accuracy. The sequential proposals are naturally connected by a recurrent neural network, which is seamlessly incorporated into the convolutional network, resulting in an end-to-end trainable model. This allows the CTPN to explore rich context information of image, making it powerful to detect extremely ambiguous text. The CTPN works reliably on multi-scale and multi-language text without further post-processing, departing from previous bottom-up methods requiring multi-step post filtering. It achieves 0.88 and 0.61 F-measure on the ICDAR 2013 and 2015 benchmarks, surpassing recent results [8,35] by a large margin. The CTPN is computationally efficient with 0.14s/image, by using the very deep VGG16 model [27]. Online demo is available at: <a href="http://textdet.com/" target="_blank" rel="noopener">http://textdet.com/</a>.</p>
+<p><strong>Keywords</strong></p>
+<p>Scene text detection, convolutional network, recurrent neural network, anchor mechanism</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p><strong>摘要（译） –&gt;</strong></p>
+<p>我们提出了一种新颖的 <strong>连接文本提议网络（CTPN）</strong>，它能够准确定位自然图像中的文本行。CTPN 直接在卷积特征映射中的一系列细粒度文本提议中检测文本行。我们开发了一种 <strong>垂直锚点机制</strong>，联合预测每个固定宽度提议的位置和文本/非文本分数，大大提高了定位精度。 <strong>序列提议</strong> 通过循环神经网络自然地连接起来，该网络无缝地结合到卷积网络中，从而形成端到端的可训练模型。这使得 CTPN 可以探索丰富的图像上下文信息，使其能够检测极其模糊的文本。CTPN 在多尺度和多语言文本上可靠地工作，而不需要进一步的后处理，脱离了以前的自底向上需要多步后过滤的方法。它在 ICDAR 2013 和 2015 的基准数据集上达到了 0.88 和 0.61 的 F-measure，大大超过了最近的结果 [8，35]。通过使用非常深的 VGG16 模型 [27]，CTPN 的计算效率为 <strong>0.14s</strong> 每张图像。在线演示获取地址：<a href="http://textdet.com/。" target="_blank" rel="noopener">http://textdet.com/。</a></p>
+<p><strong>关键词</strong></p>
+<p>场景文本检测，卷积网络，循环神经网络，锚点机制</p>
+<hr>
+<p>|↓↓↓↓↓↓↓↓↓↓ Get Start ↓↓↓↓↓↓↓↓↓↓|</p>
+<h3 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h3><p>Reading text in natural image has recently attracted increasing attention in computer vision [8,14,15,10,35,11,9,1,28,32]. This is due to its numerous practical applications such as image OCR, multi-language translation, image retrieval, etc. It includes two sub tasks: text detection and recognition. This work focus on the detection task [14,1,28,32], which is more challenging than recognition task carried out on a well-cropped word image [15,9]. Large variance of text patterns and highly cluttered background pose main challenge of accurate text localization.</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p><strong>1. 引言（译） –&gt;</strong></p>
+<p>在自然图像中阅读文本最近在计算机视觉中引起越来越多的关注 [8，14，15，10，35，11，9，1，28，32]。这是由于它的许多实际应用，如：图像 OCR（Optical Character Recognition），多语言翻译，图像检索等。它包括两个子任务：文本检测和识别。这项工作的重点是检测任务 [14，1，28，32]，这是比在一个良好的裁剪字图像 [15，9] 进行的识别任务更具有挑战性。多变的文本模式和高度杂乱的背景构成了精确文本定位的主要挑战。</p>
+<blockquote>
+<p><strong>STR 背景与技术难点：</strong></p>
+<p>目前图像文本检测和识别领域中（包括两个关键子任务：文本检测和识别），传统的扫描文档图像识别技术（OCR）已经很成熟。自然场景文本识别（Scene Text Recognition，STR）作为检测与识别自然场景图片中的文字信息备受关注。</p>
+<p><strong>而相较于识别任务，STR 任务的重点是文本检测任务。</strong>然而由于其多样的文本模式（多语言、多样式文本）、高度杂乱的背景（干扰纹理：非文字区域有近似文字的纹理）或者自然因素（文本区域变形、残缺、模糊等）等的干扰，自然场景图像中的文字检测与识别任务，其难度远大于扫描文档图像或良好的裁剪字图像中的文字识别。</p>
+</blockquote>
+<p>Current approaches for text detection mostly employ a bottom-up pipeline [28,1,14,32,33]. They commonly start from low-level character or stroke detection, which is typically followed by a number of subsequent steps: non-text component filtering, text line construction and text line verification. These multi-step bottom-up approaches are generally complicated with less robustness and reliability. Their performance heavily rely on the results of character detection, and connected-components methods or sliding-window methods have been proposed. These methods commonly explore low-level features (e.g., based on SWT [3,13], MSER [14,33,23], or HoG [28]) to distinguish text candidates from background. However, they are not robust by identifying individual strokes or characters separately, without context information. For example, it is more confident for people to identify a sequence of characters than an individual one, especially when a character is extremely ambiguous. These limitations often result in a large number of non-text components in character detection, causing main difficulties for handling them in following steps. Furthermore, these false detections are easily accumulated sequentially in bottom-up pipeline, as pointed out in [28]. To address these problems, we exploit strong deep features for detecting text information directly in convolutional maps. We develop text anchor mechanism that accurately predicts text locations in fine scale. Then, an in-network recurrent architecture is proposed to connect these fine-scale text proposals in sequences, allowing them to encode rich context information.</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p>目前的文本检测方法大多采用自下而上的流程 [28，1，14，32，33]。它们通常从低级别字符或笔画检测开始，后面通常会跟随一些后续步骤：非文本组件过滤，文本行构建和文本行验证。这些自底向上的多步骤方法通常复杂，鲁棒性和可靠性较差。它们的性能 <strong>很大程度上依赖于字符检测的结果</strong>，并且已经提出了<strong>连接组件方法或滑动窗口方法。</strong>这些方法通常探索低级特征（例如，基于 SWT [3，13]，MSER [14，33，23] 或 HoG [28] ）来区分候选文本和背景。但是，如果没有上下文信息，他们不能鲁棒的单独识别各个笔划或字符。例如，相比单个字符人们更信任一个字符序列，特别是当一个字符非常模糊时。这些限制在字符检测中通常会导致大量非文本组件，在后续步骤中的主要困难是处理它们。此外，正如 [28] 所指出的，这些误检很容易在自下而上的过程中连续累积。为了解决这些问题，我们利用强大的深度特征直接在卷积映射中检测文本信息。我们开发的文本锚点机制能在细粒度上精确预测文本位置。然后，我们提出了一种网内循环架构，用于按顺序连接这些细粒度的文本提议，从而允许它们编码丰富的上下文信息。</p>
+<blockquote>
+<p><strong>STR 文本检测问题与 Faster Region-CNN（R-CNN）：</strong></p>
+<p>上面提到 STR 任务的重点难点是文本检测任务。对于文本检测，大佬们指出时下（传统）文本检测大多采用 bottom-up（自底向上）的检测方法（先检测低级别字符或笔画，再构建成文本行/线（文本线：是一个由字符、局部字符、多字符组成序列 Sequence）。这种自底向上检测方法的存在很明显的缺陷：（1）它们的性能很大程度依赖于字符检查结果，当字符检测中产生误检时，这些误检很容易在自下而上的过程中累积，产生更多的误检；（2）没有考虑上下文信息，不能鲁棒的单独识别各个笔划或字符，可靠性差；（3）检测后需要多个后续的子模块来构建文本行/线，模型比较复杂。这些因素导致了模型性能受限。</p>
+<p>基于以上问题的思考，受益于 Faster Region-CNN（R-CNN）系统实现原理。大佬们提出：使用图像文本信息的深度卷积特征来取代低级特征，使用文本锚点机制在细粒度精度上预测文本区域，并通过使用一种网内循环（RNN）架构探索其上下文信息，按顺序连接这些细粒度文本提议。继续往下看，你可以发现其实大佬们提出的是一种 Top-down（自上而下）的文本检测方法（先检测文本区域，再将其连接成文本行/线）。实现细节继续往下看 —–&gt;</p>
+</blockquote>
+<p>Deep Convolutional Neural Networks (CNN) have recently advanced general object detection substantially [25,5,6]. The state-of-the-art method is Faster Region-CNN (R-CNN) system [25] where a Region Proposal Network (RPN) is proposed to generate high-quality class-agnostic object proposals directly from convolutional feature maps. Then the RPN proposals are fed into a Fast R-CNN [5] model for further classification and refinement, leading to the state-of-the-art performance on generic object detection. However, it is difficult to apply these general object detection systems directly to scene text detection, which generally requires a higher localization accuracy. In generic object detection, each object has a well-defined closed boundary [2], while such a well-defined boundary may not exist in text, since a text line or word is composed of a number of separate characters or strokes. For object detection, a typical correct detection is defined loosely, e.g., by an overlap of &gt; 0.5 between the detected bounding box and its ground truth (e.g., the PASCAL standard [4]), since people can recognize an object easily from major part of it. By contrast, reading text comprehensively is a fine-grained recognition task which requires a correct detection that covers a full region of a text line or word. Therefore, text detection generally requires a more accurate localization, leading to a different evaluation standard, e.g., the Wolf’s standard [30] which is commonly employed by text benchmarks [19,21].</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p>深度卷积神经网络（CNN）最近已经基本实现了一般物体检测 [25，5，6]。最先进的方法是 Faster Region-CNN（R-CNN）系统 [25]，其中提出了区域提议网络（RPN）直接从卷积特征映射中生成 <strong>高质量类别不可知的目标提议</strong>。然后将 RPN 提议输入 Faster R-CNN[5] 模型进行进一步的分类和微调，从而实现通用目标检测的最新性能。然而，很难将这些通用目标检测系统直接应用于场景文本检测，这通常需要更高的定位精度。在通用目标检测中，每个目标都有一个明确的封闭边界 [2]，而在文本中可能不存在这样一个明确定义的边界，因为文本行或单词是由许多单独的字符或笔划组成的。对于目标检测，典型的正确检测是松散定义的，例如，检测到的边界框与其实际边界框（例如，PASCAL 标准 [4]）之间的重叠 &gt; 0.5，因为人们可以容易地从目标的主要部分识别它。相比之下，综合阅读文本是一个细粒度的识别任务，需要正确的检测，覆盖文本行或字的整个区域。因此，文本检测通常需要更准确的定义，导致不同的评估标准，例如文本基准中常用的 Wolf 标准 [19，21]。</p>
+<blockquote>
+<p><strong>Faster Region-CNN（R-CNN）对于图像文本区域检测的不适用：</strong></p>
+<p>同属于图像目标检测，从一般物体区域目标检测到文本区域目标检测，大佬们借鉴 Faster Region-CNN（R-CNN）系统的设计想法。但若直接采用基于 Faster Region-CNN 等通用物体检测框架的算法都会面临一个问题：<strong>如何生成好的 text region proposal ?</strong>（不同于一般物体检测的松散定义，文本检测通常需要更准确的定义），这实际上比较难解决。</p>
+</blockquote>
+<p>In this work, we fill this gap by extending the RPN architecture [25] to accurate text line localization. We present several technical developments that tailor generic object detection model elegantly towards our problem. We strive for a further step by proposing an in-network recurrent mechanism that allows our model to detect text sequence directly in the convolutional maps, avoiding further post-processing by an additional costly CNN detection model.</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p>在这项工作中，我们通过将 RPN 架构 [25] 扩展到准确的文本行定义（细粒度文本区域提议）来填补这个空白。我们提出了几种技术发展，针对我们的问题可以优雅地调整通用目标检测模型。我们通过提出一种网络内循环机制争取更进一步，使我们的模型能够直接在卷积映射中检测文本序列，避免通过额外昂贵的 CNN 检测模型进行进一步的后处理。</p>
+<blockquote>
+<p><strong>垂直锚点机制和网内循环:</strong></p>
+<p>基于 “ 如何生成好的 text region proposal ？ ”，大佬们将 Faster R-CNN 中的 RPN 架构扩展到精准的文本行定义（将 RPN 锚点机制生成目标区域提议扩展成文本垂直锚点机制（细粒度文本区域提议））。大佬们的思路是检测一个一个小的，固定宽度的文本段，然后在后续处理部分再将这些小的文本段连接起来获得文本行。检测到的文本段的示意图如下图所示：</p>
+</blockquote>
+<p><img src="/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/./text_proposal.png" alt="avatar"></p>
+<blockquote>
+<p><strong>个人理解：</strong></p>
+<p>可以发现，与传统文本检测方法相比，就如我们前面提到的：使用深度卷积特征替换了低级特征；直接通过文本垂直锚点机制给出细粒度文本区域提议，不再做字符检测；使用网内循环编码文本上下文信息使得检测的文本行更鲁棒。</p>
+</blockquote>
+<hr>
+<h4 id="1-1-Contributions"><a href="#1-1-Contributions" class="headerlink" title="1.1 Contributions"></a>1.1 Contributions</h4><p>We propose a novel Connectionist Text Proposal Network (CTPN) that directly localizes text sequences in convolutional layers. This overcomes a number of main limitations raised by previous bottom-up approaches building on character detection. We leverage the advantages of strong deep convolutional features and sharing computation mechanism, and propose the CTPN architecture which is described in Fig. 1. It makes the following major contributions:</p>
+<p>Fig. 1: (a) Architecture of the Connectionist Text Proposal Network (CTPN). We densely slide a 3×3 spatial window through the last convolutional maps (conv5 ) of the VGG16 model [27]. The sequential windows in each row are recurrently connected by a Bi-directional LSTM (BLSTM) [7], where the convolutional feature (3×3×C) of each window is used as input of the 256D BLSTM (including two 128D LSTMs). The RNN layer is connected to a 512D fully-connected layer, followed by the output layer, which jointly predicts text/non-text scores, y-axis coordinates and side-refinement offsets of k anchors. (b) The CTPN outputs sequential fixed-width fine-scale text proposals. Color of each box indicates the text/non-text score. Only the boxes with positive scores are presented.</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p><strong>1.1 贡献（译） –&gt;</strong></p>
+<p>我们提出了一种新颖的连接文本提议网络（CTPN），它可以直接定位卷积层中的文本序列。这克服了以前的建立在字符检测基础上的自下而上方法带来的一些主要限制。我们利用强深度卷积特性和共享计算机制的优点，提出了如图 1 所示的 CTPN 架构。主要贡献如下：</p>
+<p><img src="/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/./CTPN_construct.png" alt="avatar"></p>
+<p>图1：（a）连接文本提议网络（CTPN）的架构。我们通过 VGG16 模型 [27] 的最后一个卷积映射（conv5）密集地滑动 3×3 空间窗口。每行的序列窗口通过双向 LSTM（BLSTM）[7] 循环连接，其中每个窗口的卷积特征（3×3×C）被用作 256 维的 BLSTM（包括两个 128 维的 LSTM ）的输入。RNN 层连接到 512 维的全连接层，接着是输出层，联合预测 k 个锚点的文本/非文本分数，y 轴坐标和边缘调整偏移。（b）CTPN 输出连续的固定宽度细粒度文本提议。每个框的颜色表示文本/非文本分数。只显示正分数对应的文本框。</p>
+<p>First, we cast the problem of text detection into localizing a sequence of fine-scale text proposals. We develop an anchor regression mechanism that jointly predicts vertical location and text/non-text score of each text proposal, resulting in an excellent localization accuracy. This departs from the RPN prediction of a whole object, which is difficult to provide a satisfied localization accuracy.</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p>首先，我们将文本检测的问题转化为一系列细粒度的文本提议。我们开发了一个（垂直）锚点回归机制，可以联合预测每个文本提议的垂直位置和文本/非文本分数，从而获得出色的定位精度。这背离了整个目标的 RPN 预测，RPN 预测难以提供令人满意的定位精度。</p>
+<blockquote>
+<p><strong>内容解读：</strong></p>
+<p>关于细粒度的文本提议（text region proposal），作者提出了 Vertical Anchor 机制。基本想法就是去预测文本的竖直方向上的位置，水平方向的位置不预测。与 Faster RCNN 中的 anchor 类似，但是不同的是，Vertical Anchor 的宽度都是固定好的了，本文后面你会看到，本文中 Vertical Anchor 宽度设置为 16 个像素。而高度则从 11 像素到 273 像素变化，总共 10 个 anchor.</p>
+</blockquote>
+<p>Second, we propose an in-network recurrence mechanism that elegantly connects sequential text proposals in the convolutional feature maps. This connection allows our detector to explore meaningful context information of text line, making it powerful to detect extremely challenging text reliably.</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p>其次，我们提出了一种在卷积特征映射中优雅连接序列文本提议的网络内循环机制。通过这种连接，我们的检测器可以探索文本行有意义的上下文信息，使其能够可靠地检测极具挑战性的文本。</p>
+<blockquote>
+<p><strong>内容解读：</strong></p>
+<p>关于序列提议，作者将 VGG16 Net conv5_3 卷积层的 feature map 中每行序列窗口的卷积映射（3×3×C）输入到 256 维的 BLSTM（包括两个 128 维的 LSTM ）网络中，用于编码上下文信息。</p>
+</blockquote>
+<p>Third, both methods are integrated seamlessly to meet the nature of text sequence, resulting in a unified end-to-end trainable model. Our method is able to handle multi-scale and multi-lingual text in a single process, avoiding further post filtering or refinement.</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p>第三，两种方法无缝集成，以符合文本序列的性质，从而形成统一的端到端可训练模型。我们的方法能够在单个过程中处理多尺度和多语言的文本，避免进一步的后过滤或细化。</p>
+<p>Fourth, our method achieves new state-of-the-art results on a number of benchmarks, significantly improving recent results (e.g., 0.88 F-measure over 0.83 in [8] on the ICDAR 2013, and 0.61 F-measure over 0.54 in [35] on the ICDAR 2015). Furthermore, it is computationally efficient, resulting in a 0.14s/image running time (on the ICDAR 2013) by using the very deep VGG16 model [27].</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p>第四，我们的方法在许多基准数据集上达到了新的最先进成果，显著改善了最近的结果（例如，0.88 的 F-measure 超过了 2013 年 ICDAR 的 [8] 中的 0.83，而 0.64 的 F-measure 超过了 ICDAR2015 上[35] 中的 0.54 ）。此外，通过使用非常深的 VGG16 模型 [27]，这在计算上是高效的，导致了每张图像 0.14s 的运行时间（在 ICDAR 2013 上）。</p>
+<blockquote>
+<p>关于上述具体的实现细节可以参见本文第三部分。</p>
+</blockquote>
+<hr>
+<h3 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h3><p><strong>Text detection.</strong> Past works in scene text detection have been dominated by bottom-up approaches which are generally built on stroke or character detection. They can be roughly grouped into two categories, connected-components (CCs) based approaches and sliding-window based methods. The CCs based approaches discriminate text and non-text pixels by using a fast filter, and then text pixels are greedily grouped into stroke or character candidates, by using low-level properties, e.g., intensity, color, gradient, etc. [33,14,32,13,3]. The sliding-window based methods detect character candidates by densely moving a multi-scale window through an image. The character or non-character window is discriminated by a pre-trained classifier, by using manually-designed features [28,29], or recent CNN features [16]. However, both groups of methods commonly suffer from poor performance of character detection, causing accumulated errors in following component filtering and text line construction steps. Furthermore, robustly filtering out non-character components or confidently verifying detected text lines are even difficult themselves [1,33,14]. Another limitation is that the sliding-window methods are computationally expensive, by running a classifier on a huge number of the sliding windows.</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p><strong>2. 相关工作（译） –&gt;</strong></p>
+<blockquote>
+<p><strong>主要内容解读：</strong>这一部分主要提到 Paper 图像文本检测与识别相关技术背景：<strong>（1）文本检测。（2）目标检测。</strong></p>
+</blockquote>
+<p><strong>文本检测。</strong>过去在场景文本检测中的工作一直以自下而上的方法为主，一般建立在笔画或字符检测上。它们可以粗略地分为两类，基于连接组件（CC）的方法和基于滑动窗口的方法。基于 CC 的方法通过使用快速滤波器来区分文本和非文本像素，然后通过使用低级属性（例如强度，颜色，梯度等 [33，14，32，13，3]）将文本像素贪婪地分为笔划或候选字符。基于滑动窗口的方法通过在图像中密集地滑动多尺度窗口来检测候选字符。字符或非字符窗口通过预先训练的分类器，使用手动设计的特征 [28，29] 或最近的 CNN 特征 [16] 进行区分。然而，这两种方法通常都会受到较差的字符检测性能的影响，导致在接下来的组件过滤和文本行构建步骤中出现累积的错误。此外，强大地过滤非字符组件或者自信地验证检测到的文本行本身就更加困难 [1，33，14]。另一个限制是通过在大量的滑动窗口上运行分类器，滑动窗口方法在计算上是昂贵的。</p>
+<p><strong>Object detection. </strong>Convolutional Neural Networks (CNN) have recently advanced general object detection substantially [25,5,6]. A common strategy is to generate a number of object proposals by employing inexpensive low-level features, and then a strong CNN classifier is applied to further classify and refine the generated proposals. Selective Search (SS) [4] which generates class-agnostic object proposals, is one of the most popular methods applied in recent leading object detection systems, such as Region CNN (R-CNN) [6] and its extensions [5]. Recently, Ren et al. [25] proposed a Faster R-CNN system for object detection. They proposed a Region Proposal Network (RPN) that generates high-quality class-agnostic object proposals directly from the convolutional feature maps. The RPN is fast by sharing convolutional computation. However, the RPN proposals are not discriminative, and require a further refinement and classification by an additional costly CNN model, e.g., the Fast R-CNN model [5]. More importantly, text is different significantly from general objects, making it difficult to directly apply general object detection system to this highly domain-specific task.</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p><strong>目标检测。</strong>卷积神经网络（CNN）近来在通用目标检测 [25，5，6] 上已经取得了实质的进步。一个常见的策略是通过使用廉价的低级特征来生成许多目标提议，然后使用强 CNN 分类器来进一步对生成的提议进行分类和细化。生成类别不可知目标提议的选择性搜索（SS）[4] 是目前领先的目标检测系统中应用最广泛的方法之一，如 CNN（R-CNN）[6] 及其扩展 [5]。最近，Ren 等人 [25] 提出了 Faster R-CNN 目标检测系统。他们提出了一个区域提议网络（RPN），可以直接从卷积特征映射中生成高质量的类别不可知的目标提议。通过共享卷积计算 RPN 是快速的。然而，RPN 提议不具有判别性，需要通过额外的成本高昂的 CNN 模型（如 Fast R-CNN 模型 [5]）进一步细化和分类。更重要的是，文本与一般目标有很大的不同，因此很难直接将通用目标检测系统应用到这个高度领域化的任务中。</p>
+<hr>
+<p>重点来了……</p>
+<h3 id="3-Connectionist-Text-Proposal-Network"><a href="#3-Connectionist-Text-Proposal-Network" class="headerlink" title="3. Connectionist Text Proposal Network"></a>3. Connectionist Text Proposal Network</h3><p>This section presents details of the Connectionist Text Proposal Network (CTPN). It includes three key contributions that make it reliable and accurate for text localization: detecting text in fine-scale proposals, recurrent connectionist text proposals, and side-refinement.</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p><strong>3. 连接文本提议网络（译） –&gt;</strong></p>
+<p>本节介绍连接文本提议网络（CTPN）的细节。它包括三个关键的贡献，使文本定位可靠和准确：（3.1）检测细粒度提议中的文本；（3.2）循环连接文本提议；（3.3）边缘细化。</p>
+<blockquote>
+<p>主要内容解读：通过上文叙述，我们已经大致了解了大佬们提出的连接文本提议网络实现架构。这一部分我们来看其三个关键结构实现细节：3.1、3.2 以及 3.3。</p>
+</blockquote>
+<hr>
+<h4 id="3-1-Detecting-Text-in-Fine-scale-Proposals"><a href="#3-1-Detecting-Text-in-Fine-scale-Proposals" class="headerlink" title="3.1 Detecting Text in Fine-scale Proposals"></a>3.1 Detecting Text in Fine-scale Proposals</h4><p>Similar to Region Proposal Network (RPN) [25], the CTPN is essentially a fully convolutional network that allows an input image of arbitrary size. It detects a text line by densely sliding a small window in the convolutional feature maps, and outputs a sequence of fine-scale (e.g., fixed 16-pixel width) text proposals, as shown in Fig. 1 (b).</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p>类似于区域提议网络（RPN）[25]，CTPN 本质上是一个全卷积网络，允许任意大小的输入图像。它通过在卷积特征映射中密集地滑动小窗口来检测文本行，并且输出一系列细粒度的（例如，宽度为固定的 16 个像素）文本提议，如图1（b）所示。</p>
+<p>We take the very deep 16-layer vggNet (VGG16) [27] as an example to describe our approach, which is readily applicable to other deep models. Architecture of the CTPN is presented in Fig. 1 (a). We use a small spatial window, 3×3, to slide the feature maps of last convolutional layer (e.g., the conv5 of the VGG16). The size of conv5 feature maps is determined by the size of input image, while the total stride and receptive field are fixed as 16 and 228 pixels, respectively. Both the total stride and receptive field are fixed by the network architecture. Using a sliding window in the convolutional layer allows it to share convolutional computation, which is the key to reduce computation of the costly sliding-window based methods.</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p>我们以非常深的 16 层 VGGNet（VGG16）[27] 为例来描述我们的方法，该方法很容易应用于其他深度模型。CTPN 的架构如图 1（a）所示。我们使用一个小的空间窗口 3×3 来滑动最后的卷积层特征映射（例如：VGG16 的 conv5）。conv5 特征映射的大小由输入图像的大小决定，而总步长和感受野分别固定为 16 个和 228 个像素。网络架构决定总步长和感受野。在卷积层中使用滑动窗口允许它共享卷积计算，这是减少昂贵的基于滑动窗口的方法的计算量的关键。</p>
+<blockquote>
+<p>内容解读：这里作者选择 VGG16 Net （conv5_3）作为强深度共享卷积层的 base net，然后选用 3×3 滑动窗口在 conv5_3 的 feature map 上移动</p>
+</blockquote>
+<p>Generally, sliding-window methods adopt multi-scale windows to detect objects of different sizes, where one window scale is fixed to objects of similar size. In [25], Ren et al. proposed an efficient anchor regression mechanism that allows the RPN to detect multi-scale objects with a single-scale window. The key insight is that a single window is able to predict objects in a wide range of scales and aspect ratios, by using a number of flexible anchors. We wish to extend this efficient anchor mechanism to our text task. However, text differs from generic objects substantially, which generally have a well-defined enclosed boundary and center, allowing inferring whole object from even a part of it [2]. Text is a sequence which does not have an obvious closed boundary. It may include multi-level components, such as stroke, character, word, text line and text region, which are not distinguished clearly between each other. Text detection is defined in word or text line level, so that it may be easy to make an incorrect detection by defining it as a single object, e.g., detecting part of a word. Therefore, directly predicting the location of a text line or word may be difficult or unreliable, making it hard to get a satisfied accuracy. An example is shown in Fig. 2, where the RPN is directly trained for localizing text lines in an image.</p>
+<p>Fig. 2: Left: RPN proposals. Right: Fine-scale text proposals.</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p>通常，滑动窗口方法采用多尺度窗口来检测不同尺寸的目标，其中一个窗口尺度被固定到与目标的尺寸相似。在 [25] 中，Ren 等人提出了一种有效的锚点回归机制，允许 RPN 使用单尺度窗口检测多尺度目标。关键的洞察力是单个窗口能够通过使用多个灵活的锚点来预测各种尺度和长宽比的目标。我们希望将这种有效的锚点机制扩展到我们的文本任务。然而，实质上文本与普通目标不同，（普通目标）它们通常具有明确的封闭边界和中心，可以从它的一部分推断整个目标 [2]。文本是一个没有明显封闭边界的序列。它可能包含多层次的组件，如笔划，字符，单词，文本行和文本区域等，这些组件之间没有明确区分。文本检测是在单词或文本行级别中定义的，因此通过将其定义为单个目标（例如检测单词的一部分）可能很容易进行错误的检测。因此，直接预测文本行或单词的位置可能很难或不可靠，因此很难获得令人满意的准确性。一个例子如图 2 所示，其中 RPN 直接被用于定位图像中的文本行。</p>
+<p><img src="/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/./RPN_text_proposal.png" alt="avatar"></p>
+<center>图2：左：RPN提议。右：细粒度的文本提议。</center>
+
+<blockquote>
+<p>内容解读：这一部分我们来解读大佬们提出的通过垂直描点机制来构建细粒度文本区域提议方法。大佬们分析了文本区域检测以及普通物体目标区域检测的区别，以及 Faster RCNN 中的多尺度描点机制对于生成文本区域提议存在的缺陷。并且通过使用训练 RPN 用于定位图像中的文本行，可视化结果表明与分析结果一致。</p>
+</blockquote>
+<p>We look for a unique property of text that is able to generalize well to text components in all levels. We observed that word detection by the RPN is difficult to accurately predict the horizontal sides of words, since each character within a word is isolated or separated, making it confused to find the start and end locations of a word. Obviously, a text line is a sequence which is the main difference between text and generic objects. It is natural to consider a text line as a sequence of fine-scale text proposals, where each proposal generally represents a small part of a text line, e.g., a text piece with 16-pixel width. Each proposal may include a single or multiple strokes, a part of a character, a single or multiple characters, etc. We believe that it would be more accurate to just predict the vertical location of each proposal, by fixing its horizontal location which may be more difficult to predict. This reduces the search space, compared to the RPN which predicts 4 coordinates of an object. We develop a vertical anchor mechanism that simultaneously predicts a text/non-text score and y-axis location of each fine-scale proposal. It is also more reliable to detect a general fixed-width text proposal than identifying an isolate character, which is easily confused with part of a character or multiple characters. Furthermore, detecting a text line in a sequence of fixed-width text proposals also works reliably on text of multiple scales and multiple aspect ratios.</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p>我们寻找文本的独特属性，能够很好地概括各个层次的文本组件。我们观察到由 RPN 进行的单词检测很难准确预测单词的水平边，因为单词中的每个字符都是孤立的或分离的，这使得查找单词的开始和结束位置很混乱。显然，文本行是一个序列，它是文本和通用目标之间的主要区别。将文本行视为一系列细粒度的文本提议是很自然的，其中每个提议通常代表文本行的一小部分，例如宽度为 16 个像素的文本块。每个提议可能包含单个或多个笔划，字符的一部分，单个或多个字符等。我们认为，通过固定每个提议的水平位置来预测其垂直位置会更准确，水平位置更难预测。与预测目标 4 个坐标的 RPN 相比，这减少了搜索空间。我们开发了垂直锚点机制，可以同时预测每个细粒度提议的文本/非文本分数和y轴的位置。检测一般固定宽度的文本提议比识别分隔的字符更可靠，分隔字符容易与字符或多个字符的一部分混淆。此外，检测一系列固定宽度文本提议中的文本行也可以在多个尺度和多个长宽比的文本上可靠地工作。</p>
+<blockquote>
+<p>内容解读：前面我们提到，不管是自上而下方法还是自下而上的方法，最终都需要构建成文本行。文本行是一个序列，它是文本和通用目标之间的主要区别。于是将文本行视为一系列细粒度的文本提议是很自然的，其中每个提议通常都代表了文本行的一小部分。大佬们认为通过固定每个提议的水平位置来预测其垂直位置会更准确，水平位置更难预测，这就是垂直描点机制。</p>
+</blockquote>
+<p>To this end, we design the fine-scale text proposal as follow. Our detector investigates each spatial location in the conv5 densely. A text proposal is defined to have a fixed width of 16 pixels (in the input image). This is equal to move the detector densely through the conv5 maps, where the total stride is exactly 16 pixels. Then we design k vertical anchors to predict y-coordinates for each proposal. The k anchors have a same horizontal location with a fixed width of 16 pixels, but their vertical locations are varied in k different heights. In our experiments, we use ten anchors for each proposal, k=10, whose heights are varied from 11 to 273 pixels (by ÷0.7 each time) in the input image. The explicit vertical coordinates are measured by the height and y-axis center of a proposal bounding box. We compute relative predicted vertical coordinates (v) with respect to the bounding box location of an anchor as, </p>
+<p>$$v_c=(c_y-c_y^a)/h^a,v_h=log(h/h^a)​$$</p>
+<p>$$v_c^☆=(c_y^☆ - c_y^a)/h^a, v_h^☆=log(h^☆/h^a)$$</p>
+<p>where v={vc,vh} and v∗={v∗c,v∗h} are the relative predicted coordinates and ground truth coordinates, respectively. cay and ha are the center (y-axis) and height of the anchor box, which can be pre-computed from an input image. cy and h are the predicted y-axis coordinates in the input image, while c∗y and h∗ are the ground truth coordinates. Therefore, each predicted text proposal has a bounding box with size of h×16 (in the input image), as shown in Fig. 1 (b) and Fig. 2 (right). Generally, an text proposal is largely smaller than its effective receptive field which is 228×228.</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p>为此，我们设计如下的细粒度文本提议。我们的检测器密集地调查了 conv5 中的每个空间位置。文本提议被定义为具有 16 个像素的固定宽度（在输入图像中）。这相当于在 conv5 的映射上密集地移动检测器，其中总步长恰好为 16 个像素。然后，我们设计 k 个垂直锚点来预测每个提议的 y 坐标。k 个锚点具有相同的水平位置，固定宽度为 16 个像素，但其垂直位置在 k 个不同的高度变化。在我们的实验中，我们对每个提议使用十个锚点，k=10，其高度在输入图像中从 11 个像素变化到 273 个像素（每次 ÷0.7）。<strong>明确的垂直坐标是通过提议边界框的高度和 y 轴中心来度量的。</strong>我们计算相对于锚点的边界框位置的相对预测的垂直坐标（v），如下所示：</p>
+<p>$$ v_c=(c_y-c_y^a)/h^a,v_h=log(h/h^a) ​$$</p>
+<p>$$v_c^☆=(c_y^☆-c_y^a)/h^a,v_h^☆=log(h^☆/h^a)$$</p>
+<p>其中$v={v_c，v_h}$和$v^☆={v_c^☆，v_h^☆}$分别是相对预测坐标和实际坐标。$c_y^☆$ 和 $h^a$ 是锚盒的中心（y 轴）和高度，可以从输入图像预先计算。$c_y$ 和 $h$ 是输入图像中预测的 $y$ 轴坐标，而 $c_y^☆$ 和 $h^☆$ 实际坐标。因此，如图1（b）和图2（右）所示，每个预测文本提议都有一个大小为 h×16 的边界框（在输入图像中）。一般来说，文本提议在很大程度上要比它的有效感受野 228×228 要小。</p>
+<blockquote>
+<p>内容解读：CTPN 垂直描点机制针对的是水平文字检测。大佬们采用了一组（10 个）等宽度的 Anchors，用于定位文字位置。Anchor尺寸：widths=[16]，heights=[11,16,23,33,48,68,97,139,198,283]。由于 CTPN 采用 VGG16 Net 模型提取卷积特征，故 conv5_3 feature map 的宽高都是输入 Image 宽高的 1/16。同时 fc 和 conv5_3 的 width、height 都相等。下面给出 CTPN 垂直描点机制的 Anchor 示意图：</p>
+</blockquote>
+<p><img src="/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/./anchor.jpg" alt="avatar"></p>
+<p>The detection processing is summarised as follow. Given an input image, we have W×H×C conv5 features maps (by using the VGG16 model), where C is the number of feature maps or channels, and W×H is the spatial arrangement. When our detector is sliding a 3×3 window densely through the conv5, each sliding-window takes a convolutional feature of 3×3×C for producing the prediction. For each prediction, the horizontal location (x-coordinates) and k-anchor locations are fixed, which can be pre-computed by mapping the spatial window location in the conv5 onto the input image. Our detector outputs the text/non-text scores and the predicted y-coordinates (v) for k anchors at each window location. The detected text proposals are generated from the anchors having a text/non-text score of &gt;0.7 (with non-maximum suppression). By the designed vertical anchor and fine-scale detection strategy, our detector is able to handle text lines in a wide range of scales and aspect ratios by using a single-scale image. This further reduces its computation, and at the same time, predicting accurate localizations of the text lines. Compared to the RPN or Faster R-CNN system [25], our fine-scale detection provides more detailed supervised information that naturally leads to a more accurate detection.</p>
+<p><strong>|↑↑↑ 中文对照 ↓↓↓|</strong></p>
+<p>检测处理总结如下。给定输入图像，我们有 W×H×C conv5 特征映射（通过使用 VGG16 Net 模型），其中 C 是特征映射或通道的数目，并且 W×H 是空间布置。当我们的检测器通过 conv5 密集地滑动 3×3 窗口时，每个滑动窗口使用 3×3×C 的卷积特征来产生预测。对于每个预测，水平位置（x 轴坐标）和 k 个锚点位置是固定的，可以通过将 conv5 中的空间窗口位置映射到输入图像上来预先计算。我们的检测器在每个窗口位置输出 k 个锚点的文本/非文本分数和预测的 y 轴坐标（v）。检测到的文本提议是从具有 &gt;0.7（具有非极大值抑制）的文本/非文本分数的锚点生成的。通过设计的垂直锚点和细粒度的检测策略，我们的检测器能够通过使用单尺度图像处理各种尺度和长宽比的文本行。这进一步减少了计算量，同时预测了文本行的准确位置。与 RPN 或 Faster R-CNN 系统 [25] 相比，我们的细粒度检测提供更详细的监督信息，自然会导致更精确的检测。</p>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/" title="DeepLearning Paper：Detecting Text in Natural Image With CTPN">http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DeepLearning-Paper/" rel="tag"><i class="fa fa-tag"></i> DeepLearning Paper</a>
+          
+            <a href="/tags/CTPN/" rel="tag"><i class="fa fa-tag"></i> CTPN</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/TensorFlow/深度学习模型移动和嵌入式端落地方案：TFM-实现-TF-MNIST-手写数字识别模型移植到-Android-端/" rel="next" title="深度学习模型移动和嵌入式端落地方案：TFM 实现 TF MNIST 手写数字识别模型移植到 Android 端">
+                <i class="fa fa-chevron-left"></i> 深度学习模型移动和嵌入式端落地方案：TFM 实现 TF MNIST 手写数字识别模型移植到 Android 端
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">80</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Detecting-Text-in-Natural-Image-with-Connectionist-Text-Proposal-Network"><span class="nav-text">Detecting Text in Natural Image with Connectionist Text Proposal Network</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Introduction"><span class="nav-text">1. Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-Contributions"><span class="nav-text">1.1 Contributions</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Related-Work"><span class="nav-text">2. Related Work</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Connectionist-Text-Proposal-Network"><span class="nav-text">3. Connectionist Text Proposal Network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-Detecting-Text-in-Fine-scale-Proposals"><span class="nav-text">3.1 Detecting Text in Fine-scale Proposals</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

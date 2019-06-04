@@ -86,7 +86,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="TensorFlow,CNN,">
 
 
 
@@ -99,13 +99,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="When Art Meets Technology">
-<meta property="og:url" content="http://yoursite.com/archives/page/2/index.html">
+<meta name="description" content="愿你每天欢喜多于悲，孤独有人陪…   前言： 一文理解卷积神经网络结构。">
+<meta name="keywords" content="TensorFlow,CNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow 系列之如何理解卷积神经网络结构(Structure)">
+<meta property="og:url" content="http://yoursite.com/TensorFlow/TensorFlow-系列之如何理解卷积神经网络结构-Structure/index.html">
 <meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   前言： 一文理解卷积神经网络结构。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-04T10:04:30.054Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="When Art Meets Technology">
+<meta name="twitter:title" content="TensorFlow 系列之如何理解卷积神经网络结构(Structure)">
+<meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   前言： 一文理解卷积神经网络结构。">
 
 
 
@@ -135,7 +140,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/page/2/">
+  <link rel="canonical" href="http://yoursite.com/TensorFlow/TensorFlow-系列之如何理解卷积神经网络结构-Structure/">
 
 
 
@@ -150,7 +155,7 @@
   daovoice('update');
   </script>
 
-  <title>归档 | When Art Meets Technology</title>
+  <title>TensorFlow 系列之如何理解卷积神经网络结构(Structure) | When Art Meets Technology</title>
   
 
 
@@ -173,7 +178,7 @@
     <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -299,395 +304,317 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      <span class="archive-page-counter">
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/TensorFlow/TensorFlow-系列之如何理解卷积神经网络结构-Structure/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
-         
+          <h1 class="post-title" itemprop="name headline">TensorFlow 系列之如何理解卷积神经网络结构(Structure)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-08T17:59:26+08:00">
+                2018-10-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-04T18:04:30+08:00">
+                2019-06-04
+              </time>
+            
+          </span>
+
           
-        好! 目前共计 63 篇日志。 继续努力...
-      </span>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
 
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/Hexo/基于-Hexo-轻量级框架的博客搭建/" itemprop="url">
-              
-                <span itemprop="name">基于 Hexo 轻量级框架的博客搭建</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-13T18:31:52+08:00" content="2019-01-13">
-          01-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/Design-Pattern/设计模式之工厂模式/" itemprop="url">
-              
-                <span itemprop="name">设计模式之工厂模式</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-03T11:09:34+08:00" content="2019-01-03">
-          01-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/Design-Pattern/设计模式之初识篇/" itemprop="url">
-              
-                <span itemprop="name">设计模式之初识篇</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-03T10:56:41+08:00" content="2019-01-03">
-          01-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
+            
+          
 
-        
+          
+          
+             <span id="/TensorFlow/TensorFlow-系列之如何理解卷积神经网络结构-Structure/" class="leancloud_visitors" data-flag-title="TensorFlow 系列之如何理解卷积神经网络结构(Structure)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/Git/Part-5-Of-Git-Tutorial/" itemprop="url">
+          
+            <div class="post-wordcount">
               
-                <span itemprop="name">Git 使用指南之分布式开发</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  28
+                </span>
               
-            </a>
-        
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-23T13:47:04+08:00" content="2018-12-23">
-          12-23
-        </time>
-      </div>
+              
+                <span class="post-meta-divider">|</span>
+              
 
-    </header>
-  </article>
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
 
+          
 
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/Git/Part-4-Of-Git-Tutorial/" itemprop="url">
-              
-                <span itemprop="name">Git 使用指南之分支管理</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-22T17:20:00+08:00" content="2018-12-22">
-          12-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
+      
+        <center> 愿你每天欢喜多于悲，孤独有人陪… </center>
 
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/Git/Part-3-Of-Git-Tutorial/" itemprop="url">
-              
-                <span itemprop="name">Git 使用指南之远程仓库</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-21T17:10:42+08:00" content="2018-12-21">
-          12-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+<p><strong>前言：</strong></p>
+<p>一文理解卷积神经网络结构。</p>
+<a id="more"></a>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/Git/Part-2-Of-Git-Tutorial/" itemprop="url">
-              
-                <span itemprop="name">Git 使用指南之时光穿梭机</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-20T16:28:59+08:00" content="2018-12-20">
-          12-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/Git/Part-1-Of-Git-Tutorial/" itemprop="url">
-              
-                <span itemprop="name">Git 使用指南之初识</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-19T10:14:58+08:00" content="2018-12-19">
-          12-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/Anaconda/Jupyter-Notebook（JupyterLab）-远程访问服务器/" itemprop="url">
-              
-                <span itemprop="name">Jupyter Notebook（JupyterLab） 远程访问服务器</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-04T16:30:08+08:00" content="2018-12-04">
-          12-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/Anaconda/Anaconda-生态环境初体验/" itemprop="url">
-              
-                <span itemprop="name">Anaconda 生态环境初体验</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-03T18:23:05+08:00" content="2018-12-03">
-          12-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/TensorFlow/TensorFlow-系列之如何理解卷积神经网络结构-Structure/" title="TensorFlow 系列之如何理解卷积神经网络结构(Structure)">http://yoursite.com/TensorFlow/TensorFlow-系列之如何理解卷积神经网络结构-Structure/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TensorFlow/" rel="tag"><i class="fa fa-tag"></i> TensorFlow</a>
+          
+            <a href="/tags/CNN/" rel="tag"><i class="fa fa-tag"></i> CNN</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/TensorFlow/TensorFlow-系列之经典卷积神经网络模型（LeNet-5-Inception-v3）/" rel="next" title="TensorFlow 系列之经典卷积神经网络模型（LeNet-5 && Inception-v3）">
+                <i class="fa fa-chevron-left"></i> TensorFlow 系列之经典卷积神经网络模型（LeNet-5 && Inception-v3）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/SVN/基于-Centos-6-7-SVN-服务器配置与使用指南/" rel="prev" title="Centos 6/7 SVN + Apache（HTTP）服务器配置与使用指南">
+                Centos 6/7 SVN + Apache（HTTP）服务器配置与使用指南 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/7/">7</a><a class="extend next" rel="next" href="/archives/page/3/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
 
 
           </div>
@@ -695,6 +622,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -981,6 +917,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -1009,6 +949,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 

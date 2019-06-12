@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="TensorFlow,CNN,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 在计算机视觉领域，目标识别、定位、检测、分割以及跟踪 是最基本的几个 Task，尤其又以识别和检测最为重要和基础。从图像的目标识别到目标检测，CNN 技术也迎来了突破性的进展。前面的博文中，我们介绍了一些经典的卷积神经网络架构（例如：AlexNet、VGGNet、Inception、ResNet等）来解决图像目标识别的任务。本文我们来看卷积神经网">
+<meta name="keywords" content="TensorFlow,CNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="卷积神经网络系列：CNN 演变之路之从分类到检测">
+<meta property="og:url" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 在计算机视觉领域，目标识别、定位、检测、分割以及跟踪 是最基本的几个 Task，尤其又以识别和检测最为重要和基础。从图像的目标识别到目标检测，CNN 技术也迎来了突破性的进展。前面的博文中，我们介绍了一些经典的卷积神经网络架构（例如：AlexNet、VGGNet、Inception、ResNet等）来解决图像目标识别的任务。本文我们来看卷积神经网">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/Object_Recognition.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/classification_cat.jpg">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/Object_Detect.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/segmentation.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/Object_Tracking.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/Object_Detection.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/Object_Detection_Task.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/classification_cat.jpg">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/location_cat.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/location_cat_regression.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/classification_cat_cnn.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/location_cat_regression_1.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/location_cat_regression_bound.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/Object_Detection_windows.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/slide_windows_works.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/Object_Detection_windows_Cls.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/Object_Detection_windows_conv.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/Region_Proposal.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/select_Region_Proposal.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/Region_Proposal_detecter_.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/R-CNN_Model.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/R-CNN_Model1.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/VGG_fine_tuning.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/VGG_feature_map.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/IOU.jpg">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/dog_category.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/regression_coordinates.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/rcnn_sppnet.jpg">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/ROI_pooling_layer.jpg">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/FAST_RCNN_Model.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/ROI.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/Fast_RCNN_multi_task.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/Fast_RCNN_multi_task1.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/Fast_RCNN_with_RCNN.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/RCNN_FastRCNN_FasterRCNN.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/Faster_Rcnn_model.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/RPN.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/RPN_loss.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/anchor.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/RCNN_compare.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/R-FCN_image.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/object_image.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/position_sensitive_sm.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/ROI_pssm.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/roi_computer.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/R-FCN.png">
+<meta property="og:updated_time" content="2019-06-11T08:18:55.179Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="卷积神经网络系列：CNN 演变之路之从分类到检测">
+<meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 在计算机视觉领域，目标识别、定位、检测、分割以及跟踪 是最基本的几个 Task，尤其又以识别和检测最为重要和基础。从图像的目标识别到目标检测，CNN 技术也迎来了突破性的进展。前面的博文中，我们介绍了一些经典的卷积神经网络架构（例如：AlexNet、VGGNet、Inception、ResNet等）来解决图像目标识别的任务。本文我们来看卷积神经网">
+<meta name="twitter:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/Object_Recognition.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>卷积神经网络系列：CNN 演变之路之从分类到检测 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">卷积神经网络系列：CNN 演变之路之从分类到检测</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-07T09:54:44+08:00">
+                2018-07-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-11T16:18:55+08:00">
+                2019-06-11
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Convlutional-Neural-Networks/" itemprop="url" rel="index">
+                    <span itemprop="name">Convlutional Neural Networks</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/" class="leancloud_visitors" data-flag-title="卷积神经网络系列：CNN 演变之路之从分类到检测">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  11.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  43
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center> 愿你每天欢喜多于悲，孤独有人陪… </center>
+
+<p><strong>写在前面：</strong></p>
+<p>在计算机视觉领域，<strong>目标识别、定位、检测、分割以及跟踪</strong> 是最基本的几个 Task，尤其又以识别和检测最为重要和基础。从图像的目标识别到目标检测，CNN 技术也迎来了突破性的进展。前面的博文中，我们介绍了一些经典的卷积神经网络架构（例如：<strong>AlexNet</strong>、<strong>VGGNet</strong>、<strong>Inception</strong>、<strong>ResNet</strong>等）来解决图像目标识别的任务。本文我们来看卷积神经网络在图像目标检测方面的应用。</p>
+<a id="more"></a>
+<p>本博文系列是对刘昕博士的 <a href="https://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650324619&amp;idx=1&amp;sn=ca1aed9e42d8f020d0971e62148e13be&amp;scene=1&amp;srcid=0503De6zpYN01gagUvn0Ht8D#wechat_redirect" target="_blank" rel="noopener">《CNN 的近期进展与实用技巧》</a> 的一个扩充性资料，全面详细地介绍了 CNN 进化史各个阶段的里程碑成果：</p>
+<p>卷积神经网络系列之：<a href="">大话卷积神经网络（CNN）</a> ；</p>
+<p>卷积神经网络系列之：<a href="">CNN 进化史</a> ；</p>
+<p>卷积神经网络系列之：<a href="">从 LeNet 到 AlexNet</a> ；</p>
+<p>卷积神经网络系列之：<a href="">CNN 演变之路之网络结构加深</a> ；</p>
+<p>卷积神经网络系列之：<a href="">CNN 演变之路之卷积功能增强</a> ；</p>
+<p>卷积神经网络系列之：<a href="">CNN 演变之路之从分类到检测</a> ；</p>
+<p>卷积神经网络系列之：<a href="">CNN 演变之路之从分类到检测</a> ；</p>
+<p>本博文旨在教你快速读懂目标检测相关网络：R-CNN、SPP-net、Fast R-CNN、Faster R-CNN、YOLO、SSD、Mask R-CNN 等。</p>
+<hr>
+<h2 id="CNN-演变之路之从分类到检测"><a href="#CNN-演变之路之从分类到检测" class="headerlink" title="CNN 演变之路之从分类到检测"></a>CNN 演变之路之从分类到检测</h2><p>开始目标检测学习之前，首先我们需要分别对上述提到的几个 Task（目标识别、定位、检测、分割以及跟踪）进行区分（对问题进行清晰的定义，往往是最重要的一步）：</p>
+<h3 id="1-初识目标识别、定位、检测、分割以及跟踪"><a href="#1-初识目标识别、定位、检测、分割以及跟踪" class="headerlink" title="1. 初识目标识别、定位、检测、分割以及跟踪"></a>1. 初识目标识别、定位、检测、分割以及跟踪</h3><h4 id="1-1-目标识别（Target-Recognition）"><a href="#1-1-目标识别（Target-Recognition）" class="headerlink" title="1.1 目标识别（Target Recognition）"></a>1.1 目标识别（Target Recognition）</h4><p>目标识别，也称为图像分类（Image Classification）或图像识别（Image Recognition）。</p>
+<p>它是一个基于分类（Classification）的识别（Recognition）任务，旨在判断该图像所属的类别（是什么？）。</p>
+<p>例如有事先定义好的 1000 个物体类（dog、cat、plane、car、sheep……）：</p>
+<p>对于一幅图像中的所有物体来说，某个物体只有两种结果，要么在图像里面，要么不在。目标识别任务最终会给出图像中所有物体类别的候选集。</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./Object_Recognition.png" alt="avatar"></p>
+<p>往往，目标识别更多指的是单目标（或单物体）的识别（即给定一张包含单物体的图片，然后让计算机识别图片中是什么？），其它均为背景（background）：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./classification_cat.jpg" alt="avatar"></p>
+<hr>
+<h4 id="1-2-目标定位（Target-Location）"><a href="#1-2-目标定位（Target-Location）" class="headerlink" title="1.2 目标定位（Target Location）"></a>1.2 目标定位（Target Location）</h4><p>目标定位是在图像分类（识别）的基础上，进一步判断目标（或物体）具体在图像的什么位置（在哪里？）。</p>
+<p>注意，目标定位中通常只有一个或固定数目的目标，这里是为了和后续的目标检测做严格区分。</p>
+<p>位置通常是以边界框的（Bounding Box，包含 4 个目标位置信息）形式给出，通常采用两种方式在图像中表示一个边界框：</p>
+<ol>
+<li><strong>(x1, y1, x2, y2)</strong>： 即给出边界框左上角和右下角的坐标；</li>
+<li><strong>(x1, y1, w, h)</strong>：给出边界框左上角（或中心点）坐标以及边界框的长宽。</li>
+</ol>
+<p>总的来说，不管使用哪种方法表示，至少需要 4 个值来定位出图像中的一个目标。如果一副图像中包含 C 个目标，那我们至需要 <code>4 × C</code> 值来定位所有目标。</p>
+<hr>
+<h4 id="1-3-目标检测（Target-Detection）"><a href="#1-3-目标检测（Target-Detection）" class="headerlink" title="1.3 目标检测（Target Detection）"></a>1.3 目标检测（Target Detection）</h4><p><strong>更多的，我们认为，目标识别和定位针对的是单目标。</strong></p>
+<p>而目标检测针对的是多个目标（多物体）的识别和定位（是什么？分别在哪里？）。所以，Target Detection 任务可以看作：Image Recognition 任务 + Location 任务。</p>
+<p>目标检测任务要解决两个问题：</p>
+<ol>
+<li>需要判断某个特定类别的物体是否出现在该图像之中；</li>
+<li>需要对该物体定位。</li>
+</ol>
+<p>事实上，与目标定位相比，目标检测更为一般化，其图像中出现的目标种类和数目都不定；</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./Object_Detect.png" alt="avatar"></p>
+<hr>
+<h4 id="1-4-目标分割（Target-Segmentation）"><a href="#1-4-目标分割（Target-Segmentation）" class="headerlink" title="1.4 目标分割（Target Segmentation）"></a>1.4 目标分割（Target Segmentation）</h4><p>目标分割是目标检测更进阶的任务。</p>
+<p>目标检测只需要框出每个目标的边界框，目标分割需要进一步判断图像中哪些像素属于哪个目标。</p>
+<p>目标分割是属于像素级别的分类，可以分为两类：</p>
+<ol>
+<li>语义分割：<strong>Semantic Segmentation</strong></li>
+<li>实例分割：<strong>Instance Segmentation</strong></li>
+</ol>
+<p>–&gt; 两者之间的区别：</p>
+<p>语义分割不需要对对象的各个实例进行区分（即不区分属于相同类别的不同实例）。可以这么理解，对输入的图像的每一个像素点进行划分，属于同一类别物体的像素点为同一颜色，背景一般设为黑色。</p>
+<p>而实例分割是语义分割的更进一步，对于图像中每个物体都要进行区分，属于同一类别物体的像素点也表征为不同的颜色。</p>
+<p>例如，当图像中有多只猫时，语义分割会将两只猫整体的所有像素预测为“猫”这个类别。与此不同的是，实例分割需要区分出哪些像素属于第一只猫、哪些像素属于第二只猫。</p>
+<p>这里给出一个区分图例：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./segmentation.png" alt="avatar"></p>
+<hr>
+<h4 id="1-5-目标跟踪（Target-Tracking）"><a href="#1-5-目标跟踪（Target-Tracking）" class="headerlink" title="1.5 目标跟踪（Target Tracking）"></a>1.5 目标跟踪（Target Tracking）</h4><p>目标跟踪涉及到的数据一般具有时间序列（Temporal Data），（通常是用于视频数据），和目标检测有密切的联系，同时要利用帧之间的时序关系。</p>
+<p>算法或者系统需要在接下来时序的数据中，快速并高效地对给定目标进行再检测。</p>
+<p>以一个 NBA 视觉运动目标跟踪任务为例：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./Object_Tracking.png" alt="avatar"></p>
+<hr>
+<h3 id="2-目标检测主流算法"><a href="#2-目标检测主流算法" class="headerlink" title="2. 目标检测主流算法"></a>2. 目标检测主流算法</h3><p>目标检测（Object Detection）是深度学习的一个重要应用。</p>
+<p>我们知道，目标检测就是在给定的图片中精确找到物体所在位置，并标注出物体的类别。故，<strong>Object Detection</strong> 要解决的问题就是目标物体在哪里（Location）以及目标物体是什么（Recognition）的整个流程问题。</p>
+<p>–&gt; 存在的问题</p>
+<p>对于检测的目标（Object），早期工业界关注的主要是人脸，人，车这些对监控、交通等领域非常重要的目标，到现在为止，计算机需要更全面的理解场景，检测的类别扩展到了生活的方方面面。</p>
+<p>然而，这个问题可不是那么容易解决的。图像中物体的尺寸变化范围很大，摆放物体的角度，姿态不定，而且物体有很多种类别，可以在图片中出现多种物体、出现于任意位置。因此，目标检测是一个比较复杂的问题。</p>
+<hr>
+<h4 id="2-1-目标检测算法分类"><a href="#2-1-目标检测算法分类" class="headerlink" title="2.1 目标检测算法分类"></a>2.1 目标检测算法分类</h4><p>目前 <strong>学术和工业界出现的目标检测算法</strong> 可以大致分成 [2] 类：</p>
+<ol>
+<li><p>基于传统图像处理和机器学习算法：</p>
+<p>Cascade + Harr / SVM + HOG / DPM</p>
+<p>以及上述的诸多改进、优化 ；</p>
+</li>
+<li><p>基于深度学习的目标检测，也可以分为两大类：</p>
+<p>1）两阶段（two-stage）检测（也称为基于候选区域的方法）：</p>
+<p>​    R-CNN（Selective Search + CNN + SVM）</p>
+<p>​    SPP-net（ROI Pooling）</p>
+<p>​    Fast R-CNN（Selective Search + CNN + ROI）</p>
+<p>​    Faster R-CNN（RPN + CNN + ROI）</p>
+<p>​    R-FCN </p>
+<p>​    等系列方法；</p>
+<p>2）单阶段（one-stage）检测（也称为 Region-free 方法）：</p>
+<p>​    YOLO</p>
+<p>​    YOLOV2</p>
+<p>​    SSD</p>
+<p>​    DenseBox</p>
+<p>​    结合 RNN 算法的 RRC detection</p>
+<p>​    结合 DPM 的 Deformable CNN 等</p>
+<p>基于区域提名的方法使用上占据上风，但端到端的方法速度上优势明显，后续的发展拭目以待。</p>
+</li>
+</ol>
+<p>–&gt; 结论：</p>
+<p><strong>实际上所有的方法都可以概括成：候选窗口 + 分类 or 回归（逻辑上，滑窗也可以看作提取候选窗口的一种方式。）后面你会懂得，啊哈~</strong></p>
+<hr>
+<h4 id="2-2-目标检测算法发展以及其工作流程"><a href="#2-2-目标检测算法发展以及其工作流程" class="headerlink" title="2.2 目标检测算法发展以及其工作流程"></a>2.2 目标检测算法发展以及其工作流程</h4><p>这一部分内容我们分别来看一下传统目标检测算法和基于深度学习的目标检测算法的工作流程以及其发展：</p>
+<p><strong>1）基于传统图像处理和机器学习算法主要工作流程</strong></p>
+<ol>
+<li>区域选择（穷举策略：采用滑动窗口，且设置不同的大小，不同的长宽比对图像进行遍历，时间复杂度高）</li>
+<li>特征提取（从对应的候选区域提取如 Harr HOG、LBP、LTP、SIFT、等一类或者多类视觉特征）</li>
+<li>分类器识别（ 使用 Adaboost、SVM 等分类算法对对应的候选区域进行分类，判断是否属于待检测的目标。）</li>
+</ol>
+<p>传统的目标检测中，使用多尺度形变部件模型 DPM（Deformable Part Model）[1] ，用滑动窗口（Silding Windows）的方式来预测具有较高 Score 的 Bounding Box 的方法是其中最为出类拔萃的，连续获得 VOC 2007 到 2009 的检测冠军。</p>
+<p>但是 DPM 相对复杂，检测速度也较慢，从而也出现了很多改进的方法。比如 Region Proposal 方法（其中 Selective Search 为这类方法的典型代表）的出现，相比于 Sliding Window 这中穷举的方式，减少了大量的计算，性能上有了很大的提高。</p>
+<p>正当大家热火朝天改进 DPM 性能的时候，基于深度学习的目标检测横空出世，迅速盖过了 DPM 的风头，很多之前研究传统目标检测算法的研究者也开始转向深度学习。</p>
+<hr>
+<p>基于深度学习的目标检测发展起来后，起初，其实效果也一直难以突破。2013 年 R-CNN（Region-based Convolutional Neural Networks）诞生了，它是基于区域的卷积神经网络，是一种结合区域提名（Region Proposal）和卷积神经网络（CNN）的目标检测方法。</p>
+<p>并且，R-CNN 是第一个真正可以工业级应用的解决方案，此后，基于深度学习的目标检测领域的研究异常活跃。先后出现了 R-CNN、SPP-net、Fast R-CNN、Faster R-CNN、R-FCN、YOLO、SSD 等等研究。</p>
+<p><strong>2）基于深度学习的各目标检测主要工作流程</strong></p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./Object_Detection.png" alt="avatar"></p>
+<hr>
+<p>下面的小节我们将分别从上述的两种目标检测算法详细介绍其区别：</p>
+<h3 id="3-基于传统图像处理和机器学习算法"><a href="#3-基于传统图像处理和机器学习算法" class="headerlink" title="3. 基于传统图像处理和机器学习算法"></a>3. 基于传统图像处理和机器学习算法</h3><p>对于传统图像检测算法，可以从以下三个算法开始学习：Cascade + Harr + Adaboost 人脸检测、SVM + HOGS 行人检测方法以及 DPM。这里，我们主要关注和机器学习相关的算法实现原理。</p>
+<p>–&gt; 传统目标检测存在的问题：</p>
+<p>1）基于滑动窗口的区域选择策略没有针对性，时间复杂度高，窗口冗余</p>
+<p>2）手工设计的特征对于多样性的变化没有很好的鲁棒性</p>
+<p>这里，关于“基于传统图像处理和机器学习算法”简单了解即可，详情可查阅相关资料。事实上，全文提到基于传统的图像处理和机器学习算法主要是为了保证全文的完整性。我们还是以基于深度学习的目标检测介绍为主。</p>
+<hr>
+<h3 id="4-基于深度学习的目标检测"><a href="#4-基于深度学习的目标检测" class="headerlink" title="4. 基于深度学习的目标检测"></a>4. 基于深度学习的目标检测</h3><p>在开始深度学习的目标检测之前，如果你了解目标检测中广泛使用的区域提议方法——选择性搜索（Selective Search），以及深度学习做早期目标检测的——OverFeat，你会更深入的了解后文内容（推荐拜读 Paper）。</p>
+<p>简单来说，关于选择性搜索（Selective Search），它其实是一种区域提名（Region Proposal）方法，也就是预先从图像中找出可能的感兴趣区域（Region Of Interest，ROI）。</p>
+<p>当然，不了解的话，你也可以往下读：</p>
+<h4 id="4-1-从图像识别和定位的任务说起"><a href="#4-1-从图像识别和定位的任务说起" class="headerlink" title="4.1 从图像识别和定位的任务说起"></a>4.1 从图像识别和定位的任务说起</h4><p>从上文知道，目标检测是在给定的图片中精确找到物体所在位置，并标注出物体的类别。</p>
+<p>也就是说：目标检测任务（Object Detection Task）既要将图中的物体识别出来，又要标识出相应物体在图像中的位置（Bounding Box）。如下：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./Object_Detection_Task.png" alt="avatar"></p>
+<p><strong>Object Detection Task</strong> 本质上就是这两个任务：（1）图像识别；（2）目标定位。</p>
+<p>–&gt; 1）图像识别</p>
+<p>模型输入：图片</p>
+<p>模型输出：物体的类别</p>
+<p>模型评估方法：准确率</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./classification_cat.jpg" alt="avatar"></p>
+<p>–&gt; 2）目标定位</p>
+<p>模型输入：图片</p>
+<p>模型输出：方框在图片中的位置（x,y,w,h）</p>
+<p>模型评估方法：检测评价函数 Intersection-Over-Union（IOU）</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./location_cat.png" alt="avatar"></p>
+<p>我们知道，卷积神经网络 CNN 已经帮我们完成了图像识别（判定是猫还是狗）的任务了，我们只需要添加一些额外的功能来完成定位任务即可。</p>
+<p><strong>–&gt; 那么，定位的问题的解决思路有哪些 ？</strong></p>
+<hr>
+<h5 id="4-1-1-思路一：看做回归问题"><a href="#4-1-1-思路一：看做回归问题" class="headerlink" title="4.1.1 思路一：看做回归问题"></a>4.1.1 思路一：看做回归问题</h5><p>如果想将定位问题看做回归问题，我们需要预测出（x,y,w,h）四个参数的值，从而得出方框的位置。工作原理如下图所示：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./location_cat_regression.png" alt="avatar"></p>
+<p><strong>–&gt; 详细实现步骤如下：</strong></p>
+<p>1）先解决简单识别问题， 搭一个识别图像的神经网络，我们可以使用预训练网络。例如：直接在 AlexNet（或 VGG、GoogLeNet）上 Fine-Tuning，迁移到当前识别场景。如下图：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./classification_cat_cnn.png" alt="avatar"></p>
+<p>2）在上述神经网络的尾部展开。也就说 CNN 前面结构保持不变，结尾处（瓶颈层后）添加<strong>“回归头”</strong>，成为 Classification + Regression 模式。如下图：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./location_cat_regression_1.png" alt="avatar"></p>
+<p>3）Regression 那个部分用欧氏距离损失，并使用 SGD 训练。</p>
+<p>4）预测阶段把 2 个头部拼上，即可完成不同的功能。</p>
+<p><strong>–&gt; 回归思路问题总结：</strong></p>
+<p>1）Fine-Tuning</p>
+<p>这里需要进行两次 fine-tuning：第一次在 ALexNet 上做，第二次将头部改成 regression head ，前面不变，做一次 fine-tuning。</p>
+<p>2）Regression 的部分加在哪？</p>
+<p>有两种处理方法：一种加在最后一个卷积层后面；另一种加在最后一个全连接层后面（如：R-CNN）。</p>
+<p>3）<strong>Bounding Box Regression</strong> 的训练计算量太大、参数收敛时间太长，太难做了，应想方设法转换为 <strong>Classification</strong> 问题。</p>
+<p>–&gt; 怎么办？</p>
+<p>这时容易想到套框的思路，即取不同大小的<strong>“框”</strong>，让框出现在（滑动到）不同的位置，计算出这个框的得分，然后取得分最高的那个框作为预测结果。</p>
+<hr>
+<h5 id="4-1-2-思路二：取图像窗口（区域提议）看做分类问题"><a href="#4-1-2-思路二：取图像窗口（区域提议）看做分类问题" class="headerlink" title="4.1.2 思路二：取图像窗口（区域提议）看做分类问题"></a>4.1.2 思路二：取图像窗口（区域提议）看做分类问题</h5><p>整体还是上述的 <strong>Classification + Regression</strong> 模式思路，只是将 Regression（回归问题）转化成 <strong>Classification</strong> 问题 。</p>
+<p>–&gt; 引入滑动窗口检测器</p>
+<p>这里，我们取不同的大小的<strong>“框”</strong>（滑窗），并且让框出现在图像上的不同位置，然后根据目标位置标记分别计算得出特定位置“框”的判定得分，取得分最高的框为目标的 Bounding Box。如下图所示：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./location_cat_regression_bound.png" alt="avatar"></p>
+<p>根据各图像窗口（滑窗）得分的高低，我们选择了右下角的黑框作为目标位置的预测。注：有的时候也会选择得分最高的两个框，然后取两框的交集作为最终的位置预测。</p>
+<p>–&gt; 疑惑：滑动窗口要如何选？</p>
+<p>很自然而然的想到，连续取一定范围内大小不同的框，依次从左上角扫到右下角。非常粗暴啊！</p>
+<p>也就是说，对一张图片，用各种大小的框（遍历整张图片）将图片截取出来，输入到 CNN，然后 CNN 会输出这个框的得分（Scores）以及这个框图片对应的 x,y,h,w（Regression）。</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./Object_Detection_windows.png" alt="avatar"></p>
+<p>具体滑动窗口检测器的系统工作流程图：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./slide_windows_works.png" alt="avatar"></p>
+<p>–&gt; 存在的问题：</p>
+<p>仔细想一下，这种方法效率很低，会相当耗时（候选框过多，且图像对于每个尺度候选框都需要进行计算）。算法实施网络如下图所示：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./Object_Detection_windows_Cls.png" alt="avatar"></p>
+<p>当然，为了提提速，我们可以这样优化：把全连接层改为卷积层</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./Object_Detection_windows_conv.png" alt="avatar"></p>
+<hr>
+<h4 id="4-2-多物体检测（Object-Detection）"><a href="#4-2-多物体检测（Object-Detection）" class="headerlink" title="4.2 多物体检测（Object Detection）"></a>4.2 多物体检测（Object Detection）</h4><p>上面我们了解了单目标的检测，当图像有很多物体怎么办的？难度可是一下暴增。Object Detection Task 事实上就是：多物体识别 + 多个物体定位。</p>
+<p>按照上述取滑动窗口的方法，把这个任务看做分类问题？感觉不妥……</p>
+<p>–&gt; 看成分类问题有何不妥？</p>
+<p>对于多目标，你需要找很多位置， 给很多个不同大小的框（产生的滑窗数量太大，计算耗时）。</p>
+<p>除此之外，你还需要对框内的图像分类</p>
+<p>当然， 如果你很……， 恩， 那加油做吧…</p>
+<p>–&gt; 思考：针对更一般多目标检测，有什么好的思路？</p>
+<p> 基于图像窗口（滑窗），看做 Classification 问题， 有没有办法优化下？我可不想试那么多框那么多位置啊！</p>
+<hr>
+<h4 id="4-3-基于候选区域的检测算法"><a href="#4-3-基于候选区域的检测算法" class="headerlink" title="4.3 基于候选区域的检测算法"></a>4.3 基于候选区域的检测算法</h4><p>基于候选区域（Region-based）的检测，因其对图片的两阶段处理，也可以称之为 <strong>two-stage</strong> 检测模型。这一部分主要介绍基于区域提议的方法，包括 R-CNN、SPP-net、Fast R-CNN、Faster R-CNN、R-FCN。</p>
+<h5 id="4-3-1-R-CNN-横空出世"><a href="#4-3-1-R-CNN-横空出世" class="headerlink" title="4.3.1 R-CNN 横空出世"></a>4.3.1 R-CNN 横空出世</h5><p>我们知道，前面关于滑动窗口的选择是非常“粗暴”的，也就是穷举策略。</p>
+<p>针对滑动窗口（穷举策略）模式，有人想到一个好方法（区域提议方法）：预先找出图中目标可能出现的位置（感兴趣的区域，ROI），也称为候选区域。例如，利用图像中的纹理、边缘、颜色等信息，可以保证在选取较少窗口(几千甚至几百）的情况下保持较高的召回率（Recall）。</p>
+<p>所以，问题就转变成预先找出可能含有物体的区域/框（也就是候选区域/框，比如选 2000 个候选框），这些框之间是可以互相重叠互相包含的，这样我们就可以避免暴力枚举的所有框了。如下图所示：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./Region_Proposal.png" alt="avatar"></p>
+<p><strong>1. Region Proposal 方法</strong></p>
+<p>大牛们发明好多选定候选框 Region Proposal 的方法，比如 Selective Search 和 EdgeBoxes 等等。以下给出各种选定候选框的方法的性能对比：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./select_Region_Proposal.png" alt="avatar"></p>
+<p>有了候选区域，剩下的工作实际就是对候选区域进行图像分类以及边界框回归的工作（特征提取 + 分类器 + 边界框回归器）。</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./Region_Proposal_detecter_.png" alt="avatar"></p>
+<p>通过使用更少且更高质量的候选区域，R-CNN 要比滑动窗口方法更快速、更准确：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ROIs = region_proposal(image)</span><br><span class="line"><span class="keyword">for</span> ROI <span class="keyword">in</span> ROIs:</span><br><span class="line">    patch = get_patch(image, ROI) </span><br><span class="line">    results = detector(pach)</span><br></pre></td></tr></table></figure>
+<p>2014 年，RBG（Ross B. Girshick）使用 Region Proposal + CNN 代替传统目标检测使用的滑动窗口+手工设计特征，设计了 R-CNN 框架，使得目标检测取得巨大突破，并开启了基于深度学习目标检测的热潮。</p>
+<p>R-CNN（Region CNN，区域卷积神经网络）可以说是利用深度学习进行目标检测的开山之作，作者 Ross Girshick 多次在 PASCAL VOC 的目标检测竞赛中折桂，2010 年更是带领团队获得了终身成就奖，如今就职于 Facebook 的人工智能实验室（FAIR）。</p>
+<hr>
+<p><strong>2. R-CNN（Region Proposal + CNN）算法流程</strong></p>
+<p>根据上述说明，首先给出 R-CNN 算法流程示意图，如下所示：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./R-CNN_Model.png" alt="avatar"></p>
+<p><strong>2.1 –&gt; R-CNN 的简要步骤如下：</strong></p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./R-CNN_Model1.png" alt="avatar"></p>
+<p>1） 输入图像；</p>
+<p>2）区域提议：利用选择性搜索 Selective Search 算法在图像中从下到上生成 2K 左右可能包含物体的候选区域 Region Proposal；</p>
+<p>3）区域大小归一化：因为取出的区域大小各自不同，所以需要将每个 Region Proposal（ROI 图像）缩放（warp）成统一尺寸（例如：227 x 227）大小；</p>
+<p>4）特征提取：将归一化后的 ROI 图像输入到 CNN，使用深度网络提取特征（AlextNet、VGG 等 CNN 都可以）；</p>
+<p>5）分类与回归：在特征层的基础上添加两个全连接层，输入到 SVM 分类器中进行分类，其中每个类别单独训练一个边框回归器用于精细修正候选框位置。</p>
+<p>=====================================================================</p>
+<p><strong>补充一下:</strong></p>
+<p>OverFeat 可以看做是 R-CNN 的一个特殊情况，只需要把 Selective Search 换成多尺度的滑动窗口，每个类别的边框回归器换成统一的边框回归器，SVM分类器换为多层网络即可。但是 OverFeat 实际比 R-CNN 快 9 倍，这主要得益于卷积相关的共享计算。</p>
+<p>推荐拜读 OverFeat Paper 以了解详情。</p>
+<p>=====================================================================</p>
+<p><strong>2.2 –&gt; R-CNN 的详细实施步骤如下：</strong></p>
+<p>1）预训练模型 Fine-Tuning</p>
+<p>首先，训练一个分类模型（或者下载一个预训练模型，AlexNet 或 VGG 等均可），并且对对预训练模型做 fine-tuning。</p>
+<p>例如，将分类数从 ILSVR-2012 的 1000 分类改为 21，比如 20 个物体类别 + 1个背景。</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/VGG_fine_tuning.png" alt="avatar"></p>
+<p>2）特征提取</p>
+<ul>
+<li><p>准备输入图像；</p>
+</li>
+<li><p>提取图像的候选框（选择性搜索 Selective Search）</p>
+<p>​    使用 Selective Search（选择性搜索）方法对一张图像生成约 2000-3000 个候选区域，基本思路如下：</p>
+<p>​    2_1 使用一种过分割手段，将图像分割成小区域;</p>
+<p>​    2_2 查看现有小区域，合并可能性最高的两个区域，重复直到整张图像合并成一个区域位置。优先合并以下区域：</p>
+<p>​        - 颜色（颜色直方图）相近的</p>
+<p>​        - 纹理（梯度直方图）相近的</p>
+<p>​        - 合并后总面积小的</p>
+<p>​        - 合并后，总面积在其 BBOX 中所占比例大的</p>
+<p>​        - 在合并时须保证合并操作的尺度较为均匀，避免一个大区域陆续“吃掉”其它小区域，保证合并后形状规则</p>
+<p>​    2_3 输出所有曾经存在过的区域，即所谓候选区域。</p>
+</li>
+<li><p>对于每一个候选区域归一化：修正候选区域大小以适合 CNN 的输入，做一次前向运算，将某个卷积池化后的输出（就是对候选框提取到的特征）<strong>持久化</strong>。</p>
+</li>
+</ul>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./VGG_feature_map.png" alt="avatar"></p>
+<p>=====================================================================</p>
+<p>☆☆☆ 注意，这里有一个关键的地方：IoU 的计算</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./IOU.jpg" alt="avatar"></p>
+<p>输入 CNN 前，我们需要根据 Ground Truth 对提出的 Region Proposal 进行标记，这里使用的指标是IoU（Intersection over Union，交并比）。IoU 计算了两个区域之交的面积跟它们之并的比，描述的是两个区域的重合程度。</p>
+<p>R-CNN Paper 中指出，IoU 阈值的选择对结果影响显著，这里要谈两个 threshold，一个用来识别正样本（如跟 Ground Truth 的 IoU大于0.5），另一个用来标记负样本（即背景类，如 IoU 小于0.1），而介于两者之间的则为难例（Hard Negatives）；</p>
+<p>对于 <code>0.1 &lt; IoU &lt;0.5</code> 的难例来说，若将其标为正类，则包含了过多的背景信息；反之又包含了要检测物体的特征，因而这些 Proposal 便被忽略掉。</p>
+<p>=====================================================================</p>
+<p>3）类别判断</p>
+<p>训练一个 SVM 分类器（二分类）来判断这个候选框里物体的类别。每个类别对应一个 SVM，判断是不是属于这个类别，是就是 Positive，反之 Nagative。</p>
+<p>比如下图，就是一个狗的 SVM 分类器：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./dog_category.png" alt="avatar"></p>
+<p>4）修正候选框位置</p>
+<p>使用边界框回归器回归器精细修正候选框位置。对于每一个类别，单独训练一个边框回归器模型去判定这个框是否框得完美。不完美的话，将 Region Proposal 向 Ground Truth 调整，实现时加入了 <code>log/exp</code> 变换来使损失保持在合理的量级上，可以看做一种标准化（Normalization)操作。</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./regression_coordinates.png" alt="avatar"></p>
+<p>上述就是 R-CNN（区域卷积神经网络）算法的介绍，相信你已经了解了 R-CNN 的基本工作原理。</p>
+<hr>
+<p><strong>3. R-CNN 存在的问题以及改进方法</strong></p>
+<p>细心的同学可能看出来了问题：</p>
+<p>1）空间和时间代价很高：对于 Region Proposal 卷积出来的特征都需要先存在硬盘上，这些特征需要几百 G 的存储空间。如何能避免本地存储呢？</p>
+<p><strong>–&gt; 最关键的是:</strong></p>
+<p>2）R-CNN 虽然不再像传统方法那样穷举，但 R-CNN 流程中对原始图片通过 Selective Search 提取的候选框 region proposal 多达 1K~2K 个，而这 1K~2K 个候选框每个框都需要进行 CNN 提特征 + SVM 分类 + 边界框回归，导致过多的重复计算，计算量很大，这会导致 R-CNN 检测速度很慢，CPU 上一张图都需要 47s 左右。</p>
+<p>有没有方法提速呢！？答案是有的：</p>
+<p>这 1K~2K 个 Region Proposal 不都是图像的一部分吗，那么我们完全可以对图像提一次卷积层特征，然后只需要将 Region Proposal 在原图的位置映射到卷积层特征图上，这样对于一张图像我们只需要提一次卷积层特征，然后将每个 Region Proposal 的卷积层特征输入到全连接层做后续操作。</p>
+<p><strong>–&gt; 但现在仍然存在一个问题:</strong></p>
+<p>我们知道，CNN 网络后面的全连接层要求输入必须是固定的长度，而每个 Region Proposal 的尺度不一样，所以直接这样输入全连接层肯定是不行的。</p>
+<p>R-CNN 中是将 Region Proposal 都归一化成了相同的大小严格来说是存在问题的，而 <strong>SPP Net </strong> 恰好可以解决这个问题。</p>
+<hr>
+<h5 id="4-3-2-SPP-Net"><a href="#4-3-2-SPP-Net" class="headerlink" title="4.3.2 SPP Net"></a>4.3.2 SPP Net</h5><p>SPP(Spatial Pyramid Pooling（空间金字塔池化）)-Net 是出自 2015 年 MSRA 何恺明团队发表在 IEEE 上的论文 — 《Spatial Pyramid Pooling in Deep ConvolutionalNetworks for Visual Recognition》。</p>
+<p><strong>1. R-CNN 中的 Region Proposal 问题</strong> </p>
+<p>众所周知，CNN 一般都含有卷积部分和全连接部分，其中，卷积层不需要固定尺寸的图像，而全连接层是需要固定大小的输入。</p>
+<p>所以当全连接层面对各种尺寸的输入数据时，就需要对输入数据进行 Crop（crop 就是从一个大图扣出网络输入大小的 patch，比如 227×227），或 Warp（把一个边界框 bounding box 的内容 resize 成 227×227）等一系列操作以统一图片的尺寸大小，比如 $224 × 224（ImageNet）$、$32 × 32（LenNet)）$等。</p>
+<p>所以才如你在上文中看到的，在 R-CNN 中，“因为取出的区域大小各自不同，所以<strong>需要将每个 Region Proposal 缩放（warp）成统一的 227x227 的大小并输入到 CNN”。</strong></p>
+<p>但 <strong>warp/crop</strong> 这种 <strong>预处理</strong> ，导致的问题要么裁剪图像中物体不全，要么 warp 导致图像中物体被拉伸变形，限制了识别精确度。。没太明白？说句人话就是，一张 <code>16:9</code> 比例的图片你硬是要 Resize 成 <code>1:1</code> 的图片，你说 <strong>图片失真</strong> 不？</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./rcnn_sppnet.jpg" alt="avatar"></p>
+<p>而 SPP 就是为了解决上述问题的。SPP 对整图提取固定维度的特征，再把图片均分成 4 份，每份提取相同维度的特征，再把图片均分为 16 份，以此类推。可以看出，无论图片大小如何，提取出来的维度数据都是一致的，这样就可以统一送至全连接层了。SPP 思想在后来的 R-CNN 模型中也被广泛用到。</p>
+<hr>
+<p><strong>2. SPP Net</strong></p>
+<p><strong>2.1 –&gt; SPP Net 贡献</strong></p>
+<p>1）结合空间金字塔方法实现 CNN 的多尺度输入</p>
+<p>SPP Net 的第一个贡献就是在最后一个卷积层（瓶颈层）后，接入了金字塔池化层，可以保证传到下一层全连接层的输入固定。</p>
+<p>换句话说，在普通的 CNN 结构中，输入图像的尺寸往往是固定的（比如 $224 × 224​$ 像素），输出则是一个固定维数的向量。SPP Net 在普通的 CNN 结构中加入了 <strong>SPP layer</strong> ，使得网络的输入图像可以是任意尺寸的，输出则不变，同样是一个固定维数的向量。</p>
+<p><strong>简言之，CNN原本只能固定输入、固定输出，CNN 加上 SSP 之后，便能任意输入、固定输出</strong> 神奇吧!？</p>
+<p>ROI 池化层一般跟在卷积层后面，此时网络的输入可以是任意尺度的，在 SPP layer 中每一个 pooling 的 filter 会根据输入调整大小，而 SPP 的输出则是固定维数的向量，然后给到全连接 FC 层。</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./ROI_pooling_layer.jpg" alt="avatar"></p>
+<p>2）只对原图提取一次卷积特征</p>
+<p>在 R-CNN 中，每个候选框先 resize 到统一大小，然后分别作为 CNN 的输入，这样是很低效的。</p>
+<p>而 SPP Net 根据这个缺点做了优化：只对原图进行一次卷积计算，便得到整张图的卷积特征 feature map，然后找到每个候选框在 feature map 上的映射 patch，将此 patch 作为每个候选框的卷积特征（相比原图是特征密集、语义丰富的）输入到 SPP layer 和之后的层，完成特征提取工作。</p>
+<p>如此这般，R-CNN 要对每个区域计算卷积，而 SPPNet 只需要计算一次卷积，从而节省了大量的计算时间，比 R-CNN 有一百倍左右的提速。</p>
+<hr>
+<p><strong>2.2 –&gt; SPP Net 的简要步骤如下：</strong></p>
+<p>主要步骤为：</p>
+<p>1） 输入图像；</p>
+<p>2）区域提议：利用选择性搜索 Selective Search 算法在图像中从下到上生成 2K 左右可能包含物体的候选区域 Region Proposal；</p>
+<p>3）区域大小缩放：SPP-Net 不再做区域大小归一化，而是缩放到 <code>min(w, h)=s</code>，即统一长宽的最短边长度，s 选自 <code>{480,576,688,864,1200}</code> 中的一个，选择的标准是使得缩放后的候选框大小与 <code>224×224</code> 最接近；</p>
+<p>4）特征提取：利用 SPP-Net 网络结构提取特征；</p>
+<p>5）分类与回归：在特征层的基础上添加两个全连接层，输入到 SVM 分类器中进行分类，其中每个类别单独训练一个边框回归器用于精细修正候选框位置。</p>
+<p>SPP-Net 解决了 R-CNN 区域提议时 crop/warp 带来的偏差问题，提出了 SPP-layer，使得输入的候选框可大可小，并且实现了只对原图进行一次卷积特征提取，但其他方面依然和 R-CNN 一样，因而依然存在不少问题，这就有了后面的 Fast R-CNN。</p>
+<hr>
+<h5 id="4-3-3-Fast-R-CNN"><a href="#4-3-3-Fast-R-CNN" class="headerlink" title="4.3.3 Fast R-CNN"></a>4.3.3 Fast R-CNN</h5><p>SPP Net 真是个好方法，R-CNN 的进阶版 Fast R-CNN 就是在 R-CNN 的基础上采纳了 SPP Net 方法，并且对 R-CNN 作了改进，使得性能进一步提高。继 2014 年的 R-CNN 推出之后，Ross Girshick 在 2015 年推出 Fast R-CNN，构思精巧，流程更为紧凑，大幅提升了目标检测的速度，故有了 Fast 之名。</p>
+<p>先说 R-CNN 的缺点：即使使用了 Selective Search 等预处理步骤来提取潜在的 Bounding Box 作为输入。但是 R-CNN 仍会有严重的速度瓶颈，原因也很明显，就是计算机对图像中所有 Region Proposal 进行特征提取时会有重复计算，Fast-RCNN 正是为了解决这个问题诞生的。Fast-RCNN 算法流程如下图所示：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./FAST_RCNN_Model.png" alt="avatar"></p>
+<hr>
+<p><strong>1. R-CNN 与 Fast R-CNN 的区别</strong></p>
+<p>与 R-CNN 框架图对比，可以发现主要有三处不同：一是最后一个卷积层后加了一个简化的 SPP-layer：ROI pooling layer，操作与 SPP 类似；二是实现了卷积共享；三是损失函数使用了多任务损失函数( Multi-Task Loss )，将边框回归 Bounding Box Regression 直接加入到 CNN 网络中训练（<a href="https://www.julyedu.com/question/big/kp_id/26/ques_id/2139%5D" target="_blank" rel="noopener">什么是边框回归？</a> ）。</p>
+<p><strong>1.1 –&gt; ROI pooling layer</strong></p>
+<p>我们知道，通过 CNN（如: AlexNet）中的 conv、pooling、relu 等操作都不需要固定大小尺寸的输入。因此，在原始图片上执行这些操作后，输入图片尺寸不同将会导致得到的 feature map（特征图）尺寸也不同，这样就不能直接接到一个全连接层进行分类。</p>
+<p>在 Fast R-CNN 中，作者借鉴 SPP-Net，提出了一个叫做 <strong>ROI Pooling</strong> 的网络层来代替瓶颈层和全连接层之间的池化层。这个网络层可以把不同大小的输入映射成一个固定尺度的特征向量。ROI Pooling 层将每个候选区域均匀分成 M×N 块，对每块进行 max pooling。将特征图上大小不一的候选区域转变为大小统一的数据，送入下一层。这样虽然输入的图片尺寸不同，得到的 feature map（特征图）尺寸也不同，但是可以加入这个神奇的 ROI Pooling 层，对每个 Region 都提取一个固定维度的特征表示。</p>
+<p>======================================================================</p>
+<p>–&gt; 给出一个 ROI 池化实例</p>
+<p>由于 Fast R-CNN 使用全连接层，所以我们应用 ROI 池化将不同大小的 ROI 转换为固定大小。</p>
+<p>为简洁起见，我们先将 8×8 特征图转换为预定义的 2×2 大小。</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./ROI.png" alt="avatar"></p>
+<p>–&gt; 图解：</p>
+<p>左上角：图像特征图；右上角：将 ROI（蓝色区域）与特征图重叠；</p>
+<p>左下角：将 ROI 拆分为目标维度。例如，对于 2×2 目标，我们将 ROI 分割为 4 个大小相似或相等的部分。</p>
+<p>右下角：找到每个部分的最大值，得到变换后的特征图。</p>
+<p>最终，得到一个 2×2 的特征图块，用于发送至分类器和边界框回归器中。</p>
+<p>======================================================================</p>
+<p>ROI pooling layer 实际上是 SPP-NET 的一个精简版。SPP-NET 对每个 Region proposal 使用了不同大小的金字塔映射，而 ROI pooling layer 只需要下采样到一个 7x7 的特征图。例如，对于 VGG16 网络 conv5_3 有 512 个特征图，这样所有 Region proposal 对应了一个 $7×7×512$ 维度的特征向量作为全连接层的输入。</p>
+<p><strong>1.2 –&gt; 共享卷积</strong></p>
+<p>和 SPP-Net 类似，只对原图提取一次卷积特征，大大降低了重复计算次数，提升了性能。</p>
+<p><strong>1.3 –&gt; The multi-task of region recognition and bbox regression</strong></p>
+<p>R-CNN 训练过程分为了三个阶段，而 Fast R-CNN 直接使用 softmax 替代 SVM 分类，同时利用多任务损失函数将边框回归也加入到了网络中，这样整个的训练过程形成端到端（End to End）的（除去 Region Proposal 提取阶段）。</p>
+<p>换句话说，之前 R-CNN 的处理流程是先提 Proposal，然后 CNN 提取特征，之后用 SVM 分类器，最后再做 Bbox Regression。而在 Fast R-CNN中，作者巧妙的把 Bbox Regression 放进了神经网络内部，与 Region 分类和并成为了一个 Multi-Task 模型，实际实验也证明，这两个任务能够共享卷积特征，并相互促进。</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./Fast_RCNN_multi_task.png" alt="avatar"></p>
+<p>分类和回归部分详细的网络结构拓扑图如下：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./Fast_RCNN_multi_task1.png" alt="avatar"></p>
+<p>所以，Fast-RCNN 很重要的一个贡献是成功的让人们看到了 Region Proposal + CNN 这一框架实时检测的希望，原来多类检测真的可以在保证准确率的同时提升处理速度，也为后来的 Faster R-CNN 做下了铺垫。</p>
+<hr>
+<p><strong>2. Fast-RCNN 的简要步骤如下：</strong></p>
+<p>主要步骤为：</p>
+<p>1） 输入图像；</p>
+<p>2）特征提取：以整张图片为输入利用 CNN 得到图片的特征图层；</p>
+<p>3）区域提议：利用选择性搜索 Selective Search 算法从原始图片中从下到上生成 2K 左右可能包含物体的候选区域 Region Proposal（RoI），并把这些候选框一一投影到最后的特征层；</p>
+<p>4）区域归一化：对特征层上的每个区域候选框进行 RoI Pooling 操作，得到固定大小的特征表示；</p>
+<p>5）分类与回归：在上述特征层的基础上再添加两个全连接层，分别用 Softmax 多分类做目标识别，用回归模型进行边框位置与大小微调。</p>
+<hr>
+<p><strong>3. Fast R-CNN 主要解决 R-CNN 的以下问题</strong></p>
+<p><strong>3.1 –&gt; 训练、测试（预测）时速度慢</strong></p>
+<p>R-CNN 的一张图像内候选框都要独自经过 CNN，候选框之间存在大量重叠，提取特征操作冗余。而 Fast R-CNN 将整张图像归一化后直接送入深度网络，紧接着送入从这幅图像上提取出的候选区域。这些候选区域的前几层特征不需要再重复计算。</p>
+<p>–&gt; 解决方法：</p>
+<p>共享卷积层，现在不是每一个候选框都当做输入进入 CNN 了，而是输入一张完整的图片，在提取到的卷积特征层再映射得到每个候选框的特征。</p>
+<p>–&gt; 比较：</p>
+<p>原来的方法：许多候选框（比如两千个）–&gt; CNN –&gt; 提取得到每个候选框的特征 –&gt; 分类+回归</p>
+<p>现在的方法：一张完整图片 –&gt; CNN –&gt; 映射得到每张候选框的特征 –&gt; 分类+回归</p>
+<p><strong>3.2 –&gt; 训练所需空间大</strong></p>
+<p>R-CNN 中独立的分类器和回归器需要大量特征作为训练样本，这些样本会被存储到本地磁盘（可能多达几百个 G）。Fast R-CNN 把类别判断和位置精调统一在深度网络实现，不再需要额外存储。</p>
+<hr>
+<p><strong>4. Fast &amp;&amp; Fast &amp;&amp; Fast</strong></p>
+<p>Fast R-CNN 相对于 R-CNN 的提速（Fast）原因就在于：</p>
+<p>Fast R-CNN 不像 R-CNN 把每个候选区域给深度网络提特征，而是整张图提一次特征，再把候选框映射到conv5（AlexNet） 上，而 SPP 只需要计算一次特征，剩下的只需要在 conv5 层上操作就可以了。</p>
+<p>这在性能上提升也是相当明显的：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./Fast_RCNN_with_RCNN.png" alt="avatar"></p>
+<hr>
+<h5 id="4-3-4-Faster-R-CNN"><a href="#4-3-4-Faster-R-CNN" class="headerlink" title="4.3.4 Faster R-CNN"></a>4.3.4 Faster R-CNN</h5><p>继 2012 年推出 R-CNN，2014 年推出 Fast R-CNN 之后，目标检测界的领军人物 Ross Girshick 团队在 2015 年又推出一力作：Faster R-CNN。</p>
+<p><strong>1. Region Proposal Network 的引入</strong></p>
+<p>–&gt; 在 Fast R-CNN 还存在着瓶颈问题：</p>
+<p>依赖于外部候选区域方法，如使用 Selective Search（选择性搜索）进行区域提名。要找出所有的候选框，这个也非常耗时（在测试中，Fast R-CNN 需要 2.3 秒来进行预测，其中 2 秒用于生成 2000 个 ROI）。那我们有没有一个<strong>更加高效的方法来求出这些候选框呢？？</strong></p>
+<p>–&gt; 解决：</p>
+<p>使用一个 RPN（区域提议网络，Region Proposal Networks）来代替 SS（Selective Search）进行区域提名。<strong>RPN </strong>在生成 ROI 时效率更高，将每幅图像的生成时间从秒级缩减到毫秒级运行。</p>
+<p>也就是说，找候选框的工作也交给神经网络来做了。这样，目标检测的四个基本步骤（候选区域生成，特征提取，分类，位置回归）终于被 <strong>统一到一个深度网络框架之内</strong> 。如下图所示：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./RCNN_FastRCNN_FasterRCNN.png" alt="avatar"></p>
+<p>事实上，Faster R-CNN 可以简单地看成是“ RPN + Fast R-CNN ”的模型。也就是使用网络内的区域提议网络（Region Proposal Network，简称：RPN）来代替 Fast R-CNN 中外部的 Selective Search（选择性搜索）区域提名方法。</p>
+<p>具体做法就是：将 RPN 放在最后一个卷积层的后面，RPN 直接训练得到候选区域。如下图所示：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./Faster_Rcnn_model.png" alt="avatar"></p>
+<p>–&gt; 看出了啥？</p>
+<p>RPN 的输入是接的卷积层后的 feature maps，已经是被高度抽象的特征图了，所以 RPN 同样共享卷积特征，计算更加 Fast（Faster）。</p>
+<hr>
+<p><strong>2. 候选区域网络(区域提议网络，RPN)</strong></p>
+<p>Ross Girshick 在 Fast R-CNN 中引入 Region Proposal Network(RPN) 替代 Selective Search，RPN 网络将 Proposal 这一任务建模为二分类（是否为物体）的问题。</p>
+<p>RPN 可以以一张任意大小的图片为输入，输出一批矩形区域提名，每个区域对应一个目标分数（Scores）和位置信息（Coordinates）。</p>
+<p>话不多说，先来给个 RPN 工作图解：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./RPN.png" alt="avatar"></p>
+<p>可以看出，RPN 引入 Anchor Box 应对目标形状的变化问题（Anchor 就是位置和大小固定的 Box，可以理解成事先设置好的固定的 Proposal）。</p>
+<p><strong>2.1 –&gt; RPN 工作原理</strong></p>
+<p>有了上述的 RPN 工作图解，下面来看 RPN 网络在 Faster-RCNN 网络中的简要工作原理</p>
+<ol>
+<li>在 feature map 上滑动名为 Sliding Windows 的滑窗</li>
+<li>在每一个滑窗上生成 k 个不同大小和长宽比例的 anchor boxes（即预测多个 Region-Proposal，表征了目标性质的变化），并且取定 IoU 的阈值，通过 Ground Truth 来标定这些 anchor box 的正负（形成与类别无关的候选区域）。于是，传入 RPN 网络的样本数据被整理为 anchor box（坐标）和每个 anchor box 是否有物体（二分类标签）。</li>
+<li>RPN 网络将每个样本映射为一个概率值和四个坐标值，概率值反应这个 anchor box 有物体的概率，四个坐标值用于回归定义物体（目标）的位置。最后将二分类和坐标回归的损失统一起来，作为 RPN 网络的目标训练。</li>
+<li>由 RPN 得到 Region Proposal（RoI）后，再根据概率值筛选后经过类似的标记过程，被传向后续子网络，进行多分类和坐标回归，同样用多任务损失将二者的损失联合。</li>
+</ol>
+<p>–&gt; 可以看出，<strong>一种网络，四个损失函数：</strong></p>
+<p>RPN calssification(anchor -&gt; good or bad)</p>
+<p>RPN regression(anchor -&gt; propoasal)</p>
+<p>Fast R-CNN classification(over classes)</p>
+<p>Fast R-CNN regression(proposal -&gt;box)</p>
+<p>给一个结构图来看损失函数的定义：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./RPN_loss.png" alt="avatar"></p>
+<hr>
+<p><strong>2.2 –&gt; Anchor 机制原理说明</strong></p>
+<p>我们可以看出，RPN 网络功能的核心实现就是 <strong>anchor boxes</strong>。</p>
+<p>anchor 这个单词的直接翻译是<strong>“锚”</strong> 。下面我们来看一个关于“锚”形象的描述：</p>
+<p>我们把 feature map 中每个点看作一个下锚的地方，每个点生成若干个 boxes 代表撒网的意思。把整幅特征图当作汪洋的大海，每过一个点下一个锚，然后在锚处开始撒网（多尺度的 Region Proposal）捕鱼（目标）。</p>
+<p>下面根据 RPN 结构讲解一下： </p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./anchor.png" alt="avatar"></p>
+<p>1）“下锚”</p>
+<p>把 feature map 特征图看作节点“海”，然后基于每个节点开始“下锚”<br>，产生锚点</p>
+<p>2）“撒网”</p>
+<p>“下锚”以后开始撒网，即以每一个锚点为中心生成大小不同的 k 个框。k 个大小形状不一的框（Region Proposal），是致力于使目标对象（鱼）能出现在某个框（网）中。</p>
+<p>–&gt; 可以发现？</p>
+<p>一定可以找到与真实标记 <strong>Ground Truth</strong> 很接近的框。</p>
+<hr>
+<p><strong>3. Faster R-CNN 性能提升</strong></p>
+<p>Faster R-CNN（RPN + Fast R-CNN）设计了提取候选区域的网络 RPN，代替了费时的 Selective Search（选择性搜索），使得检测速度大幅提升，下表对比了R-CNN、Fast R-CNN、Faster R-CNN的检测速度：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./RCNN_compare.png" alt="avatar"></p>
+<hr>
+<h5 id="4-4-5-R-CNN"><a href="#4-4-5-R-CNN" class="headerlink" title="4.4.5 R-CNN"></a>4.4.5 R-CNN</h5><p>Faster R-CNN 等目标检测方法可以细分为两个子网络：</p>
+<ol>
+<li>共享计算的全卷积网络</li>
+<li>不共享计算的 ROI 相关的子网络（比如全连接层网络部分）</li>
+</ol>
+<p>–&gt; 思考一下，Faster R-CNN 中还存在什么问题？</p>
+<p>Faster R-CNN 中，检测器在 ROI Pooling 归一化之后（分类和回归之前）仍然需要添加几个全连接层。如果 RPN 产生有较多（2K） ROI 时（真实的），那么计算成本是非常高的。</p>
+<p>–&gt; 解决办法</p>
+<p>R-FCN 通过将最后的全连接层之类的子网络换成了一个 <strong>位置敏感的的卷积网络</strong>（所有计算都可以共享），从而减少了每个 ROI 所需的工作量，实现加速。</p>
+<hr>
+<p><strong>1. R-FCN 的简要工作原理</strong></p>
+<p>这里我们通过一个样例来看一下位置敏感的的卷积网络工作流程：</p>
+<p>假设，有一个 5 × 5 的特征图 M，内部包含一个蓝色方块（对应需要检测以及定位的人脸）将方块平均分成 k × k 个区域（R-FCN 中 k=3）。k 取 3 的话，则对应的九个网格分别表示：左上 top-left（TL），上中 top-center（TC），……，右下 bottom-right（BR），每个 Grid（网格）都有对应的编码。那么，我们可以从 M 中创建了一个新的特征图，来检测方块的左上角（TL）。在这个新的特征图中，只有黄色的网格单元 [2, 2] 处于激活状态。如下图所示：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./R-FCN_image.png" alt="avatar"></p>
+<p>再给出蓝色方块映射到原图的图像，用于检测人脸的左眼：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./object_image.png" alt="avatar"></p>
+<p>我们将方块分成 9 个部分，由此创建了 9 个特征图，每个用来检测对应的目标区域。这些特征图叫作<strong>位置敏感得分图（position-sensitive score map）</strong>，每个图检测目标的子区域（计算其得分）。</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./position_sensitive_sm.png" alt="avatar"></p>
+<p>下图中红色虚线矩形是建议的 ROI。我们将其分割成 3 × 3 个区域，并询问每个区域包含目标对应部分的概率是多少。例如，左上角 ROI 区域包含左眼的概率。最终，我们将结果存储成 3 × 3 vote 数组，vote_array[0][0] 包含左上角区域是否包含目标对应部分的得分。</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./ROI_pssm.png" alt="avatar"></p>
+<p>将得分图（Feature Map）和 ROI 映射到 vote 数组的过程叫作 <strong>位置敏感 ROI 池化（position-sensitive ROI-pool）</strong>：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./roi_computer.png" alt="avatar"></p>
+<p>依次计算出位置敏感 ROI 池化的所有值后，类别得分是其所有元素得分的平均值。</p>
+<p>假如我们有 C 个类别要检测。我们将其扩展为 C + 1 个类别，这样就为背景（非目标）增加了一个新的类别。每个类别有 3 × 3 个得分图，因此一共有 (C+1) × 3 × 3 个得分图。</p>
+<p>使用每个类别的得分图可以预测出该类别的类别得分。然后我们对这些得分应用 softmax 函数，计算出每个类别的概率。</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./R-FCN.png" alt="avatar"></p>
+<p>===================================================================</p>
+<p>论文链接：<a href="https://arxiv.org/pdf/1605.06409v2.pdf" target="_blank" rel="noopener">《R-FCN: Object Detection via Region-based Fully Convolutional Networks》</a></p>
+<p>–&gt; 总结：</p>
+<p>R-CNN、Fast R-CNN、Faster R-CNN、R-FCN 一路走来，基于深度学习目标检测的流程变得越来越精简、精度越来越高、速度也越来越快。基于 Region Proposal（候选区域）的 R-CNN 系列目标检测方法已经成为目标检测技术领域中的最主要分支之一。</p>
+<hr>
+<h4 id="4-4-One-Stage-目标检测器"><a href="#4-4-One-Stage-目标检测器" class="headerlink" title="4.4 One-Stage 目标检测器"></a>4.4 One-Stage 目标检测器</h4><p>由于篇幅原因，观看这一部分内容请移步至：<a href=""></a> 。</p>
+<hr>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><p>2014 至 2016年，Ross Girshick 等人发表了关于 R-CNN、Fast R-CNN、Faster R-CNN 的经典论文:</p>
+<p><a href="https://arxiv.org/abs/1311.2524" target="_blank" rel="noopener">《Rich feature hierarchies for accurate object detection and semantic segmentation》</a></p>
+<p><a href="https://arxiv.org/abs/1504.08083" target="_blank" rel="noopener">《Fast R-CNN》</a></p>
+<p><a href="https://arxiv.org/abs/1506.01497" target="_blank" rel="noopener">《Faster R-CNN: Towards Real-Time ObjectDetection with Region Proposal Networks》</a></p>
+<p>在这些论文中对目标检测的思想、原理、测试情况进行了详细介绍，建议阅读些篇论文以全面了解目标检测模型。</p>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/" title="卷积神经网络系列：CNN 演变之路之从分类到检测">http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TensorFlow/" rel="tag"><i class="fa fa-tag"></i> TensorFlow</a>
+          
+            <a href="/tags/CNN/" rel="tag"><i class="fa fa-tag"></i> CNN</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/" rel="next" title="卷积神经网络系列：CNN 演变之路之网络结构加深">
+                <i class="fa fa-chevron-left"></i> 卷积神经网络系列：CNN 演变之路之网络结构加深
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Jpype/Jpype-安装以及使用指南/" rel="prev" title="Jpype 安装以及使用指南">
+                Jpype 安装以及使用指南 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CNN-演变之路之从分类到检测"><span class="nav-text">CNN 演变之路之从分类到检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-初识目标识别、定位、检测、分割以及跟踪"><span class="nav-text">1. 初识目标识别、定位、检测、分割以及跟踪</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-目标识别（Target-Recognition）"><span class="nav-text">1.1 目标识别（Target Recognition）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-目标定位（Target-Location）"><span class="nav-text">1.2 目标定位（Target Location）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-目标检测（Target-Detection）"><span class="nav-text">1.3 目标检测（Target Detection）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-目标分割（Target-Segmentation）"><span class="nav-text">1.4 目标分割（Target Segmentation）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-目标跟踪（Target-Tracking）"><span class="nav-text">1.5 目标跟踪（Target Tracking）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-目标检测主流算法"><span class="nav-text">2. 目标检测主流算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-目标检测算法分类"><span class="nav-text">2.1 目标检测算法分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-目标检测算法发展以及其工作流程"><span class="nav-text">2.2 目标检测算法发展以及其工作流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-基于传统图像处理和机器学习算法"><span class="nav-text">3. 基于传统图像处理和机器学习算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-基于深度学习的目标检测"><span class="nav-text">4. 基于深度学习的目标检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-从图像识别和定位的任务说起"><span class="nav-text">4.1 从图像识别和定位的任务说起</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-1-思路一：看做回归问题"><span class="nav-text">4.1.1 思路一：看做回归问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-2-思路二：取图像窗口（区域提议）看做分类问题"><span class="nav-text">4.1.2 思路二：取图像窗口（区域提议）看做分类问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-多物体检测（Object-Detection）"><span class="nav-text">4.2 多物体检测（Object Detection）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-基于候选区域的检测算法"><span class="nav-text">4.3 基于候选区域的检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-1-R-CNN-横空出世"><span class="nav-text">4.3.1 R-CNN 横空出世</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-2-SPP-Net"><span class="nav-text">4.3.2 SPP Net</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-3-Fast-R-CNN"><span class="nav-text">4.3.3 Fast R-CNN</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-4-Faster-R-CNN"><span class="nav-text">4.3.4 Faster R-CNN</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-4-5-R-CNN"><span class="nav-text">4.4.5 R-CNN</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-One-Stage-目标检测器"><span class="nav-text">4.4 One-Stage 目标检测器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-text">References</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

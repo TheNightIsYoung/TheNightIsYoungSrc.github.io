@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="TensorFlow,CNN,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 前面的博文，我们详细介绍了 [ 从 LeNet 到 AlexNet ] 卷积神经网络（CNN）完成了具有历史意义的突破。后续系列博文我们将分别就博文 CNN 进化史 中提到的 CNN 的演化方向做深入的介绍和分析，以系统了解 CNN 的发展。本文我们先来看 CNN 演变之路一：卷积网络结构加深。">
+<meta name="keywords" content="TensorFlow,CNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="卷积神经网络系列：CNN 演变之路之网络结构加深">
+<meta property="og:url" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 前面的博文，我们详细介绍了 [ 从 LeNet 到 AlexNet ] 卷积神经网络（CNN）完成了具有历史意义的突破。后续系列博文我们将分别就博文 CNN 进化史 中提到的 CNN 的演化方向做深入的介绍和分析，以系统了解 CNN 的发展。本文我们先来看 CNN 演变之路一：卷积网络结构加深。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/VGGNet.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/VGG_3x3_layer.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/transform_fnn_into_conv.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/overfeat_fnn_conv.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/VGGNet_construction.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/VGGNet.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/VGG16_run.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/VGGNet16.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/VGGNet_parameters.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/VGGNet16_error_rate.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/VGG19.jpg">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/DRN.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/CNN_Commom_Models.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/CNN_layer_iter.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/Simple_NN.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/BP_process.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/DeepCNN_problem.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/ResidualNetwork.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/Resnet_34_layer.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/Resnet_34_layer_1.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/Resnet_3_layer.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/CNN_layer_iter_new.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/Revolution_of_depth.png">
+<meta property="og:updated_time" content="2019-06-10T02:08:03.681Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="卷积神经网络系列：CNN 演变之路之网络结构加深">
+<meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 前面的博文，我们详细介绍了 [ 从 LeNet 到 AlexNet ] 卷积神经网络（CNN）完成了具有历史意义的突破。后续系列博文我们将分别就博文 CNN 进化史 中提到的 CNN 的演化方向做深入的介绍和分析，以系统了解 CNN 的发展。本文我们先来看 CNN 演变之路一：卷积网络结构加深。">
+<meta name="twitter:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/VGGNet.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>卷积神经网络系列：CNN 演变之路之网络结构加深 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">卷积神经网络系列：CNN 演变之路之网络结构加深</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-05T11:49:31+08:00">
+                2018-07-05
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-10T10:08:03+08:00">
+                2019-06-10
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Convlutional-Neural-Networks/" itemprop="url" rel="index">
+                    <span itemprop="name">Convlutional Neural Networks</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/" class="leancloud_visitors" data-flag-title="卷积神经网络系列：CNN 演变之路之网络结构加深">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  20
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center> 愿你每天欢喜多于悲，孤独有人陪… </center>
+
+<p><strong>写在前面：</strong></p>
+<p>前面的博文，我们详细介绍了 [ 从 LeNet 到 AlexNet ] 卷积神经网络（CNN）完成了具有历史意义的突破。后续系列博文我们将分别就博文 <a href="">CNN 进化史</a> 中提到的 CNN 的演化方向做深入的介绍和分析，以系统了解 CNN 的发展。本文我们先来看 CNN 演变之路一：卷积网络结构加深。</p>
+<a id="more"></a>
+<p>本博文系列是对刘昕博士的 <a href="https://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650324619&amp;idx=1&amp;sn=ca1aed9e42d8f020d0971e62148e13be&amp;scene=1&amp;srcid=0503De6zpYN01gagUvn0Ht8D#wechat_redirect" target="_blank" rel="noopener">《CNN 的近期进展与实用技巧》</a> 的一个扩充性资料，全面详细地介绍了 CNN 进化史各个阶段的里程碑成果：</p>
+<p>卷积神经网络系列之：<a href="">大话卷积神经网络（CNN）</a> ；</p>
+<p>卷积神经网络系列之：<a href="">CNN 进化史</a> ；</p>
+<p>卷积神经网络系列之：<a href="">从 LeNet 到 AlexNet</a> ；</p>
+<p>卷积神经网络系列之：<a href="">CNN 演变之路之网络结构加深</a> ；</p>
+<hr>
+<h3 id="卷积神经网络进化之路一：网络结构加深"><a href="#卷积神经网络进化之路一：网络结构加深" class="headerlink" title="卷积神经网络进化之路一：网络结构加深"></a>卷积神经网络进化之路一：网络结构加深</h3><p>在 <strong>网络结构加深</strong> 方面，VGGNet 以及 MSRANet（Resnet） 贡献巨大。下面我们主要通过从 VGGNet –&gt; MSRANet（Resnet） 两个经典的神经网络模型来介绍 <strong>网络结构加深</strong> 对卷积神经网络模型性能的影响。</p>
+<h4 id="1-VGGNet"><a href="#1-VGGNet" class="headerlink" title="1. VGGNet"></a>1. VGGNet</h4><p>2014 年，牛津大学计算机视觉组（Visual Geometry Group）和 Google DeepMind 公司的研究员一起研发出了新的深度卷积神经网络：<strong>VGGNet</strong> 。</p>
+<p>VGGNet 成功取得了当年 ILSVRC2014 比赛图像分类项目的第二名（第一名是 GoogLeNet [InceptionNet]，也是同年提出的）和定位项目的第一名。</p>
+<p>VGGNet 探索了卷积神经网络的深度与其性能之间的关系，成功地构筑了 16~19 层深的卷积神经网络。证明了增加网络的深度能够在一定程度上影响网络最终的性能，使错误率大幅下降，同时拓展性又很强，迁移到其它图片数据上的泛化性也非常好。到目前为止，VGG 仍然被用来提取图像特征。</p>
+<hr>
+<h5 id="1-1-VGGNet-特点"><a href="#1-1-VGGNet-特点" class="headerlink" title="1.1 VGGNet 特点"></a>1.1 VGGNet 特点</h5><p>VGGNet，可以看成是加深版本的<strong>AlexNet</strong>，都是由卷积层、全连接层两大部分构成。下面先给出一个 VGGNet（VGGNet-16）的架构图，来分析一下 VGGNet 的特点：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./VGGNet.png" alt="avatar"></p>
+<h6 id="1-1-1-结构简洁"><a href="#1-1-1-结构简洁" class="headerlink" title="1.1.1 结构简洁"></a>1.1.1 结构简洁</h6><p>VGGNet 由 $5$ 层卷积层、$3$ 层全连接层、Softmax 输出层构成，层与层之间使用 max-pooling（最大化池）分开，所有隐层的激活单元都采用 ReLU 函数。</p>
+<h6 id="1-1-2-小卷积核和多卷积子层"><a href="#1-1-2-小卷积核和多卷积子层" class="headerlink" title="1.1.2 小卷积核和多卷积子层"></a>1.1.2 小卷积核和多卷积子层</h6><p>VGGNet 使用多个较小卷积核（$3×3​$）的卷积层代替一个卷积核较大的卷积层，一方面可以减少参数，另一方面相当于进行了更多的非线性映射，可以增加网络的拟合/表达能力。</p>
+<p>小卷积核是 VGGNet 的一个重要特点，虽然 VGGNet 是在模仿 AlexNet 的网络结构，但没有采用 AlexNet 中比较大的卷积核尺寸（如:$11×11$ 或 $5 × 5$），而是通过降低卷积核的大小（$3×3$），增加卷积子层数来达到同样的性能（VGGNet：从 1 到 4 卷积子层，AlexNet：1 子层）。</p>
+<p>VGGNet 的作者认为两个 3x3 的卷积堆叠获得的感受野大小，相当一个 $5×5$ 的卷积；而 3 个 $3×3$ 卷积的堆叠获取到的感受野相当于一个 $7×7$ 的卷积。这样可以增加非线性映射，也能很好地减少参数（例如 $7×7$ 的参数为 49 ，而 3 个 $3×3$ 的参数为 27），如下图所示：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./VGG_3x3_layer.png" alt="avatar"></p>
+<p>感受野理解见：<a href="https://blog.csdn.net/bojackhosreman/article/details/70162018" target="_blank" rel="noopener">https://blog.csdn.net/bojackhosreman/article/details/70162018</a></p>
+<hr>
+<h6 id="1-1-3-小池化核"><a href="#1-1-3-小池化核" class="headerlink" title="1.1.3 小池化核"></a>1.1.3 小池化核</h6><p>相比 AlexNet 的 $3×3$ 的池化核，VGGNet 全部采用 $2×2$ 的池化核。</p>
+<h6 id="1-1-4-通道数多"><a href="#1-1-4-通道数多" class="headerlink" title="1.1.4 通道数多"></a>1.1.4 通道数多</h6><p>由于卷积核专注于扩大通道数、池化专注于缩小宽和高，使得模型架构上更深更宽的同时，控制了计算量的增加规模。</p>
+<h6 id="1-1-5-全连接转卷积（测试阶段）"><a href="#1-1-5-全连接转卷积（测试阶段）" class="headerlink" title="1.1.5 全连接转卷积（测试阶段）"></a>1.1.5 全连接转卷积（测试阶段）</h6><p>这也是 VGGNet 的一个特点，在网络测试阶段将训练阶段的三个全连接替换为三个卷积，使得测试得到的全卷积网络因为没有全连接的限制，因而可以接收任意宽或高为的输入，这在测试阶段很重要。</p>
+<p>如本节第一个图所示，输入图像是 224×224×3，如果后面三个层都是全连接，那么在测试阶段就只能将测试的图像全部都要缩放大小到 224×224×3，才能符合后面全连接层的输入数量要求，这样就不便于测试工作的开展。</p>
+<p>而“全连接转卷积”，替换过程如下：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./transform_fnn_into_conv.png" alt="avatar"></p>
+<p>例如 $7×7×512$ 的层要跟 $4096$ 个神经元的层做全连接，则替换为对 $7×7×512$ 的层作通道数为 $4096$、卷积核为 $1×1$ 的卷积。</p>
+<p>这个“全连接转卷积”的思路是 VGG 作者参考了 <strong>OverFeat</strong>( AlexNet 的衍生) 的工作思路，例如下图是 <strong>OverFeat</strong> 将全连接换成卷积后，则可以来处理任意分辨率（在整张图）上计算卷积，这就是无需对原图做重新缩放处理的优势。</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./overfeat_fnn_conv.png" alt="avatar"></p>
+<hr>
+<h5 id="1-2-VGGNet-网络架构详解"><a href="#1-2-VGGNet-网络架构详解" class="headerlink" title="1.2 VGGNet 网络架构详解"></a>1.2 VGGNet 网络架构详解</h5><p>下图示是来自论文 《Very Deep Convolutional Networks for Large-Scale Image Recognition》（基于甚深层卷积网络的大规模图像识别）的 VGG网络结构，正是在这篇论文中提出了 VGGNet：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./VGGNet_construction.png" alt="avatar"></p>
+<p>在这篇论文中分别使用了 A、A-LRN、B、C、D、E 这 6 种网络结构进行测试。</p>
+<p>这 6 种网络结构相似，都是由 5 层卷积层、3 层全连接层组成，其中区别在于每个卷积层的子层数量不同：</p>
+<p>从 A 至 E 依次增加（子层数量从1到4），总的网络深度从 11 层到 19 层（添加的层以粗体显示），表格中的卷积层参数表示为“ conv&lt;感受野大小&gt;-&lt;通道数&gt; ”，例如 con3-128，表示使用 3×3 的卷积核，通道数为 128。为了简洁起见，在表格中不显示 ReLU 激活功能。</p>
+<p>其中，网络结构 D 就是著名的 VGGNet16，网络结构 E 就是著名的 VGGNet19。</p>
+<hr>
+<h5 id="1-3-VGGNet-16"><a href="#1-3-VGGNet-16" class="headerlink" title="1.3 VGGNet-16"></a>1.3 VGGNet-16</h5><p>下面，先以网络结构 D（VGGNet16）为例，介绍其处理过程如下，请对比上面的表格和下方这张图，留意图中的数字变化，有助于理解 VGGNet16 的处理过程：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./VGGNet.png" alt="avatar"></p>
+<p><strong>–&gt; 详细过程如下：</strong></p>
+<p>=====================================================================</p>
+<p>1、输入 $224×224×3$ 的图片，经 64 个 3×3 的卷积核作两次卷积 + ReLU，卷积后的尺寸变为 $224×224×64$ ;</p>
+<p>2、作 max pooling（最大化池化），池化单元尺寸为 2×2（效果为图像尺寸减半），池化后的尺寸变为 $112×112×64$ ;</p>
+<p>3、经 128 个 3×3 的卷积核作两次卷积 + ReLU，尺寸变为 $112×112×128$ ;</p>
+<p>4、作 2×2 的 max pooling 池化，尺寸变为 $56×56×128$ ;</p>
+<p>5、经 256 个 3×3 的卷积核作三次卷积 + ReLU，尺寸变为 $56×56×256$ ;</p>
+<p>6、作 2×2 的 max pooling 池化，尺寸变为 $28×28×256$ ;</p>
+<p>7、经 512 个 3×3 的卷积核作三次卷积 + ReLU，尺寸变为 $28×28×512$ ;</p>
+<p>8、作 2×2 的 max pooling 池化，尺寸变为 $14×14×512$ ;</p>
+<p>9、经 512 个 3×3 的卷积核作三次卷积 + ReLU，尺寸变为 $14×14×512$ ;</p>
+<p>10、作 2×2 的 max pooling 池化，尺寸变为 $7×7×512$ ;</p>
+<p>11、与两层 1×1×4096，一层 1×1×1000 进行全连接 + ReLU（共三层）</p>
+<p>12、通过 softmax 输出 1000 个预测结果</p>
+<p>=====================================================================</p>
+<p>以上就是 VGGNet16（网络结构D）各层的处理过程，A、A-LRN、B、C、E 其它网络结构的处理过程也是类似，执行过程如下（以 VGGNet16 为例）：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./VGG16_run.png" alt="avatar"></p>
+<p>从上面的过程可以看出 VGGNet 网络结构还是挺简洁的，都是由小卷积核、小池化核、ReLU 合而成。其简化图如下（以 VGGNet16 为例）：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./VGGNet16.png" alt="avatar"></p>
+<p><strong>–&gt; VGGNet 参数</strong></p>
+<p>A、A-LRN、B、C、D、E 这 6 种网络结构的深度虽然从 11 层增加至 19 层，但参数量变化不大，这是由于基本上都是采用了小卷积核（3×3，只有 9 个参数），这 6 种结构的参数数量（百万级）并未发生太大变化，这是因为在网络中，参数主要集中在全连接层。</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./VGGNet_parameters.png" alt="avatar"></p>
+<p><strong>–&gt; VGGNet 模型评估情况</strong></p>
+<p>经作者对 A、A-LRN、B、C、D、E 这 6 种网络结构进行单尺度的评估，错误率结果如下：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./VGGNet16_error_rate.png" alt="avatar"></p>
+<p>从上表可以看出</p>
+<p>1）LRN层无性能增益（A-LRN）</p>
+<p>VGGNet 作者通过网络 A-LRN 发现，AlexNet 曾经用到的 LRN 层（local response normalization，局部响应归一化）并没有带来性能的提升，因此在其它组的网络中均没再出现 LRN 层。</p>
+<p>2）随着深度增加，分类性能逐渐提高（A、B、C、D、E）</p>
+<p>从 11 层的 A 到 19 层的 E，网络深度增加对 top1 和 top5 的错误率下降很明显。</p>
+<p>3）多个小卷积核比单个大卷积核性能好（B）</p>
+<p>VGGNet 作者做了实验用 B 和自己一个不在实验组里的较浅网络比较，较浅网络用 conv5×5 来代替 B 的两个conv3×3，结果显示多个小卷积核比单个大卷积核效果要好。</p>
+<p><strong>–&gt; 最后进行小结：</strong></p>
+<p>1、通过增加深度能有效地提升性能；</p>
+<p>2、最佳模型：VGG16，从头到尾只有 3×3 卷积与 2×2 池化，简洁优美；</p>
+<p>3、卷积可代替全连接，可适应各种尺寸的图片。</p>
+<hr>
+<h5 id="1-4-VGGNet-19"><a href="#1-4-VGGNet-19" class="headerlink" title="1.4 VGGNet-19"></a>1.4 VGGNet-19</h5><p>类似于 VGG16，这里先来给出结构示意图:</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./VGG19.jpg" alt="avatar"></p>
+<p><strong>–&gt; 详细过程如下：</strong></p>
+<p>=====================================================================</p>
+<p>1、输入 $224×224×3$ 的图片，经 64 个 3×3 的卷积核作两次卷积 + ReLU，卷积后的尺寸变为 $224×224×64​$ ;</p>
+<p>2、作 max pooling（最大化池化），池化单元尺寸为 2×2（效果为图像尺寸减半），池化后的尺寸变为 $112×112×64​$ ;</p>
+<p>3、经 128 个 3×3 的卷积核作两次卷积 + ReLU，尺寸变为 $112×112×128​$ ;</p>
+<p>4、作 2×2 的 max pooling 池化，尺寸变为 $56×56×128​$ ;</p>
+<p>5、经 256 个 3×3 的卷积核作四次卷积 + ReLU，尺寸变为 $56×56×256$ ;</p>
+<p>6、作 2×2 的 max pooling 池化，尺寸变为 $28×28×256​$ ;</p>
+<p>7、经 512 个 3×3 的卷积核作四次卷积 + ReLU，尺寸变为 $28×28×512$ ;</p>
+<p>8、作 2×2 的 max pooling 池化，尺寸变为 $14×14×512$ ;</p>
+<p>9、经 512 个 3×3 的卷积核作四次卷积 + ReLU，尺寸变为 $14×14×512$ ;</p>
+<p>10、作 2×2 的 max pooling 池化，尺寸变为 $7×7×512$ ;</p>
+<p>11、与两层 1×1×4096，一层 1×1×1000 进行全连接 + ReLU（共三层）</p>
+<p>12、通过 softmax 输出 1000 个预测结果</p>
+<p>=====================================================================</p>
+<p>2014 年，K. Simonyan 等人发表了关于 VGGNet 的经典论文 《Very Deep Convolutional Networks for Large-Scale Image Recognition》（基于甚深层卷积网络的大规模图像识别），在该论文中对 VGGNet 的思想、测试情况进行了详细介绍，建议阅读这篇论文加深了解。链接：[ <a href="https://github.com/SnailTyan/deep-learning-papers-translation" target="_blank" rel="noopener">https://github.com/SnailTyan/deep-learning-papers-translation</a> ]</p>
+<hr>
+<h4 id="2-MSRANet（Resnet）"><a href="#2-MSRANet（Resnet）" class="headerlink" title="2. MSRANet（Resnet）"></a>2. MSRANet（Resnet）</h4><p>MSRANet 是微软亚洲研究院（Microsoft Research Asia，<em>MSRA</em> ）设计的神经网络，其中，最具有影响力的是深度残差网络（Deep Residual Neural Network）。</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./DRN.png" alt="avatar"></p>
+<p>我们知道，从 LeNet –&gt; AlexNet –&gt; VGGNet ，在网络结构深度方面，卷积神经网络深度越来越深，通常来说网络结构越深神经网络模型表现越好。同样，一说起“深度学习”，自然就联想到它非常显著的特点“深、深、深”（重要的事说三遍），通过很深层次的网络实现准确率非常高的图像识别、语音识别等能力。</p>
+<p>因此，我们自然很容易就想到：深的网络一般会比浅的网络效果好，如果要进一步地提升模型的准确率，最直接的方法就是把网络设计得越深越好，这样模型的准确率也就会越来越准确。</p>
+<p>Resnet 出现之前，现实真的是这样吗？先看几个经典的图像识别深度学习模型：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./CNN_Commom_Models.png" alt="avatar"></p>
+<hr>
+<h5 id="2-1-存在的问题"><a href="#2-1-存在的问题" class="headerlink" title="2.1 存在的问题"></a>2.1 存在的问题</h5><p>我们发现，上述几个模型都是在世界顶级比赛中获奖的著名模型，然而，一看这些模型的网络层次数量，似乎让人很失望，少则 5 层，多的也就 22 层而已，这些世界级模型的网络层级也没有那么深啊，这种也算深度学习吗？为什么不把网络层次加到成百上千层呢？</p>
+<p>带着这个问题，我们先来看一个实验，对常规的网络（Plain Network，也称平原网络）直接堆叠很多层次，经过对图像识别结果进行检验，训练集、测试集的误差结果如下图：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./CNN_layer_iter.png" alt="avatar"></p>
+<p>可以看出：事实上，在网络很深的时候（56 层相比 20 层），模型效果却越来越差了（误差率越高），并不是网络越深越好。</p>
+<p>通过实验可以发现：<strong>随着网络层级的不断增加，模型精度不断得到提升，而当网络层级增加到一定的数目以后，训练精度和测试精度迅速下降，这说明当网络变得很深以后，深度网络就变得更加难以训练了。</strong></p>
+<p><strong>1 –&gt; 问题来了</strong></p>
+<p>为什么随着网络层级越深，模型效果却变差了呢？</p>
+<p>下图是一个简单神经网络图，由输入层、隐含层、输出层构成：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./Simple_NN.png" alt="avatar"></p>
+<p>回想一下神经网络反向传播的原理，先通过正向传播计算出结果 output，然后与样本比较得出误差值 Etotal</p>
+<p>根据误差结果，利用著名的“链式法则”求偏导，使结果误差反向传播从而得出权重 <em>𝑤</em>w 调整的梯度。下图是输出结果到隐含层的反向传播过程（隐含层到输入层的反向传播过程也是类似）：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./BP_process.png" alt="avatar"></p>
+<p>通过不断迭代，对参数矩阵进行不断调整后，使得输出结果的误差值更小，使输出结果与事实更加接近。</p>
+<p>从上面的过程可以看出，神经网络在反向传播过程中要不断地传播梯度，而当网络层数加深时，梯度在传播过程中会逐渐消失（假如采用 Sigmoid 函数，对于幅度为 1 的信号，每向后传递一层，梯度就衰减为原来的 0.25，层数越多，衰减越厉害），导致无法对前面网络层的权重进行有效的调整。</p>
+<p>–&gt; 那么，如何又能加深网络层数、又能解决梯度消失问题、又能提升模型精度呢！？</p>
+<hr>
+<h5 id="2-2-Deep-Residual-Network"><a href="#2-2-Deep-Residual-Network" class="headerlink" title="2.2 Deep Residual Network"></a>2.2 Deep Residual Network</h5><p><strong>–&gt;【主角登场】深度残差网络（Deep Residual Network，简称 DRN）</strong></p>
+<p>前面描述了一个实验结果现象，在不断加神经网络的深度时，模型准确率会先上升然后达到饱和，再持续增加深度时则会导致准确率下降，示意图如下：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./DeepCNN_problem.png" alt="avatar"></p>
+<p>那么我们作这样一个假设：</p>
+<p>假设现有一个比较浅的网络（Shallow Net）已达到了饱和的准确率，这时在它后面再加上几个恒等映射层（ Identity mapping ，也即 y=x，输出等于输入），这样就增加了网络的深度，并且起码误差不会增加，也就是说更深的网络不应该带来训练集上误差的上升。</p>
+<p>而这里提到的使用恒等映射直接将前一层输出传到后面的思想，便是著名深度残差网络 ResNet 的灵感来源。</p>
+<hr>
+<h6 id="2-2-1-残差结构"><a href="#2-2-1-残差结构" class="headerlink" title="2.2.1 残差结构"></a>2.2.1 残差结构</h6><p>ResNet 引入了残差网络结构（residual network），通过这种残差网络结构，可以把网络层弄的很深（据说目前可以达到 1000 多层），并且最终的分类效果也非常好，残差网络的基本结构如下图所示，很明显，该图是带有跳跃结构的：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./ResidualNetwork.png" alt="avatar"></p>
+<p>残差网络借鉴了高速网络（ Highway Network ）的跨层链接思想，但对其进行改进（残差项原本是带权值的，但 ResNet 用恒等映射代替之）。</p>
+<p>假定某段神经网络的输入是 $x$，期望输出是 $H(x)$，即 $H(x)$ 是期望的复杂潜在映射，如果是要学习这样的模型，则训练难度会比较大；</p>
+<p>回想前面的假设，如果已经学习到较饱和的准确率（或者当发现下层的误差变大时），那么接下来的学习目标就转变为恒等映射的学习，也就是使输入x近似于输出 $H(x)$，以保持在后面的层次中不会造成精度下降。</p>
+<p>在上图的残差网络结构图中，通过“shortcut connections（捷径连接）”的方式，直接把输入 $x$ 传到输出作为初始结果，输出结果为 $H(x)=F(x)+x$，当 $F(x)=0$ 时，那么 $H(x)=x$，也就是上面所提到的恒等映射。于是，ResNet 相当于将学习目标改变了，不再是学习一个完整的输出，而是目标值 $H(X)$和 $x$ 的差值，也就是所谓的残差 $F(x) := H(x)-x$ ，因此，后面的训练目标就是要将残差结果逼近于 0，使到随着网络加深，准确率不下降。</p>
+<p>这种残差跳跃式的结构，打破了传统的神经网络 n-1 层的输出只能给 n 层作为输入的惯例，使某一层的输出可以直接跨过几层作为后面某一层的输入，其意义在于为叠加多层网络而使得整个学习模型的错误率不降反升的难题提供了新的方向。</p>
+<p>至此，神经网络的层数可以超越之前的约束，达到几十层、上百层甚至千层，为高级语义特征提取和分类提供了可行性。</p>
+<hr>
+<h6 id="2-2-1-残差网络"><a href="#2-2-1-残差网络" class="headerlink" title="2.2.1 残差网络"></a>2.2.1 残差网络</h6><p>下面感受一下 34 层的深度残差网络的结构图，是不是很壮观：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./Resnet_34_layer.png" alt="avatar"></p>
+<p>从图可以看出，怎么有一些“shortcut connections（捷径连接）”是实线，有一些是虚线，有什么区别呢？</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./Resnet_34_layer_1.png" alt="avatar"></p>
+<p>因为经过“shortcut connections（捷径连接）”后，$H(x)=F(x)+x$ ，如果 $F(x)$ 和 $x$ 的通道相同，则可直接相加，那么通道不同怎么相加呢。上图中的实线、虚线就是为了区分这两种情况的：</p>
+<ol>
+<li>实线的 Connection 部分，表示通道相同，如上图的第一个粉色矩形和第三个粉色矩形，都是 $3x3x64$ 的特征图，由于通道相同，所以采用计算方式为 $H(x)=F(x)+x​$</li>
+<li>虚线的的 Connection 部分，表示通道不同，如上图的第一个绿色矩形和第三个绿色矩形，分别是 $3x3x64$ 和 $3x3x128$ 的特征图，通道不同，采用的计算方式为 $H(x)=F(x)+Wx$ ，其中 $W$ 是卷积操作，用来调整 $x$ 维度的。</li>
+</ol>
+<p>除了上面提到的两层残差学习单元，还有三层的残差学习单元，如下图所示：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./Resnet_3_layer.png" alt="avatar"></p>
+<p>两种结构分别针对 ResNet34（左图）和 ResNet50/101/152（右图），其目的主要就是为了降低参数的数目。</p>
+<p>左图是两个 $3 × 3 × 256$ 的卷积，参数数目: $3×3×256×256×2 = 1179648$，右图是第一个 1x1 的卷积把 256 维通道降到 64 维，然后在最后通过 1x1 卷积恢复，整体上用的参数数目：$1×1×256×64 + 3×3×64×64 + 1×1×64×256 = 69632$ ，右图的参数数量比左图减少了 <strong>16.94</strong> 倍，因此，右图的主要目的就是为了 <strong>减少参数量，从而减少计算量。</strong></p>
+<p>对于常规的 ResNet，可以用于 34 层或者更少的网络中（左图）；对于更深的网络（如 101 层），则使用右图，其目的是减少计算和参数量。</p>
+<p>经检验，深度残差网络的确解决了退化问题，如下图所示，上图为平原网络（Plain Network）网络层次越深（34 层）比网络层次浅的（18 层）的误差率更高；下图为残差网络 ResNet 的网络层次越深（34 层）比网络层次浅的（18 层）的误差率更低。</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./CNN_layer_iter_new.png" alt="avatar"></p>
+<p><strong>–&gt; 结语</strong></p>
+<p>ResNet 在 ILSVRC2015 竞赛中惊艳亮相，一下子将网络深度提升到 152 层，将错误率降到了 3.57 ，在图像识别错误率和网络深度方面，比往届比赛有了非常大的提升，ResNet 毫无悬念地夺得了 ILSVRC2015 的第一名。如下图所示：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/./Revolution_of_depth.png" alt="avatar"></p>
+<p>–&gt; ResNet V2 </p>
+<p>在 ResNet 的作者的第二篇相关论文 《Identity Mappings in Deep Residual Networks》 中，提出了 ResNet V2 。ResNet V2 和 ResNet V1 的主要区别在于，作者通过研究 ResNet 残差学习单元的传播公式，发现前馈和反馈信号可以直接传输，因此“shortcut connection”（捷径连接）的非线性激活函数（如ReLU）替换为 Identity Mappings。同时，ResNet V2 在每一层中都使用了 Batch Normalization。这样处理后，新的残差学习单元比以前更容易训练且泛化性更强。</p>
+<p>至此，我们已经简单完成了 Resnet 残差网络介绍。</p>
+<p>======================================================================</p>
+<p>建议仔细阅读下何凯明大神关于深度残差网络的两篇经典论文，深度残差网络的主要思想便是在这论文中提出来的，值得收藏阅读：</p>
+<p><a href="https://github.com/SnailTyan/deep-learning-papers-translation" target="_blank" rel="noopener">《Deep Residual Learning for Image Recognition》（基于深度残差学习的图像识别）</a></p>
+<p><a href="https://blog.csdn.net/wspba/article/details/60750007" target="_blank" rel="noopener">《Identity Mappings in Deep Residual Networks》（深度残差网络中的特征映射）</a></p>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/" title="卷积神经网络系列：CNN 演变之路之网络结构加深">http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之网络结构加深/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TensorFlow/" rel="tag"><i class="fa fa-tag"></i> TensorFlow</a>
+          
+            <a href="/tags/CNN/" rel="tag"><i class="fa fa-tag"></i> CNN</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/" rel="next" title="卷积神经网络系列之从 LeNet 到 AlexNet">
+                <i class="fa fa-chevron-left"></i> 卷积神经网络系列之从 LeNet 到 AlexNet
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/" rel="prev" title="卷积神经网络系列：CNN 演变之路之从分类到检测">
+                卷积神经网络系列：CNN 演变之路之从分类到检测 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积神经网络进化之路一：网络结构加深"><span class="nav-text">卷积神经网络进化之路一：网络结构加深</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-VGGNet"><span class="nav-text">1. VGGNet</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-VGGNet-特点"><span class="nav-text">1.1 VGGNet 特点</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-1-1-结构简洁"><span class="nav-text">1.1.1 结构简洁</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-1-2-小卷积核和多卷积子层"><span class="nav-text">1.1.2 小卷积核和多卷积子层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-1-3-小池化核"><span class="nav-text">1.1.3 小池化核</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-1-4-通道数多"><span class="nav-text">1.1.4 通道数多</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-1-5-全连接转卷积（测试阶段）"><span class="nav-text">1.1.5 全连接转卷积（测试阶段）</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-VGGNet-网络架构详解"><span class="nav-text">1.2 VGGNet 网络架构详解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-VGGNet-16"><span class="nav-text">1.3 VGGNet-16</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-VGGNet-19"><span class="nav-text">1.4 VGGNet-19</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-MSRANet（Resnet）"><span class="nav-text">2. MSRANet（Resnet）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-存在的问题"><span class="nav-text">2.1 存在的问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-Deep-Residual-Network"><span class="nav-text">2.2 Deep Residual Network</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-1-残差结构"><span class="nav-text">2.2.1 残差结构</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-1-残差网络"><span class="nav-text">2.2.1 残差网络</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

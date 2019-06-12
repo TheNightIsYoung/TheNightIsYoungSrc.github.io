@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="DeepLearning Paper,AlexNet,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="愿你每天欢喜多于悲，孤独有人陪…   声明： 本文 “ Faster R-CNN 中英文对照与细节解读 ” 仅供交流学习，如有侵权请联系删除，谢谢！">
+<meta name="keywords" content="DeepLearning Paper,AlexNet">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DeepLearning Paper：Faster R-CNN:Towards Real-Time Object Detection with Region Proposal Networks">
+<meta property="og:url" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   声明： 本文 “ Faster R-CNN 中英文对照与细节解读 ” 仅供交流学习，如有侵权请联系删除，谢谢！">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/Figure1.png">
+<meta property="og:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/Figure2.png">
+<meta property="og:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/Faster_RCNN_Constract.png">
+<meta property="og:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/Figure3.png">
+<meta property="og:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/Table8.png">
+<meta property="og:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/Table9.png">
+<meta property="og:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/Table1.png">
+<meta property="og:updated_time" content="2019-06-12T08:12:37.375Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DeepLearning Paper：Faster R-CNN:Towards Real-Time Object Detection with Region Proposal Networks">
+<meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   声明： 本文 “ Faster R-CNN 中英文对照与细节解读 ” 仅供交流学习，如有侵权请联系删除，谢谢！">
+<meta name="twitter:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/Figure1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>DeepLearning Paper：Faster R-CNN:Towards Real-Time Object Detection with Region Proposal Networks | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DeepLearning Paper：Faster R-CNN:Towards Real-Time Object Detection with Region Proposal Networks</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-11T16:22:11+08:00">
+                2018-06-11
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-12T16:12:37+08:00">
+                2019-06-12
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/DeepLearning-Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">DeepLearning Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/" class="leancloud_visitors" data-flag-title="DeepLearning Paper：Faster R-CNN:Towards Real-Time Object Detection with Region Proposal Networks">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  15.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  71
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center> 愿你每天欢喜多于悲，孤独有人陪… </center>
+
+<p><strong>声明：</strong></p>
+<p>本文 “ Faster R-CNN 中英文对照与细节解读 ” 仅供交流学习，如有侵权请联系删除，谢谢！</p>
+<a id="more"></a>
+<h2 id="Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks"><a href="#Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks" class="headerlink" title="Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks"></a>Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks</h2><p><strong>Paper Name： </strong>Faster R-CNN：使用区域提议（生成）网络实现实时目标检测</p>
+<p><strong>Paper Authors：</strong>Shaoqing Ren，Kaiming He，Ross Girshick，and Jian Sun</p>
+<p><strong>Release Time：</strong>4 Jun 2015</p>
+<hr>
+<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>State-of-the-art  object  detection  networks  depend  on  region  proposal  algorithms  to  hypothesize  object  locations.<br>Advances like SPPnet [1] and Fast R-CNN [2] have reduced the running time of these detection networks, exposing region<br>proposal  computation  as  a  bottleneck.  In  this  work,  we  introduce  a Region Proposal Network (RPN)  that  shares  full-image convolutional features with the detection network, thus enabling nearly cost-free region proposals. An RPN is a fully convolutional network that simultaneously predicts object bounds and objectness scores at each position. The RPN is trained end-to-end to generate high-quality region proposals, which are used by Fast R-CNN for detection. We further merge RPN and Fast R-CNN into a single network by sharing their convolutional features—using the recently popular terminology of neural networks with “attention” mechanisms, the RPN component tells the unified network where to look. For the very deep VGG-16 model [3],our detection system has a frame rate of 5fps ( including all steps ) on a GPU, while achieving state-of-the-art object detection accuracy on PASCAL VOC 2007, 2012, and MS COCO datasets with only 300 proposals per image. In ILSVRC and COCO<br>2015 competitions, Faster R-CNN and RPN are the foundations of the 1st-place winning entries in several tracks. Code has been<br>made publicly available.</p>
+<p><strong>Index Terms：</strong></p>
+<p>Object Detection, Region Proposal, Convolutional Neural Network.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>最先进（目前）的目标检测网络依靠区域提议（Region Proposal）算法来推测目标的位置。SPPnet [1] 和 Fast R-CNN [2] 等研究已经减少了这些检测网络的运行时间，使得区域提议（例如，Selective Sarch 方法）计算成为一个瓶颈。在这项工作中，我们引入了一个区域提议网络（RPN：Region Proposal Network）来代替一般的区域提议方法来提升性能，该网络与检测网络共享全图像的卷积特征，从而使近乎零成本的区域提议（生成）成为可能。RPN 是一个全卷积网络，可以在每个位置同时预测目标边界和目标分数。RPN 经过端到端的训练，可以生成高质量的区域提议，将这些区域提议（候选区域）输入给 Fast R-CNN 用于检测。我们将 RPN 和 Fast R-CNN 通过共享卷积特征进一步地合并为一个网络——使用最近流行的具有 “ Attention ” 机制的神经网络术语，RPN 组件告诉统一网络在哪里寻找。</p>
+<p>对于非常深的 VGG-16 模型 [3]，我们的检测系统在 GPU 上的帧率为 5fps（包括所有步骤），同时在 PASCAL VOC 2007，PASCAL VOC 2012 和 MS COCO 数据集上实现了最新的目标检测精度，每个图像仅仅有 300 个（区域）提议。在 ILSVRC 和 MS COCO 2015 竞赛中，Faster R-CNN 和 RPN 是多个比赛曲目中斩获第一名参赛作品的基础。代码可以公开获得（开源）。</p>
+<p><strong>关键词：</strong></p>
+<p>目标检测，区域提议（生成），卷积神经网络</p>
+<hr>
+<h3 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h3><p>Recent advances in object detection are driven by the success of region proposal methods (e.g., [4]) and region-based convolutional neural networks (R-CNNs) [5]. Although region-based CNNs were computationally expensive as originally developed in [5], their cost has been drastically reduced thanks to sharing convolutions across proposals [1], [2]. The latest incarnation, Fast R-CNN [2], achieves near real-time rates using very deep networks [3], <em>when ignoring the time spent on region proposals</em>. Now, proposals are the test-time computational bottleneck in state-of-the-art detection systems.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<h3 id="1-引言"><a href="#1-引言" class="headerlink" title="1. 引言"></a>1. 引言</h3><p>目标检测的最新进展是由区域提议方法（例如：Selective Search [4]）和基于区域的卷积神经网络（R-CNN）[5] 的成功驱动的。尽管在 R-CNN [5] 中最初开发的基于区域的 CNN 计算成本很高，但是由于在各种提议中共享卷积( SPP-Net [1] ，Fast R-CNN [2] )，所以其成本已经大大降低了。忽略花费在区域提议上的时间，最新版本 Fast R-CNN [2] 利用非常深的网络 VGG-16 [3] 实现了接近实时的速率。现在，区域提议是最新的检测系统中测试时间的计算瓶颈。</p>
+<blockquote>
+<p>内容解读：论文提出之前，目标检测领域的最新进展是基于区域提议（Region Proposal）的目标检测的 Fast R-CNN [2] （ROI pooling layer（精简版 SPP-Layer） + R-CNN）模型。</p>
+<p>–&gt; Faster-RCNN 存在的问题</p>
+<p>在 SPP-Net &amp;&amp; Fast R-CNN 中，通过共享卷积运算的方法已经大大降低了 R-CNN [5] 最初开发的基于区域的 CNN 计算成本，如果忽略区域提议方法上的时间代价，Fast R-CNN 成功的让人们看到了 R-CNN 这一框架实时检测的希望。</p>
+<p>也就是说，<strong>对于实现实时目标检测的期望，Region Proposal（区域提议）方法仍然是目前检测系统的计算瓶颈。</strong></p>
+</blockquote>
+<p>–&gt; 下面将从 Fast R-CNN 中 Region Proposal 方法的代价，来说明为什么 Region Proposal（区域提议）方法是目前检测系统的瓶颈？</p>
+<p>Region proposal methods typically rely on inexpensive features and economical inference schemes. Selective Search [4], one of the most popular methods, greedily merges superpixels based on engineered low-level features. Yet when compared to efficient detection networks [2], Selective Search is an order of magnitude slower, at 2 seconds per image in a CPU implementation. EdgeBoxes [6] currently provides the best tradeoff between proposal quality and speed, at 0.2 seconds per image. Nevertheless, the region proposal step still consumes as much running time as the detection network.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>区域提议方法通常依赖廉价的特征和简练的推断方案。选择性搜索 Selective Search [4] 是最流行的方法之一，它贪婪地合并基于设计的低级特征的超级像素（从而生成候选区域）。然而，与有效的检测网络 Fast R-CNN [2] 相比，选择性搜索速度慢了一个数量级，在 CPU 中实现每张图像的（区域提名）时间为 2 秒。EdgeBoxes [6] 目前提供了在提议质量和速度之间的最佳权衡，每张图像 0.2 秒。尽管如此，区域提议步骤仍然像检测网络那样消耗同样多的运行时间。</p>
+<blockquote>
+<p>内容解读：目前的区域提议方法，例如 SS（Selective Search）通常是合并低级特征的像素来生成候选区域（或 ROI）。</p>
+<p>在测试时，Fast R-CNN 需要 2.3 秒来进行预测，但其中 2 秒用于 SS 生成候选区域（或 ROI）。也就是说，Fast R-CNN [2] 中，与有效的检测网络相比，Region Proposal（区域提议）方法的速度慢了一个数量级。</p>
+</blockquote>
+<p>One may note that fast region-based CNNs take advantage of GPUs, while the region proposal methods used in research are implemented on the CPU, making such runtime comparisons inequitable. An obvious way to accelerate proposal computation is to re-implement it for the GPU. This may be an effective engineering solution, but re-implementation ignores the down-stream detection network and therefore misses important opportunities for sharing computation.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>有人可能会注意到，基于区域的快速 CNN（检测网络） 利用 GPU，而在研究中使用的区域提议（Region Proposal）方法在 CPU 上实现，使得运行时间比较不公平。加速区域提议（Region Proposal）计算的一个显而易见的方法是将其在 <strong>GPU 上重新实现</strong> 。这可能是一个有效的工程解决方案，但重新实现忽略了下游检测网络，因此 <strong>错过</strong> 了 <strong>共享计算</strong> 的重要机会。</p>
+<blockquote>
+<p>内容解读：相较于将 Region Proposal（区域提议）方法在 GPU 上的重新实现来加速区域提议计算（GPU 加速），如果可以结合下游的检测网络，让区域提议计算与其共享计算，这可能是一个更加有效的工程解决方案。</p>
+</blockquote>
+<hr>
+<p>–&gt; 针对 Region Proposal（区域提议）方法的计算瓶颈的思考，来看一下大佬们给出的解决方案：</p>
+<p>In this paper, we show that an algorithmic change——computing proposals with a deep convolutional neural network——leads to an elegant and effective solution where proposal computation is nearly cost-free given the detection network’s computation. To this end, we introduce novel <em>Region Proposal Networks</em> (RPNs) that share convolutional layers with state-of-the-art object detection networks [1], [2]. By sharing convolutions at test-time, the marginal cost for computing proposals is small (e.g., 10ms per image).</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>在本文中，我们展示了一个算法变化—–用深度卷积神经网络（代替 SS 方法）来计算区域提议——（这）导致（产生）了一个优雅而有效的解决方案，也就是在给定检测网络计算的情况下（使得）区域提议计算接近零成本。为此，我们引入了新的区域提议（生成）网络（RPN），它和最先进的目标检测网络 SPPnet [1] ，Fast R-CNN [2] （一样）共享卷积层（feature map）。通过在测试时共享卷积，计算区域提议的成本非常小（例如，每张图像 10 ms）。</p>
+<blockquote>
+<p>内容解读：大佬们使用了一种深度卷积神经网络结构（RPN）来代替 SS 方法在网络外部生成区域提议（候选区域），将区域提议的生成也整合到了整个检测网络中。测试发现，如果在给定检测网络计算的情况下，区域提议的计算已经接近零成本（毫秒级）。</p>
+</blockquote>
+<p>–&gt; RPN 简要工作流程如下：</p>
+<p>Our observation is that the convolutional feature maps used by region-based detectors, like Fast R-CNN, can also be used for generating region proposals. On top of these convolutional features, we construct an RPN by adding a few additional convolutional layers that simultaneously regress region bounds and objectness scores at each location on a regular grid. The RPN is thus a kind of fully convolutional network (FCN) [7] and can be trained end-to-end specifically for the task for generating detection proposals.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>我们的观察是，基于区域的检测器所使用的卷积特征映射，如 Fast R-CNN（ZF-Net：feature map），也可以用于生成区域提议。在这些卷积特征之上，我们通过添加一些额外的卷积层来构建 RPN，这些卷积层同时在规则网格（卷积层节点）上的每个位置上回归区域边界和目标分数。因此 RPN 是一种全卷积网络 FCN [7]，可以针对生成检测区域建议的任务进行端到端的训练。</p>
+<blockquote>
+<p>内容解读：在检测器所使用的图像特征提取网络（Fast R-CNN 中使用的是 ZF-Net）提取到的 Feature Map（图像特征图层）基础上添加 RPN 网络结构（额外的卷积层）来回归区域边界和目标分数。从而可以和检测后续的网络形成端到端（End to End）的训练。</p>
+</blockquote>
+<p>–&gt; RPN 主要工作原理如下：</p>
+<p>RPNs are designed to efficiently predict region proposals with a wide range of scales and aspect ratios. In contrast to prevalent methods [8], [9], [1], [2] that use pyramids of images (Figure 1, a) or pyramids of filters (Figure 1, b), we introduce novel “anchor” boxes that serve as references at multiple scales and aspect ratios. Our scheme can be thought of as a pyramid of regression references (Figure 1, c), which avoids enumerating images or filters of multiple scales or aspect ratios. This model performs well when trained and tested using single-scale images and thus benefits running speed.</p>
+<p>Figure 1: Different schemes for addressing multiple scales and sizes. (a) Pyramids of images and feature maps are built, and the classifier is run at all scales. (b) Pyramids of filters with multiple scales/sizes are run on the feature map. (c) We use pyramids of reference boxes in the regression functions.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>RPN 旨在有效预测具有广泛尺度和长宽比的区域提议（候选区域或 ROI）。与使用图像金字塔（Figure 1:a）或滤波器金字塔（Figure 1:b）的流行方法 [8]，[9]，SPPnet [1], Fast R-CNN [2] 相比，我们引入新的“锚”盒（框）作为多种尺度和长宽比的参考。我们的方案可以被认为是回归参考金字塔（Figure 1：c），它避免了枚举多种比例或长宽比的图像或滤波器。这个模型在使用单尺度图像进行训练和测试时表现良好，从而有利于运行速度。</p>
+<blockquote>
+<p>内容解读：大佬们在 RPN 中引入 Anchor Box 应对目标形状的变化问题（Anchor 就是位置和大小固定的 Box，可以理解成事先设置好的固定的 Proposal）。</p>
+<p>也就是说，每一个 Anchor Box（锚点）对应生成不同尺度和长宽比矩形区域提名，而每个区域对应一个目标分数（Scores）和其对应的回归后的位置信息（Coordinates）。</p>
+</blockquote>
+<p><img src="/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/./Figure1.png" alt="avatar"></p>
+<p>图1：解决多尺度和尺寸的不同方案。（a）构建图像和特征映射金字塔，分类器以各种尺度运行。（b）在特征映射上运行具有多个比例/大小的滤波器的金字塔。   （c）我们在回归函数中使用参考边界框金字塔。</p>
+<p>To unify RPNs with Fast R-CNN [2] object detection networks, we propose a training scheme that alternates between fine-tuning for the region proposal task and then fine-tuning for object detection, while keeping the proposals fixed. This scheme converges quickly and produces a unified network with convolutional features that are shared between both tasks.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>为了将 RPN 与 Fast R-CNN [2] 目标检测网络相结合，我们提出了一种训练方案：在微调区域提议任务和微调目标检测之间进行交替，同时保持区域提议的固定。该方案快速收敛，并产生两个任务之间共享的具有卷积特征的统一网络。</p>
+<hr>
+<p>–&gt; Fast R-CNN + RPN 共享卷积特征统一网络用于实时目标检测系统的可行性证明</p>
+<p>We comprehensively evaluate our method on the PASCAL VOC detection benchmarks [11] where RPNs with Fast R-CNNs produce detection accuracy better than the strong baseline of Selective Search with Fast R-CNNs. Meanwhile, our method waives nearly all computational burdens of Selective Search at test-time——the effective running time for proposals is just 10 milliseconds. Using the expensive very deep models of [3], our detection method still has a frame rate of 5fps (including all steps) on a GPU, and thus is a practical object detection system in terms of both speed and accuracy. We also report results on the MS COCO dataset [12] and investigate the improvements on PASCAL VOC using the COCO data. Code has been made publicly available at <a href="https://github.com/shaoqingren/faster_rcnn" target="_blank" rel="noopener">https://github.com/shaoqingren/faster_rcnn</a> (in MATLAB) and <a href="https://github.com/rbgirshick/py-faster-rcnn" target="_blank" rel="noopener">https://github.com/rbgirshick/py-faster-rcnn</a> (in Python).</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>我们在 PASCAL VOC 检测基准数据集上 [11] 综合评估了我们的方法，其中结合 RPN 的 Fast R-CNN 产生的检测精度优于使用选择性搜索的 Fast R-CNN 的强基准。同时，我们的方法在测试时几乎免除了选择性搜索的所有计算负担——区域提议的有效运行时间仅为 10 毫秒。使用 VGG-16 [3] 的昂贵的非常深的模型，我们的检测方法在 GPU 上仍然具有 5fps 的帧率（包括所有步骤），因此在速度和准确性方面是实用的目标检测系统。我们还报告了在 MS COCO 数据集上 [12] 的结果，并使用 COCO 数据研究了在 PASCAL VOC 上的改进。代码可公开获得 <a href="https://github.com/shaoqingren/faster_rcnn%EF%BC%88%E5%9C%A8MATLAB%E4%B8%AD%EF%BC%89%E5%92%8C" target="_blank" rel="noopener">https://github.com/shaoqingren/faster_rcnn（MATLAB）</a> 和 <a href="https://github.com/rbgirshick/py-faster-rcnn%EF%BC%88%E5%9C%A8Python%E4%B8%AD%EF%BC%89%E3%80%82" target="_blank" rel="noopener">https://github.com/rbgirshick/py-faster-rcnn（Python）</a>。</p>
+<p>A preliminary version of this manuscript was published previously [10]. Since then, the frameworks of RPN and Faster R-CNN have been adopted and generalized to other methods, such as 3D object detection [13], part-based detection [14], instance segmentation [15], and image captioning [16]. Our fast and effective object detection system has also been built in commercial systems such as at Pinterests [17], with user engagement improvements reported.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>这个手稿的初步版本是以前发表的 [10]。从那时起，RPN 和 Faster R-CNN 的框架已经被采用并推广到其他方法，如 3D 目标检测 [13]，基于部件的检测 [14]，实例分割 [15] 和图像标题 [16] 。我们快速和有效的目标检测系统也已经在 Pinterest [17] 的商业系统中建立了，并报告了用户参与度的提高。</p>
+<p>In ILSVRC and COCO 2015 competitions, Faster R-CNN and RPN are the basis of several 1st-place entries [18] in the tracks of ImageNet detection, ImageNet localization, COCO detection, and COCO segmentation. RPNs completely learn to propose regions from data, and thus can easily benefit from deeper and more expressive features (such as the 101-layer residual nets adopted in [18]). Faster R-CNN and RPN are also used by several other leading entries in these competitions. These results suggest that our method is not only a cost-efficient solution for practical usage, but also an effective way of improving object detection accuracy.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>在 ILSVRC 和 COCO 2015 竞赛中，Faster R-CNN 和 RPN 是 ImageNet 检测，ImageNet 定位，COCO 检测和 COCO 分割中几个第一名参赛作品 [18] 的基础。RPN完全从数据中学习提议区域，因此可以从更深入和更具表达性的特征（例如 [18] 中采用的 101 层残差网络）中轻松获益。Faster R-CNN 和 RPN 也被这些比赛中的其他几个主要参赛者所使用。这些结果表明，我们的方法不仅是一个实用合算的解决方案，而且是一个提高目标检测精度的有效方法。</p>
+<hr>
+<h3 id="2-RELATED-WORK"><a href="#2-RELATED-WORK" class="headerlink" title="2. RELATED WORK"></a>2. RELATED WORK</h3><h3 id="2-相关工作"><a href="#2-相关工作" class="headerlink" title="2. 相关工作"></a>2. 相关工作</h3><p>–&gt; Paper 主要涉及到的背景知识，作为构建 Faster R-CNN 网络的相关内容：</p>
+<p><strong>Object Proposals</strong>. There is a large literature on object proposal methods. Comprehensive surveys and comparisons of object proposal methods can be found in [19], [20], [21]. Widely used object proposal methods include those based on grouping super-pixels (e.g., Selective Search [4], CPMC [22], MCG [23]) and those based on sliding windows (e.g., objectness in windows [24], EdgeBoxes [6]). Object proposal methods were adopted as external modules independent of the detectors (e.g., Selective Search [4] object detectors, R-CNN [5], and Fast R-CNN [2]).</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p><strong>1）目标提议</strong></p>
+<p>目标提议方法方面有大量的文献。目标区域提议方法的综合调查和比较可以在 [19]，[20]，[21] 中找到。广泛使用的目标区域提议方法包括基于超像素分组（例如：选择性搜索 [4]，CPMC [22]，MCG [23]）和那些基于滑动窗口的方法（例如：窗口中的目标 [24]，EdgeBoxes [6]）。目标提议方法被采用为独立于检测器（例如：选择性搜索 [4] 目标检测器，R-CNN [5] 和 Fast R-CNN [2]）的外部模块。</p>
+<blockquote>
+<p>内容解读：R-CNN [5] 和 Fast R-CNN [2] 中使用的区域提议方式是独立于检测器外部模块，并没有被整合到检测网络中。</p>
+</blockquote>
+<hr>
+<p>Deep Networks for Object Detection. The R-CNN method [5] trains CNNs end-to-end to classify the proposal regions into object categories or background. R-CNN mainly plays as a classifier, and it does not predict object bounds (except for refining by bounding box regression). Its accuracy depends on the performance of the region proposal module (see comparisons in [20]). Several papers have proposed ways of using deep networks for predicting object bounding boxes [25], [9], [26], [27]. In the OverFeat method [9], a fully-connected layer is trained to predict the box coordinates for the localization task that assumes a single object. The fully-connected layer is then turned into a convolutional layer for detecting multiple classspecific objects. The MultiBox methods [26], [27] generate region proposals from a network whose last fully-connected layer simultaneously predicts multiple class-agnostic boxes, generalizing the “single-box” fashion of OverFeat. These class-agnostic boxes are used as proposals for R-CNN [5]. The MultiBox proposal network is applied on a single image crop or multiple large image crops (e.g., 224×224), in contrast to our fully convolutional scheme. MultiBox does not share features between the proposal and detection networks. We discuss OverFeat and MultiBox in more depth later in context with our method. Concurrent with our work, the DeepMask method [28] is developed for learning segmentation proposals.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p><strong>2）用于目标检测的深度网络</strong></p>
+<p>R-CNN 方法 R-CNN [5] 端到端地对 CNN 进行训练，将提议区域分类为目标类别或背景。R-CNN 主要作为分类器，并不能预测目标边界（除了通过边界框回归进行细化）。其准确度取决于区域提议模块的性能（参见 [20] 中的比较）。一些论文提出了使用深度网络来预测目标边界框的方法 [25]，[9]，[26]，[27] 。在OverFeat 方法 OverFeat [9] 中，训练一个全连接层来预测假定单个目标定位任务的边界框坐标。然后将全连接层变成卷积层，用于检测多个类别的目标。MultiBox 方法 [26]，[27] 从网络中生成区域提议，网络最后的全连接层同时预测 <strong>多个类别不相关的边界框</strong> ，并推广到 OverFeat 的“单边界框”方式。这些类别不可知的边界框框被用作 R-CNN 的提议区域 [5]。与我们的全卷积方案相比，MultiBox 提议网络适用于单张裁剪图像或多张大型裁剪图像（例如224×224）。MultiBox 在提议区域和检测网络之间不共享特征。稍后在我们的方法上下文中会讨论 OverFeat 和 MultiBox 。与我们的工作同时进行的 DeepMask 方法 [28] 是为学习分割提议区域而开发的。</p>
+<blockquote>
+<p>内容解读：大佬指出，时下已经存在的基于深度网络预测区域提议的方法。</p>
+</blockquote>
+<hr>
+<p>Shared computation of convolutions [9], [1], [29], [7], [2] has been attracting increasing attention for efficient, yet accurate, visual recognition. The OverFeat paper [9] computes convolutional features from an image pyramid for classification, localization, and detection. Adaptively-sized pooling (SPP) [1] on shared convolutional feature maps is developed for efficient region-based object detection [1], [30] and semantic segmentation [29]. Fast R-CNN [2] enables end-to-end detector training on shared convolutional features and shows compelling accuracy and speed.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p><strong>3）卷积特征共享</strong></p>
+<p>卷积 [9]，[1]，[29]，[7]，[2] 的共享计算已经越来越受到人们的关注，因为它可以有效而准确地进行视觉识别。OverFeat 论文 [9] 计算图像金字塔的卷积特征用于分类，定位和检测。共享卷积特征映射的自适应大小池化 SPP-Net [1] 被开发用于有效的基于区域的目标检测 [1]，[30] 和语义分割 [29] 。Fast R-CNN [2] 能够对共享卷积特征进行端到端的检测器训练，并显示出令人信服的准确性和速度。</p>
+<hr>
+<p>–&gt; Faster R-CNN 网络结构详解：</p>
+<h3 id="3-FASTER-R-CNN"><a href="#3-FASTER-R-CNN" class="headerlink" title="3. FASTER R-CNN"></a>3. FASTER R-CNN</h3><p>Our object detection system, called Faster R-CNN, is composed of two modules. The first module is a deep fully convolutional network that proposes regions, and the second module is the Fast R-CNN detector [2] that uses the proposed regions. The entire system is a single, unified network for object detection (Figure 2). Using the recently popular terminology of neural networks with <code>attention</code> [31] mechanisms, the RPN module tells the Fast R-CNN module where to look. In Section 3.1 we introduce the designs and properties of the network for region proposal. In Section 3.2 we develop algorithms for training both modules with features shared.</p>
+<p>Figure 2: Faster R-CNN is a single, unified network for object detection. The RPN module serves as the ‘attention’ of this unified network.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<h3 id="3-FASTER-R-CNN-1"><a href="#3-FASTER-R-CNN-1" class="headerlink" title="3. FASTER R-CNN"></a>3. FASTER R-CNN</h3><p>我们的目标检测系统，称为 Faster R-CNN，由两个模块组成。第一个模块是提议区域的深度全卷积网络；第二个模块是使用提议区域的 Fast R-CNN 检测器 Fast R-CNN [2]。整个系统是一个单个的，统一的目标检测网络（Figure 2）。使用最近流行的 “ attention ” [31] 机制的神经网络术语，RPN 模块告诉 Fast R-CNN 模块在哪里寻找。在第 3.1 节中，我们介绍了区域提议网络的设计和属性。在第 3.2 节中，我们开发了用于训练具有共享特征模块的算法。</p>
+<p><img src="/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/./Figure2.png" alt="avatar"></p>
+<p>Figure 2：Faster R-CNN 是一个单一，统一的目标检测网络。RPN 模块作为这个统一网络的“注意力”。</p>
+<blockquote>
+<p>内容解读：Faster R-CNN 网络架构构成：Feature extraction + Region proposal network + Classification and regression。</p>
+<p>前面两个模块构成了上文大佬们所说的 [提议区域的深度全卷积网络] 模块，最后一个模块是 [使用提议区域的 Fast R-CNN 检测器]。下面给一下架构的详细示意图如下所示：</p>
+</blockquote>
+<p><img src="/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/./Faster_RCNN_Constract.png" alt="avatar"></p>
+<hr>
+<p>–&gt; 第一模块：区域提议（生成）的深度全卷积网络详解</p>
+<h4 id="3-1-Region-Proposal-Networks"><a href="#3-1-Region-Proposal-Networks" class="headerlink" title="3.1 Region Proposal Networks"></a>3.1 Region Proposal Networks</h4><p>A Region Proposal Network (RPN) takes an image (of any size) as input and outputs a set of rectangular object proposals, each with an objectness score.3 We model this process with a fully convolutional network [7], which we describe in this section. Because our ultimate goal is to share computation with a Fast R-CNN object detection network [2], we assume that both nets share a common set of convolutional layers. In our experiments, we investigate the Zeiler and Fergus model <a href="http://noahsnail.com/2018/01/03/2018-01-03-Faster%20R-CNN%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91%E2%80%94%E2%80%94%E4%B8%AD%E8%8B%B1%E6%96%87%E5%AF%B9%E7%85%A7/ZF" target="_blank" rel="noopener">32</a>, which has 5 shareable convolutional layers and the Simonyan and Zisserman model <a href="http://noahsnail.com/2018/01/03/2018-01-03-Faster%20R-CNN%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91%E2%80%94%E2%80%94%E4%B8%AD%E8%8B%B1%E6%96%87%E5%AF%B9%E7%85%A7/VGG-16" target="_blank" rel="noopener">3</a>, which has 13 shareable convolutional layers.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<h4 id="3-1-区域提议网络"><a href="#3-1-区域提议网络" class="headerlink" title="3.1 区域提议网络"></a>3.1 区域提议网络</h4><p>区域提议网络（ RPN ）以任意大小的图像作为输入，输出一组矩形的目标提议，每个提议都有一个目标得分（以及其位置信息）。我们用全卷积网络 FCN [7] 对这个过程进行建模，我们将在本节进行描述。因为我们的最终目标是与 Fast R-CNN 目标检测网络 [2] 共享计算，所以我们假设两个网络共享一组共同的卷积层。在我们的实验中，我们研究了具有 5 个共享卷积层的 Zeiler 和 Fergus 模型 ZF-Net [32] 和具有 13 个共享卷积层的 Simonyan 和 Zisserman 模型 VGG-16 [3]。</p>
+<blockquote>
+<p>内容解读：RPN 可以以一张任意大小的图片为输入，输出一批矩形区域提名，每个区域对应一个目标分数（Scores）和位置信息（Coordinates）。</p>
+<p>先来给出一个 RPN 网络架构详解示意图，可对照阅读 3.1 节其它内容。</p>
+</blockquote>
+<hr>
+<p>To generate region proposals, we slide a small network over the convolutional feature map output by the last shared convolutional layer. This small network takes as input an n×n spatial window of the input convolutional feature map. Each sliding window is mapped to a lower-dimensional feature (256-d for ZF and 512-d for VGG, with ReLU [33] following). This feature is fed into two sibling fully-connected layers——a box-regression layer (reg) and a box-classification layer (cls). We use n=3 in this paper, noting that the effective receptive field on the input image is large (171 and 228 pixels for ZF and VGG, respectively). This mini-network is illustrated at a single position in Figure 3 (left). Note that because the mini-network operates in a sliding-window fashion, the fully-connected layers are shared across all spatial locations. This architecture is naturally implemented with an n×n convolutional layer followed by two sibling 1 × 1 convolutional layers (for reg and cls, respectively).</p>
+<p>Figure 3: Left: Region Proposal Network (RPN). Right: Example detections using RPN proposals on PASCAL VOC 2007 test. Our method detects objects in a wide range of scales and aspect ratios.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>为了生成区域提议，我们在最后的共享卷积层（bottleneck）输出的卷积特征映射上滑动一个小网络。这个小网络将输入的卷积 feature map 的 $n × n$ 空间窗口作为输入。每个滑动窗口映射到一个低维特征（ZF 为 256 维，VGG 为 512 维，后面是 ReLU [33]）。这个特征被输入到两个子全连接层——一个边界框回归层（reg）和一个边界框分类层（cls）。在本文中，我们使用 $n=3$，注意输入图像上的有效感受野是大的（ZF 和 VGG 分别为 171 和 228 个像素）。Figure 3（左）显示了这个小型网络的一个位置。请注意，因为小网络以滑动窗口方式运行，所有空间位置共享全连接层。这种架构 (RPN) 通过一个 $n×n$ 卷积层，后面是两个子 $1×1$ 卷积层（分别用于 reg 和 cls）自然地实现。</p>
+<p><img src="/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/./Figure3.png" alt="avatar"></p>
+<blockquote>
+<p>内容解读：在最后的共享卷积层（bottleneck）—-Feature Map 上滑动名为 Sliding Windows 的 $n × n（例，3 × 3）​$ 大小的滑窗，将每个滑动窗口区域的特征作为输入映射到一个低维特征。这个低级特征被输入到后续的两个子全连接层（或 $1×1​$ 卷积层）——一个边界框回归层（reg）和一个边界框分类层（cls）。</p>
+<p>我们发现，feature map 上对于任何一个滑窗（空间位置）共享回归或分类全连接层（卷积层）。</p>
+</blockquote>
+<hr>
+<p>–&gt; RPN 中的 Anchors 机制（核心）：</p>
+<h5 id="3-1-1-Anchors"><a href="#3-1-1-Anchors" class="headerlink" title="3.1.1 Anchors"></a>3.1.1 Anchors</h5><p>At each sliding-window location, we simultaneously predict multiple region proposals, where the number of maximum possible proposals for each location is denoted as k. So the reg layer has 4k outputs encoding the coordinates of k boxes, and the cls layer outputs 2k scores that estimate probability of object or not object for each proposal. The k proposals are parameterized relative to k reference boxes, which we call anchors. An anchor is centered at the sliding window in question, and is associated with a scale and aspect ratio (Figure 3, left). By default we use 3 scales and 3 aspect ratios, yielding k=9 anchors at each sliding position. For a convolutional feature map of a size $W × H $(typically ∼2,400), there are $WHk$ anchors in total.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<h5 id="3-1-1-锚点"><a href="#3-1-1-锚点" class="headerlink" title="3.1.1 锚点"></a>3.1.1 锚点</h5><p>在每个滑动窗口位置，我们同时预测多个区域提议，其中每个位置可能提议的最大数目表示为 $k​$。因此，reg 层具有 $4k​$ 个输出，编码 k 个边界框的坐标( Box coordination：$（x,y,w,h）​$)，cls 层输出 $2k​$ 个分数，估计每个提议是目标或不是目标的概率。相对于我们称之为锚点的 k 个参考边界框，k 个提议是参数化的。锚点位于所讨论的滑动窗口的中心，并与一个尺度和长宽比相关（Figure 3 左）。默认情况下，我们使用 3 个尺度和 3 个长宽比，在每个滑动位置产生 k=9 个锚点。对于大小为 $W×H​$（通常约为 2400）的卷积特征映射，总共有 $WHk​$ 个锚点。</p>
+<blockquote>
+<p>内容解读：对于每个滑动窗口引入 Anchors 机制应对目标形状的变化问题以及判断目标是否包含在相应的 Anchor boxes 中。</p>
+<p>锚点位于所讨论的滑动窗口的中心，换句话说，feature map 上的每一个节点都看作一个“下锚”的地方，每个点生成若干（K）个 Anchor boxes 代表撒网的意思。每过一个点下一个锚，然后在锚处开始撒网（多尺度的 Region Proposal）捕鱼（是否包含目标）。</p>
+</blockquote>
+<hr>
+<p>–&gt; 锚点的特性：</p>
+<p><strong>Translation-Invariant Anchors</strong></p>
+<p>An important property of our approach is that it is <em>translation invariant</em>, both in terms of the anchors and the functions that compute proposals relative to the anchors. If one translates an object in an image, the proposal should translate and the same function should be able to predict the proposal in either location. This translation-invariant property is guaranteed by our method. As a comparison, the MultiBox method [27] uses k-means to generate 800 anchors, which are not translation invariant. So MultiBox does not guarantee that the same proposal is generated if an object is translated.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p><strong>平移不变的锚点</strong></p>
+<p>我们的方法的一个重要特性是它是平移不变的，无论是在锚点还是计算相对于锚点的区域提议的函数。如果在图像中平移目标，提议应该平移，并且同样的函数应该能够在任一位置预测提议。平移不变特性是由我们的方法保证的。作为比较，MultiBox 方法 [27] 使用 k-means 生成 800 个锚点，这不是平移不变的。所以如果平移目标，MultiBox 不保证会生成相同的提议。</p>
+<p>The translation-invariant property also reduces the model size. MultiBox has a (4+1)×800-dimensional fully-connected output layer, whereas our method has a (4+2)×9-dimensional convolutional output layer in the case of k=9 anchors. As a result, our output layer has 2.8×104 parameters (512×(4+2)×9 for VGG-16), two orders of magnitude fewer than MultiBox’s output layer that has 6.1×106 parameters (1536×(4+1)×800 for GoogleNet [34] in MultiBox [27]. If considering the feature projection layers, our proposal layers still have an order of magnitude fewer parameters than MultiBox. We expect our method to have less risk of overfitting on small datasets, like PASCAL VOC.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>平移不变特性也减小了模型的大小。MultiBox 有 $(4+1)×800$ 维的全连接输出层，而我们的方法在 k=9 个锚点的情况下有 $(4+2)×9$ 维的卷积输出层。因此，对于 VGG-16，我们的输出层具有 $2.8×10^4$ 个参数（对于 VGG-16 为 $512×(4+2)×9$ ），比 MultiBox 输出层的 $6.1×10^6$ 个参数少了两个数量级（对于 MultiBox [27]中的 GoogleNet [34] 为 $1536×(4+1)×800$ ）。如果考虑到特征投影层，我们的提议层仍然比 MultiBox 少一个数量级。我们期望我们的方法在 PASCAL VOC 等小数据集上有更小的过拟合风险。</p>
+<hr>
+<p><strong>Multi-Scale Anchors as Regression References</strong></p>
+<p>Our design of anchors presents a novel scheme for addressing multiple scales (and aspect ratios). As shown in Figure 1, there have been two popular ways for multi-scale predictions. The first way is based on image/feature pyramids, e.g., in DPM [8] and CNN-based methods [9], [1], [2]. The images are resized at multiple scales, and feature maps (HOG [8] or deep convolutional features [9], [1], [2]) are computed for each scale (Figure 1(a)). This way is often useful but is time-consuming. The second way is to use sliding windows of multiple scales (and/or aspect ratios) on the feature maps. For example, in DPM [8], models of different aspect ratios are trained separately using different filter sizes (such as 5×7 and 7×5). If this way is used to address multiple scales, it can be thought of as a “pyramid of filters” (Figure 1(b)). The second way is usually adopted jointly with the first way [8].</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p><strong>多尺度锚点作为回归参考</strong></p>
+<p>我们的锚点设计提出了一个新的方案来解决多尺度（和长宽比）。如图1所示，多尺度预测有两种流行的方法。第一种方法是基于图像/特征金字塔，例如 DPM [8] 和基于 CNN 的方法 [9]，[1]，[2] 中。图像在多个尺度上进行缩放，并且针对每个尺度（图1（a））计算特征映射（HOG [8] 或深卷积特征 [9]，[1]，[2]）。这种方法通常是有用的，但是非常耗时。第二种方法是在特征映射上使用多尺度（和/或长宽比）的滑动窗口。例如，在DPM[8]中，使用不同的滤波器大小（例如 5×7 和 7×5）分别对不同长宽比的模型进行训练。如果用这种方法来解决多尺度问题，可以把它看作是一个“滤波器金字塔”（图1（b））。第二种方法通常与第一种方法联合采用[8]。</p>
+<p>As a comparison, our anchor-based method is built on a pyramid of anchors, which is more cost-efficient. Our method classifies and regresses bounding boxes with reference to anchor boxes of multiple scales and aspect ratios. It only relies on images and feature maps of a single scale, and uses filters (sliding windows on the feature map) of a single size. We show by experiments the effects of this scheme for addressing multiple scales and sizes (Table 8).</p>
+<p>Table 8: Detection results of Faster R-CNN on PAS- CAL VOC 2007 test set using different settings of anchors. The network is VGG-16. The training data is VOC 2007 trainval. The default setting of using 3 scales and 3 aspect ratios (69.9%69.9%) is the same as that in Table 3.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>作为比较（与上述不同的），我们的基于锚点方法建立在锚点金字塔上，这是更具成本效益的。我们的方法参照多尺度和长宽比的锚盒来分类和回归边界框。它只依赖单一尺度的图像和特征映射，并使用单一尺寸的滤波器（特征映射上的滑动窗口）。我们通过实验来展示这个方案解决多尺度和尺寸的效果（Table 8）。</p>
+<p><img src="/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/./Table8.png" alt="avatar"></p>
+<p>Table 8：Faster R-CNN 在 PAS-CAL VOC 2007 测试数据集上使用不同锚点设置的检测结果。网络是 VGG-16。训练数据是 VOC 2007 训练集。使用 3 个尺度和 3 个长宽比（69.9%）的默认设置，与表3中的相同。</p>
+<p>Because of this multi-scale design based on anchors, we can simply use the convolutional features computed on a single-scale image, as is also done by the Fast R-CNN detector [2]. The design of multi-scale anchors is a key component for sharing features without extra cost for addressing scales.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>由于这种基于锚点的多尺度设计，我们可以简单地使用在单尺度图像上计算的卷积特征，Fast R-CNN检测器也是这样做的 [2]。多尺度锚点设计是共享特征的关键组件，不需要额外的成本来处理尺度。</p>
+<hr>
+<p>–&gt; 了解了 RPN 使用 Anchor 机制来进行边界框回归以及边界框分类以给出区域提议，下面来看其损失函数说明以及如何训练一个单独的 RPN 区域提议网络：</p>
+<h5 id="3-1-2-Loss-Function"><a href="#3-1-2-Loss-Function" class="headerlink" title="3.1.2 Loss Function"></a>3.1.2 Loss Function</h5><p>For training RPNs, we assign a binary class label (of being an object or not) to each anchor. We assign a positive label to two kinds of anchors: (i) the anchor/anchors with the highest Intersection-over-Union (IoU) overlap with a ground-truth box, or (ii) an anchor that has an IoU overlap higher than 0.7 with any ground-truth box. Note that a single ground-truth box may assign positive labels to multiple anchors. Usually the second condition is sufficient to determine the positive samples; but we still adopt the first condition for the reason that in some rare cases the second condition may find no positive sample. We assign a negative label to a non-positive anchor if its IoU ratio is lower than 0.3 for all ground-truth boxes. Anchors that are neither positive nor negative do not contribute to the training objective.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<h5 id="3-1-2-损失函数"><a href="#3-1-2-损失函数" class="headerlink" title="3.1.2 损失函数"></a>3.1.2 损失函数</h5><p>为了训练RPN，我们为每个锚点（Anchor boxes）分配一个二值类别标签（是目标或不是目标）。我们给两种锚点分配一个正标签：（i）具有与实际边界框的重叠最高交并比（IoU）的锚点，或者（ii）具有与实际边界框的重叠超过 0.7 IoU 的锚点。注意，单个真实边界框可以为多个锚点分配正标签。通常第二个条件足以确定正样本；但我们仍然采用第一个条件，因为在一些极少数情况下，第二个条件可能找不到正样本。对于所有的真实边界框，如果一个锚点的 IoU 比率低于 0.3，我们给非正面的锚点分配一个负标签。既不正面也不负面的锚点不会有助于训练目标函数（0.3 &lt; IoU &lt; 0.7）。</p>
+<blockquote>
+<p>内容解读：在每一个滑窗上生成 k 个不同大小和长宽比例的 anchor boxes（即预测多个 Region-Proposal，表征了目标性质的变化），并且取定 IoU 的阈值，通过 Ground Truth 来标定这些 anchor box 的正负（形成与类别无关的候选区域）。</p>
+<p>对于 <code>0.3 &lt; IoU &lt; 0.7</code> 的锚点来说，若将其标为正类，则包含了过多的背景信息；反之又包含了要检测物体的特征，因而这些 Proposal 便被忽略掉。</p>
+</blockquote>
+<p>–&gt; 损失函数定义：</p>
+<p>With these definitions, we minimize an objective function following the multi-task loss in Fast R-CNN [2]. Our loss function for an image is defined as:</p>
+<p>$$ L( {p_i},{t_i}) = \cfrac{1}{N_{cls}} \sum_{i}L_{cls}( p_i + p_i^✳) + \lambda \cfrac{1}{N_{reg}} \sum_{i} p_i^✳ L_{reg}(t_i + t_i^✳)  $$</p>
+<p>Here, i is the index of an anchor in a mini-batch and pi is the predicted probability of anchor i being an object. The ground-truth label p∗i is 1 if the anchor is positive, and is 0 if the anchor is negative. ti is a vector representing the 4 parameterized coordinates of the predicted bounding box, and t∗i is that of the ground-truth box associated with a positive anchor. The classification loss Lcls is log loss over two classes (object vs not object). For the regression loss, we use Lreg(ti,t∗i)=R(ti−t∗i) where R is the robust loss function (smooth L1) defined in [2]. The term p∗iLreg means the regression loss is activated only for positive anchors (p∗i=1) and is disabled otherwise (p∗i=0). The outputs of the cls and reg layers consist of pi and ti respectively.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>根据这些定义，我们对目标函数Fast R-CNN[2]中的多任务损失进行最小化。我们对图像的损失函数定义为：</p>
+<p>$$ L( {p_i},{t_i}) = \cfrac{1}{N_{cls}} \sum_{i}L_{cls}( p_i + p_i^✳) + \lambda \cfrac{1}{N_{reg}} \sum_{i} p_i^✳ L_{reg}(t_i + t_i^✳)  $$</p>
+<p>其中，$i​$ 是一个小批量数据中锚点的索引，$pi​$ 是锚点 $i​$ 作为目标的预测概率。如果锚点为正，真实标签 $p_i^✳​$ 为 1，如果锚点为负，则为 0。$t_i​$ 是表示预测边界框 4 个参数化坐标的向量，而 $t_i^✳​$ 是与正锚点相关的真实边界框的向量。分类损失 $L_{cls}​$ 是两个类别上（目标或不是目标）的对数损失。对于回归损失，我们使用 $L_{reg}(t_i,t_i^✳)=R(t_i−t_i^✳)​$，其中 R 是在 [2] 中定义的鲁棒损失函数（平滑 L1）。项 $p_i^✳ L_{reg}​$ 表示回归损失仅对于正锚点激活，否则被禁用（$p_i^✳ = 0​$）。cls 和 reg 层的输出分别由 $pi​$ 和 $ti​$ 组成。</p>
+<p>The two terms are normalized by $N_{cls}​$ and $N_{reg}​$ and weighted by a balancing parameter $λ​$. In our current implementation (as in the released code), the cls term in Eqn.(1) is normalized by the mini-batch size (ie, $N_{cls} = 256​$) and the reg term is normalized by the number of anchor locations (ie, $N_{reg}∼24000​$). By default we set $λ = 10​$, and thus both cls and reg terms are roughly equally weighted. We show by experiments that the results are insensitive to the values of $λ​$.in a wide range(Table 9). We also note that the normalization as above is not required and could be simplified.</p>
+<p>Table 9: Detection results of Faster R-CNN on PASCAL VOC 2007 test set using different values of λ<br>in Equation (1). The network is VGG-16. The training data is VOC 2007 trainval. The default setting of using λ=10 (69.9%) is the same as that in Table 3.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>这两个项用 $N_{cls}$ 和 $N_{reg}$ 进行标准化，并由一个平衡参数 $λ$ 加权。在我们目前的实现中（如在发布的代码中），方程（1）中的 cls 项通过小批量数据的大小（即 $N_{cls} = 256$）进行归一化，reg 项根据锚点位置的数量（即，$N_{reg}∼24000$）进行归一化。默认情况下，我们设置 $λ = 10$，因此 cls 和 reg 项的权重大致相等。我们通过实验显示，结果对宽范围的 $λ$ 值不敏感(表9)。我们还注意到，上面的归一化不是必需的，可以简化。</p>
+<p>表9：Faster R-CNN 使用方程 (1) 中不同的 $λ$<br>值在 PASCAL VOC 2007 测试集上的检测结果。网络是 VGG-16。训练数据是 VOC 2007 训练集。使用 $λ$ =10（69.9%）的默认设置与表 3 中的相同。</p>
+<p><img src="/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/./Table9.png" alt="avatar"></p>
+<hr>
+<p>For bounding box regression, we adopt the parameterizations of the 4 coordinates following [5]:</p>
+<p>$$ t_x=(x−x_a)/w_a，t_y=(y−y_a)/h_a， $$<br>$$ t_w=log(w/w_a)，t_h=log(h/h_a), $$<br>$$ t_x^✳=(x^✳−x_a)/w_a，t_y^✳=(y^✳−y_a)/h_a， $$<br>$$ t_w^✳=log(w^✳/w_a)，t_h^✳=log(h^✳/h_a) $$</p>
+<p>where $x, y, w​$, and $h​$ denote the box’s center coordinates and its width and height. Variables $x, x_a,​$ and $x^✳​$ are for the predicted box, anchor box, and ground-truth box respectively (likewise for $y,w,h​$). This can be thought of as bounding-box regression from an anchor box to a nearby ground-truth box.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>对于边界框回归，我们采用 [5] 中的4个坐标参数化：</p>
+<p>$$ t_x=(x−x_a)/w_a，t_y=(y−y_a)/h_a， $$<br>$$ t_w=log(w/w_a)，t_h=log(h/h_a), $$<br>$$ t_x^✳=(x^✳−x_a)/w_a，t_y^✳=(y^✳−y_a)/h_a， $$<br>$$ t_w^✳=log(w^✳/w_a)，t_h^✳=log(h^✳/h_a) $$</p>
+<p>其中，$x$，$y$，$w$ 和 $h$ 表示边界框的中心坐标及其宽和高。变量 $x$，$x_a$ 和 $x^✳$ 分别表示预测边界框，锚盒和实际边界框（类似于 $y,w,h$ ）。这可以被认为是从锚盒到邻近的实际边界框的回归。</p>
+<hr>
+<h5 id="3-1-3-Training-RPNs"><a href="#3-1-3-Training-RPNs" class="headerlink" title="3.1.3 Training RPNs"></a>3.1.3 Training RPNs</h5><p>The RPN can be trained end-to-end by back-propagation and stochastic gradient descent (SGD) [35]. We follow the “image-centric” sampling strategy from [2] to train this network. Each mini-batch arises from a single image that contains many positive and negative example anchors. It is possible to optimize for the loss functions of all anchors, but this will bias towards negative samples as they are dominate. Instead, we randomly sample 256 anchors in an image to compute the loss function of a mini-batch, where the sampled positive and negative anchors have a ratio of up to 1:1. If there are fewer than 128 positive samples in an image, we pad the mini-batch with negative ones.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<h5 id="3-1-3-训练RPN"><a href="#3-1-3-训练RPN" class="headerlink" title="3.1.3 训练RPN"></a>3.1.3 训练RPN</h5><p>RPN 可以通过反向传播和随机梯度下降（SGD）进行端对端训练 [35]。我们遵循 [2] 的“以图像为中心”的采样策略来训练这个网络。每个小批量数据都从包含许多正面和负面示例锚点的<strong>单张图像</strong>中产生。对所有锚点的损失函数进行优化是可能的，但是这样会偏向于负样本，因为它们是占主导地位的。取而代之的是，我们在图像中随机采样 256 个锚点，计算一个小批量数据的损失函数，其中采样的正锚点和负锚点的比率可达 1:1。如果图像中的正样本少于 128 个，我们使用负样本填充小批量数据。</p>
+<p>We randomly initialize all new layers by drawing weights from a zero-mean Gaussian distribution with standard deviation 0.01. All other layers (i.e., the shared convolutional layers) are initialized by pre-training a model for ImageNet classification [36], as is standard practice [5]. We tune all layers of the ZF net, and conv3_1 and up for the VGG net to conserve memory [2]. We use a learning rate of 0.001 for 60k mini-batches, and 0.0001 for the next 20k mini-batches on the PASCAL VOC dataset. We use a momentum of 0.9 and a weight decay of 0.0005 [37]. Our implementation uses Caffe [38].</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>我们通过从标准方差为 0.01 的零均值高斯分布中提取权重来随机初始化所有新层。所有其他层（即共享卷积层）通过预训练的 ImageNet 分类模型 [36] 来初始化，如同标准实践 [5]。我们调整 ZF 网络的所有层，以及 VGG 网络的 conv3_1 及其之上的层以节省内存 [2]。对于 60k 的小批量数据，我们使用 0.001 的学习率，对于 PASCAL VOC 数据集中的下一个 20k 小批量数据，使用 0.0001。我们使用 0.9 的动量和 0.0005 的权重衰减 [37]。我们的实现使用 Caffe [38]。</p>
+<hr>
+<p>–&gt; 接下来，第二模块：构建以及学习由 RPN 和 Fast R-CNN 组成的具有共享卷积层的统一网络</p>
+<h4 id="3-2-Sharing-Features-for-RPN-and-Fast-R-CNN"><a href="#3-2-Sharing-Features-for-RPN-and-Fast-R-CNN" class="headerlink" title="3.2 Sharing Features for RPN and Fast R-CNN"></a>3.2 Sharing Features for RPN and Fast R-CNN</h4><p>Thus far we have described how to train a network for region proposal generation, without considering the region-based object detection CNN that will utilize these proposals. For the detection network, we adopt Fast R-CNN [2]. Next we describe algorithms that learn a unified network composed of RPN and Fast R-CNN with shared convolutional layers (Figure 2).</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<h4 id="3-2-RPN-和-Fast-R-CNN-共享特征"><a href="#3-2-RPN-和-Fast-R-CNN-共享特征" class="headerlink" title="3.2 RPN 和 Fast R-CNN 共享特征"></a>3.2 RPN 和 Fast R-CNN 共享特征</h4><p>到目前为止，我们已经描述了如何训练用于区域提议生成的网络，没有考虑将利用这些提议的基于区域的目标检测CNN。对于检测网络，我们采用 Fast R-CNN [2]。接下来我们介绍一些算法，学习由 RPN 和 Fast R-CNN 组成的具有共享卷积层的统一网络（图2）。</p>
+<p>Both RPN and Fast R-CNN, trained independently, will modify their convolutional layers in different ways. We therefore need to develop a technique that allows for sharing convolutional layers between the two networks, rather than learning two separate networks. We discuss three ways for training networks with features shared:</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>独立训练的 RPN 和 Fast R-CNN 将以不同的方式修改卷积层。因此，我们需要开发一种允许在两个网络之间共享卷积层的技术，而不是学习两个独立的网络。我们讨论三个方法来训练具有共享特征的网络：</p>
+<hr>
+<p>(i) Alternating training. In this solution, we first train RPN, and use the proposals to train Fast R-CNN. The network tuned by Fast R-CNN is then used to initialize RPN, and this process is iterated. This is the solution that is used in all experiments in this paper.</p>
+<p>（一）交替训练。在这个解决方案中，我们首先训练 RPN，并使用这些提议来训练 Fast R-CNN 。由 Fast R-CNN 微调的网络然后被用于初始化 RPN，并且重复这个过程。这是本文所有实验中使用的解决方案。</p>
+<p>(ii) Approximate joint training. In this solution, the RPN and Fast R-CNN networks are merged into one network during training as in Figure 2. In each SGD iteration, the forward pass generates region proposals which are treated just like fixed, pre-computed proposals when training a Fast R-CNN detector. The backward propagation takes place as usual, where for the shared layers the backward propagated signals from both the RPN loss and the Fast R-CNN loss are combined. This solution is easy to implement. But this solution ignores the derivative w.r.t. the proposal boxes’ coordinates that are also network responses, so is approximate. In our experiments, we have empirically found this solver produces close results, yet reduces the training time by about 25−50%25−50% comparing with alternating training. This solver is included in our released Python code.</p>
+<p>（二）近似联合训练。在这个解决方案中，RPN 和 Fast R-CNN 网络在训练期间合并成一个网络，如图 2 所示。在每次 SGD 迭代中，前向传递生成区域提议，再训练 Fast R-CNN 检测器，将这看作是固定的、预计算的提议。反向传播像往常一样进行，其中对于共享层，组合来自 RPN 损失和 Fast R-CNN 损失的反向传播信号。这个解决方案很容易实现。但是这个解决方案忽略了关于提议边界框的坐标（也是网络响应）的导数，因此是近似的。在我们的实验中，我们实验发现这个求解器产生了相当的结果，与交替训练相比，训练时间减少了大约 25−50% 。这个求解器包含在我们发布的 Python 代码中。</p>
+<p>(iii) Non-approximate joint training. As discussed above, the bounding boxes predicted by RPN are also functions of the input. The RoI pooling layer [2] in Fast R-CNN accepts the convolutional features and also the predicted bounding boxes as input, so a theoretically valid backpropagation solver should also involve gradients w.r.t. the box coordinates. These gradients are ignored in the above approximate joint training. In a non-approximate joint training solution, we need an RoI pooling layer that is differentiable w.r.t. the box coordinates. This is a nontrivial problem and a solution can be given by an “RoI warping” layer as developed in [15], which is beyond the scope of this paper.</p>
+<p>（三）非近似的联合训练。如上所述，由 RPN 预测的边界框也是输入的函数。Fast R-CNN 中的 RoI 池化层 [2] 接受卷积特征以及预测的边界框作为输入，所以理论上有效的反向传播求解器也应该包括关于边界框坐标的梯度。在上述近似联合训练中，这些梯度被忽略。在一个非近似的联合训练解决方案中，我们需要一个关于边界框坐标可微分的 RoI 池化层。这是一个重要的问题，可以通过 [15] 中提出的“ RoI扭曲 ”层给出解决方案，这超出了本文的范围。</p>
+<hr>
+<p>4-Step Alternating Training. In this paper, we adopt a pragmatic 4-step training algorithm to learn shared features via alternating optimization. In the first step, we train the RPN as described in Section 3.1.3. This network is initialized with an ImageNet-pre-trained model and fine-tuned end-to-end for the region proposal task. In the second step, we train a separate detection network by Fast R-CNN using the proposals generated by the step-1 RPN. This detection network is also initialized by the ImageNet-pre-trained model. At this point the two networks do not share convolutional layers. In the third step, we use the detector network to initialize RPN training, but we fix the shared convolutional layers and only fine-tune the layers unique to RPN. Now the two networks share convolutional layers. Finally, keeping the shared convolutional layers fixed, we fine-tune the unique layers of Fast R-CNN. As such, both networks share the same convolutional layers and form a unified network. A similar alternating training can be run for more iterations, but we have observed negligible improvements.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>四步交替训练。在本文中，我们采用实用的四步训练算法，通过交替优化学习共享特征。在第一步中，我们按照 3.1.3 节的描述训练 RPN。该网络使用 ImageNet 的预训练模型进行初始化，并针对区域提议任务进行了端到端的微调。在第二步中，我们使用由第一步 RPN 生成的提议，由 Fast R-CNN 训练单独的检测网络。该检测网络也由 ImageNet 的预训练模型进行初始化。此时两个网络不共享卷积层。在第三步中，我们使用检测器网络来初始化 RPN 训练，但是我们修正共享的卷积层，并且只对 RPN 特有的层进行微调。现在这两个网络共享卷积层。最后，保持共享卷积层的固定，我们对 Fast R-CNN 的独有层进行微调。因此，两个网络共享相同的卷积层并形成统一的网络。类似的交替训练可以运行更多的迭代，但是我们只观察到可以忽略的改进。</p>
+<hr>
+<p>–&gt; 看一些实现细节：</p>
+<h4 id="3-3-Implementation-Details"><a href="#3-3-Implementation-Details" class="headerlink" title="3.3 Implementation Details"></a>3.3 Implementation Details</h4><p>We train and test both region proposal and object detection networks on images of a single scale [1], [2]. We re-scale the images such that their shorter side is s=600 pixels [2]. Multi-scale feature extraction (using an image pyramid) may improve accuracy but does not exhibit a good speed-accuracy trade-off [2]. On the re-scaled images, the total stride for both ZF and VGG nets on the last convolutional layer is 16 pixels, and thus is ∼10 pixels on a typical PASCAL image before resizing (∼500×375). Even such a large stride provides good results, though accuracy may be further improved with a smaller stride.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<h4 id="3-3-实现细节"><a href="#3-3-实现细节" class="headerlink" title="3.3 实现细节"></a>3.3 实现细节</h4><p>–&gt; 原始图像缩放</p>
+<p>我们在单尺度图像上训练和测试区域提议和目标检测网络 [1]，[2]。我们重新缩放图像，使得它们的短边是 $s = 600$ 像素 [2]。多尺度特征提取（使用图像金字塔）可能会提高精度，但不会表现出速度与精度的良好权衡 [2]。在重新缩放的图像上，最后卷积层上的 ZF 和 VGG 网络的总步长为 $16$ 个像素，因此在调整大小（$〜500×375$）之前，典型的 PASCAL 图像上的总步长为 $〜10$ 个像素。即使如此大的步长也能提供良好的效果，尽管步幅更小，精度可能会进一步提高。</p>
+<hr>
+<p>For anchors, we use 3 scales with box areas of 1282, 2562, and 5122</p>
+<p>pixels, and 3 aspect ratios of 1:1, 1:2, and 2:1. These hyper-parameters are not carefully chosen for a particular dataset, and we provide ablation experiments on their effects in the next section. As discussed, our solution does not need an image pyramid or filter pyramid to predict regions of multiple scales, saving considerable running time. Figure 3 (right) shows the capability of our method for a wide range of scales and aspect ratios. Table 1 shows the learned average proposal size for each anchor using the ZF net. We note that our algorithm allows predictions that are larger than the underlying receptive field. Such predictions are not impossible—one may still roughly infer the extent of an object if only the middle of the object is visible.</p>
+<p>Table 1: the learned average proposal size for each anchor using the ZF net (numbers for s=600).</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>于锚点，我们使用了 3 个尺度，边界框面积分别为 $128^2，256^2$ 和 $512^2$ 个像素，以及 $1:1，1:2$ 和 $2:1$ 的长宽比。这些超参数不是针对特定数据集仔细选择的，我们将在下一节中提供有关其作用的消融实验。如上所述，我们的解决方案不需要图像金字塔或滤波器金字塔来预测多个尺度的区域，节省了大量的运行时间。图 3（右）显示了我们的方法在广泛的尺度和长宽比方面的能力。表 1 显示了使用 ZF 网络的每个锚点学习到的平均提议大小。我们注意到，我们的算法允许预测比基础感受野更大。这样的预测不是不可能的——如果只有目标的中间部分是可见的，那么仍然可以粗略地推断出目标的范围。</p>
+<p><img src="/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/./Table1.png" alt="avatar"></p>
+<hr>
+<p>The anchor boxes that cross image boundaries need to be handled with care. During training, we ignore all cross-boundary anchors so they do not contribute to the loss. For a typical 1000×600 image, there will be roughly 20000 (≈60×40×9) anchors in total. With the cross-boundary anchors ignored, there are about 6000 anchors per image for training. If the boundary-crossing outliers are not ignored in training, they introduce large, difficult to correct error terms in the objective, and training does not converge. During testing, however, we still apply the fully convolutional RPN to the entire image. This may generate cross-boundary proposal boxes, which we clip to the image boundary.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>跨越图像边界的锚盒需要小心处理。在训练过程中，我们忽略了所有的跨界锚点，所以不会造成损失。对于一个典型的 $1000×600$ 的图片，总共将会有大约 $20000（≈60×40×9）$个锚点。跨界锚点被忽略，每张图像约有 $6000$ 个锚点用于训练。如果跨界异常值在训练中不被忽略，则会在目标函数中引入大的，难以纠正的误差项，且训练不会收敛。但在测试过程中，我们仍然将全卷积 RPN 应用于整张图像。这可能会产生跨边界的提议边界框，我们剪切到图像边界。</p>
+<hr>
+<p>Some RPN proposals highly overlap with each other. To reduce redundancy, we adopt non-maximum suppression (NMS) on the proposal regions based on their <em>cls</em> scores. We fix the IoU threshold for NMS at 0.7, which leaves us about 2000 proposal regions per image. As we will show, NMS does not harm the ultimate detection accuracy, but substantially reduces the number of proposals. After NMS, we use the top-N ranked proposal regions for detection. In the following, we train Fast R-CNN using 2000 RPN proposals, but evaluate different numbers of proposals at test-time.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<p>一些 RPN 提议互相之间高度重叠。为了减少冗余，我们在提议区域根据他们的 cls 分数采取非极大值抑制（NMS）。我们将 NMS 的 IoU 阈值固定为 0.7，这就给每张图像留下了大约 2000 个提议区域。正如我们将要展示的那样，NMS 不会损害最终的检测准确性，但会大大减少提议的数量。在 NMS 之后，我们使用前 N 个提议区域来进行检测。接下来，我们使用 2000 个 RPN 提议对 Fast R-CNN 进行训练，但在测试时评估不同数量的提议。</p>
+<hr>
+<h3 id="4-EXPERIMENTS"><a href="#4-EXPERIMENTS" class="headerlink" title="4. EXPERIMENTS"></a>4. EXPERIMENTS</h3><h4 id="4-1-Experiments-on-PASCAL-VOC"><a href="#4-1-Experiments-on-PASCAL-VOC" class="headerlink" title="4.1 Experiments on PASCAL VOC"></a>4.1 Experiments on PASCAL VOC</h4><p>We comprehensively evaluate our method on the PASCAL VOC 2007 detection benchmark [11]. This dataset consists of about 5k trainval images and 5k test images over 20 object categories. We also provide results on the PASCAL VOC 2012 benchmark for a few models. For the ImageNet pre-trained network, we use the “fast” version of ZF net [32] that has 5 convolutional layers and 3 fully-connected layers, and the public VGG-16 model [3] that has 13 convolutional layers and 3 fully-connected layers. We primarily evaluate detection mean Average Precision (mAP), because this is the actual metric for object detection (rather than focusing on object proposal proxy metrics).</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<h3 id="4-实验"><a href="#4-实验" class="headerlink" title="4. 实验"></a>4. 实验</h3><h4 id="4-1-PASCAL-VOC-上的实验"><a href="#4-1-PASCAL-VOC-上的实验" class="headerlink" title="4.1 PASCAL VOC 上的实验"></a>4.1 PASCAL VOC 上的实验</h4><p>我们在 PASCAL VOC 2007 检测基准数据集 [11] 上全面评估了我们的方法。这个数据集包含大约 5000 张训练评估图像和在 20 个目标类别上的 5000 张测试图像。我们还提供了一些模型在 PASCAL VOC 2012 基准数据集上的测试结果。对于 ImageNet 预训练网络，我们使用具有 5 个卷积层和 3 个全连接层的 ZF 网络 [32] 的“快速”版本以及具有 13 个卷积层和 3 个全连接层的公开的 VGG-16 模型 [3]。我们主要评估检测的平均精度均值（mAP），因为这是检测目标的实际指标（而不是关注目标提议代理度量）。</p>
+<hr>
+<h3 id="5-CONCLUSION"><a href="#5-CONCLUSION" class="headerlink" title="5. CONCLUSION"></a>5. CONCLUSION</h3><p>We have presented RPNs for efficient and accurate region proposal generation. By sharing convolutional features with the down-stream detection network, the region proposal step is nearly cost-free. Our method enables a unified, deep-learning-based object detection system to run at near real-time frame rates. The learned RPN also improves region proposal quality and thus the overall object detection accuracy.</p>
+<p><strong>|↓↓↓ 中文对照 ↓↓↓|</strong></p>
+<h3 id="5-结论"><a href="#5-结论" class="headerlink" title="5. 结论"></a>5. 结论</h3><p>我们已经提出了 RPN 来生成高效，准确的区域提议。通过与下游检测网络共享卷积特征，区域提议步骤几乎是零成本的。我们的方法使统一的，基于深度学习的目标检测系统能够以接近实时的帧率运行。学习到的 RPN 也提高了区域提议的质量，从而提高了整体的目标检测精度。</p>
+<blockquote>
+<p>内容解读：加速（实时检测） &amp;&amp; 提升检测精度</p>
+</blockquote>
+<hr>
+<h3 id="REFERENCES"><a href="#REFERENCES" class="headerlink" title="REFERENCES"></a>REFERENCES</h3><p>[1] K. He, X. Zhang, S. Ren, and J. Sun, “Spatial pyramid pooling in deep convolutional networks for visual recognition,” in European Conference on Computer Vision (ECCV), 2014. </p>
+<p>[2] R. Girshick, “Fast R-CNN,” in IEEE International Conference on Computer Vision (ICCV), 2015. </p>
+<p>[3] K. Simonyan and A. Zisserman, “Very deep convolutional networks for large-scale image recognition,” in International Conference on Learning Representations (ICLR), 2015. </p>
+<p>[4] J. R. Uijlings, K. E. van de Sande, T. Gevers, and A. W. Smeulders, “Selective search for object recognition,” International<br>Journal of Computer Vision (IJCV), 2013. </p>
+<p>[5] R. Girshick, J. Donahue, T. Darrell, and J. Malik, “Rich feature hierarchies for accurate object detection and semantic segmentation,” in IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2014.</p>
+<p>[6] C. L. Zitnick and P. Dollár, “Edge boxes: Locating object proposals from edges,” in European Conference on Computer Vision(ECCV),2014. </p>
+<p>[7] J. Long, E. Shelhamer, and T. Darrell, “Fully convolutional networks for semantic segmentation,” in IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2015. </p>
+<p>[8] P. F. Felzenszwalb, R. B. Girshick, D. McAllester, and D. Ramanan, “Object detection with discriminatively trained part-based models,” IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 2010. </p>
+<p>[9] P. Sermanet, D. Eigen, X. Zhang, M. Mathieu, R. Fergus, and Y. LeCun, “Overfeat: Integrated recognition, localization and detection using convolutional networks,” in International Conference on Learning Representations (ICLR), 2014. </p>
+<p>[10] S. Ren, K. He, R. Girshick, and J. Sun, “FasterR-CNN: Towards real-time object detection with region proposal networks,” in<br>Neural Information Processing Systems (NIPS), 2015. </p>
+<p>[11] M. Everingham, L. Van Gool, C. K. I. Williams, J. Winn, and A. Zisserman, “The PASCAL Visual Object Classes Challenge 2007 (VOC2007) Results,” 2007. </p>
+<p>[12] T.-Y. Lin, M. Maire, S. Belongie, J. Hays, P. Perona, D. Ramanan, P. Dollár, and C. L. Zitnick, “Microsoft COCO: Common Objects in Context,” in European Conference on Computer Vision (ECCV), 2014. </p>
+<p>[13] S. Song and J. Xiao, “Deep sliding shapes for amodal 3d object detection in rgb-d images,” arXiv:1511.02300, 2015. </p>
+<p>[14] J. Zhu, X. Chen, and A. L. Yuille, “DeePM: A deep part-based model for object detection and semantic part localization,” arXiv:1511.07131, 2015. </p>
+<p>[15] J. Dai, K. He, and J. Sun, “Instance-aware semantic segmentation via multi-task network cascades,” arXiv:1512.04412, 2015.</p>
+<p>[16] J. Johnson, A. Karpathy, and L. Fei-Fei, “Densecap: Fully convolutional localization networks for dense captioning,” arXiv:1511.07571, 2015. </p>
+<p>[17] D. Kislyuk, Y. Liu, D. Liu, E. Tzeng, and Y. Jing, “Human curation and convnets: Powering item-to-item recommendations on pinterest,” arXiv:1511.04003, 2015. </p>
+<p>[18] K. He, X. Zhang, S. Ren, and J. Sun, “Deep residual learning for image recognition,” arXiv:1512.03385, 2015. </p>
+<p>[19] J. Hosang, R. Benenson, and B. Schiele, “How good are detection proposals, really?” in British Machine Vision Conference (BMVC), 2014. </p>
+<p>[20] J. Hosang, R. Benenson, P. Dollar, and B. Schiele, “What makes for effective detection proposals?” IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 2015. </p>
+<p>[21] N. Chavali, H. Agrawal, A. Mahendru, and D. Batra, “Object-Proposal Evaluation Protocol is ’Gameable’,” arXiv: 1505.05836, 2015. </p>
+<p>[22] J. Carreira and C. Sminchisescu, “CPMC: Automatic object segmentation using constrained parametric min-cuts,” IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 2012. </p>
+<p>[23] P. Arbelaez, J. Pont-Tuset, J. T. Barron, F. Marques, and J. Malik, “Multiscale combinatorial grouping,” in IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2014. </p>
+<p>[24] B. Alexe, T. Deselaers, and V. Ferrari, “Measuring the objectness of image windows,” IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 2012. </p>
+<p>[25] C. Szegedy, A. Toshev, and D. Erhan, “Deep neural networks for object detection,” in Neural Information Processing Systems (NIPS), 2013. </p>
+<p>[26] D. Erhan, C. Szegedy, A. Toshev, and D. Anguelov, “Scalable object detection using deep neural networks,” in IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2014. </p>
+<p>[27] C. Szegedy, S. Reed, D. Erhan, and D. Anguelov, “Scalable, high-quality object detection,” arXiv:1412.1441 (v1), 2015. </p>
+<p>[28] P. O. Pinheiro, R. Collobert, and P. Dollar, “Learning to segment object candidates,” in Neural Information Processing Systems (NIPS), 2015. </p>
+<p>[29] J. Dai, K. He, and J. Sun, “Convolutional feature masking for joint object and stuff segmentation,” in IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2015. </p>
+<p>[30] S. Ren, K. He, R. Girshick, X. Zhang, and J. Sun, “Object detection networks on convolutional feature maps,” arXiv:1504.06066, 2015. </p>
+<p>[31] J. K. Chorowski, D. Bahdanau, D. Serdyuk, K. Cho, and Y. Bengio, “Attention-based models for speech recognition,” in Neural Information Processing Systems (NIPS), 2015. </p>
+<p>[32] M. D. Zeiler and R. Fergus, “Visualizing and understanding convolutional neural networks,” in European Conference on Computer Vision (ECCV), 2014.</p>
+<p>[33] V. Nair and G. E. Hinton, “Rectified linear units improve restricted boltzmann machines,” in International Conference on Machine Learning (ICML), 2010.</p>
+<p>[34] C. Szegedy, W. Liu, Y. Jia, P. Sermanet, S. Reed, D. Anguelov, D. Erhan, and A. Rabinovich, “Going deeper with convolutions,” in IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2015. </p>
+<p>[35] Y. LeCun, B. Boser, J. S. Denker, D. Henderson, R. E. Howard, W. Hubbard, and L. D. Jackel, “Backpropagation applied to handwritten zip code recognition,” Neural computation, 1989.</p>
+<p>[36] O. Russakovsky, J. Deng, H. Su, J. Krause, S. Satheesh, S. Ma, Z. Huang, A. Karpathy, A. Khosla, M. Bernstein, A. C. Berg, and L. Fei-Fei, “ImageNet Large Scale Visual Recognition Challenge,” in International Journal of Computer Vision (IJCV), 2015.</p>
+<p>[37] A. Krizhevsky, I. Sutskever, and G. Hinton, “Imagenet classification with deep convolutional neural networks,” in Neural Information Processing Systems (NIPS), 2012.</p>
+<p>[38] Y. Jia, E. Shelhamer, J. Donahue, S. Karayev, J. Long, R. Girshick, S. Guadarrama, and T. Darrell, “Caffe: Convolutional architecture for fast feature embedding,” arXiv:1408.5093, 2014.</p>
+<p>[39] K. Lenc and A. Vedaldi, “R-CNN minus R,” in British Machine Vision Conference (BMVC), 2015.</p>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/" title="DeepLearning Paper：Faster R-CNN:Towards Real-Time Object Detection with Region Proposal Networks">http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DeepLearning-Paper/" rel="tag"><i class="fa fa-tag"></i> DeepLearning Paper</a>
+          
+            <a href="/tags/AlexNet/" rel="tag"><i class="fa fa-tag"></i> AlexNet</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Automated-Deployment/Linux-Shell-脚本自动化部署/" rel="next" title="Linux Shell 脚本自动化部署">
+                <i class="fa fa-chevron-left"></i> Linux Shell 脚本自动化部署
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/" rel="prev" title="卷积神经网络系列之 CNN 进化史">
+                卷积神经网络系列之 CNN 进化史 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks"><span class="nav-text">Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Introduction"><span class="nav-text">1. Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-引言"><span class="nav-text">1. 引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-RELATED-WORK"><span class="nav-text">2. RELATED WORK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-相关工作"><span class="nav-text">2. 相关工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-FASTER-R-CNN"><span class="nav-text">3. FASTER R-CNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-FASTER-R-CNN-1"><span class="nav-text">3. FASTER R-CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-Region-Proposal-Networks"><span class="nav-text">3.1 Region Proposal Networks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-区域提议网络"><span class="nav-text">3.1 区域提议网络</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-1-Anchors"><span class="nav-text">3.1.1 Anchors</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-1-锚点"><span class="nav-text">3.1.1 锚点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-2-Loss-Function"><span class="nav-text">3.1.2 Loss Function</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-2-损失函数"><span class="nav-text">3.1.2 损失函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-3-Training-RPNs"><span class="nav-text">3.1.3 Training RPNs</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-3-训练RPN"><span class="nav-text">3.1.3 训练RPN</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-Sharing-Features-for-RPN-and-Fast-R-CNN"><span class="nav-text">3.2 Sharing Features for RPN and Fast R-CNN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-RPN-和-Fast-R-CNN-共享特征"><span class="nav-text">3.2 RPN 和 Fast R-CNN 共享特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-Implementation-Details"><span class="nav-text">3.3 Implementation Details</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-实现细节"><span class="nav-text">3.3 实现细节</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-EXPERIMENTS"><span class="nav-text">4. EXPERIMENTS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-Experiments-on-PASCAL-VOC"><span class="nav-text">4.1 Experiments on PASCAL VOC</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-实验"><span class="nav-text">4. 实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-PASCAL-VOC-上的实验"><span class="nav-text">4.1 PASCAL VOC 上的实验</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-CONCLUSION"><span class="nav-text">5. CONCLUSION</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-结论"><span class="nav-text">5. 结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#REFERENCES"><span class="nav-text">REFERENCES</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

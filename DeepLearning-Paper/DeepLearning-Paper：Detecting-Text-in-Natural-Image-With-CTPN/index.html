@@ -99,22 +99,22 @@
 
 
 
-<meta name="description" content="愿你每天欢喜多于悲，孤独有人陪…   阅读指南 推荐在查看这篇论文之前，大家先去了解图像目标检测与识别项目 Faster Region-CNN（R-CNN）的相关实现原理，CTPN 的提出和实现受 Faster R-CNN 影响很大。熟知 Faster R-CNN 算法原理和实现可以帮助你更快、更准确的理解文中内容。 声明：本文 “ CTPN Paper 中英文对照与细节解读 ” 仅供交流学习。">
+<meta name="description" content="愿你每天欢喜多于悲，孤独有人陪…   阅读指南 推荐在查看这篇论文之前，大家先去了解图像目标检测与识别项目 Faster Region-CNN（R-CNN）的相关实现原理，CTPN 的提出和实现受 Faster R-CNN 影响很大。熟知 Faster R-CNN 算法原理和实现可以帮助你更快、更准确的理解文中内容。 声明：本文 “ CTPN Paper 中英文对照与细节解读 ” 仅供交流学习，">
 <meta name="keywords" content="DeepLearning Paper,CTPN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DeepLearning Paper：Detecting Text in Natural Image With CTPN">
 <meta property="og:url" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/index.html">
 <meta property="og:site_name" content="When Art Meets Technology">
-<meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   阅读指南 推荐在查看这篇论文之前，大家先去了解图像目标检测与识别项目 Faster Region-CNN（R-CNN）的相关实现原理，CTPN 的提出和实现受 Faster R-CNN 影响很大。熟知 Faster R-CNN 算法原理和实现可以帮助你更快、更准确的理解文中内容。 声明：本文 “ CTPN Paper 中英文对照与细节解读 ” 仅供交流学习。">
+<meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   阅读指南 推荐在查看这篇论文之前，大家先去了解图像目标检测与识别项目 Faster Region-CNN（R-CNN）的相关实现原理，CTPN 的提出和实现受 Faster R-CNN 影响很大。熟知 Faster R-CNN 算法原理和实现可以帮助你更快、更准确的理解文中内容。 声明：本文 “ CTPN Paper 中英文对照与细节解读 ” 仅供交流学习，">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/text_proposal.png">
 <meta property="og:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/CTPN_construct.png">
 <meta property="og:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/RPN_text_proposal.png">
 <meta property="og:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/anchor.jpg">
-<meta property="og:updated_time" content="2019-06-03T08:18:16.905Z">
+<meta property="og:updated_time" content="2019-06-12T01:32:19.616Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DeepLearning Paper：Detecting Text in Natural Image With CTPN">
-<meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   阅读指南 推荐在查看这篇论文之前，大家先去了解图像目标检测与识别项目 Faster Region-CNN（R-CNN）的相关实现原理，CTPN 的提出和实现受 Faster R-CNN 影响很大。熟知 Faster R-CNN 算法原理和实现可以帮助你更快、更准确的理解文中内容。 声明：本文 “ CTPN Paper 中英文对照与细节解读 ” 仅供交流学习。">
+<meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   阅读指南 推荐在查看这篇论文之前，大家先去了解图像目标检测与识别项目 Faster Region-CNN（R-CNN）的相关实现原理，CTPN 的提出和实现受 Faster R-CNN 影响很大。熟知 Faster R-CNN 算法原理和实现可以帮助你更快、更准确的理解文中内容。 声明：本文 “ CTPN Paper 中英文对照与细节解读 ” 仅供交流学习，">
 <meta name="twitter:image" content="http://yoursite.com/DeepLearning-Paper/DeepLearning-Paper：Detecting-Text-in-Natural-Image-With-CTPN/text_proposal.png">
 
 
@@ -352,8 +352,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-03T12:00:12+08:00">
-                2019-06-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-03T12:00:12+08:00">
+                2018-09-03
               </time>
             
 
@@ -368,8 +368,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-06-03T16:18:16+08:00">
-                2019-06-03
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-12T09:32:19+08:00">
+                2019-06-12
               </time>
             
           </span>
@@ -471,7 +471,7 @@
 
 <p><strong>阅读指南</strong></p>
 <p>推荐在查看这篇论文之前，大家先去了解图像目标检测与识别项目 Faster Region-CNN（R-CNN）的相关实现原理，CTPN 的提出和实现受 Faster R-CNN 影响很大。熟知 Faster R-CNN 算法原理和实现可以帮助你更快、更准确的理解文中内容。</p>
-<p>声明：本文 “ CTPN Paper 中英文对照与细节解读 ” 仅供交流学习。如有转载请注明出处，如有侵权请联系删除，谢谢！</p>
+<p><strong>声明：</strong>本文 “ CTPN Paper 中英文对照与细节解读 ” 仅供交流学习，如有侵权请联系删除，谢谢！</p>
 <a id="more"></a>
 <hr>
 <h2 id="Detecting-Text-in-Natural-Image-with-Connectionist-Text-Proposal-Network"><a href="#Detecting-Text-in-Natural-Image-with-Connectionist-Text-Proposal-Network" class="headerlink" title="Detecting Text in Natural Image with Connectionist Text Proposal Network"></a>Detecting Text in Natural Image with Connectionist Text Proposal Network</h2><p><strong>Paper Name： </strong>使用连接文本提议网络实现自然场景文本检测</p>
@@ -707,8 +707,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/TensorFlow/深度学习模型移动和嵌入式端落地方案：TFM-实现-TF-MNIST-手写数字识别模型移植到-Android-端/" rel="next" title="深度学习模型移动和嵌入式端落地方案：TFM 实现 TF MNIST 手写数字识别模型移植到 Android 端">
-                <i class="fa fa-chevron-left"></i> 深度学习模型移动和嵌入式端落地方案：TFM 实现 TF MNIST 手写数字识别模型移植到 Android 端
+              <a href="/Jpype/Jpype-安装以及使用指南/" rel="next" title="Jpype 安装以及使用指南">
+                <i class="fa fa-chevron-left"></i> Jpype 安装以及使用指南
               </a>
             
           </div>
@@ -717,8 +717,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/" rel="prev" title="卷积神经网络系列之 CNN 进化史">
-                卷积神经网络系列之 CNN 进化史 <i class="fa fa-chevron-right"></i>
+              <a href="/TensorFlow/TensorFlow-基本工作原理/" rel="prev" title="TensorFlow 基本工作原理">
+                TensorFlow 基本工作原理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -831,7 +831,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -853,7 +853,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">80</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

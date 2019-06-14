@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python3,ConfigParser,YAML,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇： 项目中常常会使用到大量和配置相关的常量，我们将这些配置项抽取到在一个文件中，这就是配置文件，它将项目代码中所有的配置项都变成模块化配置的。本文我们来看 Python 中配置文件的使用方法。">
+<meta name="keywords" content="Python3,ConfigParser,YAML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 之配置文件使用方法">
+<meta property="og:url" content="http://yoursite.com/Python/Python-之配置文件使用方法/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇： 项目中常常会使用到大量和配置相关的常量，我们将这些配置项抽取到在一个文件中，这就是配置文件，它将项目代码中所有的配置项都变成模块化配置的。本文我们来看 Python 中配置文件的使用方法。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-14T10:19:58.638Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 之配置文件使用方法">
+<meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  开篇： 项目中常常会使用到大量和配置相关的常量，我们将这些配置项抽取到在一个文件中，这就是配置文件，它将项目代码中所有的配置项都变成模块化配置的。本文我们来看 Python 中配置文件的使用方法。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Python/Python-之配置文件使用方法/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>Python 之配置文件使用方法 | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Python/Python-之配置文件使用方法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python 之配置文件使用方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-17T19:11:32+08:00">
+                2018-04-17
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-14T18:19:58+08:00">
+                2019-06-14
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Python/Python-之配置文件使用方法/" class="leancloud_visitors" data-flag-title="Python 之配置文件使用方法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…</center>
+
+<p><strong>开篇：</strong></p>
+<p>项目中常常会使用到大量和配置相关的常量，我们将这些配置项抽取到在一个文件中，这就是配置文件，它将项目代码中所有的配置项都变成模块化配置的。本文我们来看 Python 中配置文件的使用方法。</p>
+<a id="more"></a>
+<h3 id="Python-中配置文件策略"><a href="#Python-中配置文件策略" class="headerlink" title="Python 中配置文件策略"></a>Python 中配置文件策略</h3><p>我们知道，配置文件会将项目代码中所有的配置项都变成模块化配置的。那么，让配置项 <strong>“模块化可配置的”</strong> 有什么好处？</p>
+<h4 id="1-为什么要使用配置文件？"><a href="#1-为什么要使用配置文件？" class="headerlink" title="1. 为什么要使用配置文件？"></a>1. 为什么要使用配置文件？</h4><p>配置文件在项目中是非常必要的。</p>
+<p>当我们需要修改配置项时，不需要涉及到代码内部的修改，避免了项目中代码文件对常量的分散使用，让配置常量可以统一修改，避免造成修改不全面的问题，大大提高了代码的重用性，方便后期软件项目的维护。</p>
+<hr>
+<h4 id="2-Python-中的配置文件使用方法"><a href="#2-Python-中的配置文件使用方法" class="headerlink" title="2. Python 中的配置文件使用方法"></a>2. Python 中的配置文件使用方法</h4><p>我们先来盘点一下 Python 中主流的使用配置文件的方法：</p>
+<h5 id="2-1-–-gt-ConfigParser"><a href="#2-1-–-gt-ConfigParser" class="headerlink" title="2.1 –&gt; ConfigParser"></a>2.1 –&gt; ConfigParser</h5><p>Python3 自身提供了标准的配置读写模块 <strong>ConfigParser</strong>。导入方式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> configparser <span class="keyword">import</span> ConfigParser</span><br></pre></td></tr></table></figure>
+<p>–&gt;ConfigParser 支持的常用配置文件后缀：</p>
+<p>Python中十分常见的配置文件格式有：<code>.ini</code>、<code>.cfg</code>、<code>.conf</code>、<code>.py</code>，当然，还有的使用 <code>txt</code>、<code>.json</code> 等。</p>
+<p>并且，配置文件一般会以 <code>config</code> 进行命名，便于理解和使用。</p>
+<p>事实上，<code>.ini</code>、<code>.cfg</code>、<code>.conf</code> 以及 <code>txt</code> 格式的配置文件使用方法都是一致的，只存在一个后缀的区别，但本质上都是 <strong>text</strong> 文本文件。</p>
+<p>而 <code>.py</code> 配置文件，严格来说不是配置文件，是一个扩展包，在 Python 项目中使用时作为一个本地包导入即可。</p>
+<p>故，后文 ConfigParser 相关小节，我们主要就 <strong>ConfigParser</strong> 模块操作 <code>.ini</code>、<code>.cfg</code>、<code>.conf</code> 以及 <code>txt</code> 等文本格式的配置文件，实现配置文件的读取、更新、写入、删除等进行解读。</p>
+<hr>
+<h5 id="2-2-–-gt-YAML"><a href="#2-2-–-gt-YAML" class="headerlink" title="2.2 –&gt; YAML"></a>2.2 –&gt; YAML</h5><p>有些人可能还见过，<code>yaml</code> 或者 <code>yml</code> 后缀的文件，什么鬼？事实上，它是一种由 <strong>YAML</strong> 语言写成的配置文件。</p>
+<p>YAML 是专门用来写配置文件的语言，非常简洁和强大，远比 JSON 格式方便。</p>
+<p>YAML 在 Python 语言中，提供有专门的第三方模块 <a href="https://pypi.org/project/PyYAML/" target="_blank" rel="noopener">PyYAML</a>。PIP 安装如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install PyYAML</span><br></pre></td></tr></table></figure>
+<p>后文讲解了 <strong>PyYAML</strong> 的使用后，你会发现，原来又如此简单的掌握了一种写配置文件的方法，愉快啊~</p>
+<hr>
+<h5 id="2-3-–-gt-Other-Methods"><a href="#2-3-–-gt-Other-Methods" class="headerlink" title="2.3 –&gt; Other Methods"></a>2.3 –&gt; Other Methods</h5><p>开拓一下……</p>
+<p>既然说起来了，那我们再来谈一谈其它的一些配置文件使用方法：</p>
+<p><strong>1] –&gt; JSON</strong></p>
+<p>有时，我们也会发现使用 <code>.json</code> 格式的配置文件来存放大量的结构化配置或者本地数据，但使用较少。</p>
+<p><strong>2] –&gt; 数据库</strong></p>
+<p>数据库配置，将配置文件写到数据库，每次程序运行前先读取数据库，进行初始化。这准确来说已经不再是配置了，而是一种程序设计方案。</p>
+<hr>
+<p>话不多说，下面正式来看 Python 中如何使用 <strong>ConfigParser</strong> 以及 <strong>YAML</strong> 模块对项目代码配置项进行模块化配置：</p>
+<h4 id="3-ConfigParser"><a href="#3-ConfigParser" class="headerlink" title="3. ConfigParser"></a>3. ConfigParser</h4><p>我们知道，<code>.ini</code>、<code>.cfg</code>、<code>.conf</code> 以及 <code>txt</code> 格式的配置文件使用方法都是一致的。这里我们以 <code>.cfg</code> 为后缀的配置文件进行讲解：</p>
+<h5 id="3-1-–-gt-cfg-配置文件简介"><a href="#3-1-–-gt-cfg-配置文件简介" class="headerlink" title="3.1 –&gt; cfg 配置文件简介"></a>3.1 –&gt; cfg 配置文件简介</h5><p><strong>1] –&gt; 文件后缀</strong></p>
+<p>后缀不一定是 <code>cfg</code>，像 <code>ini</code>，<code>conf</code>，<code>txt</code> 都可以，本质上就是 <strong>text</strong> 文本文件；</p>
+<p><strong>2] –&gt; 文件内容构成</strong></p>
+<p><code>cfg</code> 配置文件内容由：sections（节），options（选项，或称为键：key），values（值，与选项或键相对应）。如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[section_1]</span><br><span class="line">option_1 = value_1</span><br><span class="line">option_2 = value_2</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">[section_2]</span><br><span class="line">option_3 = value_3</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>–&gt; 默认节：</p>
+<p>配置文件中有一个特殊的 sections（节），即：默认节（<code>DEFAULT</code>）。可以省略，但大小写敏感。</p>
+<p>–&gt; 注释：</p>
+<p>使用 <code>;</code> 来表征注释，在 <code>;</code> 后面的语句，直到结尾都是注释。</p>
+<p><strong>3] –&gt; cfg文件示例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">;这是一段注释</span><br><span class="line">[DEFAULT]</span><br><span class="line">option_0 = value_0</span><br><span class="line"></span><br><span class="line">[section_1]</span><br><span class="line">option_1 = value_1</span><br><span class="line">option_2 = value_2</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">[section_2]</span><br><span class="line">option_3 = value_3</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<hr>
+<h5 id="3-2-–-gt-ConfigParser-模块使用"><a href="#3-2-–-gt-ConfigParser-模块使用" class="headerlink" title="3.2 –&gt; ConfigParser 模块使用"></a>3.2 –&gt; ConfigParser 模块使用</h5><p>Python 内置的 <strong>ConfigParser</strong> 模块可以用来操作 <code>.ini</code>、<code>.cfg</code>、<code>.conf</code> 以及 <code>txt</code> 等文本格式的配置文件，实现配置文件的读取、更新、写入、删除等。</p>
+<p>在开始使用之前，我们先给一个具有实际意义的进行数据库访问配置的 <code>.cfg</code> 配置文件：<code>db_config.cfg</code>。内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[DEFAULT]</span><br><span class="line">author=test</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line">host=192.168.1.88</span><br><span class="line">port=3306</span><br><span class="line">db=mysql</span><br><span class="line">user=root</span><br><span class="line">passwd=123456</span><br><span class="line"></span><br><span class="line">[concurrent]</span><br><span class="line">processor = 20</span><br><span class="line">thread = 10</span><br></pre></td></tr></table></figure>
+<p>下面我们来看 <strong>ConfigParser</strong> 模块如何操作配置文件：</p>
+<hr>
+<p><strong>1] –&gt;</strong> 导入 ConfigParser 模块，并实例化一个 ConfigParser 对象：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> configparser <span class="keyword">import</span> ConfigParser</span><br><span class="line"></span><br><span class="line">config = ConfigParser()</span><br></pre></td></tr></table></figure>
+<p><strong>2] –&gt;</strong>  ConfigParser 对象支持的基础读取配置文件方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读取文件内容并解析：</span></span><br><span class="line"><span class="comment"># filenames 参数：文件路径列表，可以设置多个配置文件，越往后优先级越高。</span></span><br><span class="line"><span class="comment"># 文件列表中不存在的文件被忽略，最后返回一个成功读取的文件列表。大多数情况下为单配置文件读取场景。</span></span><br><span class="line">config.read(filenames,encoding=<span class="keyword">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以列表的形式返回所有节点名称：</span></span><br><span class="line"><span class="comment"># 注意不包括 DEFAULT 节点。</span></span><br><span class="line">config.sections()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 返回指定节点（section）里面的所有选项（键）的列表：</span></span><br><span class="line">config.options(section)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 返回指定节点（section）里面所有键值对（元组）的列表：</span></span><br><span class="line">config.items(section)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 返回指定节点（section）中指定 option 的值，注意返回值类型为：str</span></span><br><span class="line">config.get(section,option)</span><br><span class="line"><span class="comment"># 返回指定节点（section）中指定 option 的值，值会被转变为 int 类型：</span></span><br><span class="line">config.getint(section,option)</span><br><span class="line"><span class="comment"># 返回指定节点（section）中指定 option 的值，值会被转变为 float 类型：</span></span><br><span class="line">config.getfloat(section,option)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 返回指定节点（section）中指定 option 的值，值会被转变为 bool 类型：</span></span><br><span class="line"><span class="comment"># 注意：0,false,no,off 都会转变为 False；1，true,yes,on 都会转变为 True。</span></span><br><span class="line">config.getboolean(section,option)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询指定节点（section）是否存在：</span></span><br><span class="line">config.has_section(section)</span><br><span class="line"><span class="comment"># 查询指定节点（section）中指定选项 option 是否存在：</span></span><br><span class="line">config.has_option(section,option)</span><br></pre></td></tr></table></figure>
+<p>测试代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> configparser</span><br><span class="line"></span><br><span class="line">config = configparser.ConfigParser()</span><br><span class="line">print(<span class="string">"- Empty config %s"</span> % config.sections())</span><br><span class="line"></span><br><span class="line">cfg_path = <span class="string">'./db_config.cfg'</span></span><br><span class="line">print(<span class="string">"- Load config file --&gt; %s"</span> % cfg_path)</span><br><span class="line">config.read(cfg_path)</span><br><span class="line"></span><br><span class="line">section = config.sections()</span><br><span class="line">print(<span class="string">"&gt; config sections : %s"</span> % section)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'- Detect section isExist ↓↓↓'</span>)</span><br><span class="line">print(<span class="string">'mysql'</span> <span class="keyword">in</span> config )</span><br><span class="line">print(config.has_section(<span class="string">"redis"</span>))</span><br><span class="line"></span><br><span class="line">options_1 = config.options(<span class="string">'mysql'</span>)</span><br><span class="line">print(<span class="string">"&gt; options of sections : %s"</span> % options_1)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'- Detect option isExist ↓↓↓'</span>)</span><br><span class="line">print(config.has_option(<span class="string">'mysql'</span>,<span class="string">'passwd'</span>))</span><br><span class="line">print(config.has_option(<span class="string">'mysql'</span>,<span class="string">'times'</span>))</span><br><span class="line"></span><br><span class="line">print(<span class="string">"\n&gt; key-value of option : %s"</span> % config.items(<span class="string">'mysql'</span>))</span><br><span class="line"></span><br><span class="line">print(<span class="string">"\n&gt; Load config file is :"</span>)</span><br><span class="line"><span class="keyword">for</span> section <span class="keyword">in</span> config.keys():</span><br><span class="line">    print(<span class="string">"[&#123;s&#125;]"</span>.format(s=section))</span><br><span class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> config[section]:</span><br><span class="line">        print(<span class="string">"&#123;k&#125; = &#123;v&#125;"</span>.format(k=key, v=config[section][key]))</span><br><span class="line">        </span><br><span class="line">print(<span class="string">"\n- Get value like dict :user =  %s"</span> % config[<span class="string">'mysql'</span>][<span class="string">'user'</span>])</span><br><span class="line">print(<span class="string">"\n- Get value as configparser :user =  %s"</span> % config.get(<span class="string">'mysql'</span>,<span class="string">'user'</span>))</span><br><span class="line"></span><br><span class="line">print(<span class="string">'\n- The DEFAULT section which provides default values for all other sections'</span>)</span><br><span class="line">print(<span class="string">"- mysql section"</span>)</span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> config.options(<span class="string">'mysql'</span>): print(key)</span><br><span class="line">print(<span class="string">"&gt; Get default value : author = %s"</span> % config[<span class="string">'mysql'</span>][<span class="string">'author'</span>])</span><br><span class="line"></span><br><span class="line">print(<span class="string">"\n- Support datatypes"</span>)</span><br><span class="line">int_port = config.getint(<span class="string">'mysql'</span>, <span class="string">'port'</span>)</span><br><span class="line">float_port = config.getfloat(<span class="string">'mysql'</span>, <span class="string">'port'</span>)</span><br><span class="line">print(<span class="string">"&gt; Get int port = %d type : %s"</span> % (int_port, type(int_port)))</span><br><span class="line">print(<span class="string">"&gt; Get float port = %f type : %s"</span> % (float_port, type(float_port)))</span><br></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">- Empty config []</span><br><span class="line">- Load config file --&gt; ./db_config.cfg</span><br><span class="line">&gt; config sections : [<span class="string">'mysql'</span>, <span class="string">'concurrent'</span>]</span><br><span class="line">- Detect section isExist ↓↓↓</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="keyword">False</span></span><br><span class="line">&gt; options of sections : [<span class="string">'host'</span>, <span class="string">'port'</span>, <span class="string">'db'</span>, <span class="string">'user'</span>, <span class="string">'passwd'</span>, <span class="string">'author'</span>]</span><br><span class="line">- Detect option isExist ↓↓↓</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">&gt; key-value of option : [(<span class="string">'author'</span>, <span class="string">'test'</span>), (<span class="string">'host'</span>, <span class="string">'192.168.1.88'</span>), (<span class="string">'port'</span>, <span class="string">'3306'</span>), (<span class="string">'db'</span>, <span class="string">'mysql'</span>), (<span class="string">'user'</span>, <span class="string">'root'</span>), (<span class="string">'passwd'</span>, <span class="string">'123456'</span>)]</span><br><span class="line"></span><br><span class="line">&gt; Load config file <span class="keyword">is</span> :</span><br><span class="line">[DEFAULT]</span><br><span class="line">author = test</span><br><span class="line">[mysql]</span><br><span class="line">host = <span class="number">192.168</span><span class="number">.1</span><span class="number">.88</span></span><br><span class="line">port = <span class="number">3306</span></span><br><span class="line">db = mysql</span><br><span class="line">user = root</span><br><span class="line">passwd = <span class="number">123456</span></span><br><span class="line">author = test</span><br><span class="line">[concurrent]</span><br><span class="line">processor = <span class="number">20</span></span><br><span class="line">thread = <span class="number">10</span></span><br><span class="line">author = test</span><br><span class="line"></span><br><span class="line">- Get value like dict :user =  root</span><br><span class="line"></span><br><span class="line">- Get value <span class="keyword">as</span> configparser :user =  root</span><br><span class="line"></span><br><span class="line">- The DEFAULT section which provides default values <span class="keyword">for</span> all other sections</span><br><span class="line">- mysql section</span><br><span class="line">host</span><br><span class="line">port</span><br><span class="line">db</span><br><span class="line">user</span><br><span class="line">passwd</span><br><span class="line">author</span><br><span class="line">&gt; Get default value : author = test</span><br><span class="line"></span><br><span class="line">- Support datatypes</span><br><span class="line">&gt; Get int port = <span class="number">3306</span> type : &lt;<span class="class"><span class="keyword">class</span> '<span class="title">int</span>'&gt;</span></span><br><span class="line">&gt; Get float port = 3306.000000 type : &lt;class 'float'&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>3] –&gt;</strong>  ConfigParser 对象支持的基础写入配置文件方法：</p>
+<p>一般而言，写入方法使用的很少，手动就好，非要整那么麻烦，这里当作了解即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 增加一个指定的节点（section）：</span></span><br><span class="line">config.add_section(section)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对指定节点（section）中添加或更新指定 option 的值：</span></span><br><span class="line">config.set(section,option,value)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除一个指定的节点（section）：</span></span><br><span class="line">config.remove_section(section)</span><br><span class="line"></span><br><span class="line"><span class="comment">#  删除指定节点（section）中指定的 option 选项：</span></span><br><span class="line">config.remove_option(section,option)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 config 对象写入 config_file 文件中：</span></span><br><span class="line"><span class="comment"># space_around_delimiters 参数为 True，则写入的配置项等号两边有空格</span></span><br><span class="line">config.write(config_file_object,space_around_delimiters=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<p>还是以我们上面给出的配置文件操作进行测试：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''向配置文件中写入新节点配置信息'''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> configparser <span class="keyword">import</span> ConfigParser</span><br><span class="line"></span><br><span class="line">config = ConfigParser()</span><br><span class="line"></span><br><span class="line">config.add_section(<span class="string">"redis"</span>)</span><br><span class="line">config.set(<span class="string">"redis"</span>, <span class="string">"host"</span>, <span class="string">'192.168.1.201'</span>)</span><br><span class="line">config.set(<span class="string">"redis"</span>, <span class="string">"port"</span>, <span class="string">'3306'</span>)</span><br><span class="line">config.add_section(<span class="string">"test"</span>)</span><br><span class="line">config.set(<span class="string">"test"</span>, <span class="string">"name"</span>, <span class="string">"root"</span>)</span><br><span class="line"></span><br><span class="line">cfg_path = <span class="string">'./db_config.cfg'</span></span><br><span class="line"><span class="keyword">with</span> open(cfg_path,<span class="string">"a+"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    config.write(f)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"&gt; Write success &gt;&gt;&gt;"</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在写入文件时，无论原字符（option）是大写还是小写，ConfigParser 总是把它转换为小写字符，然后再写入。这是由于其内部的函数在写入时将其转化为小写导致的（low()）。</p>
+</blockquote>
+<p>注意，如果是对配置文件的修改操作（更新、删除），一定要 read 原文件！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''配置文件中对节点进行更新、删除操作'''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> configparser <span class="keyword">import</span> ConfigParser</span><br><span class="line"></span><br><span class="line">config = ConfigParser()</span><br><span class="line"></span><br><span class="line">cfg_path = <span class="string">'./db_config.cfg'</span></span><br><span class="line">config.read(cfg_path)</span><br><span class="line">config.set(<span class="string">"redis"</span>, <span class="string">"port"</span>, <span class="string">'8888'</span>)</span><br><span class="line">config.remove_section(<span class="string">"test"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(cfg_path,<span class="string">"w+"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    config.write(f)</span><br><span class="line">    </span><br><span class="line">print(<span class="string">"&gt; Update success &gt;&gt;&gt;"</span>)</span><br></pre></td></tr></table></figure>
+<p>打开配置文件发现，已经修改成功了。</p>
+<hr>
+<h5 id="3-3-–-gt-ConfigParser-中的参数替换"><a href="#3-3-–-gt-ConfigParser-中的参数替换" class="headerlink" title="3.3 –&gt; ConfigParser 中的参数替换"></a>3.3 –&gt; ConfigParser 中的参数替换</h5><p>有时配置文件中的配置项需要使用到这样的格式：<code>%(home_dir)s/lumberjack</code>。这种格式的配置项，在读取的时候其实是想要取得替换后的值，这就是参数替换问题。</p>
+<p>pyton3 中的 <strong>ConfigParser</strong> 模块提供了两种参数替换的支持：<strong>section</strong>内替换 <code>BasicInterpolation()</code> [默认]和 <strong>section</strong>外替换 <code>ExtendedInterpolation()</code>。</p>
+<p>–&gt; 注意</p>
+<p>关于参数替换支持，我们需要在初始化 <strong>ConfigParser</strong> 对象时指定。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># default : config = configparser.ConfigParser(interpolation=configparser.BasicInterpolation())</span></span><br></pre></td></tr></table></figure>
+<p><strong>BasicInterpolation()</strong> 是默认使用的，如果想要使用 <strong>ExtendedInterpolation()</strong> 支持的话，需要明确指定：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())</span><br></pre></td></tr></table></figure>
+<p>并且，在不同 section 进行参数替换的写法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;section_name: value_name&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来看一下如何使用：</p>
+<hr>
+<p>先来看配置文件：</p>
+<p><strong>–&gt; basic_interpolation.ini：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[Paths]</span><br><span class="line">home_dir: /Users</span><br><span class="line">my_dir: %(home_dir)s/lumberjack</span><br><span class="line">my_pictures: %(my_dir)s/Pictures</span><br></pre></td></tr></table></figure>
+<p><strong>–&gt; extended_interpolation.ini：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[Common]</span><br><span class="line">home_dir: /Users</span><br><span class="line">library_dir: /Library</span><br><span class="line">system_dir: /System</span><br><span class="line">macports_dir: /opt/local</span><br><span class="line"></span><br><span class="line">[Frameworks]</span><br><span class="line">Python: 3.2</span><br><span class="line">path: $&#123;Common:system_dir&#125;/Library/Frameworks</span><br><span class="line"></span><br><span class="line">[Arthur]</span><br><span class="line">nickname: Two Sheds</span><br><span class="line">last_name: Jackson</span><br><span class="line">my_dir: $&#123;Common:home_dir&#125;/twosheds</span><br><span class="line">my_pictures: $&#123;my_dir&#125;/Pictures</span><br><span class="line">python_dir: $&#123;Frameworks:path&#125;/Python/Versions/$&#123;Frameworks:Python&#125;</span><br></pre></td></tr></table></figure>
+<p>对以上两个配置文件进行读取：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> configparser</span><br><span class="line"></span><br><span class="line">print(<span class="string">"\n- BasicInterpolation"</span>)</span><br><span class="line"><span class="comment">#default : config = configparser.ConfigParser(interpolation=configparser.BasicInterpolation())</span></span><br><span class="line">config = ConfigParser()</span><br><span class="line">config.read(<span class="string">'./basic_interpolation.ini'</span>)</span><br><span class="line">print(<span class="string">"&gt; Get raw value %s"</span> % (config.get(<span class="string">'Paths'</span>, <span class="string">'my_dir'</span>, raw = <span class="number">1</span>)))</span><br><span class="line">print(<span class="string">"&gt; Get value %s"</span> % (config.get(<span class="string">'Paths'</span>, <span class="string">'my_dir'</span>, raw = <span class="number">0</span>)))</span><br><span class="line"></span><br><span class="line">print(<span class="string">"\n- ExtendedInterpolation - other sections"</span>)</span><br><span class="line">config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())</span><br><span class="line">config.read(<span class="string">"./extended_interpolation.ini"</span>)</span><br><span class="line">print(<span class="string">"&gt; Get raw value %s"</span> % (config.get(<span class="string">'Arthur'</span>, <span class="string">'python_dir'</span>, raw = <span class="number">1</span>)))</span><br><span class="line">print(<span class="string">"&gt; Get value %s"</span> % (config.get(<span class="string">'Arthur'</span>, <span class="string">'python_dir'</span>, raw = <span class="number">0</span>)))</span><br></pre></td></tr></table></figure>
+<p>输出结果如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- BasicInterpolation</span><br><span class="line">&gt; Get raw value %(home_dir)s/lumberjack</span><br><span class="line">&gt; Get value /Users/lumberjack</span><br><span class="line"></span><br><span class="line">- ExtendedInterpolation - other sections</span><br><span class="line">&gt; Get raw value <span class="variable">$&#123;Frameworks:path&#125;</span>/Python/Versions/<span class="variable">$&#123;Frameworks:Python&#125;</span></span><br><span class="line">&gt; Get value /System/Library/Frameworks//Python/Versions/3.2</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="4-YAML"><a href="#4-YAML" class="headerlink" title="4. YAML"></a>4. YAML</h4><p>YAML （发音 /ˈjæməl/ ）语言是专门用来写配置文件的。注意使用前，先安装相应的第三方库：<strong>PyYAML</strong>。</p>
+<h5 id="4-1-–-gt-YAML-简介"><a href="#4-1-–-gt-YAML-简介" class="headerlink" title="4.1 –&gt; YAML 简介"></a>4.1 –&gt; YAML 简介</h5><p><strong>1] –&gt; 基本语法规则</strong></p>
+<ul>
+<li>大小写敏感；</li>
+<li>使用缩进表示层级关系；</li>
+<li>缩进时不允许使用Tab键，只允许使用空格。并且缩进的空格数目不重要，只要相同层级的元素左侧对齐即可；</li>
+<li><code>#</code> 表示注释。</li>
+</ul>
+<hr>
+<p><strong>2] –&gt; YAML 支持的数据结构有三种：</strong></p>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/Python/Python-之配置文件使用方法/" title="Python 之配置文件使用方法">http://yoursite.com/Python/Python-之配置文件使用方法/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python3/" rel="tag"><i class="fa fa-tag"></i> Python3</a>
+          
+            <a href="/tags/ConfigParser/" rel="tag"><i class="fa fa-tag"></i> ConfigParser</a>
+          
+            <a href="/tags/YAML/" rel="tag"><i class="fa fa-tag"></i> YAML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Python/Python-的面向对象编程/" rel="next" title="Python 的面向对象编程">
+                <i class="fa fa-chevron-left"></i> Python 的面向对象编程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python/Python-Module-Data-pretty-printer-pprint/" rel="prev" title="Python Module:Data pretty printer(pprint)">
+                Python Module:Data pretty printer(pprint) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python-中配置文件策略"><span class="nav-text">Python 中配置文件策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-为什么要使用配置文件？"><span class="nav-text">1. 为什么要使用配置文件？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Python-中的配置文件使用方法"><span class="nav-text">2. Python 中的配置文件使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-–-gt-ConfigParser"><span class="nav-text">2.1 –&gt; ConfigParser</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-–-gt-YAML"><span class="nav-text">2.2 –&gt; YAML</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-–-gt-Other-Methods"><span class="nav-text">2.3 –&gt; Other Methods</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-ConfigParser"><span class="nav-text">3. ConfigParser</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-–-gt-cfg-配置文件简介"><span class="nav-text">3.1 –&gt; cfg 配置文件简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-–-gt-ConfigParser-模块使用"><span class="nav-text">3.2 –&gt; ConfigParser 模块使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-–-gt-ConfigParser-中的参数替换"><span class="nav-text">3.3 –&gt; ConfigParser 中的参数替换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-YAML"><span class="nav-text">4. YAML</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-–-gt-YAML-简介"><span class="nav-text">4.1 –&gt; YAML 简介</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

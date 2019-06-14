@@ -227,8 +227,8 @@
         <category>Anaconda</category>
       </categories>
       <tags>
-        <tag>Python</tag>
         <tag>Anaconda</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -239,8 +239,8 @@
         <category>Anaconda</category>
       </categories>
       <tags>
-        <tag>Python</tag>
         <tag>Anaconda</tag>
+        <tag>Python</tag>
         <tag>Setup</tag>
       </tags>
   </entry>
@@ -252,8 +252,8 @@
         <category>Anaconda</category>
       </categories>
       <tags>
-        <tag>Python</tag>
         <tag>Anaconda</tag>
+        <tag>Python</tag>
         <tag>JupyterLab(Notebook)</tag>
       </tags>
   </entry>
@@ -623,8 +623,8 @@
       </categories>
       <tags>
         <tag>Python3</tag>
-        <tag>PrettyPrinter</tag>
         <tag>pprint</tag>
+        <tag>PrettyPrinter</tag>
       </tags>
   </entry>
   <entry>

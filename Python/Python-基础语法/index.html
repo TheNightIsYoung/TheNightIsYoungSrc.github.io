@@ -107,7 +107,7 @@
 <meta property="og:site_name" content="When Art Meets Technology">
 <meta property="og:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  引言： 任何一种编程语言都有自己的一套语法规则，编译器或者解释器就是负责把符合语法的程序代码转换成 CPU 能够执行的机器码，然后执行，Python 也不例外。从这一章节开始，我们开始正式学习 Python 程序设计语言。 Python 官方标准库地址：https://docs.python.org/zh-cn/3.7/library/inde">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-29T03:03:51.986Z">
+<meta property="og:updated_time" content="2019-06-17T03:17:45.215Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 基础语法">
 <meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  引言： 任何一种编程语言都有自己的一套语法规则，编译器或者解释器就是负责把符合语法的程序代码转换成 CPU 能够执行的机器码，然后执行，Python 也不例外。从这一章节开始，我们开始正式学习 Python 程序设计语言。 Python 官方标准库地址：https://docs.python.org/zh-cn/3.7/library/inde">
@@ -363,8 +363,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:51+08:00">
-                2019-05-29
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-17T11:17:45+08:00">
+                2019-06-17
               </time>
             
           </span>
@@ -483,15 +483,15 @@
 <li>第一个字符必须是字母表中字母或下划线 <code>_</code> ;</li>
 <li>标识符对大小写敏感。</li>
 </ol>
-<p>标识符规范：</p>
+<p>标识符（命名）规范：</p>
 <ul>
 <li>见名知义；</li>
 <li>大小写：1.包名全小写，2.常量全大写，3，变量、函数名开头首字母小写，后面首字母全大写；4.类名首字母全大写。</li>
 </ul>
-<p>注意，以下划线开头的标识符是有特殊意义的。例如，以双下划线开头的 <code>__foo</code> 代表类的私有成员。以双下划线开头和结尾的 <code>__foo__</code> 代表 Python 里特殊方法专用的标识，如 <code>__init__()</code> 代表类的构造函数。</p>
+<p>注意，以下划线开头的标识符是有特殊意义的。例如，以双下划线开头的变量 <code>__foo</code> 代表私有成员。以双下划线开头和结尾的方法 <code>__foo__</code> 代表 Python 里特殊方法专用的标识，如 <code>__init__()</code> 代表类的构造函数。</p>
 <hr>
-<h3 id="1-3-Python-保留字"><a href="#1-3-Python-保留字" class="headerlink" title="1.3 Python 保留字"></a>1.3 Python 保留字</h3><p>保留字即关键字，我们不能把它们用作任何标识符名称。Python 的标准库提供了一个 <code>keyword</code> 模块，可以输出当前版本的所有关键字：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; import keyword</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; keyword.kwlist</span></span><br><span class="line">['False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-Python-保留字"><a href="#1-3-Python-保留字" class="headerlink" title="1.3 Python 保留字"></a>1.3 Python 保留字</h3><p><strong>保留字即关键字</strong>，我们不能把它们用作任何标识符名称。Python 的标准库提供了一个 <code>keyword</code> 模块，可以输出当前版本的所有关键字：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span>&gt;&gt; import keyword</span><br><span class="line"><span class="meta">&gt;</span>&gt;&gt; keyword.kwlist</span><br><span class="line">['False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="1-4-注释"><a href="#1-4-注释" class="headerlink" title="1.4 注释"></a>1.4 注释</h3><p>注释是给开发人员看的，可以是任意内容，<strong>解释器会忽略掉注释</strong>。</p>
 <p>Python 中单行注释以 <code>#</code> 开头，实例如下：</p>
@@ -499,19 +499,19 @@
 <p>多行注释可以用多个 <code>#</code> 号，还有  <code>&#39;&#39;&#39;</code> 或 <code>&quot;&quot;&quot;</code>：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"> </span><br><span class="line"># 第一个注释</span><br><span class="line"># 第二个注释</span><br><span class="line"> </span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">第三注释</span><br><span class="line">第四注释</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line"> </span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">第五注释</span><br><span class="line">第六注释</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">print (&quot;Hello, Python!&quot;)</span><br></pre></td></tr></table></figure>
 <hr>
-<h3 id="1-5-行与缩进"><a href="#1-5-行与缩进" class="headerlink" title="1.5 行与缩进"></a>1.5 行与缩进</h3><p>Python 可以在同一行中使用多条语句，语句之间使用分号（;）分割，以下是一个简单的实例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">"Google"</span>; age = <span class="number">20</span>; job = <span class="string">"IT"</span>;</span><br></pre></td></tr></table></figure>
-<p>但注意，通常语句后面不加（;），而且每行只写一个语句。</p>
-<p>Python 最具特色的就是使用 <strong>缩进</strong> 来表示代码块，不再需要使用大括号 <strong>{}</strong> 。</p>
-<p>缩进有利有弊。好处是强迫你写出格式化的代码，但没有规定缩进是几个空格还是 <code>Tab</code>（但要一致，否则会报错）。按照约定俗成的管理，应该始终坚持使用 <code>4</code> 个空格的缩进。<strong>注意不要混用 <code>Tab</code> 和 空格。</strong></p>
-<p>缩进不一致导致的错误：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IndentationError: unindent does <span class="keyword">not</span> match any outer indentation level</span><br></pre></td></tr></table></figure>
-<p>缩进的坏处就是 <strong>“复制－粘贴”</strong> 功能失效了，这是最坑爹的地方。当你重构代码时，粘贴过去的代码必须重新检查缩进是否正确。</p>
-<hr>
-<h3 id="1-6-跨行语句"><a href="#1-6-跨行语句" class="headerlink" title="1.6 跨行语句"></a>1.6 跨行语句</h3><p>Python 通常是一行写完一条语句，但如果语句很长，我们可以使用反斜杠 (\) 来实现多行语句，例如：</p>
+<h3 id="1-5-跨行语句"><a href="#1-5-跨行语句" class="headerlink" title="1.5 跨行语句"></a>1.5 跨行语句</h3><p>Python 通常是一行写完一条语句，但如果语句很长，我们可以使用反斜杠 (\) 来实现多行语句，例如：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">total = item_one + \</span><br><span class="line">        item_two + \</span><br><span class="line">        item_three</span><br></pre></td></tr></table></figure>
 <p>在  <code>[]</code>, <code>{}</code>, 或 <code>()</code> 中的多行语句，不需要使用反斜杠(\)，例如：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">total = [<span class="string">'item_one'</span>, <span class="string">'item_two'</span>, <span class="string">'item_three'</span>,</span><br><span class="line">        <span class="string">'item_four'</span>, <span class="string">'item_five'</span>]</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="1-6-行与缩进"><a href="#1-6-行与缩进" class="headerlink" title="1.6 行与缩进"></a>1.6 行与缩进</h3><p>Python 可以在同一行中使用分号（;）来写多条语句，，以下是一个简单的实例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">"Google"</span>; age = <span class="number">20</span>; job = <span class="string">"IT"</span>;</span><br></pre></td></tr></table></figure>
+<p>但注意，通常 Python 编码规范要求：每行只写一个语句，而且语句后面不加（;）。</p>
+<p>Python 最具特色的就是使用 <strong>缩进</strong> 来表示代码块，不再需要使用大括号 <strong>{}</strong> 。</p>
+<p>缩进有利有弊。好处是强迫你写出格式化的代码，但没有规定缩进是几个空格还是 <code>Tab</code>（但上下文要一致，不要混用 Tab 和 空格，否则会报错）。</p>
+<p>按照约定俗成的管理，应该始终坚持使用 <code>4</code> 个空格的缩进。缩进不一致导致的错误：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IndentationError: unindent does <span class="keyword">not</span> match any outer indentation level</span><br></pre></td></tr></table></figure>
+<p>缩进的坏处就是 <strong>“复制－粘贴”</strong> 功能失效了，这是最坑爹的地方。当你重构代码时，粘贴过去的代码必须重新检查缩进是否正确。</p>
 <hr>
 <h3 id="1-7-import-amp-amp-from-…-import"><a href="#1-7-import-amp-amp-from-…-import" class="headerlink" title="1.7 import &amp;&amp; from … import"></a>1.7 import &amp;&amp; from … import</h3><p>在 Python 中用 <code>import</code> 或者 <code>from...import</code> 来导入相应的模块从而调用其内置方法：</p>
 <ul>
@@ -738,7 +738,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -760,7 +760,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-count">87</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -824,7 +824,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-基础语法"><span class="nav-text">Python 基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-编码"><span class="nav-text">1.1 编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-标识符"><span class="nav-text">1.2 标识符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Python-保留字"><span class="nav-text">1.3 Python 保留字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-注释"><span class="nav-text">1.4 注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-行与缩进"><span class="nav-text">1.5 行与缩进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-跨行语句"><span class="nav-text">1.6 跨行语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-import-amp-amp-from-…-import"><span class="nav-text">1.7 import &amp;&amp; from … import</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-基础语法"><span class="nav-text">Python 基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-编码"><span class="nav-text">1.1 编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-标识符"><span class="nav-text">1.2 标识符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Python-保留字"><span class="nav-text">1.3 Python 保留字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-注释"><span class="nav-text">1.4 注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-跨行语句"><span class="nav-text">1.5 跨行语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-行与缩进"><span class="nav-text">1.6 行与缩进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-import-amp-amp-from-…-import"><span class="nav-text">1.7 import &amp;&amp; from … import</span></a></li></ol></li></ol></div>
             
 
           </div>

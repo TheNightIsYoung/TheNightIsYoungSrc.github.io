@@ -99,18 +99,18 @@
 
 
 
-<meta name="description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  引言： Python 的字符串格式化传统有两种方式：％-formatting 方式，format 方式。除此之外，从 Python 3.6 开始映入了一种新的格式化方法：f-string，与传统格式化方法相比，f-string 不仅更易读，更简洁，不易出错，而且速度更快！本文将详细介绍三种格式化方法的用法。">
+<meta name="description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  引言： Python 的字符串格式化传统有两种方式：％-formatting 方式以及 format 方式。除此之外，从 Python 3.6 开始映入了一种新的格式化方法：f-string，与传统格式化方法相比，f-string 不仅更易读，更简洁，不易出错，而且速度更快！本文将详细介绍三种格式化方法的用法。">
 <meta name="keywords" content="Python,String,FormatOutput">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python 字符串之格式化输出">
 <meta property="og:url" content="http://yoursite.com/Python/Python-字符串之格式化输出/index.html">
 <meta property="og:site_name" content="When Art Meets Technology">
-<meta property="og:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  引言： Python 的字符串格式化传统有两种方式：％-formatting 方式，format 方式。除此之外，从 Python 3.6 开始映入了一种新的格式化方法：f-string，与传统格式化方法相比，f-string 不仅更易读，更简洁，不易出错，而且速度更快！本文将详细介绍三种格式化方法的用法。">
+<meta property="og:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  引言： Python 的字符串格式化传统有两种方式：％-formatting 方式以及 format 方式。除此之外，从 Python 3.6 开始映入了一种新的格式化方法：f-string，与传统格式化方法相比，f-string 不仅更易读，更简洁，不易出错，而且速度更快！本文将详细介绍三种格式化方法的用法。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-29T03:03:52.001Z">
+<meta property="og:updated_time" content="2019-06-17T05:28:59.886Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 字符串之格式化输出">
-<meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  引言： Python 的字符串格式化传统有两种方式：％-formatting 方式，format 方式。除此之外，从 Python 3.6 开始映入了一种新的格式化方法：f-string，与传统格式化方法相比，f-string 不仅更易读，更简洁，不易出错，而且速度更快！本文将详细介绍三种格式化方法的用法。">
+<meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  引言： Python 的字符串格式化传统有两种方式：％-formatting 方式以及 format 方式。除此之外，从 Python 3.6 开始映入了一种新的格式化方法：f-string，与传统格式化方法相比，f-string 不仅更易读，更简洁，不易出错，而且速度更快！本文将详细介绍三种格式化方法的用法。">
 
 
 
@@ -363,8 +363,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:52+08:00">
-                2019-05-29
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-17T13:28:59+08:00">
+                2019-06-17
               </time>
             
           </span>
@@ -425,7 +425,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.4k
+                  2.5k
                 </span>
               
 
@@ -465,7 +465,7 @@
         <center>抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…</center>
 
 <p>引言：</p>
-<p>Python 的字符串格式化传统有两种方式：％-formatting 方式，format 方式。除此之外，从 Python 3.6 开始映入了一种新的格式化方法：f-string，与传统格式化方法相比，f-string 不仅更易读，更简洁，不易出错，而且速度更快！本文将详细介绍三种格式化方法的用法。</p>
+<p>Python 的字符串格式化传统有两种方式：<strong>％-formatting 方式</strong>以及 <strong>format 方式</strong>。除此之外，从 Python 3.6 开始映入了一种新的格式化方法：f-string，与传统格式化方法相比，f-string 不仅更易读，更简洁，不易出错，而且速度更快！本文将详细介绍三种格式化方法的用法。</p>
 <a id="more"></a>
 <h2 id="Python-字符串格式化"><a href="#Python-字符串格式化" class="headerlink" title="Python 字符串格式化"></a>Python 字符串格式化</h2><h3 id="1-格式符"><a href="#1-格式符" class="headerlink" title="1. % 格式符"></a>1. % 格式符</h3><h4 id="1-1-语法规则"><a href="#1-1-语法规则" class="headerlink" title="1.1 语法规则"></a>1.1 语法规则</h4><p>% 格式符语法规则如下：</p>
 <blockquote>
@@ -473,7 +473,7 @@
 </blockquote>
 <hr>
 <h4 id="1-2-参数详解"><a href="#1-2-参数详解" class="headerlink" title="1.2 参数详解"></a>1.2 参数详解</h4><p><strong>1）(name)</strong></p>
-<p><code>(name)</code> 为命名参数，可选。用于选择指定的 key，即用于映射变量(参数为字典) 。</p>
+<p><code>(name)</code> 为命名参数，可选。用于指定 key，即用于映射变量(参数为字典) 。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>name = <span class="string">"python"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>age = <span class="number">20</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="string">"%(name)s:%(age)d"</span> % &#123;<span class="string">'name'</span>:name, <span class="string">'age'</span>:age&#125;)</span><br><span class="line">python:<span class="number">20</span></span><br></pre></td></tr></table></figure>
 <p><strong>2）flags</strong></p>
 <p><code>flags</code> 为对齐方式以及数值符号设置参数，可选。可供选择的值有：<code>+</code>，<code>-</code>，<code>空格</code>或 <code>0</code>。</p>
@@ -516,10 +516,10 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">first_name = <span class="string">"Eric"</span></span><br><span class="line">last_name = <span class="string">"Idle"</span></span><br><span class="line">age = <span class="number">27</span></span><br><span class="line">profession = <span class="string">"Developer"</span></span><br><span class="line">affiliation = <span class="string">"Easy Python"</span></span><br><span class="line">print((<span class="string">"Hello, %s %s. You are %s. You are a %s. You were a member of %s."</span> %</span><br><span class="line">(first_name, last_name, age, profession, affiliation)))</span><br></pre></td></tr></table></figure>
 <p>冗长，不能正确显示元组或字典都是它的缺点。</p>
 <hr>
-<h3 id="2-Format-方法"><a href="#2-Format-方法" class="headerlink" title="2. Format 方法"></a>2. Format 方法</h3><p>Python 中除了上述我们介绍过的 % 格式化方法，还可以通过 {} 和 : 来代替以前的 % 完成格式化输出，增强了字符串格式化的功能。</p>
+<h3 id="2-Format-方法"><a href="#2-Format-方法" class="headerlink" title="2. Format 方法"></a>2. Format 方法</h3><p>Python 中除了上述我们介绍过的 % 格式化方法，还可以通过 <strong>{} 和 :</strong> 来代替以前的 % 完成格式化输出，增强了字符串格式化的功能。</p>
 <h4 id="2-1-语法规则"><a href="#2-1-语法规则" class="headerlink" title="2.1 语法规则"></a>2.1 语法规则</h4><p>format 格式符语法规则如下：</p>
 <blockquote>
-<p>[fill][align][sign][#][width][,][.precision][type]</p>
+<p>[fill][align][sign][#][width][,][.precision][typecode]</p>
 </blockquote>
 <hr>
 <h4 id="2-2-参数详解"><a href="#2-2-参数详解" class="headerlink" title="2.2 参数详解"></a>2.2 参数详解</h4><p><strong>1）fill</strong></p>
@@ -580,7 +580,9 @@
 <h4 id="2-4-缺点"><a href="#2-4-缺点" class="headerlink" title="2.4 缺点"></a>2.4 缺点</h4><p>尽管一定程度上增强了 %-formatting 功能，但当我们开始使用多个参数和更长的字符串，还是具有冗长问题：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">first_name = <span class="string">"Eric"</span></span><br><span class="line">last_name = <span class="string">"Idle"</span></span><br><span class="line">age = <span class="number">27</span></span><br><span class="line">profession = <span class="string">"Developer"</span></span><br><span class="line">affiliation = <span class="string">"Easy Python"</span></span><br><span class="line">print(<span class="string">"Hello, &#123;first_name&#125;&#123;last_name&#125;. You are &#123;age&#125;. You are a &#123;profession&#125;. \</span></span><br><span class="line"><span class="string">You were a member of &#123;affiliation&#125;."</span>.format(first_name = first_name, last_name=last_name, age=age, profession=profession, affiliation=affiliation))</span><br></pre></td></tr></table></figure>
 <hr>
-<h3 id="3-f-string"><a href="#3-f-string" class="headerlink" title="3. f-string"></a>3. f-string</h3><p>Python 自 Python 3.6 开始在标准库加入一种改进 Python 格式字符串的新方法：f-string。我们可以在 PEP 498 中阅读所有内容。</p>
+<h3 id="3-f-string"><a href="#3-f-string" class="headerlink" title="3. f-string"></a>3. f-string</h3><p>Python 自 <strong>Python 3.6</strong> 开始在标准库加入一种改进 Python 格式字符串的新方法：f-string。</p>
+<p>f-string 在功能方面不逊于传统的：%-formating 和 format 方法，同时性能又优于二者，且使用起来也更加简洁明了。故，Python3.6 及以后的版本，推荐使用 <a href="https://blog.csdn.net/sunxb10/article/details/81036693" target="_blank" rel="noopener">f-string 进行字符串格式化</a> &lt;– 如何使用？。</p>
+<hr>
 
       
     </div>
@@ -672,8 +674,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Python/Python-基本数据类型/" rel="next" title="Python 基本数据类型">
-                <i class="fa fa-chevron-left"></i> Python 基本数据类型
+              <a href="/Python/Python-中的序列（sequence）/" rel="next" title="Python 中的序列（sequence）">
+                <i class="fa fa-chevron-left"></i> Python 中的序列（sequence）
               </a>
             
           </div>
@@ -796,7 +798,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -818,7 +820,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-count">87</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

@@ -99,21 +99,21 @@
 
 
 
-<meta name="description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 我们知道，卷积神经网络在计算机视觉（图像）领域有着不可缺失的作用。前面的博文 中我们了解过卷积神经网络的基本概念，也提到过两种时下流行的卷积神经网络架构设计（LeNet-5 &amp;amp;&amp;amp; Inception），为了帮助我们系统地了解卷积神经网络使用，本文我们来更加全面地认识一下卷积神经网络的发展史。">
+<meta name="description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 我们知道，卷积神经网络在计算机视觉（图像）领域有着不可缺失的作用。前面的博文 中我们了解过卷积神经网络的基本概念，也提到过两种时下流行的卷积神经网络架构设计（LeNet-5 &amp;amp;&amp;amp; Inception），为了帮助我们系统地了解卷积神经网络结构设计，本文我们来更加全面地认识一下卷积神经网络的发展史。">
 <meta name="keywords" content="TensorFlow,CNN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="卷积神经网络系列之 CNN 进化史">
 <meta property="og:url" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/index.html">
 <meta property="og:site_name" content="When Art Meets Technology">
-<meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 我们知道，卷积神经网络在计算机视觉（图像）领域有着不可缺失的作用。前面的博文 中我们了解过卷积神经网络的基本概念，也提到过两种时下流行的卷积神经网络架构设计（LeNet-5 &amp;amp;&amp;amp; Inception），为了帮助我们系统地了解卷积神经网络使用，本文我们来更加全面地认识一下卷积神经网络的发展史。">
+<meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 我们知道，卷积神经网络在计算机视觉（图像）领域有着不可缺失的作用。前面的博文 中我们了解过卷积神经网络的基本概念，也提到过两种时下流行的卷积神经网络架构设计（LeNet-5 &amp;amp;&amp;amp; Inception），为了帮助我们系统地了解卷积神经网络结构设计，本文我们来更加全面地认识一下卷积神经网络的发展史。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/CNN_development.png">
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/CNN_development2.png">
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/CNN_compare.png">
-<meta property="og:updated_time" content="2019-06-10T02:07:08.779Z">
+<meta property="og:updated_time" content="2019-06-19T07:23:31.063Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="卷积神经网络系列之 CNN 进化史">
-<meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 我们知道，卷积神经网络在计算机视觉（图像）领域有着不可缺失的作用。前面的博文 中我们了解过卷积神经网络的基本概念，也提到过两种时下流行的卷积神经网络架构设计（LeNet-5 &amp;amp;&amp;amp; Inception），为了帮助我们系统地了解卷积神经网络使用，本文我们来更加全面地认识一下卷积神经网络的发展史。">
+<meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 我们知道，卷积神经网络在计算机视觉（图像）领域有着不可缺失的作用。前面的博文 中我们了解过卷积神经网络的基本概念，也提到过两种时下流行的卷积神经网络架构设计（LeNet-5 &amp;amp;&amp;amp; Inception），为了帮助我们系统地了解卷积神经网络结构设计，本文我们来更加全面地认识一下卷积神经网络的发展史。">
 <meta name="twitter:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/CNN_development.png">
 
 
@@ -367,8 +367,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-06-10T10:07:08+08:00">
-                2019-06-10
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-19T15:23:31+08:00">
+                2019-06-19
               </time>
             
           </span>
@@ -429,7 +429,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  844
+                  1k
                 </span>
               
 
@@ -469,20 +469,28 @@
         <center> 愿你每天欢喜多于悲，孤独有人陪… </center>
 
 <p><strong>写在前面：</strong></p>
-<p>我们知道，卷积神经网络在计算机视觉（图像）领域有着不可缺失的作用。<a href="">前面的博文</a> 中我们了解过卷积神经网络的基本概念，也提到过两种时下流行的卷积神经网络架构设计（LeNet-5 &amp;&amp; Inception），为了帮助我们系统地了解卷积神经网络使用，本文我们来更加全面地认识一下卷积神经网络的发展史。</p>
+<p>我们知道，卷积神经网络在计算机视觉（图像）领域有着不可缺失的作用。<a href="">前面的博文</a> 中我们了解过卷积神经网络的基本概念，也提到过两种时下流行的卷积神经网络架构设计（LeNet-5 &amp;&amp; Inception），为了帮助我们系统地了解卷积神经网络结构设计，本文我们来更加全面地认识一下卷积神经网络的发展史。</p>
 <a id="more"></a>
 <p>本博文系列是对刘昕博士的 <a href="https://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650324619&amp;idx=1&amp;sn=ca1aed9e42d8f020d0971e62148e13be&amp;scene=1&amp;srcid=0503De6zpYN01gagUvn0Ht8D#wechat_redirect" target="_blank" rel="noopener">《CNN 的近期进展与实用技巧》</a> 的一个扩充性资料，全面详细地介绍了 CNN 进化史各个阶段的里程碑成果：</p>
 <p>卷积神经网络系列之：<a href="">大话卷积神经网络（CNN）</a> ；</p>
-<p>卷积神经网络系列之：<a href="">CNN 进化史</a> ；</p>
-<p>卷积神经网络系列之：<a href="">从 LeNet 到 AlexNet</a> ；</p>
-<p>卷积神经网络系列之：<a href="">CNN 演变之路之网络结构加深</a> ；</p>
+<p>卷积神经网络系列之：<a href="https://www.orangeshare.cn/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/" target="_blank" rel="noopener">CNN 进化史</a> ；</p>
+<p>卷积神经网络系列之：<a href="https://www.orangeshare.cn/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/" target="_blank" rel="noopener">从 LeNet 到 AlexNet</a> ；</p>
+<p>卷积神经网络系列之：<a href="https://www.orangeshare.cn/Convlutional-Neural-Networks/卷积神经网络系列%EF%BC%9ACNN-演变之路之网络结构加深/" target="_blank" rel="noopener">CNN 演变之路之网络结构加深</a> ；</p>
+<p>卷积神经网络系列之：<a href="">CNN 演变之路之卷积功能增强</a> ；</p>
+<p>卷积神经网络系列之：<a href="https://www.orangeshare.cn/Convlutional-Neural-Networks/卷积神经网络系列%EF%BC%9ACNN-演变之路之从分类到检测/" target="_blank" rel="noopener">CNN 演变之路之从分类到检测 (一)</a> ；</p>
+<p>卷积神经网络系列之：<a href="">CNN 演变之路之从分类到检测 (二): Region-free 检测方法</a> ；</p>
+<p>卷积神经网络系列之：<a href="">CNN 演变之路之新增功能模块</a> ；</p>
+<p><strong>声明：</strong>本系列博文只供学习和交流使用，禁止转载，侵权请联系删除！</p>
 <hr>
 <h3 id="Convlutional-Neural-Networks"><a href="#Convlutional-Neural-Networks" class="headerlink" title="Convlutional Neural Networks"></a>Convlutional Neural Networks</h3><p>卷积神经网络（CNN）近年来取得了长足的发展，已经成为深度学习中的一颗耀眼明珠。</p>
-<p>在计算机视觉领域，CNN 不仅能用来对图像进行分类，还在目标检测、图像分割任务中有着广泛的应用。CNN 已经成为了 <strong>图像领域的黄金标准 </strong> ，一直在不断的发展和改进。</p>
+<p>在计算机视觉领域，CNN 不仅能用来对图像进行分类，还在目标检测、图像分割等任务中有着广泛的应用。CNN 已经成为了 <strong>图像领域的黄金标准 </strong> ，一直在不断的发展和改进。</p>
 <h4 id="CNN-发展"><a href="#CNN-发展" class="headerlink" title="CNN 发展"></a>CNN 发展</h4><p>本系列博文将以 CNN 的发展为主线，并且引用刘昕博士的思路，对 CNN 的发展作一个更加详细的介绍，将按下图的 CNN 发展史进行描述：</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/./CNN_development.png" alt="avatar"></p>
 <p>上图所示是刘昕博士总结的 CNN 结构演化的历史，起点是神经感知机模型，此时已经出现了卷积结构。</p>
-<p>经典的 LeNet 诞生于 1998 年，然而之后 CNN 的锋芒开始被 SVM 等手工设计的特征盖过。随着 ReLU 和 Dropout 的提出，以及 GPU 和大数据带来的历史机遇，CNN 在 2012 年迎来了历史突破 – AlexNet 。随后几年，CNN 呈现爆发式发展，各种 CNN 架构模型涌现出来：</p>
+<p>–&gt; 前世今生：</p>
+<p>1980年推出的 <strong>neocognitron</strong> 是第一个真正意义上的级联卷积神经网络，不过它和现在的卷积形式有一定的差异。</p>
+<p>经典的 LeNet 诞生于 1998 年，然而之后 CNN 的锋芒开始被 SVM 等手工设计的特征盖过。</p>
+<p>随着 ReLU 和 Dropout 的提出，以及 GPU 和大数据带来的历史机遇，CNN 在 2012 年迎来了历史突破 – AlexNet 。随后几年，CNN 呈现爆发式发展，各种 CNN 架构模型涌现出来：</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/./CNN_development2.png" alt="avatar"></p>
 <p>–&gt; 更多：</p>
 <ul>
@@ -721,7 +729,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">75</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

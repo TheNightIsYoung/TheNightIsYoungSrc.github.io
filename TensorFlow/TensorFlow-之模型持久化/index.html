@@ -107,7 +107,7 @@
 <meta property="og:site_name" content="When Art Meets Technology">
 <meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   开篇： 前面章节（TensorFlow 之 MNIST 手写体数字图像识别问题）中给出的神经网络模型优化样例代码在训练完成后就直接退出了，并没有将学得的模型（训练成果物）保存下来以便下次使用（测试、预测），这样模型的训练是没有实际意义的。为了让学得模型可以复用，我们需要将训练的神经网络模型持久化。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-30T05:42:03.415Z">
+<meta property="og:updated_time" content="2019-06-19T03:05:04.811Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TensorFlow 之模型持久化">
 <meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   开篇： 前面章节（TensorFlow 之 MNIST 手写体数字图像识别问题）中给出的神经网络模型优化样例代码在训练完成后就直接退出了，并没有将学得的模型（训练成果物）保存下来以便下次使用（测试、预测），这样模型的训练是没有实际意义的。为了让学得模型可以复用，我们需要将训练的神经网络模型持久化。">
@@ -363,8 +363,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-30T13:42:03+08:00">
-                2019-05-30
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-19T11:05:04+08:00">
+                2019-06-19
               </time>
             
           </span>
@@ -425,7 +425,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  12.1k
+                  12.2k
                 </span>
               
 
@@ -711,7 +711,7 @@ with tf.Session() as sess:
 <pre><code>INFO:tensorflow:Restoring parameters from ./Output/Checkpoints_avg/model.ckpt
 0.099999905
 </code></pre><p>–&gt; 正常情况下，你会有一个疑问？</p>
-<p>就如保存或加载部分变量中一样，给出所有关注的滑动平均变量重命名字典以提供给 <code>tf.train.Saver()</code> 是不现实的。为了方便加载时重命名滑动平均变量，<code>tf.train.ExpoentialMovingAverage</code> 类提供了 <code>variables_to_restore</code> 函数来生成 <code>tf.train.Saver</code> 类所需要的变量重命名字典。示例代码如下：</p>
+<p>就如保存或加载部分变量中一样，给出所有关注的滑动平均变量重命名字典以提供给 <code>tf.train.Saver()</code> 是不现实的。为了方便加载时重命名滑动平均变量，<code>tf.train.ExpoentialMovingAverage</code> 类提供了一个 <code>variables_to_restore</code> 函数来自动生成 <code>tf.train.Saver</code> 类所需要的影子变量重命名字典。示例代码如下：</p>
 <pre><code>import tensorflow as tf 
 
 v1 = tf.Variable(0, dtype=tf.float32, name=&apos;v1&apos;)
@@ -722,9 +722,13 @@ for variables in tf.global_variables():
 
 ema = tf.train.ExponentialMovingAverage(0.99)
 
+variables_to_restore = ema.variables_to_restore()
 # 自动维护重命名字典：
-print (ema.variables_to_restore())
-saver = tf.train.Saver(ema.variables_to_restore())
+print (variables_to_restore)
+
+# saver = tf.train.Saver()
+saver = tf.train.Saver(variables_to_restore)
+
 with tf.Session() as sess:
     saver.restore(sess,&apos;./Output/Checkpoints_avg/model.ckpt&apos;)
     print (sess.run(v1))
@@ -736,7 +740,11 @@ v2:0
 INFO:tensorflow:Restoring parameters from ./Output/Checkpoints_avg/model.ckpt
 0.099999905
 1.04
-</code></pre><hr>
+</code></pre><p><strong>[2.2] 测试时使用注意</strong></p>
+<p>注可以看出，<strong>variables_to_restore()</strong> 函数的作用仅仅是构建了一个影子变量重命名映射字典，它不会影响原始变量的值！</p>
+<p>故，为方便测试时随时切换使用原始变量还是使用滑动平均变量，取决：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">ema = tf.train.ExponentialMovingAverage(<span class="number">0.99</span>)</span><br><span class="line">variables_to_restore = ema.variables_to_restore()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1.使用滑动平均变量：</span></span><br><span class="line">saver = tf.train.Saver(variables_to_restore)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.使用原始变量：</span></span><br><span class="line"><span class="comment"># 此时，上面关于滑动平均变量的定义对原始变量的使用无影响：</span></span><br><span class="line">saver = tf.train.Saver()</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<hr>
 <h4 id="1-1-2-持久化-PB-模型"><a href="#1-1-2-持久化-PB-模型" class="headerlink" title="1.1.2 持久化 PB 模型"></a>1.1.2 持久化 PB 模型</h4><p>我们知道，使用 <code>tf.train.Saver</code> 会保存运行 TensorFlow 程序所需要的全部信息，然而有时我们并不需要某些信息。例如：在测试或者离线预测时，只需要知道如何从神经网络的输入层经过前向传播过程计算得到输出层即可（不需要变量初始化、模型保存、损失函数、反向传播算法等），类似的还有我们即将学习的迁移学习，你会发现我们只需要原神经网络模型的一部分计算图结构。而且，将变量和计算图结构分成不同的文件存储有时也不方便。</p>
 <p>TensorFlow 提供了 <code>convert_variables_to_constants()</code> 函数。通过这个函数可以将计算图中的变量以及其取值通过常量的形式保存。这样使得整个 TensorFlow 计算图可以统一存放在一个文件中。示例代码如下：</p>
 <pre><code>import tensorflow as tf
@@ -1306,7 +1314,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">75</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

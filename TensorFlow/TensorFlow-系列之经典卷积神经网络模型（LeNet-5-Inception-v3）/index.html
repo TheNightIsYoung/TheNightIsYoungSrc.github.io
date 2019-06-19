@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之经典卷积神经网络模型（LeNet-5-Inception-v3）/inception.png">
 <meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之经典卷积神经网络模型（LeNet-5-Inception-v3）/Inception-v3.JPEG">
 <meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之经典卷积神经网络模型（LeNet-5-Inception-v3）/ILSRC_Top5.png">
-<meta property="og:updated_time" content="2019-06-18T10:46:24.869Z">
+<meta property="og:updated_time" content="2019-06-19T06:45:24.811Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TensorFlow 系列之经典卷积神经网络模型（LeNet-5 &amp;&amp; Inception-v3）">
 <meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： Part1 &amp;amp;&amp;amp; Part2 中我们已经详细介绍了卷积神经网络架构以及卷积层、池化层网络结构等。然而，我们可以通过这些网络结构任意组合得到的神经网络有无限多种。那么，怎样的卷积神经网络结构更有可能解决真实的图像处理问题呢？">
@@ -368,8 +368,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-06-18T18:46:24+08:00">
-                2019-06-18
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-19T14:45:24+08:00">
+                2019-06-19
               </time>
             
           </span>
@@ -430,7 +430,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  12.2k
+                  12.5k
                 </span>
               
 
@@ -446,7 +446,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  49
+                  51
                 </span>
               
             </div>
@@ -548,7 +548,7 @@
 <p>使用样例：类似 LeNet-5 模型架构：</p>
 <p>输入层−−&gt;卷积层−−&gt;池化层−−&gt;卷积层−−&gt;池化层−−&gt;全连接层−−&gt;全连接层−−&gt;输出层</p>
 <p>除了 LeNet-5 模型，2012 年 ImageNet ILSVRC 图像分类挑战的第一名 AlexNet 模型、2013 年 ILSVRC 第一名 ZF Net 模型以及 2014 年第二名 VGGNet 模型的架构<strong>都满足上面介绍的卷积神经网络通用架构公式</strong>。</p>
-<p>后面我们在 CNN 系列文章 –&gt; <a href="https://www.orangeshare.cn/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/" target="_blank" rel="noopener">CNN 进化史</a> 中会详细介绍各种流行的模型架构以及相关实现等。</p>
+<p>后面我们在 CNN 系列文章 –&gt; <a href="https://www.orangeshare.cn/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/" target="_blank" rel="noopener">CNN 进化史</a> 中会详细介绍各种流行的满足通用架构公式的模型以及相关实现等。</p>
 <hr>
 <h4 id="3-2-Inception-v3-模型"><a href="#3-2-Inception-v3-模型" class="headerlink" title="3.2 Inception-v3 模型"></a>3.2 Inception-v3 模型</h4><p>上一小节通过介绍 LeNet-5 模型给出了一种经典的卷积神经网络通用架构设计。这一小节我们来看 Inception 结构以及 Inception-v3 卷积神经网络模型。</p>
 <h5 id="3-2-1-Inception-架构"><a href="#3-2-1-Inception-架构" class="headerlink" title="3.2.1 Inception 架构"></a>3.2.1 Inception 架构</h5><p>Inception 结构是一种和 LeNet-5 架构结构完全不同的卷积神经网络结构。在 LeNet-5 模型中，不同卷积层通过串联的方式连接在一起（符合卷积神经网络通用设计模式），而 Inception 结构是将不同的卷积层通过并联的方式结合在一起（增强了卷积功能）。下面先来详细介绍 Inception 结构：</p>
@@ -557,7 +557,7 @@
 <p>从图中可以看出，<strong>Inception 结构会首先使用不同尺寸的过滤器处理输入矩阵</strong> 。如图，最上方的矩阵为使用了边长为 <strong>1</strong> 的过滤器的卷积层前向传播的结果。类似的，中间的矩阵使用的过滤器边长为 <strong>3</strong>，下方的矩阵使用的过滤器边长为 <strong>5</strong>。不同的矩阵分别代表了 Inception 模块中的一条计算路径。</p>
 <p>虽然过滤器的尺寸大小不同，但如果所有的过滤器都使用全 0 填充且步长为 1，那么 <strong>前向传播得到的结果矩阵的长和宽都与输入矩阵一致</strong> 。这样经过不同过滤器处理的结果矩阵可以拼接成一个更深的矩阵。如上图所示，可以将它们再深度这个维度上组合起来。</p>
 <p><strong>–&gt; Inception 模块核心思想：</strong></p>
-<p>Inception 模块通过不同尺寸的过滤器得到的结果矩阵的长和宽与输入矩阵一样，深度为<strong>RGB</strong>（三通道）三个矩阵深度的和，它展示的是 Inception 模块的核心思想。</p>
+<p>Inception 模块通过不同尺寸的过滤器得到的结果矩阵的长和宽与输入矩阵一样，深度为<strong>RGB</strong>（三通道）路径对应的三个矩阵深度的和，它展示的是 Inception 模块的核心思想。</p>
 <hr>
 <h5 id="3-2-2-Inception-v3"><a href="#3-2-2-Inception-v3" class="headerlink" title="3.2.2 Inception-v3"></a>3.2.2 Inception-v3</h5><p>通过 Inception 模块的不同组合，我们可以搭建不同架构的神经网络结构模型。而真正地在后续的 Inception-v3 模型中使用到的 Inception 模块更加复杂多样。下面我们来看 Inception-v3 模型讲解。</p>
 <p>首先给出 Inception-v3 模型的架构图:</p>
@@ -585,8 +585,8 @@
 <p><strong>2）TensorFlow-Slim 实现一个 Inception 模块</strong></p>
 <p>完整的  Inception-v3 模型实现较长，实现源码见：<a href="https://github.com/tensorflow/models/tree/master/research/slim" target="_blank" rel="noopener">TensorFlow-Slim</a>。这里只提供  Inception-v3 模型中结构相对复杂的一个  Inception 模块的代码实现。以下代码实现了上图中最后一个单元模块（ Inception 模块）</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># slim.arg_scope 函数可以用于设置默认的参数取值：</span></span><br><span class="line"><span class="comment"># [1] slim.arg_scope() 第一个参数是一个函数列表，这个列表中的函数将使用默认的参数取值。比如以下定义： 使用 slim.conv2d(net, 320, [1,1]) 函数</span></span><br><span class="line"><span class="comment"># 时自动加上 stride=1 和 padding='SAME' 的参数。</span></span><br><span class="line"><span class="comment"># 如果在函数调用时指定了 stride，那么这里设置的默认值就不会再使用。通过这种方式可以进一步减少冗余代码。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> slim.arg_scope([slim.conv2d, slim.max_pool2d, slim.avg_pool2d],</span><br><span class="line">                   stride=<span class="number">1</span>, padding=<span class="string">'SAME'</span>):</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment"># 此处省略了 Inception-v3 模型中其它网络结构而直接实现最后 Inception 模块。</span></span><br><span class="line">    <span class="comment"># 假设输入图片经过之前的神经网络前向传播的结果保存在变量 net 中。</span></span><br><span class="line">    net = 上一层的输出节点矩阵</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 为一个 Inception 模块声明一个统一的变量命名空间：</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'Mixed_7c'</span>):</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 给 Inception 模块中每一条路径声明一个命名空间（第一条路径）：</span></span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'Branch_0'</span>):</span><br><span class="line">            <span class="comment"># 实现一个过滤器边长为 1，深度为 320 的卷积层：</span></span><br><span class="line">            branch_0 = slim.conv2d(net, <span class="number">320</span>, [<span class="number">1</span>,<span class="number">1</span>], scope=<span class="string">'Conv2d_0a_1x1'</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Inception 模块中第二条路径。这条计算路径上的结构本身也是一个 Inception 结构：</span></span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'Branch_1'</span>):</span><br><span class="line">            branch_1 = slim.conv2d(net, <span class="number">384</span>, [<span class="number">1</span>,<span class="number">1</span>], scope=<span class="string">'Conv2d_0a_1x1'</span>)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># tf.concat 函数可以将多个矩阵拼接起来：</span></span><br><span class="line">            <span class="comment"># tf.concat 函数的第一个参数指定拼接的维度，这里给出的 ‘3’代表了矩阵是在深度这个维度上进行拼接</span></span><br><span class="line">            branch_1 = tf.concat(<span class="number">3</span>, [</span><br><span class="line">                <span class="comment"># 如Inception-v3 模型架构图所示，此处 2 层卷积层的输入都是 branch_1 而不是 net</span></span><br><span class="line">                slim.conv2d(branch_1, <span class="number">384</span>, [<span class="number">1</span>,<span class="number">3</span>], scope=<span class="string">'Conv2d_0b_1x3'</span>),</span><br><span class="line">                slim.conv2d(branch_1, <span class="number">384</span>, [<span class="number">3</span>,<span class="number">1</span>], scope=<span class="string">'Conv2d_0c_3x1'</span>)])</span><br><span class="line">            </span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Inception 模块中第三条路径。此路径上的结构本身也是一个 Inception 结构：</span></span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'Branch_2'</span>):</span><br><span class="line">            branch_2 = slim.conv2d(</span><br><span class="line">                net, <span class="number">448</span>, [<span class="number">1</span>,<span class="number">1</span>], scope=<span class="string">'Conv2d_0a_1x1'</span>)</span><br><span class="line">            </span><br><span class="line">            branch_2 = slim.conv2d(</span><br><span class="line">                branch_2, <span class="number">384</span>, [<span class="number">3</span>,<span class="number">3</span>], scope=<span class="string">'Conv2d_0b_3x3'</span>)</span><br><span class="line">            </span><br><span class="line">            branch_2 = tf.concat(<span class="number">3</span>, [</span><br><span class="line">                slim.conv2d(branch_2, <span class="number">384</span>, [<span class="number">1</span>,<span class="number">3</span>], scope=<span class="string">'Conv2d_0c_1x3'</span>),</span><br><span class="line">                slim.conv2d(branch_2, <span class="number">384</span>, [<span class="number">3</span>,<span class="number">1</span>], scope=<span class="string">'Conv2d_0d_3x1'</span>)])</span><br><span class="line">            </span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Inception 模块中第四条路径。</span></span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'Branch_3'</span>):</span><br><span class="line">            branch_3 = slim.avg_pool2d(net, [<span class="number">3</span>,<span class="number">3</span>], scope=<span class="string">'AvgPool_0a_3x3'</span>)</span><br><span class="line">            branch_3 = slim.conv2d(branch_3, <span class="number">192</span>, [<span class="number">1</span>,<span class="number">1</span>], scope=<span class="string">'Conv2d_0b_1x1'</span>)</span><br><span class="line">  </span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 当前 Inception 模块的最后输出是由上面四个计算结果拼接得到的：</span></span><br><span class="line">        net = tf.concat(<span class="number">3</span>, [branch_0, branch_1, branch_2, branch_3])</span><br></pre></td></tr></table></figure>
-<p>是不是发现，Inception 模块再实际使用时更加复杂？</p>
-<p>至此，卷积神经网络基础部分已经讲解完成，后续我们还会继续开展拓展学习，进一步学习 <a href="https://www.orangeshare.cn/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/" target="_blank" rel="noopener">CNN 进化史 </a>，掌握各种经典 CNN 模型。</p>
+<p>是不是发现，Inception 模块在实际使用时更加复杂？</p>
+<p>至此，卷积神经网络基础部分已经讲解完成，后续我们还会继续开展拓展学习，进一步学习 <a href="https://www.orangeshare.cn/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/" target="_blank" rel="noopener">CNN 进化史 </a>，掌握各种基于 Inception 模块的经典CNN 模型。</p>
 <hr>
 <h3 id="Part-4-迁移学习（Transfer-Learning）"><a href="#Part-4-迁移学习（Transfer-Learning）" class="headerlink" title="Part 4 迁移学习（Transfer Learning）"></a>Part 4 迁移学习（Transfer Learning）</h3><p>这一部分，我们将学习迁移学习的概念以及如何通过 TensorFlow 来实现迁移学习。并且将详细讲解迁移学习的动机以及如何将一个数据集上训练好的卷积神经网络模型快速迁移到另外一个数据集上。</p>
 <p>在这一小节最终会给出一个具体的 TensorFlow 实现将 ImageNet 上训练好的 Inception-v3 模型迁移到另外一个图像分类数据集上。</p>
@@ -595,27 +595,28 @@
 <p>下表给出了从 2012 年到 2015 年 ILSVRC 第一名模型的层数以及 Top-5 的错误率。</p>
 <p><img src="/TensorFlow/TensorFlow-系列之经典卷积神经网络模型（LeNet-5-Inception-v3）/./ILSRC_Top5.png" alt="avatar"></p>
 <p>从表中看出，随着模型层数以及复杂度的增加，模型在 ImageNet 上的错误率也随之降低。</p>
-<p>然而现实中，训练复杂的卷积神经网络需要非常多的标注数据。如前面小节提到的 ImageNet2012 图像分类数据集中有 120W 标注图片，才可以将 152 层的 ResNet 模型训练到大约 96.5% 的正确率。</p>
-<p><strong>–&gt; 引发的问题：</strong></p>
+<hr>
+<h5 id="4-1-1-迁移学习适用场景"><a href="#4-1-1-迁移学习适用场景" class="headerlink" title="4.1.1 迁移学习适用场景"></a>4.1.1 迁移学习适用场景</h5><p>然而现实中，训练复杂的卷积神经网络需要非常多的标注数据。如前面小节提到的 ImageNet2012 图像分类数据集中有 120W 标注图片，才可以将 152 层的 ResNet 模型训练到大约 96.5% 的正确率。</p>
+<p>–&gt; 引发的问题：</p>
 <p>在真实场景应用中，很难收集到如此多的标注数据。即使可以收集到，也需要花费巨大的人力物力。</p>
 <p>而且，即使有海量的训练数据，要训练一个复杂的卷积神经网络也需要花费大量的时间。</p>
-<p>还有一个问题就是：自己设计的卷积神经网络模型性能太低（比如，准确率低）。</p>
-<p>为了解决<strong>真实场景下小样本集、训练时间消耗以及个人模型准确率低</strong>的问题，<strong>迁移学习</strong> 是一个有效的方法。</p>
-<p><strong>–&gt; 核心思路：</strong></p>
+<p>为了解决<strong>真实场景下小样本集、训练时间消耗以及个人模型准确率低</strong>的问题，<strong>迁移学习（也称为：Fine-tune）</strong> 是一个有效的方法。</p>
+<p>–&gt; 核心解决思路：</p>
 <p>迁移学习提出：我们可以在一个通用的大数据集上进行一定量的训练后，再用针对性的小数据集进一步强化训练来满足一个特定目标的训练任务。</p>
+<p>–&gt; 给一个定义吧：</p>
+<p>所谓的 <strong>迁移学习 : 就是将一个问题上训练好的模型通过简单的调整使其适应于一个新的问题</strong> 。</p>
 <hr>
-<h5 id="4-1-1-迁移学习"><a href="#4-1-1-迁移学习" class="headerlink" title="4.1.1 迁移学习"></a>4.1.1 迁移学习</h5><p>所谓的 <strong>迁移学习 : 就是将一个问题上训练好的模型通过简单的调整使其适应于一个新的问题</strong> 。</p>
-<p><strong>–&gt; 迁移学习为什么是有效的？</strong></p>
+<h5 id="4-1-2-迁移学习效果"><a href="#4-1-2-迁移学习效果" class="headerlink" title="4.1.2 迁移学习效果"></a>4.1.2 迁移学习效果</h5><p>–&gt; 迁移学习为什么是有效的？</p>
 <p>根据论文 DeCAF: A Deep Convolutional Activation Feature for Generic Visual Recongnition 中的结论，可以保留训练好的 Inception-v3 模型中所有卷积层的参数，只替换最后一层全连接层。</p>
 <p>在最后这一层全连接层之前的网络层称之为：<strong>瓶颈层（bottleneck）</strong>。</p>
-<p>将新的图像通过训练好的卷积神经网络直到瓶颈层的过程可以看作是对图像进行特征提取的过程。在训练好的 Inception-v3 模型中，因为将瓶颈层的输出再经过一个单层的全连接层神经网络可以很好地区分 1000 中类别的图像，所以有理由认为瓶颈层输出的节点向量可以被作为任何图像的一个更加精简且表达能力更强的特征向量。</p>
-<p>故，在新数据集上，可以直接利用这个训练好的神经网络对图像进行特征提取，然后再将提取到的特征向量作为输入来训练一个新的单层全连接神经网络处理新的分类问题。</p>
+<p>将新的图像通过训练好的卷积神经网络直到瓶颈层的过程可以看作是对图像进行特征提取的过程。在训练好的 Inception-v3 模型中，因为将瓶颈层的输出再经过一个单层的全连接层神经网络可以很好地区分 1000 中类别的图像，所以有理由认为瓶颈层输出的特征图可以被作为任何图像的一个更加精简且表达能力更强的特征表达。</p>
+<p>故，在新数据集上，可以直接利用这个通用数据集上训练好的神经网络对图像进行特征提取，然后再将提取到的特征向量作为输入来训练一个新的单层全连接神经网络处理新的分类问题。</p>
 <p><strong>–&gt; 学得模型效果：</strong></p>
-<p>一般来所，在数据量足够的情况下，迁移学习的效果不如完全重新训练。但是迁移学习所需要的训练时间和训练样本数目要远远小于训练完整数据的模型。</p>
+<p>一般来所，在数据量足够的情况下，迁移学习的效果不如完全重新训练（仅次于）。但是迁移学习所需要的训练时间和训练样本数目要远远小于训练完整数据的模型。</p>
 <hr>
 <h4 id="4-2-TensorFlow-实现-ImageNet-数据集上-Inception-v3-学得模型的迁移学习"><a href="#4-2-TensorFlow-实现-ImageNet-数据集上-Inception-v3-学得模型的迁移学习" class="headerlink" title="4.2 TensorFlow 实现 ImageNet 数据集上 Inception-v3 学得模型的迁移学习"></a>4.2 TensorFlow 实现 ImageNet 数据集上 Inception-v3 学得模型的迁移学习</h4><p>这一小节将介绍如何利用 ImageNet 数据集上训练好的 Inception-v3 模型来解决一个新的分类问题。</p>
 <p>这里，给出一个完整的 TensorFlow 程序来介绍如何通过 TensorFlow 实现将 ImageNet 数据集上学得的 Inception-v3 模型迁移学习到另一个图像分类数据集上。</p>
-<h5 id="4-2-1-下载目标数据集"><a href="#4-2-1-下载目标数据集" class="headerlink" title="4.2.1 下载目标数据集"></a>4.2.1 下载目标数据集</h5><p>1 –&gt; 下载 <strong>flower_photos.tgz</strong> 数据集：</p>
+<h5 id="4-2-1-准备分类数据集"><a href="#4-2-1-准备分类数据集" class="headerlink" title="4.2.1 准备分类数据集"></a>4.2.1 准备分类数据集</h5><p>1 –&gt; 下载 <strong>flower_photos.tgz</strong> 数据集：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl http://download.tensorflow.org/example_images/flower_photos.tgz --output flower_photos.tgz</span><br></pre></td></tr></table></figure>
 <p>2 –&gt; 解压数据集并更改其目录名称为 Flowers_Dataset ：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ tar -zxvf flower_photos.tgz</span><br><span class="line">$ mv flower_photos/ Flowers_data</span><br></pre></td></tr></table></figure>
@@ -635,6 +636,160 @@
 <p>运行上述程序将需要大约 40 分钟（处理数据：35 分钟，训练：5 分钟），可以得到类似下面的结果：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Loading Pre-Model &gt;&gt;&gt;&gt;&gt;</span><br><span class="line">WARNING:tensorflow:From &lt;ipython-input-5-a5c3d30883f2&gt;:14: FastGFile.__init__ (from tensorflow.python.platform.gfile) is deprecated and will be removed <span class="keyword">in</span> a future version.</span><br><span class="line">Instructions <span class="keyword">for</span> updating:</span><br><span class="line">Use tf.gfile.GFile.</span><br><span class="line">&lt;&lt;&lt; success!</span><br><span class="line">WARNING:tensorflow:From /home/deeplearning/.conda/envs/tensorflow-cpu/lib/python3.6/site-packages/tensorflow/python/framework/op_def_library.py:263: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed <span class="keyword">in</span> a future version.</span><br><span class="line">Instructions <span class="keyword">for</span> updating:</span><br><span class="line">Colocations handled automatically by placer.</span><br><span class="line">WARNING:tensorflow:From &lt;ipython-input-5-a5c3d30883f2&gt;:53: softmax_cross_entropy_with_logits (from tensorflow.python.ops.nn_ops) is deprecated and will be removed <span class="keyword">in</span> a future version.</span><br><span class="line">Instructions <span class="keyword">for</span> updating:</span><br><span class="line"></span><br><span class="line">Future major versions of TensorFlow will allow gradients to flow</span><br><span class="line">into the labels input on backprop by default.</span><br><span class="line"></span><br><span class="line">See `tf.nn.softmax_cross_entropy_with_logits_v2`.</span><br><span class="line"></span><br><span class="line">Step 0: validation accuracy on random sampled 100 examples = 49.0%</span><br><span class="line">Step 100: validation accuracy on random sampled 100 examples = 79.0%</span><br><span class="line">Step 200: validation accuracy on random sampled 100 examples = 82.0%</span><br><span class="line">Step 300: validation accuracy on random sampled 100 examples = 87.0%</span><br><span class="line">Step 400: validation accuracy on random sampled 100 examples = 91.0%</span><br><span class="line">Step 500: validation accuracy on random sampled 100 examples = 89.0%</span><br><span class="line">Step 600: validation accuracy on random sampled 100 examples = 93.0%</span><br><span class="line">Step 700: validation accuracy on random sampled 100 examples = 91.0%</span><br><span class="line">Step 800: validation accuracy on random sampled 100 examples = 92.0%</span><br><span class="line">Step 900: validation accuracy on random sampled 100 examples = 88.0%</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">Step 3700: validation accuracy on random sampled 100 examples = 93.0%</span><br><span class="line">Step 3800: validation accuracy on random sampled 100 examples = 97.0%</span><br><span class="line">Step 3900: validation accuracy on random sampled 100 examples = 98.0%</span><br><span class="line">Step 3999: validation accuracy on random sampled 100 examples = 91.0%</span><br><span class="line">Final <span class="built_in">test</span> accuracy = 88.9%</span><br></pre></td></tr></table></figure>
 <p>可以看出，模型在新的数据集上很快就能收敛，并达到还不错的分类效果。</p>
+<hr>
+<h4 id="4-3-Google-Image-Classification-Model-Library"><a href="#4-3-Google-Image-Classification-Model-Library" class="headerlink" title="4.3 Google Image Classification Model Library"></a>4.3 Google Image Classification Model Library</h4><p>最后我们给出一个 Google 基于 TensorFlow-Slim 轻量级高级库，实现各种经典卷积神经网络架构的模型仓库地址：</p>
+<p><a href="https://github.com/tensorflow/models/tree/master/research/slim" target="_blank" rel="noopener">TensorFlow-Slim image classification model library</a></p>
+<p>模型仓库中提供的常用经典 CNN 模型（Based on ILSVRC-2012 分类数据集）如下：</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Code</th>
+<th>Checkpoint</th>
+<th>Top-1 Accuracy</th>
+<th>Top-5 Accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://arxiv.org/abs/1409.4842v1" target="_blank" rel="noopener">Inception V1</a></td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/inception_v1.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="http://download.tensorflow.org/models/inception_v1_2016_08_28.tar.gz" target="_blank" rel="noopener">inception_v1_2016_08_28.tar.gz</a></td>
+<td>69.8</td>
+<td>89.6</td>
+</tr>
+<tr>
+<td><a href="http://arxiv.org/abs/1502.03167" target="_blank" rel="noopener">Inception V2</a></td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/inception_v2.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="http://download.tensorflow.org/models/inception_v2_2016_08_28.tar.gz" target="_blank" rel="noopener">inception_v2_2016_08_28.tar.gz</a></td>
+<td>73.9</td>
+<td>91.8</td>
+</tr>
+<tr>
+<td><a href="http://arxiv.org/abs/1512.00567" target="_blank" rel="noopener">Inception V3</a></td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/inception_v3.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="http://download.tensorflow.org/models/inception_v3_2016_08_28.tar.gz" target="_blank" rel="noopener">inception_v3_2016_08_28.tar.gz</a></td>
+<td>78.0</td>
+<td>93.9</td>
+</tr>
+<tr>
+<td><a href="http://arxiv.org/abs/1602.07261" target="_blank" rel="noopener">Inception V4</a></td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/inception_v4.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="http://download.tensorflow.org/models/inception_v4_2016_09_09.tar.gz" target="_blank" rel="noopener">inception_v4_2016_09_09.tar.gz</a></td>
+<td>80.2</td>
+<td>95.2</td>
+</tr>
+<tr>
+<td><a href="http://arxiv.org/abs/1602.07261" target="_blank" rel="noopener">Inception-ResNet-v2</a></td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/inception_resnet_v2.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="http://download.tensorflow.org/models/inception_resnet_v2_2016_08_30.tar.gz" target="_blank" rel="noopener">inception_resnet_v2_2016_08_30.tar.gz</a></td>
+<td>80.4</td>
+<td>95.3</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/1512.03385" target="_blank" rel="noopener">ResNet V1 50</a></td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/resnet_v1.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="http://download.tensorflow.org/models/resnet_v1_50_2016_08_28.tar.gz" target="_blank" rel="noopener">resnet_v1_50_2016_08_28.tar.gz</a></td>
+<td>75.2</td>
+<td>92.2</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/1512.03385" target="_blank" rel="noopener">ResNet V1 101</a></td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/resnet_v1.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="http://download.tensorflow.org/models/resnet_v1_101_2016_08_28.tar.gz" target="_blank" rel="noopener">resnet_v1_101_2016_08_28.tar.gz</a></td>
+<td>76.4</td>
+<td>92.9</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/1512.03385" target="_blank" rel="noopener">ResNet V1 152</a></td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/resnet_v1.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="http://download.tensorflow.org/models/resnet_v1_152_2016_08_28.tar.gz" target="_blank" rel="noopener">resnet_v1_152_2016_08_28.tar.gz</a></td>
+<td>76.8</td>
+<td>93.2</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/1603.05027" target="_blank" rel="noopener">ResNet V2 50</a>^</td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/resnet_v2.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="http://download.tensorflow.org/models/resnet_v2_50_2017_04_14.tar.gz" target="_blank" rel="noopener">resnet_v2_50_2017_04_14.tar.gz</a></td>
+<td>75.6</td>
+<td>92.8</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/1603.05027" target="_blank" rel="noopener">ResNet V2 101</a>^</td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/resnet_v2.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="http://download.tensorflow.org/models/resnet_v2_101_2017_04_14.tar.gz" target="_blank" rel="noopener">resnet_v2_101_2017_04_14.tar.gz</a></td>
+<td>77.0</td>
+<td>93.7</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/1603.05027" target="_blank" rel="noopener">ResNet V2 152</a>^</td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/resnet_v2.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="http://download.tensorflow.org/models/resnet_v2_152_2017_04_14.tar.gz" target="_blank" rel="noopener">resnet_v2_152_2017_04_14.tar.gz</a></td>
+<td>77.8</td>
+<td>94.1</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/1603.05027" target="_blank" rel="noopener">ResNet V2 200</a></td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/resnet_v2.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="">TBA</a></td>
+<td>79.9*</td>
+<td>95.2*</td>
+</tr>
+<tr>
+<td><a href="http://arxiv.org/abs/1409.1556.pdf" target="_blank" rel="noopener">VGG 16</a></td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/vgg.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="http://download.tensorflow.org/models/vgg_16_2016_08_28.tar.gz" target="_blank" rel="noopener">vgg_16_2016_08_28.tar.gz</a></td>
+<td>71.5</td>
+<td>89.8</td>
+</tr>
+<tr>
+<td><a href="http://arxiv.org/abs/1409.1556.pdf" target="_blank" rel="noopener">VGG 19</a></td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/vgg.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="http://download.tensorflow.org/models/vgg_19_2016_08_28.tar.gz" target="_blank" rel="noopener">vgg_19_2016_08_28.tar.gz</a></td>
+<td>71.1</td>
+<td>89.8</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/pdf/1704.04861.pdf" target="_blank" rel="noopener">MobileNet_v1_1.0_224</a></td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet_v1.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="http://download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_1.0_224.tgz" target="_blank" rel="noopener">mobilenet_v1_1.0_224.tgz</a></td>
+<td>70.9</td>
+<td>89.9</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/pdf/1704.04861.pdf" target="_blank" rel="noopener">MobileNet_v1_0.50_160</a></td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet_v1.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="http://download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_0.5_160.tgz" target="_blank" rel="noopener">mobilenet_v1_0.50_160.tgz</a></td>
+<td>59.1</td>
+<td>81.9</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/pdf/1704.04861.pdf" target="_blank" rel="noopener">MobileNet_v1_0.25_128</a></td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet_v1.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="http://download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_0.25_128.tgz" target="_blank" rel="noopener">mobilenet_v1_0.25_128.tgz</a></td>
+<td>41.5</td>
+<td>66.3</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/1801.04381" target="_blank" rel="noopener">MobileNet_v2_1.4_224^*</a></td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet/mobilenet_v2.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="https://storage.googleapis.com/mobilenet_v2/checkpoints/mobilenet_v2_1.4_224.tgz" target="_blank" rel="noopener">mobilenet_v2_1.4_224.tgz</a></td>
+<td>74.9</td>
+<td>92.5</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/1801.04381" target="_blank" rel="noopener">MobileNet_v2_1.0_224^*</a></td>
+<td><a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet/mobilenet_v2.py" target="_blank" rel="noopener">Code</a></td>
+<td><a href="https://storage.googleapis.com/mobilenet_v2/checkpoints/mobilenet_v2_1.0_224.tgz" target="_blank" rel="noopener">mobilenet_v2_1.0_224.tgz</a></td>
+<td>71.9</td>
+<td>91.0</td>
+</tr>
+</tbody>
+</table>
+<p>更多参见：<a href="https://github.com/tensorflow/models/tree/master/research/slim#pre-trained-models" target="_blank" rel="noopener">Pre-trained Models</a> 部分内容。</p>
+<p>=====================================================================</p>
+<p>后面等熟知了各种模型网络架构之后（<a href="https://www.orangeshare.cn/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/" target="_blank" rel="noopener">请移步至 –&gt; CNN 进化史</a> ），</p>
+<p>我们就可以通过上述提供的预训练（Checkpoint）模型，完成各种经典卷积神经网络模型的迁移学习。</p>
 <hr>
 
       
@@ -849,7 +1004,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">75</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -935,7 +1090,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Part-3-经典卷积神经网络模型"><span class="nav-text">Part 3 经典卷积神经网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-LeNet-5-模型"><span class="nav-text">3.1 LeNet-5 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-1-LeNet-5-模型架构"><span class="nav-text">3.1.1 LeNet-5 模型架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-2-类-LeNet-5-的-TensorFlow-实现"><span class="nav-text">3.1.2 类 LeNet-5 的 TensorFlow 实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-3-基于-LeNet-5-模型的通用设计模式"><span class="nav-text">3.1.3 基于 LeNet-5 模型的通用设计模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-Inception-v3-模型"><span class="nav-text">3.2 Inception-v3 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-1-Inception-架构"><span class="nav-text">3.2.1 Inception 架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-2-Inception-v3"><span class="nav-text">3.2.2 Inception-v3</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-3-TensorFlow-Slim"><span class="nav-text">3.2.3 TensorFlow-Slim</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part-4-迁移学习（Transfer-Learning）"><span class="nav-text">Part 4 迁移学习（Transfer Learning）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-迁移学习（Transfer-Learning）"><span class="nav-text">4.1 迁移学习（Transfer Learning）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-1-迁移学习"><span class="nav-text">4.1.1 迁移学习</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-TensorFlow-实现-ImageNet-数据集上-Inception-v3-学得模型的迁移学习"><span class="nav-text">4.2 TensorFlow 实现 ImageNet 数据集上 Inception-v3 学得模型的迁移学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-1-下载目标数据集"><span class="nav-text">4.2.1 下载目标数据集</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-2-下载谷歌提供的预训练-Inception-v3-模型"><span class="nav-text">4.2.2 下载谷歌提供的预训练 Inception-v3 模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-3-完成迁移学习"><span class="nav-text">4.2.3 完成迁移学习</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Part-3-经典卷积神经网络模型"><span class="nav-text">Part 3 经典卷积神经网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-LeNet-5-模型"><span class="nav-text">3.1 LeNet-5 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-1-LeNet-5-模型架构"><span class="nav-text">3.1.1 LeNet-5 模型架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-2-类-LeNet-5-的-TensorFlow-实现"><span class="nav-text">3.1.2 类 LeNet-5 的 TensorFlow 实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-3-基于-LeNet-5-模型的通用设计模式"><span class="nav-text">3.1.3 基于 LeNet-5 模型的通用设计模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-Inception-v3-模型"><span class="nav-text">3.2 Inception-v3 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-1-Inception-架构"><span class="nav-text">3.2.1 Inception 架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-2-Inception-v3"><span class="nav-text">3.2.2 Inception-v3</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-3-TensorFlow-Slim"><span class="nav-text">3.2.3 TensorFlow-Slim</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part-4-迁移学习（Transfer-Learning）"><span class="nav-text">Part 4 迁移学习（Transfer Learning）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-迁移学习（Transfer-Learning）"><span class="nav-text">4.1 迁移学习（Transfer Learning）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-1-迁移学习适用场景"><span class="nav-text">4.1.1 迁移学习适用场景</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-2-迁移学习效果"><span class="nav-text">4.1.2 迁移学习效果</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-TensorFlow-实现-ImageNet-数据集上-Inception-v3-学得模型的迁移学习"><span class="nav-text">4.2 TensorFlow 实现 ImageNet 数据集上 Inception-v3 学得模型的迁移学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-1-准备分类数据集"><span class="nav-text">4.2.1 准备分类数据集</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-2-下载谷歌提供的预训练-Inception-v3-模型"><span class="nav-text">4.2.2 下载谷歌提供的预训练 Inception-v3 模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-3-完成迁移学习"><span class="nav-text">4.2.3 完成迁移学习</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-Google-Image-Classification-Model-Library"><span class="nav-text">4.3 Google Image Classification Model Library</span></a></li></ol></li></ol></div>
             
 
           </div>

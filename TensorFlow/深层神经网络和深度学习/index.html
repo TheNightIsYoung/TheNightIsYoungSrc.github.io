@@ -117,7 +117,7 @@
 <meta property="og:image" content="http://yoursite.com/TensorFlow/深层神经网络和深度学习/Img/learning_rate_methods.png">
 <meta property="og:image" content="http://yoursite.com/TensorFlow/深层神经网络和深度学习/Img/overfitting.png">
 <meta property="og:image" content="http://yoursite.com/TensorFlow/深层神经网络和深度学习/Img/regurization.png">
-<meta property="og:updated_time" content="2019-05-29T10:37:21.184Z">
+<meta property="og:updated_time" content="2019-06-19T02:24:39.204Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深层神经网络和深度学习">
 <meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   读取须知： 上一章节，我们介绍了 TensorFlow 基本工作原理，并且给出了一个完整的 TensorFlow 样例来训练一个简单的三层全连接神经网络模型。本章我们将进一步介绍如何更加合理的设计和优化神经网络，使得学得的模型能够更好的对未知样本进行更加精确的预测。">
@@ -374,8 +374,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T18:37:21+08:00">
-                2019-05-29
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-19T10:24:39+08:00">
+                2019-06-19
               </time>
             
           </span>
@@ -436,7 +436,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  12.1k
+                  12.2k
                 </span>
               
 
@@ -769,6 +769,8 @@ cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=y, labels=input_y
 <p>可以看出，$decay$ 决定了模型更新的速度，$decay$ 越大，影子变量受变量更新的影响越小，模型越趋于稳定。故，在实际的应用中，$decay$ 值一般会设成非常接近 <code>1</code> 的数（如：<code>0.999</code>、<code>0.9999</code>）。</p>
 <p><strong>注意，变量的影子变量和变量的滑动平均值是一个意思！</strong></p>
 <p>事实上，滑动平均值可以看作是变量的过去一段时间（过去<strong>1/(1-decay​)</strong>个时刻）取值的均值，相比对变量直接赋值而言，采用滑动平均得到的值在图像上更加平缓光滑，抖动性更小，不会因为某次的异常取值而使得滑动平均值波动很大。</p>
+<p>–&gt; 作用：</p>
+<p>故，使用滑动平均可以防止训练过程遇到异常数据或者随机跳跃（毕竟是随机批量，数据不确定）影响训练效果，使得参数权重和偏置相对稳定。在小数据量、数据不稳定或者小 batch_size 的情况下尤其有用。</p>
 <p><strong>2 –&gt; 测试中使用</strong></p>
 <p>对神经网络边的权重 <code>weights</code> 使用滑动平均，并且得到其对应的影子变量 <code>shadow_weights</code>。但注意，在训练过程仍然使用原来不带滑动平均的权重 <strong>weights</strong>，不然无法得到 <strong>weights</strong> 下一步更新的值，又怎么求下一步 <strong>weights</strong> 所对应的影子变量 <strong>shadow_weights</strong> 呢？！</p>
 <p>故，之后在测试过程中使用 shadow_weights 来代替 weights 作为神经网络边的权重，这样在测试数据上效果更好。</p>
@@ -778,7 +780,7 @@ cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=y, labels=input_y
 <p>在初始化 <code>ExponentialMovingAverage()</code> 时，需要提供一个衰减率（<code>decay</code>），这个衰减率将用于控制模型更新的速度。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variable_averages = tf.train.ExponentialMovingAverage(MOVING_AVERAGE_DECAY, num_updates)</span><br></pre></td></tr></table></figure>
 <p>为了使模型在训练前期更新得的更快，<code>ExponentialMovingAverage</code> 函数还提供了 <code>num_updates</code> 参数来动态设置 <code>decay</code> 的大小。如果在 <code>ExponentialMovingAverage()</code> 函数初始化时提供了 <code>num_updates 参数</code>，那么每次使用的衰减率将是：</p>
-<p>$$ min \{ {decay, \cfrac{1 + num\_updates}{10 + num\_updates}} \} $$</p>
+<p>$$ min \{ {decay, \cfrac{1 + num\_updates}{10 + num\_updates}} \} ​$$</p>
 <p>可以看出，<strong>num_updates</strong> 越大，衰减率就越大。<strong>num_updates</strong> 一般会为迭代轮数，所以当迭代轮数越大，模型参数就越稳定。即：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variable_averages = tf.train.ExponentialMovingAverage(MOVING_AVERAGE_DECAY, global_step)</span><br></pre></td></tr></table></figure>
 <p><strong>2 –&gt; 添加/更新变量</strong></p>
@@ -1008,7 +1010,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">75</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

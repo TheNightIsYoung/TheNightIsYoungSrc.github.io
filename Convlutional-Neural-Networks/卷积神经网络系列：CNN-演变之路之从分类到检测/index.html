@@ -153,7 +153,7 @@
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/ROI_pssm.png">
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/roi_computer.png">
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/R-FCN.png">
-<meta property="og:updated_time" content="2019-06-11T08:18:55.179Z">
+<meta property="og:updated_time" content="2019-06-19T07:23:28.387Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="卷积神经网络系列：CNN 演变之路之从分类到检测">
 <meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 在计算机视觉领域，目标识别、定位、检测、分割以及跟踪 是最基本的几个 Task，尤其又以识别和检测最为重要和基础。从图像的目标识别到目标检测，CNN 技术也迎来了突破性的进展。前面的博文中，我们介绍了一些经典的卷积神经网络架构（例如：AlexNet、VGGNet、Inception、ResNet等）来解决图像目标识别的任务。本文我们来看卷积神经网">
@@ -410,8 +410,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-06-11T16:18:55+08:00">
-                2019-06-11
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-19T15:23:28+08:00">
+                2019-06-19
               </time>
             
           </span>
@@ -472,7 +472,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  11.8k
+                  11.9k
                 </span>
               
 
@@ -516,14 +516,16 @@
 <a id="more"></a>
 <p>本博文系列是对刘昕博士的 <a href="https://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650324619&amp;idx=1&amp;sn=ca1aed9e42d8f020d0971e62148e13be&amp;scene=1&amp;srcid=0503De6zpYN01gagUvn0Ht8D#wechat_redirect" target="_blank" rel="noopener">《CNN 的近期进展与实用技巧》</a> 的一个扩充性资料，全面详细地介绍了 CNN 进化史各个阶段的里程碑成果：</p>
 <p>卷积神经网络系列之：<a href="">大话卷积神经网络（CNN）</a> ；</p>
-<p>卷积神经网络系列之：<a href="">CNN 进化史</a> ；</p>
-<p>卷积神经网络系列之：<a href="">从 LeNet 到 AlexNet</a> ；</p>
-<p>卷积神经网络系列之：<a href="">CNN 演变之路之网络结构加深</a> ；</p>
+<p>卷积神经网络系列之：<a href="https://www.orangeshare.cn/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/" target="_blank" rel="noopener">CNN 进化史</a> ；</p>
+<p>卷积神经网络系列之：<a href="https://www.orangeshare.cn/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/" target="_blank" rel="noopener">从 LeNet 到 AlexNet</a> ；</p>
+<p>卷积神经网络系列之：<a href="https://www.orangeshare.cn/Convlutional-Neural-Networks/卷积神经网络系列%EF%BC%9ACNN-演变之路之网络结构加深/" target="_blank" rel="noopener">CNN 演变之路之网络结构加深</a> ；</p>
 <p>卷积神经网络系列之：<a href="">CNN 演变之路之卷积功能增强</a> ；</p>
-<p>卷积神经网络系列之：<a href="">CNN 演变之路之从分类到检测</a> ；</p>
-<p>卷积神经网络系列之：<a href="">CNN 演变之路之从分类到检测</a> ；</p>
-<p>本博文旨在教你快速读懂目标检测相关网络：R-CNN、SPP-net、Fast R-CNN、Faster R-CNN、YOLO、SSD、Mask R-CNN 等。</p>
+<p>卷积神经网络系列之：<a href="https://www.orangeshare.cn/Convlutional-Neural-Networks/卷积神经网络系列%EF%BC%9ACNN-演变之路之从分类到检测/" target="_blank" rel="noopener">CNN 演变之路之从分类到检测 (一)</a> ；</p>
+<p>卷积神经网络系列之：<a href="">CNN 演变之路之从分类到检测 (二): Region-free 检测方法</a> ；</p>
+<p>卷积神经网络系列之：<a href="">CNN 演变之路之新增功能模块</a> ；</p>
+<p><strong>声明：</strong>本系列博文只供学习和交流使用，禁止转载，侵权请联系删除！</p>
 <hr>
+<p>本博文旨在教你快速读懂目标检测相关网络：R-CNN、SPP-net、Fast R-CNN、Faster R-CNN、YOLO、SSD、Mask R-CNN 等。</p>
 <h2 id="CNN-演变之路之从分类到检测"><a href="#CNN-演变之路之从分类到检测" class="headerlink" title="CNN 演变之路之从分类到检测"></a>CNN 演变之路之从分类到检测</h2><p>开始目标检测学习之前，首先我们需要分别对上述提到的几个 Task（目标识别、定位、检测、分割以及跟踪）进行区分（对问题进行清晰的定义，往往是最重要的一步）：</p>
 <h3 id="1-初识目标识别、定位、检测、分割以及跟踪"><a href="#1-初识目标识别、定位、检测、分割以及跟踪" class="headerlink" title="1. 初识目标识别、定位、检测、分割以及跟踪"></a>1. 初识目标识别、定位、检测、分割以及跟踪</h3><h4 id="1-1-目标识别（Target-Recognition）"><a href="#1-1-目标识别（Target-Recognition）" class="headerlink" title="1.1 目标识别（Target Recognition）"></a>1.1 目标识别（Target Recognition）</h4><p>目标识别，也称为图像分类（Image Classification）或图像识别（Image Recognition）。</p>
 <p>它是一个基于分类（Classification）的识别（Recognition）任务，旨在判断该图像所属的类别（是什么？）。</p>
@@ -1164,7 +1166,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">75</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

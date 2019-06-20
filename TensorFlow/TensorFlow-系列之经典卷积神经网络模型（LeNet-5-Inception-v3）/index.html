@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之经典卷积神经网络模型（LeNet-5-Inception-v3）/inception.png">
 <meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之经典卷积神经网络模型（LeNet-5-Inception-v3）/Inception-v3.JPEG">
 <meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之经典卷积神经网络模型（LeNet-5-Inception-v3）/ILSRC_Top5.png">
-<meta property="og:updated_time" content="2019-06-19T09:10:50.118Z">
+<meta property="og:updated_time" content="2019-06-20T10:51:27.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TensorFlow 系列之经典卷积神经网络模型（LeNet-5 &amp;&amp; Inception-v3）">
 <meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： Part1 &amp;amp;&amp;amp; Part2 中我们已经详细介绍了卷积神经网络架构以及卷积层、池化层网络结构等。然而，我们可以通过这些网络结构任意组合得到的神经网络有无限多种。那么，怎样的卷积神经网络结构更有可能解决真实的图像处理问题呢？">
@@ -368,8 +368,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-06-19T17:10:50+08:00">
-                2019-06-19
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-20T18:51:27+08:00">
+                2019-06-20
               </time>
             
           </span>
@@ -430,7 +430,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  12.6k
+                  13.2k
                 </span>
               
 
@@ -446,7 +446,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  51
+                  54
                 </span>
               
             </div>
@@ -591,33 +591,56 @@
 <p>是不是发现，Inception 模块在实际使用时更加复杂？</p>
 <p>至此，卷积神经网络基础部分已经讲解完成，后续我们还会继续开展拓展学习，进一步学习 <a href="https://www.orangeshare.cn/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/" target="_blank" rel="noopener">CNN 进化史 </a>，掌握各种基于 Inception 模块的经典CNN 模型。</p>
 <hr>
-<h3 id="Part-4-迁移学习（Transfer-Learning）"><a href="#Part-4-迁移学习（Transfer-Learning）" class="headerlink" title="Part 4 迁移学习（Transfer Learning）"></a>Part 4 迁移学习（Transfer Learning）</h3><p>这一部分，我们将学习迁移学习的概念以及如何通过 TensorFlow 来实现迁移学习。并且将详细讲解迁移学习的动机以及如何将一个数据集上训练好的卷积神经网络模型快速迁移到另外一个数据集上。</p>
-<p>在这一小节最终会给出一个具体的 TensorFlow 实现将 ImageNet 上训练好的 Inception-v3 模型迁移到另外一个图像分类数据集上。</p>
+<h3 id="Part-4-迁移学习（Transfer-Learning）"><a href="#Part-4-迁移学习（Transfer-Learning）" class="headerlink" title="Part 4 迁移学习（Transfer Learning）"></a>Part 4 迁移学习（Transfer Learning）</h3><p>这一部分，我们将学习迁移学习的概念以及如何通过 TensorFlow 来实现迁移学习：</p>
 <hr>
 <h4 id="4-1-迁移学习（Transfer-Learning）"><a href="#4-1-迁移学习（Transfer-Learning）" class="headerlink" title="4.1 迁移学习（Transfer Learning）"></a>4.1 迁移学习（Transfer Learning）</h4><p>在上一小节我们介绍了 1998 年提出的 <strong>LeNet-5</strong> 模型和 2015 年提出的 <strong>Inception-v3</strong> 模型。对比这两个模型可以发现，卷积神经网络模型的层数和结构复杂度都发生了巨大变化。</p>
 <p>下表给出了从 2012 年到 2015 年 ILSVRC 第一名模型的层数以及 Top-5 的错误率。</p>
 <p><img src="/TensorFlow/TensorFlow-系列之经典卷积神经网络模型（LeNet-5-Inception-v3）/./ILSRC_Top5.png" alt="avatar"></p>
-<p>从表中看出，随着模型层数以及复杂度的增加，模型在 ImageNet 上的错误率也随之降低。</p>
+<p><strong>–&gt; 何为预训练模型？</strong></p>
+<p>而针对上面列出的主流的经典卷积神经网络架构（AlexNet、ZF-Net、GoogLeNet、ResNet），甚至包括未列出的卷积网络架构（例如：VGGNet、MobileNet、Xception 等等），大佬们已经给出了在大型通用数据集（ImageNet、COCO）上训练好的模型—-<strong>预训练模型（Pre-trained Model）</strong>。</p>
+<p>这些预训练模型拥有：</p>
+<ol>
+<li>无需修改的网络结构；</li>
+<li>优秀的网络参数；</li>
+</ol>
+<p>这些预训练模型无一不在测试数据集上表现优秀。</p>
+<p>别看了，羡慕也是别人家的。</p>
 <hr>
-<h5 id="4-1-1-迁移学习适用场景"><a href="#4-1-1-迁移学习适用场景" class="headerlink" title="4.1.1 迁移学习适用场景"></a>4.1.1 迁移学习适用场景</h5><p>然而现实中，训练复杂的卷积神经网络需要非常多的标注数据。如前面小节提到的 ImageNet2012 图像分类数据集中有 120W 标注图片，才可以将 152 层的 ResNet 模型训练到大约 96.5% 的正确率。</p>
-<p>–&gt; 引发的问题：</p>
-<p>在真实场景应用中，很难收集到如此多的标注数据。即使可以收集到，也需要花费巨大的人力物力。</p>
+<h5 id="4-1-1-什么是迁移学习"><a href="#4-1-1-什么是迁移学习" class="headerlink" title="4.1.1 什么是迁移学习"></a>4.1.1 什么是迁移学习</h5><p>现实场景中，当我们被赋予一个深度学习任务时，比如说，一个涉及在图像数据集上训练卷积神经网络（ConvNet）的任务。</p>
+<p>–&gt; 考虑一下你会怎么做？</p>
+<p>我们的第一直觉就是按照前面讲解的卷积神经网络通用架构设计一个（或选用一个经典卷积神经网络架构）从头开始训练网络。然而，实际上，就像开头表中给出的那样，表现越好的网络无一不具有大量的参数（Parameters），通常在几百万的范围内。</p>
+<p>这就意味着，训练这些复杂的卷积神经网络需要<strong>非常多的标注数据</strong>。如前面小节提到的 ImageNet2012 图像分类数据集中有 120W 标注图片，才可以将 152 层的 ResNet 模型训练到大约 96.5% 的正确率。</p>
+<p>–&gt; 真实场景存在的问题：</p>
+<p>然而，在真实场景应用中，很难收集到如此多的标注数据。即使可以收集到，也需要花费巨大的人力物力。</p>
 <p>而且，即使有海量的训练数据，要训练一个复杂的卷积神经网络也需要花费大量的时间。</p>
-<p>为了解决<strong>真实场景下小样本集、训练时间消耗以及个人模型准确率低</strong>的问题，<strong>迁移学习（也称为：Fine-tune）</strong> 是一个有效的方法。</p>
+<p>为了解决<strong>真实场景下小样本集、从头训练时间消耗大以及个人模型准确率低</strong>的问题，<strong>迁移学习（也可以称之为：Fine Tune）</strong> 是一个有效的方法。</p>
 <p>–&gt; 核心解决思路：</p>
-<p>迁移学习提出：我们可以在一个通用的大数据集上进行一定量的训练后，再用针对性的小数据集进一步强化训练来满足一个特定目标的训练任务。</p>
-<p>–&gt; 给一个定义吧：</p>
-<p>所谓的 <strong>迁移学习 : 就是将一个问题上训练好的模型通过简单的调整使其适应于一个新的问题</strong> 。</p>
+<blockquote>
+<p>迁移学习提出：大佬们发现可以在一个通用的大数据集上进行一定量的训练后（预训练模型），再在预训练模型的基础上针对性的对小数据集进一步强化训练来满足一个特定目标的训练任务是可行的。</p>
+</blockquote>
+<p>–&gt; 给一个定义：</p>
+<p>所谓的 <strong>迁移学习 : 就是将一个问题上训练好的模型通过简单的调整（Fine Tune）使其适应于一个新的问题</strong> 。</p>
 <hr>
-<h5 id="4-1-2-迁移学习效果"><a href="#4-1-2-迁移学习效果" class="headerlink" title="4.1.2 迁移学习效果"></a>4.1.2 迁移学习效果</h5><p>–&gt; 迁移学习为什么是有效的？</p>
-<p>根据论文 DeCAF: A Deep Convolutional Activation Feature for Generic Visual Recongnition 中的结论，可以保留训练好的 Inception-v3 模型中所有卷积层的参数，只替换最后一层全连接层。</p>
-<p>在最后这一层全连接层之前的网络层称之为：<strong>瓶颈层（bottleneck）</strong>。</p>
-<p>将新的图像通过训练好的卷积神经网络直到瓶颈层的过程可以看作是对图像进行特征提取的过程。在训练好的 Inception-v3 模型中，因为将瓶颈层的输出再经过一个单层的全连接层神经网络可以很好地区分 1000 中类别的图像，所以有理由认为瓶颈层输出的特征图可以被作为任何图像的一个更加精简且表达能力更强的特征表达。</p>
-<p>故，在新数据集上，可以直接利用这个通用数据集上训练好的神经网络对图像进行特征提取，然后再将提取到的特征向量作为输入来训练一个新的单层全连接神经网络处理新的分类问题。</p>
+<h5 id="4-1-2-迁移学习方法以及效果"><a href="#4-1-2-迁移学习方法以及效果" class="headerlink" title="4.1.2 迁移学习方法以及效果"></a>4.1.2 迁移学习方法以及效果</h5><p>–&gt; 如何进行微调？</p>
+<p>根据论文 DeCAF: A Deep Convolutional Activation Feature for Generic Visual Recongnition 中的结论，可以保留训练好的 Inception-v3 模型中所有卷积层的参数，只替换最后一层全连接层（Softmax）。</p>
+<p>在最后这一层全连接层之前的那个网络层称之为：<strong>瓶颈层（bottleneck）</strong>。</p>
+<p>–&gt; 迁移学习为什么是有效的？</p>
+<p>我们知道，可以将新的图像通过训练好的卷积神经网络直到瓶颈层的过程可以看作是对图像进行特征提取的过程。</p>
+<p>在训练好的 Inception-v3 模型中，因为将瓶颈层的输出再经过一个单层的全连接层神经网络可以很好地区分 <strong>1000</strong> 中类别的图像，所以有理由认为瓶颈层输出的特征图可以被作为任何图像的一个更加精简且表达能力更强的特征表达。</p>
+<p>故，在新数据集上，可以直接利用这个通用数据集上训练好的神经网络对图像进行特征提取，然后再将提取到的特征向量（瓶颈层）作为输入来训练一个新的单层全连接神经网络处理新的分类问题。</p>
 <p><strong>–&gt; 学得模型效果：</strong></p>
+<p>注意，这里有一个前提：新问题的数据集要和预训练模型使用的数据集相似。如果不相似的话，效果可能没想想那么好了。</p>
 <p>一般来所，在数据量足够的情况下，迁移学习的效果不如完全重新训练（仅次于）。但是迁移学习所需要的训练时间和训练样本数目要远远小于训练完整数据的模型。</p>
+<p>======================================================================</p>
+<p>下面我们给一个不同数据集（Database）场景下的微调策略：</p>
+<ol>
+<li>DB1_Condition：数据量少，但数据相似度非常高。此时只需要修改<strong>最后几层</strong>或<strong>最终的 Softmax 层</strong>即可实现较好的预测。</li>
+<li>DB2_Condition：数据量少，数据相似度还低。此时我们可以<strong>冻结模型的初始层（比如，K 层）并再训练剩余的（N - K）层</strong>。由于新数据相似度低，因此根据新数据集对较高层训练有重要意义。</li>
+<li>DB3_Condition：数据量大，数据相似度低。此时由于新数据与预训练模型训练所选用的数据集差异很大，使用预训练模型进行预测不会有效，但新数据量很多。可以直接根据数据<strong>从头开始训练神经网络（Training from scratch）</strong>。</li>
+<li>DB4_Condition：数据量大，数据相似度较高。此时是理想情况，预训练模型应该是最有效的，使用模型的最好方法就是保留模型的体系结构和模型的初始权重，然后使用预训练模型中的权重l来重新训练该模型。</li>
+</ol>
 <hr>
-<h4 id="4-2-TensorFlow-实现-ImageNet-数据集上-Inception-v3-学得模型的迁移学习"><a href="#4-2-TensorFlow-实现-ImageNet-数据集上-Inception-v3-学得模型的迁移学习" class="headerlink" title="4.2 TensorFlow 实现 ImageNet 数据集上 Inception-v3 学得模型的迁移学习"></a>4.2 TensorFlow 实现 ImageNet 数据集上 Inception-v3 学得模型的迁移学习</h4><p>这一小节将介绍如何利用 ImageNet 数据集上训练好的 Inception-v3 模型来解决一个新的分类问题。</p>
+<h4 id="4-2-TensorFlow-实现-ImageNet-数据集上-Inception-v3-预训练模型的迁移学习"><a href="#4-2-TensorFlow-实现-ImageNet-数据集上-Inception-v3-预训练模型的迁移学习" class="headerlink" title="4.2 TensorFlow 实现 ImageNet 数据集上 Inception-v3 预训练模型的迁移学习"></a>4.2 TensorFlow 实现 ImageNet 数据集上 Inception-v3 预训练模型的迁移学习</h4><p>这一小节将介绍如何利用 ImageNet 数据集上训练好的 Inception-v3 模型来解决一个新的分类问题。</p>
 <p>这里，给出一个完整的 TensorFlow 程序来介绍如何通过 TensorFlow 实现将 ImageNet 数据集上学得的 Inception-v3 模型迁移学习到另一个图像分类数据集上。</p>
 <h5 id="4-2-1-准备分类数据集"><a href="#4-2-1-准备分类数据集" class="headerlink" title="4.2.1 准备分类数据集"></a>4.2.1 准备分类数据集</h5><p>1 –&gt; 下载 <strong>flower_photos.tgz</strong> 数据集：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl http://download.tensorflow.org/example_images/flower_photos.tgz --output flower_photos.tgz</span><br></pre></td></tr></table></figure>
@@ -640,7 +663,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Loading Pre-Model &gt;&gt;&gt;&gt;&gt;</span><br><span class="line">WARNING:tensorflow:From &lt;ipython-input-5-a5c3d30883f2&gt;:14: FastGFile.__init__ (from tensorflow.python.platform.gfile) is deprecated and will be removed <span class="keyword">in</span> a future version.</span><br><span class="line">Instructions <span class="keyword">for</span> updating:</span><br><span class="line">Use tf.gfile.GFile.</span><br><span class="line">&lt;&lt;&lt; success!</span><br><span class="line">WARNING:tensorflow:From /home/deeplearning/.conda/envs/tensorflow-cpu/lib/python3.6/site-packages/tensorflow/python/framework/op_def_library.py:263: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed <span class="keyword">in</span> a future version.</span><br><span class="line">Instructions <span class="keyword">for</span> updating:</span><br><span class="line">Colocations handled automatically by placer.</span><br><span class="line">WARNING:tensorflow:From &lt;ipython-input-5-a5c3d30883f2&gt;:53: softmax_cross_entropy_with_logits (from tensorflow.python.ops.nn_ops) is deprecated and will be removed <span class="keyword">in</span> a future version.</span><br><span class="line">Instructions <span class="keyword">for</span> updating:</span><br><span class="line"></span><br><span class="line">Future major versions of TensorFlow will allow gradients to flow</span><br><span class="line">into the labels input on backprop by default.</span><br><span class="line"></span><br><span class="line">See `tf.nn.softmax_cross_entropy_with_logits_v2`.</span><br><span class="line"></span><br><span class="line">Step 0: validation accuracy on random sampled 100 examples = 49.0%</span><br><span class="line">Step 100: validation accuracy on random sampled 100 examples = 79.0%</span><br><span class="line">Step 200: validation accuracy on random sampled 100 examples = 82.0%</span><br><span class="line">Step 300: validation accuracy on random sampled 100 examples = 87.0%</span><br><span class="line">Step 400: validation accuracy on random sampled 100 examples = 91.0%</span><br><span class="line">Step 500: validation accuracy on random sampled 100 examples = 89.0%</span><br><span class="line">Step 600: validation accuracy on random sampled 100 examples = 93.0%</span><br><span class="line">Step 700: validation accuracy on random sampled 100 examples = 91.0%</span><br><span class="line">Step 800: validation accuracy on random sampled 100 examples = 92.0%</span><br><span class="line">Step 900: validation accuracy on random sampled 100 examples = 88.0%</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">Step 3700: validation accuracy on random sampled 100 examples = 93.0%</span><br><span class="line">Step 3800: validation accuracy on random sampled 100 examples = 97.0%</span><br><span class="line">Step 3900: validation accuracy on random sampled 100 examples = 98.0%</span><br><span class="line">Step 3999: validation accuracy on random sampled 100 examples = 91.0%</span><br><span class="line">Final <span class="built_in">test</span> accuracy = 88.9%</span><br></pre></td></tr></table></figure>
 <p>可以看出，模型在新的数据集上很快就能收敛，并达到还不错的分类效果。</p>
 <hr>
-<h4 id="4-3-Google-Image-Classification-Model-Library"><a href="#4-3-Google-Image-Classification-Model-Library" class="headerlink" title="4.3 Google Image Classification Model Library"></a>4.3 Google Image Classification Model Library</h4><p>最后我们给出一个 Google 基于 TensorFlow-Slim 轻量级高级库，实现各种经典卷积神经网络架构的模型仓库地址：</p>
+<h4 id="4-3-Google-Image-Classification-Model-Library"><a href="#4-3-Google-Image-Classification-Model-Library" class="headerlink" title="4.3 Google Image Classification Model Library"></a>4.3 Google Image Classification Model Library</h4><p>最后我们给出一个 Google 基于 TensorFlow-Slim 轻量级高级库实现<strong>各种经典卷积神经网络架构的模型，并给出预训练模型</strong>的仓库地址：</p>
 <p><a href="https://github.com/tensorflow/models/tree/master/research/slim" target="_blank" rel="noopener">TensorFlow-Slim image classification model library</a></p>
 <p>模型仓库中提供的常用经典 CNN 模型（Based on ILSVRC-2012 分类数据集）如下：</p>
 <table>
@@ -789,7 +812,7 @@
 </tr>
 </tbody>
 </table>
-<p>更多参见：<a href="https://github.com/tensorflow/models/tree/master/research/slim#pre-trained-models" target="_blank" rel="noopener">Pre-trained Models</a> 部分内容。</p>
+<p>更多预训练模型支持参见：<a href="https://github.com/tensorflow/models/tree/master/research/slim#pre-trained-models" target="_blank" rel="noopener">Pre-trained Models</a> 部分内容。</p>
 <p>=====================================================================</p>
 <p>后面等熟知了各种模型网络架构之后（<a href="https://www.orangeshare.cn/Convlutional-Neural-Networks/卷积神经网络系列之-CNN-进化史/" target="_blank" rel="noopener">请移步至 –&gt; CNN 进化史</a> ），</p>
 <p>我们就可以通过上述提供的预训练（Checkpoint）模型，完成各种经典卷积神经网络模型的迁移学习。</p>
@@ -1007,7 +1030,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-count">76</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1093,7 +1116,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Part-3-经典卷积神经网络模型"><span class="nav-text">Part 3 经典卷积神经网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-LeNet-5-模型"><span class="nav-text">3.1 LeNet-5 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-1-LeNet-5-模型架构"><span class="nav-text">3.1.1 LeNet-5 模型架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-2-类-LeNet-5-的-TensorFlow-实现"><span class="nav-text">3.1.2 类 LeNet-5 的 TensorFlow 实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-3-基于-LeNet-5-模型的通用设计模式"><span class="nav-text">3.1.3 基于 LeNet-5 模型的通用设计模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-Inception-v3-模型"><span class="nav-text">3.2 Inception-v3 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-1-Inception-架构"><span class="nav-text">3.2.1 Inception 架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-2-Inception-v3"><span class="nav-text">3.2.2 Inception-v3</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-3-TensorFlow-Slim"><span class="nav-text">3.2.3 TensorFlow-Slim</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part-4-迁移学习（Transfer-Learning）"><span class="nav-text">Part 4 迁移学习（Transfer Learning）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-迁移学习（Transfer-Learning）"><span class="nav-text">4.1 迁移学习（Transfer Learning）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-1-迁移学习适用场景"><span class="nav-text">4.1.1 迁移学习适用场景</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-2-迁移学习效果"><span class="nav-text">4.1.2 迁移学习效果</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-TensorFlow-实现-ImageNet-数据集上-Inception-v3-学得模型的迁移学习"><span class="nav-text">4.2 TensorFlow 实现 ImageNet 数据集上 Inception-v3 学得模型的迁移学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-1-准备分类数据集"><span class="nav-text">4.2.1 准备分类数据集</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-2-下载谷歌提供的预训练-Inception-v3-模型"><span class="nav-text">4.2.2 下载谷歌提供的预训练 Inception-v3 模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-3-完成迁移学习"><span class="nav-text">4.2.3 完成迁移学习</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-Google-Image-Classification-Model-Library"><span class="nav-text">4.3 Google Image Classification Model Library</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Part-3-经典卷积神经网络模型"><span class="nav-text">Part 3 经典卷积神经网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-LeNet-5-模型"><span class="nav-text">3.1 LeNet-5 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-1-LeNet-5-模型架构"><span class="nav-text">3.1.1 LeNet-5 模型架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-2-类-LeNet-5-的-TensorFlow-实现"><span class="nav-text">3.1.2 类 LeNet-5 的 TensorFlow 实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-3-基于-LeNet-5-模型的通用设计模式"><span class="nav-text">3.1.3 基于 LeNet-5 模型的通用设计模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-Inception-v3-模型"><span class="nav-text">3.2 Inception-v3 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-1-Inception-架构"><span class="nav-text">3.2.1 Inception 架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-2-Inception-v3"><span class="nav-text">3.2.2 Inception-v3</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-3-TensorFlow-Slim"><span class="nav-text">3.2.3 TensorFlow-Slim</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part-4-迁移学习（Transfer-Learning）"><span class="nav-text">Part 4 迁移学习（Transfer Learning）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-迁移学习（Transfer-Learning）"><span class="nav-text">4.1 迁移学习（Transfer Learning）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-1-什么是迁移学习"><span class="nav-text">4.1.1 什么是迁移学习</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-2-迁移学习方法以及效果"><span class="nav-text">4.1.2 迁移学习方法以及效果</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-TensorFlow-实现-ImageNet-数据集上-Inception-v3-预训练模型的迁移学习"><span class="nav-text">4.2 TensorFlow 实现 ImageNet 数据集上 Inception-v3 预训练模型的迁移学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-1-准备分类数据集"><span class="nav-text">4.2.1 准备分类数据集</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-2-下载谷歌提供的预训练-Inception-v3-模型"><span class="nav-text">4.2.2 下载谷歌提供的预训练 Inception-v3 模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-3-完成迁移学习"><span class="nav-text">4.2.3 完成迁移学习</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-Google-Image-Classification-Model-Library"><span class="nav-text">4.3 Google Image Classification Model Library</span></a></li></ol></li></ol></div>
             
 
           </div>

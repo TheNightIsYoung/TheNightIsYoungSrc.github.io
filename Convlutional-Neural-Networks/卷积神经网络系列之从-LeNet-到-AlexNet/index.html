@@ -124,6 +124,7 @@
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/Dropout.png">
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/AlexNet.jpg">
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/AlexNet_extend.png">
+<meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/AlexNet_extend_1.png">
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/AlexNet_with_1.png">
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/AlexNet_with_1_pic.png">
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/AlexNet_with_2.png">
@@ -141,7 +142,7 @@
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/AlexNet_with_8.png">
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/AlexNet_with_8_pic.png">
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/AlexNet_pic.jpeg">
-<meta property="og:updated_time" content="2019-06-19T09:06:05.047Z">
+<meta property="og:updated_time" content="2019-06-20T09:11:27.218Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="卷积神经网络系列之从 LeNet 到 AlexNet">
 <meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   读前一览： CNN 经典模型之 LeNet &amp;amp;&amp;amp; AlexNet 解读与 TensorFlow 实现。">
@@ -398,8 +399,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-06-19T17:06:05+08:00">
-                2019-06-19
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-20T17:11:27+08:00">
+                2019-06-20
               </time>
             
           </span>
@@ -460,7 +461,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  8.2k
+                  8.6k
                 </span>
               
 
@@ -476,7 +477,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  30
+                  32
                 </span>
               
             </div>
@@ -619,8 +620,8 @@
 <hr>
 <h5 id="2-3-LetNet-5-的-TensorFlow-实现"><a href="#2-3-LetNet-5-的-TensorFlow-实现" class="headerlink" title="2.3 LetNet-5 的 TensorFlow 实现"></a>2.3 LetNet-5 的 TensorFlow 实现</h5><p>附一个<strong>类似</strong>于 LetNet-5 网络结构进行 <a href="https://www.orangeshare.cn/TensorFlow/TensorFlow-系列之经典卷积神经网络模型%EF%BC%88LeNet-5-Inception-v3%EF%BC%89/" target="_blank" rel="noopener">MNIST 手写数字识别的 TensorFlow 实现</a> 的链接。</p>
 <p>为什么不实现原有 LetNet-5 结构？</p>
-<p>你可以这么想，LetNet-5 尽管说是开山之作，但网络中仍然存在有一些的“糟粕”，目前来说，是象征（致敬 LeNet，致敬大佬），但一般不会用。</p>
-<p>你会使用前面的 CNN 卷积网络知识实现类似的（通用卷积神经网络架构）即可。</p>
+<p>你可以这么想，LetNet-5 尽管说是开山之作，但网络中仍然存在有一些的“和目前 CNN 有差异的地方”，目前来说，LetNet-5 是象征（致敬 LeNet，致敬大佬），但一般不会用。</p>
+<p>你会使用前面的 CNN 卷积网络知识实现类似的 LeNet-5（LeNet-5 改进）的结构即可。</p>
 <hr>
 <h4 id="3-王者回归：AlexNet"><a href="#3-王者回归：AlexNet" class="headerlink" title="3. 王者回归：AlexNet"></a>3. 王者回归：AlexNet</h4><p>时隔 十几年之久，<strong>2012 年</strong> Alex Krizhevsky、Ilya Sutskever 在多伦多大学 Geoff Hinton 的实验室设计出了一个深层的卷积神经网络 AlexNet，夺得了 2012 年 ImageNet LSVRC 的冠军，且准确率远超第二名（Top5 错误率为 15.3%，第二名为 26.2%），引起了很大的轰动。</p>
 <p> <strong>AlexNet 可以说是具有历史意义的一个网络结构 </strong> ，在此之前，<strong>深度学习已经沉寂了很长时间。</strong>自 2012 年 AlexNet 诞生之后，后面的 ImageNet 冠军都是用卷积神经网络（CNN）来做的，并且层次越来越深，<strong>使得 CNN 成为在图像识别分类的核心算法模型，带来了深度学习的大爆发。</strong></p>
@@ -648,140 +649,153 @@
 <p>2）测试的时候，对左上、右上、左下、右下、中间分别做了5次裁剪，然后翻转，共10个裁剪，之后对结果求平均。作者认为，如果不做随机裁剪，大网络基本上都过拟合；</p>
 <p>3）对 RGB 空间做 PCA（主成分分析），然后对主成分做一个（0, 0.1）的高斯扰动，也就是对颜色、光照作变换，结果使错误率又下降了1%。</p>
 <hr>
-<h6 id="3-1-3-重叠池化-Overlapping-Pooling"><a href="#3-1-3-重叠池化-Overlapping-Pooling" class="headerlink" title="3.1.3 重叠池化 (Overlapping Pooling)"></a>3.1.3 重叠池化 (Overlapping Pooling)</h6><p>前面 LeNet-5 中，池化（Pooling）是不重叠的，池化区域的窗口大小与步长相同，如下图所示：</p>
+<h6 id="3-1-3-重叠池化-Overlapping-Pooling"><a href="#3-1-3-重叠池化-Overlapping-Pooling" class="headerlink" title="3.1.3 重叠池化 (Overlapping Pooling)"></a>3.1.3 重叠池化 (Overlapping Pooling)</h6><p>前面 LeNet-5 中，池化（Pooling）是不重叠的，也就是说<strong>池化区域的窗口大小与步长相同</strong>，如下图所示：</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./CNN_pooling.png" alt="avatar"></p>
 <p>在 AlexNet 中使用的池化（Pooling）却是可重叠的，也就是说，在池化的时候，每次移动的步长小于池化的窗口长度。AlexNet 池化的大小为 3×3 的正方形，每次池化移动步长为 2，这样就会出现重叠。重叠池化可以避免过拟合，这个策略贡献了 0.3% 的Top-5错误率。</p>
 <hr>
 <h6 id="3-1-4-局部归一化（Local-Response-Normalization，简称LRN）"><a href="#3-1-4-局部归一化（Local-Response-Normalization，简称LRN）" class="headerlink" title="3.1.4 局部归一化（Local Response Normalization，简称LRN）"></a>3.1.4 局部归一化（Local Response Normalization，简称LRN）</h6><p>一句话概括：本质上，这个层也是为了防止激活函数的饱和的。</p>
-<p>在神经生物学有一个概念叫做“侧抑制”（lateral inhibitio），指的是被激活的神经元抑制相邻神经元。归一化（normalization）的目的是“抑制”，局部归一化就是借鉴了“侧抑制”的思想来实现局部抑制，尤其当使用 ReLU 时这种“侧抑制”很管用，因为 ReLU 的响应结果是无界的（可以非常大），所以需要归一化。使用局部归一化的方案有助于增加泛化能力。</p>
+<p>在神经生物学有一个概念叫做“侧抑制”（lateral inhibitio），指的是被激活的神经元抑制相邻神经元。归一化（normalization）的目的就是“抑制”，局部归一化就是借鉴了“侧抑制”的思想来实现局部抑制，尤其当使用 ReLU 时这种“侧抑制”很管用，因为 ReLU 的响应结果是无界的（可以非常大），所以需要归一化。使用局部归一化的方案有助于增加泛化能力。</p>
 <blockquote>
 <p>个人理解原理是通过正则化让激活函数的输入靠近“碗”的中间(避免饱和)，从而获得比较大的导数值。所以从功能上说，跟 ReLU 是重复的。不过作者说，从试验结果看，LRN 操作可以提高网络的泛化能力，将错误率降低了大约 1 个百分点。</p>
 </blockquote>
 <p>LRN 的公式如下，核心思想就是利用临近的数据做归一化，这个策略贡献了 1.2% 的 Top-5 错误率。</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./LRN.png" alt="avatar"></p>
 <hr>
-<h6 id="3-1-5-Dropout"><a href="#3-1-5-Dropout" class="headerlink" title="3.1.5 Dropout"></a>3.1.5 Dropout</h6><p>引入 Dropout 主要是为了防止过拟合。在神经网络中 Dropout 通过修改神经网络本身结构来实现。</p>
-<p>假设对于某一层的神经元，通过定义以 0.5 的概率，将每个隐层神经元的输出设置为零。以这种方式 “dropped out” 的神经元既不参与前向传播，也不参与反向传播。就如同在网络中被删除了一样，同时保持输入层与输出层神经元的个数不变，然后按照神经网络的学习方法进行参数更新。在下一次迭代中，又重新随机删除一些神经元（置为 0），直至训练结束。</p>
-<p>同时，Dropout 也可以看成是一种模型组合。通常结合预先训练好的许多不同模型（迁移学习），来进行预测是一种非常成功的减少测试误差的方式（Ensemble）。但因为每个模型的训练都需要花了好几天时间，因此这种做法对于大型神经网络来说太过昂贵。然而，AlexNet 提出的 Dropout 是一个非常有效的模型组合版本，它在训练中只需要花费 <strong>两倍</strong> 于单模型的时间即可实现模型组合（类似取平均）的效果，非常高效。</p>
+<h6 id="3-1-5-Dropout"><a href="#3-1-5-Dropout" class="headerlink" title="3.1.5 Dropout"></a>3.1.5 Dropout</h6><p>引入 Dropout 主要是为了防止过拟合。在神经网络中 Dropout 通过修改神经网络本身的结构来实现。</p>
+<p>假设对于某一层的神经元，通过定义以<strong>P=0.5</strong>的概率，将每个隐层神经元的输出设置为零。以这种方式 “dropped out” 的神经元既不参与前向传播，也不参与反向传播（神经元不能随意拟合数据）。</p>
+<p>这就如同神经元在网络中被删除了一样，但同时保持输入层与输出层神经元的个数不变，然后按照神经网络的学习方法进行参数更新。在下一次迭代中，又重新随机删除一些神经元（置为 0），直至训练结束。</p>
+<p>–&gt; 模型组合：</p>
+<p>同时，Dropout 也可以看成是一种模型组合。通常结合预先训练好的许多不同模型（训练了许多不同结构的模型），来进行预测是一种非常成功的减少测试误差的方式（Ensemble）。但因为每个模型的训练都需要花了好几天时间，因此这种做法对于大型神经网络来说太过昂贵。然而，AlexNet 提出的 Dropout 是一个非常有效的模型组合版本，它在训练中只需要花费 <strong>两倍</strong> 于单模型的时间即可实现模型组合（类似取平均）的效果，非常高效。</p>
 <p>Dropout 应该算是 AlexNet 中一个很大的创新，以至于“神经网络之父” Hinton 在后来很长一段时间里的演讲中都拿 Dropout 说事。如下图所示通过 Dropout 实现模型组合：</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./Dropout.png" alt="avatar"></p>
 <hr>
-<h6 id="3-1-6-多-GPU-训练"><a href="#3-1-6-多-GPU-训练" class="headerlink" title="3.1.6 多 GPU 训练"></a>3.1.6 多 GPU 训练</h6><p>AlexNet 当时使用了 GTX580 的 GPU 进行训练，由于单个 GTX 580 GPU 只有 3GB 内存，这限制了在其上训练的网络的最大规模，因此他们在每个 GPU 中放置一半核（或神经元），将网络分布在两个 GPU 上进行并行计算，大大加快了 AlexNet 的训练速度。</p>
+<h6 id="3-1-6-多-GPU-训练"><a href="#3-1-6-多-GPU-训练" class="headerlink" title="3.1.6 多 GPU 训练"></a>3.1.6 多 GPU 训练</h6><p>AlexNet 当时使用了 GTX580 的 GPU 进行训练，由于单个 GTX 580 GPU 只有 3GB 内存，这限制了在其上可训练网络的最大规模，因此他们在每个 GPU 中放置一半核（或神经元），将网络分布在两个 GPU 上进行并行计算，大大加快了 AlexNet 的训练速度。</p>
 <p>目前的 GPU 特别适合跨 GPU 并行化，因为它们能够直接从另一个 GPU 的内存中读出和写入，不需要通过主机内存。</p>
 <blockquote>
-<p>他们采用的并行方案是：在每个 PU 中放置一半核（或神经元），还有一个额外的技巧：GPU 间的通讯只在某些层进行。</p>
+<p>他们采用的并行方案是：在每个 GPU 中放置一半核（或神经元）。还有一个额外的技巧：GPU 间的通讯只在某些层进行。</p>
 </blockquote>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet.jpg" alt="avatar"></p>
 <p>例如，第 3 层的核需要从第2层中所有核映射输入。然而，第 4 层的核只需要从第3层中位于同一 GPU 的那些核映射输入。</p>
 <hr>
-<h5 id="3-2-AlexNet-整体网络架构解析"><a href="#3-2-AlexNet-整体网络架构解析" class="headerlink" title="3.2 AlexNet 整体网络架构解析"></a>3.2 AlexNet 整体网络架构解析</h5><p>首先给出 AlexNet 网络架构示意图：</p>
+<h5 id="3-2-AlexNet-整体网络架构解析"><a href="#3-2-AlexNet-整体网络架构解析" class="headerlink" title="3.2 AlexNet 整体网络架构解析"></a>3.2 AlexNet 整体网络架构解析</h5><p>首先给出 AlexNet 网络架构简要示意图：</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_extend.png" alt="avatar"></p>
-<p>可以看出，AlexNet 网络结构共有 $8$ 层，前面 $5$ 层是卷积层（其实不完全是卷积层，有些层还加入了池化层，并对数据进行标准化处理。），后面 $3$ 层是全连接层，最后一个全连接层的输出传递给一个 $1000​$ 个节点的 softmax 层，对应 1000 个类标签的分布。</p>
+<p><strong>–&gt; 简析</strong></p>
+<p>可以看出，AlexNet 网络结构共有 <strong>8​</strong> 层，前面 <strong>5</strong> 层是卷积层（其实不完全是卷积层，有些层还加入了池化层，并对数据进行标准化处理。），后面 <strong>3</strong> 层是全连接层，最后一个全连接层的输出传递给一个 <strong>1000</strong> 个节点的 softmax 层，对应 1000 个类标签的分布。</p>
 <p>由于 AlexNet 采用了两个 GPU 进行训练，因此，该网络结构图由上下两部分组成：一个 GPU 运行图上方的层，另一个运行图下方的层，两个 GPU 只在特定的层通信。</p>
 <p>例如第二、四、五层卷积层的核只和同一个 GPU 上的前一层的核特征图相连，第三层卷积层和第二层所有的核特征图相连接，全连接层中的神经元和前一层中的所有神经元相连接。</p>
 <p>下面开始逐层解析 AlexNet 架构：</p>
 <hr>
+<p>AlexNet 架构示意图：</p>
+<p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_extend_1.png" alt="avatar"></p>
 <h6 id="1-–-gt-Conv1"><a href="#1-–-gt-Conv1" class="headerlink" title="1 –&gt; Conv1"></a>1 –&gt; Conv1</h6><p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_with_1.png" alt="avatar"></p>
 <p>该层的处理流程为：卷积–&gt;ReLU–&gt;池化–&gt;归一化，流程图如下：</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_with_1_pic.png" alt="avatar"></p>
 <p>1_1）卷积</p>
-<p>输入的原始图像大小为 $224×224×3​$（RGB图像），在训练时会经过预处理变为 $227×227×3​$。</p>
-<p>在本层使用 $96​$ 个 $11×11×3​$ 的卷积核进行卷积计算，生成新的像素。由于采用了两个 GPU 并行运算，因此，网络结构图中上下两部分分别承担了 $48​$ 个卷积核的运算。</p>
+<p>输入的原始图像大小为 <strong>224×224×3</strong>（RGB图像），在训练时会经过预处理变为 <strong>227×227×3</strong>。</p>
+<p>在本层使用 <strong>96​</strong> 个 <strong>11×11×3</strong> 的卷积核进行卷积计算，生成新的像素。由于采用了两个 GPU 并行运算，因此，网络结构图中上下两部分分别承担了 <strong>48</strong> 个卷积核的运算。</p>
 <p>–&gt; 特征图</p>
 <p>卷积核沿图像按一定的步长往 x 轴方向、y 轴方向移动计算卷积，然后生成新的特征图，其大小为：</p>
-<p>$$floor((img\_size - filter\_size)/stride) +1 = new\_feture\_size$$</p>
-<p>其中 $floor$ 表示向下取整，$img\_size$ 为图像大小，$filter\_size$ 为核大小，$stride$ 为步长，$new\_feture\_size$ 为卷积后的特征图大小，这个公式表示图像尺寸减去卷积核尺寸除以步长，再加上被减去的核大小像素对应生成的一个像素，结果就是卷积后特征图的大小。</p>
-<p>AlexNet 中本层的卷积移动步长是 $4​$ 个像素，卷积核经移动计算后生成的特征图大小为 $(227-11)/4+1=55​$，即 $55×55​$。</p>
+<p>$$floor((img\_size - filter\_size + 2P)/stride) +1 = new\_feture\_size​$$</p>
+<p>其中 $floor$ 表示向下取整，$img\_size$ 为图像大小，$filter\_size$ 为核大小，<strong>P</strong> 代表填充，$stride$ 为步长，$new\_feture\_size$ 为卷积后的特征图大小，这个公式表示图像尺寸减去卷积核尺寸除以步长，再加上被减去的核大小像素对应生成的一个像素，结果就是卷积后特征图的大小。</p>
+<p>AlexNet 中本层的卷积移动步长是 <strong>4</strong> 个像素，卷积核经移动计算后生成的特征图大小为 <strong>(227-11)/4+1=55</strong>，即 <strong>55×55</strong>$。</p>
 <p>1_2）ReLU</p>
-<p>卷积后的 $55×55$ 像素层经过 ReLU 单元的处理，生成激活像素层，尺寸仍为 2 组 $55×55×48$ 的像素层数据。</p>
+<p>卷积后的 <strong>55×55</strong> 像素层经过 ReLU 单元的处理，生成激活像素层，尺寸仍为 2 组 <strong>55×55×48</strong> 的像素层数据。</p>
 <p>1_3）池化（降采样）</p>
-<p>RuLU后的像素层再经过池化运算，池化运算的尺寸为 $3×3​$，步长为 $2​$，则池化后图像的尺寸为 $(55-3)/2+1=27​$，即池化后像素的规模为 $27×27×96​$。</p>
+<p>RuLU后的像素层再经过池化运算，池化运算的尺寸为 <strong>3×3</strong>，步长为 <strong>2</strong>，则池化后图像的尺寸为 <strong>(55-3)/2+1=27</strong>，即池化后像素的规模为 <strong>27×27×96</strong>。</p>
 <p>1_4）归一化</p>
-<p>池化后的像素层再进行归一化处理，归一化运算的尺寸为 5×5，归一化后的像素规模不变，仍为 $27×27×96​$。</p>
-<p>这 96 层像素层（feature map）被分为两组，每组 48 个像素层，分别在一个独立的 GPU 上进行运算。</p>
+<p>池化后的像素层再进行归一化处理，归一化运算的尺寸为 <strong>5×5</strong>，归一化后的像素规模不变，仍为 <strong>27×27×96</strong>。</p>
+<p>这 <strong>96</strong> 层像素层（feature map）被分为两组，每组 <strong>48</strong> 个像素层，分别在一个独立的 GPU 上进行运算。</p>
 <hr>
 <h6 id="2-–-gt-Conv2"><a href="#2-–-gt-Conv2" class="headerlink" title="2 –&gt; Conv2"></a>2 –&gt; Conv2</h6><p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_with_2.png" alt="avatar"></p>
 <p>该层与第一层类似，处理流程为：卷积–&gt;ReLU–&gt;池化–&gt;归一化，流程图如下：</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_with_2_pic.png" alt="avatar"></p>
 <p>2_1）卷积</p>
-<p>第二层的输入数据为第一层输出的 $27×27×96$ 的像素层（被分成两组 $27×27×48$ 的 feature map 放在两个不同 GPU 中进行运算）。</p>
+<p>第二层的输入数据为第一层输出的 <strong>27×27×96</strong> 的像素层（被分成两组 <strong>27×27×48</strong> 的 feature map 放在两个不同 GPU 中进行运算）。</p>
 <p>–&gt; 特征图</p>
-<p>为方便后续处理，在这里每幅像素层的上下左右边缘都被填充了 2 个像素（填充0），即图像的大小变为 $(27+2+2) ×(27+2+2)$。第二层的卷积核大小为 $5×5$，移动步长为 1 个像素，跟第一层第（1）点的计算公式一样，经卷积核计算后的像素层大小变为 $(27+2+2-5)/1+1=27$，即卷积后大小为 $27×27$ 。</p>
-<p>本层使用了 $256$ 个 $5×5×48$ 的卷积核，同样也是被分成两组，每组为 $128$ 个，分给两个 GPU 进行卷积运算，结果生成两组 $27×27×128$ 个卷积后的像素层。</p>
+<p>为方便后续处理，在这里每幅像素层的上下左右边缘都被填充了 <strong>2</strong> 个像素（Zero-Padding），即图像的大小变为 <strong>(27+2+2) ×(27+2+2)</strong>。第二层的卷积核大小为 <strong>5×5</strong>，移动步长为 1 个像素，跟第一层第（1）点的计算公式一样，经卷积核计算后的像素层大小变为 <strong>(27+2+2-5)/1+1=27</strong>，即卷积后大小为 <strong>27×27</strong>（尺寸大小维持不变）。</p>
+<p>本层使用了 <strong>256​</strong> 个 <strong>5×5×48</strong> 的卷积核，同样也是被分成两组，每组为 <strong>128</strong> 个，分给两个 GPU 进行卷积运算，结果生成两组 <strong>27×27×128</strong> 个卷积后的像素层。</p>
 <p>2_2）ReLU</p>
-<p>这些像素层经过 ReLU 单元的处理，生成激活像素层，尺寸仍为两组 $27×27×128$ 的像素层。</p>
+<p>这些像素层经过 ReLU 单元的处理，生成激活像素层，尺寸仍为两组 <strong>27×27×128</strong> 的像素层。</p>
 <p>2_3）池化（降采样）</p>
-<p>再经过池化运算的处理，池化运算的尺寸为 $3×3$，步长为 2，池化后图像的尺寸为 $(57-3)/2+1=13$，即池化后像素的规模为 2 组 $13×13×128$ 的像素层。</p>
+<p>再经过池化运算的处理，池化运算的尺寸为 <strong>3×3</strong>，步长为 2，池化后图像的尺寸为 <strong>(57-3)/2+1=13</strong>，即池化后像素的规模为 2 组 <strong>13×13×128</strong> 的像素层。</p>
 <p>2_4）归一化</p>
-<p>然后再经归一化处理，归一化运算的尺度为 5×5，归一化后的像素层的规模为 2 组 $13×13×128$ 的像素层，分别由 2 个 GPU 进行运算。</p>
+<p>然后再经归一化处理，归一化运算的尺度为 <strong>5×5</strong>，归一化后的像素层的规模为 2 组 <strong>13×13×128</strong> 的像素层，分别由 2 个 GPU 进行运算。</p>
 <hr>
 <h6 id="3-–-gt-Conv3"><a href="#3-–-gt-Conv3" class="headerlink" title="3 –&gt; Conv3"></a>3 –&gt; Conv3</h6><p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_with_3.png" alt="avatar"></p>
 <p>第三层的处理流程为：卷积–&gt;ReLU</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_with_3_pic.png" alt="avatar"></p>
 <p>3_1）卷积</p>
-<p>第三层输入数据为第二层输出的 2 组 $13×13×128$ 的像素层。这一层中每个 GPU 都有 192 个卷积核，每个卷积核的尺寸是 $3×3×256$。</p>
-<p>为便于后续处理，每幅像素层的上下左右边缘都填充 1 个像素，填充后变为 $(13+1+1)×(13+1+1)×128$，分布在两个 GPU 中进行运算。</p>
-<p>注意，Conv3 卷积层和 Conv2 所有的特征图相连接，因此，每个 GPU 中的卷积核都能对 2 组 $13×13×128$ 的像素层的所有数据进行卷积运算。如该层的结构图所示，两个 GPU 有通过交叉的虚线连接，也就是说每个 GPU 要处理来自前一层的所有 GPU 的输入。</p>
+<p>第三层输入数据为第二层输出的 2 组 <strong>13×13×128</strong> 的像素层。这一层中每个 GPU 都有 <strong>192</strong> 个卷积核，每个卷积核的尺寸是 <strong>3×3×256</strong>。</p>
+<p>为便于后续处理，每幅像素层的上下左右边缘都填充<strong>1</strong>个像素（Zero-Padding），填充后像素层变为 <strong>(13+1+1)×(13+1+1)×128</strong>，分布在两个 GPU 中进行运算。</p>
+<p>注意，Conv3 卷积层和 Conv2 所有的特征图相连接，因此，每个 GPU 中的卷积核都能对 2 组 <strong>13×13×128</strong> 的像素层的所有数据进行卷积运算。如该层的结构图所示，两个 GPU 有通过交叉的虚线连接，也就是说每个 GPU 要处理来自前一层的所有 GPU 的输入。</p>
 <p>–&gt; 特征图</p>
-<p>本层卷积的步长是 1 个像素，经过卷积运算后的尺寸为 $(13+1+1-3)/1+1=13$，即每个 GPU 中共 $192$ 个卷积核，2 个 GPU 中共有 $13×13×384$ 个卷积后的像素层（feature map）。</p>
+<p>本层卷积的步长是 1 个像素，经过卷积运算后的尺寸为 <strong>(13+2-3)/1+1=13</strong>​，即每个 GPU 中共 ​<strong>192</strong> 个卷积核，2 个 GPU 中有 <strong>13×13×384​</strong> 的卷积后的像素层（feature map）。</p>
 <p>3_2）ReLU</p>
-<p>卷积后的像素层经过 ReLU 单元的处理，生成激活像素层，尺寸仍为 2 组 $13×13×192$ 的像素层，分配给两组 GPU 处理。</p>
+<p>卷积后的像素层经过 ReLU 单元的处理，生成激活像素层，尺寸仍为 2 组 <strong>13×13×192</strong> 的像素层，分配给两组 GPU 处理。</p>
 <hr>
 <h6 id="4-–-gt-Conv4"><a href="#4-–-gt-Conv4" class="headerlink" title="4 –&gt; Conv4"></a>4 –&gt; Conv4</h6><p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_with_4.png" alt="avatar"></p>
 <p>与第三层类似，第四层的处理流程为：卷积–&gt;ReLU</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_with_4_pic.png" alt="avatar"></p>
 <p>4_1）卷积</p>
-<p>第四层输入数据为第三层输出的 2 组 $13×13×192$ 的像素层，这一层中每个 GPU 都有 192 个卷积核，每个卷积核的尺寸是 $3×3×192$（与第三层不同，第四层的 GPU 之间没有虚线连接，也即 GPU 之间没有通信）。</p>
+<p>第四层输入数据为第三层输出的 2 组 <strong>13×13×192</strong> 的像素层，这一层中每个 GPU 都有 192 个卷积核，每个卷积核的尺寸是 <strong>3×3×192</strong>（与第三层不同，第四层的 GPU 之间没有虚线连接，也即 GPU 之间没有通信）。</p>
 <p>–&gt; 特征图</p>
-<p>类似于第三层，为便于后续处理，每幅像素层的上下左右边缘都填充 1 个像素，填充后的尺寸变为 $(13+1+1)×(13+1+1)×192$，分布在两个 GPU 中进行运算。</p>
-<p>卷积的移动步长是 1 个像素，经卷积运算后的尺寸为 $(13+1+1-3)/1+1=13$，每个 GPU 中有 $192$ 个卷积核，2个 GPU 卷积后生成 $13×13×384​$ 的像素层（feature map）。</p>
+<p>类似于第三层，为便于后续处理，每幅像素层的上下左右边缘都填充<strong>1</strong>个像素，填充后的尺寸变为 <strong>(13+2)×(13+2)×192</strong>，分布在两个 GPU 中进行运算。</p>
+<p>卷积的移动步长是 1 个像素，经卷积运算后的尺寸为 <strong>(13+1+1-3)/1+1=13</strong>，每个 GPU 中有 <strong>192</strong> 个卷积核，2个 GPU 卷积后生成 <strong>13×13×384</strong> 的像素层（feature map）。</p>
 <p>4_2）ReLU</p>
-<p>卷积后的像素层经过 ReLU 单元处理，生成激活像素层，尺寸仍为 2 组 $13×13×192$ 像素层，分配给两个 GPU 处理。</p>
+<p>卷积后的像素层经过 ReLU 单元处理，生成激活像素层，尺寸仍为 2 组 <strong>13×13×192</strong> 像素层，分配给两个 GPU 处理。</p>
 <hr>
 <h6 id="5-–-gt-Conv5"><a href="#5-–-gt-Conv5" class="headerlink" title="5 –&gt; Conv5"></a>5 –&gt; Conv5</h6><p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_with_5.png" alt="avatar"></p>
 <p>第五层的处理流程为：卷积–&gt;ReLU–&gt;池化</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_with_5_pic.png" alt="avatar"></p>
 <p>5_1）卷积</p>
-<p>第五层输入数据为第四层输出的 2 组 $13×13×192$ 的像素层，这一层中每个 GPU 都有 128 个卷积核，每个卷积核的尺寸是 $3×3×192$ 。</p>
-<p>为便于后续处理，每幅像素层的上下左右边缘都填充 1 个像素，填充后的尺寸变为 $(13+1+1)×(13+1+1)$ ，2 组像素层数据被送至 2 个不同的 GPU 中进行运算。</p>
-<p>卷积的步长是 1 个像素，经卷积后的尺寸为 $(13+1+1-3)/1+1=13$，每个 GPU 中有 $13×13×128$ 个卷积核，2 个 GPU 卷积后生成 $13×13×256​$ 的像素层。</p>
+<p>第五层输入数据为第四层输出的 2 组 <strong>13×13×192</strong> 的像素层，这一层中每个 GPU 都有 128 个卷积核，每个卷积核的尺寸是 <strong>3×3×192</strong> 。</p>
+<p>为便于后续处理，每幅像素层的上下左右边缘都填充<strong>1</strong>个像素，填充后的尺寸变为 <strong>(13+1+1)×(13+1+1)</strong> ，2 组像素层数据被送至 2 个不同的 GPU 中进行运算。</p>
+<p>卷积的步长是 1 个像素，经卷积后的尺寸为 <strong>(13+1+1-3)/1+1=13</strong>，每个 GPU 中有 <strong>13×13×128</strong> 个卷积核，2 个 GPU 卷积后生成 <strong>13×13×256</strong> 的像素层。</p>
 <p>5_2）ReLU</p>
-<p>卷积后的像素层经过 ReLU 单元处理，生成激活像素层，尺寸仍为 2 组 $13×13×128$ 像素层，由两个 GPU 分别处理。</p>
+<p>卷积后的像素层经过 ReLU 单元处理，生成激活像素层，尺寸仍为 2 组 <strong>13×13×128​</strong> 像素层，由两个 GPU 分别处理。</p>
 <p>5_3）池化（降采样）</p>
-<p>2 组 $13×13×128$ 像素层分别在 2 个不同 GPU 中进行池化运算处理，池化运算的尺寸为 $3×3$，步长为 2，池化后图像的尺寸为 $(13-3)/2+1=6$，即池化后像素的规模为两组 $6×6×128$ 的像素层数据，共有 $6×6×256$ 的像素层数据。</p>
+<p>2 组 <strong>13×13×128</strong> 像素层分别在 2 个不同 GPU 中进行池化运算处理，池化运算的尺寸为 <strong>3×3</strong>，步长为 2，池化后图像的尺寸为 <strong>(13-3)/2+1=6</strong>，即池化后像素的规模为两组 <strong>6×6×128</strong> 的像素层数据，共有 <strong>6×6×256</strong> 的像素层数据。</p>
 <hr>
 <h6 id="6-–-gt-FC6"><a href="#6-–-gt-FC6" class="headerlink" title="6 –&gt; FC6"></a>6 –&gt; FC6</h6><p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_with_6.png" alt="avatar"></p>
 <p>第六层的处理流程为：卷积（全连接）–&gt;ReLU–&gt;Dropout</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_with_6_pic.png" alt="avatar"></p>
 <p>6_1）卷积或全卷积层（全连接）</p>
-<p>第六层输入数据是第五层的输出，尺寸为 $6×6×256$。本层共有 4096 个卷积核，每个卷积核的尺寸为 $6×6×256$。由于卷积核的尺寸刚好与待处理特征图（输入）的尺寸相同，即卷积核中的每个系数只与特征图（输入）尺寸的一个像素值相乘，一一对应，因此，该层也被称为全卷积层（可以被看作全连接层）。</p>
-<p>由于卷积核与特征图的尺寸相同，卷积运算后只有一个值，因此，卷积后的像素层为 $4096×1×1$ ，即有 $4096$ 个神经元。</p>
+<p>第六层输入数据是第五层的输出，尺寸为 <strong>6×6×256</strong>。本层共有 <strong>4096</strong> 个卷积核（神经元节点），每个卷积核的尺寸为 <strong>6×6×256</strong>。</p>
+<p>由于卷积核的尺寸刚好与待处理特征图（输入）的尺寸相同，即卷积核中的每个系数只与输入特征图尺寸的一个像素值相乘，一一对应，因此，该层也被称为全卷积层（可以被看作全连接层）。</p>
+<p>由于卷积核与特征图的尺寸相同，卷积运算后只有一个值，因此，卷积后的像素层为 <strong>4096×1×1</strong>​ ，即有 <strong>4096</strong> 个神经元。</p>
 <p>6_2）ReLU</p>
-<p>这 4096 个运算结果通过 ReLU 激活函数生成 $4096$ 个值。</p>
+<p>这 4096 个运算结果通过 ReLU 激活函数生成 <strong>4096</strong> 个值。</p>
 <p>6_3）Dropout</p>
-<p>然后再通过 Dropout 运算，输出 $4096$ 个结果值。</p>
+<p>然后再通过 Dropout 运算，输出 <strong>4096</strong> 个结果值。</p>
 <hr>
 <h6 id="7-–-gt-FC7"><a href="#7-–-gt-FC7" class="headerlink" title="7 –&gt; FC7"></a>7 –&gt; FC7</h6><p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_with_7.png" alt="avatar"></p>
 <p>第七层的处理流程为：全连接–&gt;ReLU–&gt;Dropout</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_with_7_pic.png" alt="avatar"></p>
-<p>第六层输出的 4096 个数据与第七层的 4096 个神经元进行全连接，然后经 ReLU 进行处理后生成 4096 个数据，再经过 Dropout 处理后输出 $4096$ 个数据。</p>
+<p>第六层输出的 <strong>4096</strong> 个数据与第七层的 <strong>4096</strong> 个神经元进行全连接，然后经 ReLU 进行处理后生成 <strong>4096</strong> 个数据，再经过 Dropout 处理后输出 <strong>4096​</strong> 个数据。</p>
 <hr>
 <p>8 –&gt; FC8</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_with_8.png" alt="avatar"></p>
 <p>第八层的处理流程为：全连接</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_with_8_pic.png" alt="avatar"></p>
-<p>第七层输出的 4096 个数据与第八层的 1000 个神经元进行全连接，经过训练后输出 $1000$ 个 float 型的值，这就是预测结果。</p>
+<p>第七层输出的 <strong>4096</strong> 个数据与第八层的 <strong>1000</strong> 个神经元进行全连接，经过训练后输出 <strong>1000</strong> 个 float 型的值，这就是预测结果。</p>
+<p>==================================================================</p>
+<p>Alex 等人在 2012 年发表了关于 AlexNet 的经典论文：《ImageNet Classification with Deep Convolutional Neural Networks》（基于深度卷积神经网络的 ImageNet 分类）。整个过程都有详细的介绍，建议阅读这篇论文，进一步了解细节。链接见： [ <a href="https://github.com/SnailTyan/deep-learning-papers-translation" target="_blank" rel="noopener">https://github.com/SnailTyan/deep-learning-papers-translation</a> ]</p>
 <hr>
-<p>以上就是关于 AlexNet 网络结构图的逐层解析了，看起来挺复杂的。下面是一个 AlexNet 架构简图，看起来就清爽很多啊：</p>
+<h5 id="3-3-模型综合评估"><a href="#3-3-模型综合评估" class="headerlink" title="3.3 模型综合评估"></a>3.3 模型综合评估</h5><p>以上就是关于 AlexNet 网络结构图的逐层解析了，看起来挺复杂的。下面是一个 AlexNet 架构简图，看起来就清爽很多啊：</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列之从-LeNet-到-AlexNet/./AlexNet_pic.jpeg" alt="avatar"></p>
-<p>–&gt; 图中各卷积层参数（Params）以及连接数（FLOPs）如何计算？</p>
+<p><strong>–&gt; 上图中各层中参数（Params）以及浮点型运算次数（FLOPs，可根据连接数计算）如何计算？</strong></p>
 <p>这里我们给出第一层的计算公式:</p>
-<p>$Params = 11 × 11 × 3 × 48 × 2 = 34,848 ≈ 35K​$</p>
-<p>$FLOPs = Params × 55 × 55 = 34848 × 55 × 55 = 105,415,200 ≈ 105M$</p>
+<p><strong>Params = 11 × 11 × 3 × 48 × 2 = 34,848 ≈ 35K​</strong></p>
+<p><strong>FLOPs = [ (11 × 11 × 3 × 48) × 55 × 55 ] × 2 = 34848 × 55 × 55 = 105,415,200 ≈ 105M</strong></p>
 <p>其它层计算类似。</p>
-<p>Alex 等人在 2012 年发表了关于 AlexNet 的经典论文 《ImageNet Classification with Deep Convolutional Neural Networks》（基于深度卷积神经网络的 ImageNet 分类），整个过程都有详细的介绍，建议阅读这篇论文，进一步了解细节。链接见： [ <a href="https://github.com/SnailTyan/deep-learning-papers-translation" target="_blank" rel="noopener">https://github.com/SnailTyan/deep-learning-papers-translation</a> ]</p>
+<p><strong>–&gt; 为什么要计算上述的数据？</strong></p>
+<p>前面知道，我们可以通过模型在测试集上的表现作为评价模型效果的标准。但一个卷积神经网络模型最终能否被选用于实际生成环境，我们还需要考虑模型大小，运行时间、占用内存大小等等…，最终，综合考虑选取一个满足生产环境的最优模型。</p>
+<p>我们可以认为，持久化模型文件的大小主要取决于模型参数的多少（卷积神经网络结构越复杂，参数越多），同样的设备运行时间主要取决于网络中参与运算的次数，而占用内存（CPU、GPU）大小主要取决于卷积网络中各层参数以及参与运算的数据量。</p>
+<p>篇幅原因，更多相关解读参见：<a href="">卷积神经网络中的 Parames &amp;&amp; FLOPs &amp;&amp; Memory</a>。</p>
 <hr>
-<h5 id="3-3-AlexNet-的-TensorFlow-实现"><a href="#3-3-AlexNet-的-TensorFlow-实现" class="headerlink" title="3.3 AlexNet 的 TensorFlow 实现"></a>3.3 AlexNet 的 TensorFlow 实现</h5><p>附一个 AlexNet  进行 <a href="https://www.cnblogs.com/vipyoumay/p/7686230.html" target="_blank" rel="noopener">TensorFlow 搭建完整 AlexNet </a> 的链接。</p>
+<h5 id="3-4-AlexNet-的-TensorFlow-实现"><a href="#3-4-AlexNet-的-TensorFlow-实现" class="headerlink" title="3.4 AlexNet 的 TensorFlow 实现"></a>3.4 AlexNet 的 TensorFlow 实现</h5><p>这里我们先给一个 AlexNet 的 TensorFlow 实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>附一个 AlexNet  进行 <a href="https://www.cnblogs.com/vipyoumay/p/7686230.html" target="_blank" rel="noopener">TensorFlow 搭建完整 AlexNet </a> 的链接。</p>
 
       
     </div>
@@ -995,7 +1009,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-count">76</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1081,7 +1095,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#从-LeNet-到-AlexNet"><span class="nav-text">从 LeNet 到 AlexNet</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-CNN回顾"><span class="nav-text">1. CNN回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-局部感知"><span class="nav-text">1.1 局部感知</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-参数（权值）共享"><span class="nav-text">1.2 参数（权值）共享</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-池化"><span class="nav-text">1.3 池化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-一切的开始：LeNet"><span class="nav-text">2. 一切的开始：LeNet</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-LeNet-5-整体网络架构"><span class="nav-text">2.1 LeNet-5 整体网络架构</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#0-–-gt-INPUT-32-×-32"><span class="nav-text">0 –&gt; INPUT ( 32 × 32 )</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-–-gt-C1（卷积层）：6-28×28"><span class="nav-text">1 –&gt; C1（卷积层）：6@28×28</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-–-gt-S2（下采样层，也称池化层）：6-14×14"><span class="nav-text">2 –&gt; S2（下采样层，也称池化层）：6@14×14</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-–-gt-C3（卷积层）：16-10×10"><span class="nav-text">3 –&gt; C3（卷积层）：16@10×10</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-–-gt-S4（下采样层，也称池化层）：16-5×5"><span class="nav-text">4 –&gt; S4（下采样层，也称池化层）：16@5×5</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5-–-gt-C5层（全卷积层）：120"><span class="nav-text">5 –&gt; C5层（全卷积层）：120</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#6-–-gt-F6层（全连接层）：84"><span class="nav-text">6 –&gt; F6层（全连接层）：84</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#7-–-gt-OUTPUT层（输出层）：10"><span class="nav-text">7 –&gt; OUTPUT层（输出层）：10</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-LeNet-5-中字符-“3”-的识别"><span class="nav-text">2.2 LeNet-5 中字符 “3” 的识别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-LetNet-5-的-TensorFlow-实现"><span class="nav-text">2.3 LetNet-5 的 TensorFlow 实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-王者回归：AlexNet"><span class="nav-text">3. 王者回归：AlexNet</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-AlexNet-模型的特点"><span class="nav-text">3.1 AlexNet 模型的特点</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-1-使用-ReLU-激活函数"><span class="nav-text">3.1.1 使用 ReLU 激活函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-2-数据扩充（Data-augmentation）"><span class="nav-text">3.1.2 数据扩充（Data augmentation）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-3-重叠池化-Overlapping-Pooling"><span class="nav-text">3.1.3 重叠池化 (Overlapping Pooling)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-4-局部归一化（Local-Response-Normalization，简称LRN）"><span class="nav-text">3.1.4 局部归一化（Local Response Normalization，简称LRN）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-5-Dropout"><span class="nav-text">3.1.5 Dropout</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-6-多-GPU-训练"><span class="nav-text">3.1.6 多 GPU 训练</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-AlexNet-整体网络架构解析"><span class="nav-text">3.2 AlexNet 整体网络架构解析</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-–-gt-Conv1"><span class="nav-text">1 –&gt; Conv1</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-–-gt-Conv2"><span class="nav-text">2 –&gt; Conv2</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-–-gt-Conv3"><span class="nav-text">3 –&gt; Conv3</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-–-gt-Conv4"><span class="nav-text">4 –&gt; Conv4</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5-–-gt-Conv5"><span class="nav-text">5 –&gt; Conv5</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#6-–-gt-FC6"><span class="nav-text">6 –&gt; FC6</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#7-–-gt-FC7"><span class="nav-text">7 –&gt; FC7</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-AlexNet-的-TensorFlow-实现"><span class="nav-text">3.3 AlexNet 的 TensorFlow 实现</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#从-LeNet-到-AlexNet"><span class="nav-text">从 LeNet 到 AlexNet</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-CNN回顾"><span class="nav-text">1. CNN回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-局部感知"><span class="nav-text">1.1 局部感知</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-参数（权值）共享"><span class="nav-text">1.2 参数（权值）共享</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-池化"><span class="nav-text">1.3 池化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-一切的开始：LeNet"><span class="nav-text">2. 一切的开始：LeNet</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-LeNet-5-整体网络架构"><span class="nav-text">2.1 LeNet-5 整体网络架构</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#0-–-gt-INPUT-32-×-32"><span class="nav-text">0 –&gt; INPUT ( 32 × 32 )</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-–-gt-C1（卷积层）：6-28×28"><span class="nav-text">1 –&gt; C1（卷积层）：6@28×28</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-–-gt-S2（下采样层，也称池化层）：6-14×14"><span class="nav-text">2 –&gt; S2（下采样层，也称池化层）：6@14×14</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-–-gt-C3（卷积层）：16-10×10"><span class="nav-text">3 –&gt; C3（卷积层）：16@10×10</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-–-gt-S4（下采样层，也称池化层）：16-5×5"><span class="nav-text">4 –&gt; S4（下采样层，也称池化层）：16@5×5</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5-–-gt-C5层（全卷积层）：120"><span class="nav-text">5 –&gt; C5层（全卷积层）：120</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#6-–-gt-F6层（全连接层）：84"><span class="nav-text">6 –&gt; F6层（全连接层）：84</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#7-–-gt-OUTPUT层（输出层）：10"><span class="nav-text">7 –&gt; OUTPUT层（输出层）：10</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-LeNet-5-中字符-“3”-的识别"><span class="nav-text">2.2 LeNet-5 中字符 “3” 的识别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-LetNet-5-的-TensorFlow-实现"><span class="nav-text">2.3 LetNet-5 的 TensorFlow 实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-王者回归：AlexNet"><span class="nav-text">3. 王者回归：AlexNet</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-AlexNet-模型的特点"><span class="nav-text">3.1 AlexNet 模型的特点</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-1-使用-ReLU-激活函数"><span class="nav-text">3.1.1 使用 ReLU 激活函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-2-数据扩充（Data-augmentation）"><span class="nav-text">3.1.2 数据扩充（Data augmentation）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-3-重叠池化-Overlapping-Pooling"><span class="nav-text">3.1.3 重叠池化 (Overlapping Pooling)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-4-局部归一化（Local-Response-Normalization，简称LRN）"><span class="nav-text">3.1.4 局部归一化（Local Response Normalization，简称LRN）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-5-Dropout"><span class="nav-text">3.1.5 Dropout</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-6-多-GPU-训练"><span class="nav-text">3.1.6 多 GPU 训练</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-AlexNet-整体网络架构解析"><span class="nav-text">3.2 AlexNet 整体网络架构解析</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-–-gt-Conv1"><span class="nav-text">1 –&gt; Conv1</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-–-gt-Conv2"><span class="nav-text">2 –&gt; Conv2</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-–-gt-Conv3"><span class="nav-text">3 –&gt; Conv3</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-–-gt-Conv4"><span class="nav-text">4 –&gt; Conv4</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5-–-gt-Conv5"><span class="nav-text">5 –&gt; Conv5</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#6-–-gt-FC6"><span class="nav-text">6 –&gt; FC6</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#7-–-gt-FC7"><span class="nav-text">7 –&gt; FC7</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-模型综合评估"><span class="nav-text">3.3 模型综合评估</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-AlexNet-的-TensorFlow-实现"><span class="nav-text">3.4 AlexNet 的 TensorFlow 实现</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

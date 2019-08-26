@@ -153,7 +153,7 @@
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/ROI_pssm.png">
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/roi_computer.png">
 <meta property="og:image" content="http://yoursite.com/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/R-FCN.png">
-<meta property="og:updated_time" content="2019-06-19T07:35:51.244Z">
+<meta property="og:updated_time" content="2019-06-26T07:38:06.715Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="卷积神经网络系列：CNN 演变之路之从分类到检测">
 <meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 在计算机视觉领域，目标识别、定位、检测、分割以及跟踪 是最基本的几个 Task，尤其又以识别和检测最为重要和基础。从图像的目标识别到目标检测，CNN 技术也迎来了突破性的进展。前面的博文中，我们介绍了一些经典的卷积神经网络架构（例如：AlexNet、VGGNet、Inception、ResNet等）来解决图像目标识别的任务。本文我们来看卷积神经网">
@@ -410,8 +410,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-06-19T15:35:51+08:00">
-                2019-06-19
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-26T15:38:06+08:00">
+                2019-06-26
               </time>
             
           </span>
@@ -663,7 +663,7 @@
 <p>这里需要进行两次 fine-tuning：第一次在 ALexNet 上做，第二次将头部改成 regression head ，前面不变，做一次 fine-tuning。</p>
 <p>2）Regression 的部分加在哪？</p>
 <p>有两种处理方法：一种加在最后一个卷积层后面；另一种加在最后一个全连接层后面（如：R-CNN）。</p>
-<p>3）<strong>Bounding Box Regression</strong> 的训练计算量太大、参数收敛时间太长，太难做了，应想方设法转换为 <strong>Classification</strong> 问题。</p>
+<p>3）<strong>Bounding Box Regression</strong> 的训练计算量太大、参数收敛时间太长，太难做了，能不能想方设法将回归转换为 <strong>Classification</strong> 问题。</p>
 <p>–&gt; 怎么办？</p>
 <p>这时容易想到套框的思路，即取不同大小的<strong>“框”</strong>，让框出现在（滑动到）不同的位置，计算出这个框的得分，然后取得分最高的那个框作为预测结果。</p>
 <hr>
@@ -674,7 +674,7 @@
 <p>根据各图像窗口（滑窗）得分的高低，我们选择了右下角的黑框作为目标位置的预测。注：有的时候也会选择得分最高的两个框，然后取两框的交集作为最终的位置预测。</p>
 <p>–&gt; 疑惑：滑动窗口要如何选？</p>
 <p>很自然而然的想到，连续取一定范围内大小不同的框，依次从左上角扫到右下角。非常粗暴啊！</p>
-<p>也就是说，对一张图片，用各种大小的框（遍历整张图片）将图片截取出来，输入到 CNN，然后 CNN 会输出这个框的得分（Scores）以及这个框图片对应的 x,y,h,w（Regression）。</p>
+<p>也就是说，对一张图片，用各种大小的框（遍历整张图片）将图片截取出来，输入到 CNN，然后 CNN 会输出这个框的得分（Scores）以及这个框图片对应的（x,y,h,w）&lt;– Regression。</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./Object_Detection_windows.png" alt="avatar"></p>
 <p>具体滑动窗口检测器的系统工作流程图：</p>
 <p><img src="/Convlutional-Neural-Networks/卷积神经网络系列：CNN-演变之路之从分类到检测/./slide_windows_works.png" alt="avatar"></p>
@@ -906,9 +906,9 @@
 <p>1）“下锚”</p>
 <p>把 feature map 特征图看作节点“海”，然后基于每个节点开始“下锚”<br>，产生锚点</p>
 <p>2）“撒网”</p>
-<p>“下锚”以后开始撒网，即以每一个锚点为中心生成大小不同的 k 个框。k 个大小形状不一的框（Region Proposal），是致力于使目标对象（鱼）能出现在某个框（网）中。</p>
+<p>“下锚”以后开始撒网，即以每一个锚点为中心生成大小不同的 k 个框（锚框）。k 个大小形状不一的框（Region Proposal），是致力于使目标对象（鱼）能出现在某个框（网）中。</p>
 <p>–&gt; 可以发现？</p>
-<p>一定可以找到与真实标记 <strong>Ground Truth</strong> 很接近的框。</p>
+<p>只要锚框设置合理，一定可以找到与真实标记 <strong>Ground Truth</strong> 很接近的框。</p>
 <hr>
 <p><strong>3. Faster R-CNN 性能提升</strong></p>
 <p>Faster R-CNN（RPN + Fast R-CNN）设计了提取候选区域的网络 RPN，代替了费时的 Selective Search（选择性搜索），使得检测速度大幅提升，下表对比了R-CNN、Fast R-CNN、Faster R-CNN的检测速度：</p>
@@ -1166,7 +1166,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">76</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1188,7 +1188,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-count">89</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

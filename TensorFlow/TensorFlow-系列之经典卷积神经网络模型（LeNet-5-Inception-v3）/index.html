@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之经典卷积神经网络模型（LeNet-5-Inception-v3）/inception.png">
 <meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之经典卷积神经网络模型（LeNet-5-Inception-v3）/Inception-v3.JPEG">
 <meta property="og:image" content="http://yoursite.com/TensorFlow/TensorFlow-系列之经典卷积神经网络模型（LeNet-5-Inception-v3）/ILSRC_Top5.png">
-<meta property="og:updated_time" content="2019-06-20T10:51:27.703Z">
+<meta property="og:updated_time" content="2019-06-24T05:22:30.020Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TensorFlow 系列之经典卷积神经网络模型（LeNet-5 &amp;&amp; Inception-v3）">
 <meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： Part1 &amp;amp;&amp;amp; Part2 中我们已经详细介绍了卷积神经网络架构以及卷积层、池化层网络结构等。然而，我们可以通过这些网络结构任意组合得到的神经网络有无限多种。那么，怎样的卷积神经网络结构更有可能解决真实的图像处理问题呢？">
@@ -368,8 +368,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-06-20T18:51:27+08:00">
-                2019-06-20
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-24T13:22:30+08:00">
+                2019-06-24
               </time>
             
           </span>
@@ -614,9 +614,9 @@
 <p>然而，在真实场景应用中，很难收集到如此多的标注数据。即使可以收集到，也需要花费巨大的人力物力。</p>
 <p>而且，即使有海量的训练数据，要训练一个复杂的卷积神经网络也需要花费大量的时间。</p>
 <p>为了解决<strong>真实场景下小样本集、从头训练时间消耗大以及个人模型准确率低</strong>的问题，<strong>迁移学习（也可以称之为：Fine Tune）</strong> 是一个有效的方法。</p>
-<p>–&gt; 核心解决思路：</p>
+<p>–&gt; 迁移学习核心解决思路：</p>
 <blockquote>
-<p>迁移学习提出：大佬们发现可以在一个通用的大数据集上进行一定量的训练后（预训练模型），再在预训练模型的基础上针对性的对小数据集进一步强化训练来满足一个特定目标的训练任务是可行的。</p>
+<p>大佬们发现，可以在一个通用的大数据集上进行一定量的训练后（预训练模型），再基于预训练模型针对性的对小数据集进一步强化训练来满足一个特定目标的训练任务是可行的。</p>
 </blockquote>
 <p>–&gt; 给一个定义：</p>
 <p>所谓的 <strong>迁移学习 : 就是将一个问题上训练好的模型通过简单的调整（Fine Tune）使其适应于一个新的问题</strong> 。</p>
@@ -628,10 +628,10 @@
 <p>我们知道，可以将新的图像通过训练好的卷积神经网络直到瓶颈层的过程可以看作是对图像进行特征提取的过程。</p>
 <p>在训练好的 Inception-v3 模型中，因为将瓶颈层的输出再经过一个单层的全连接层神经网络可以很好地区分 <strong>1000</strong> 中类别的图像，所以有理由认为瓶颈层输出的特征图可以被作为任何图像的一个更加精简且表达能力更强的特征表达。</p>
 <p>故，在新数据集上，可以直接利用这个通用数据集上训练好的神经网络对图像进行特征提取，然后再将提取到的特征向量（瓶颈层）作为输入来训练一个新的单层全连接神经网络处理新的分类问题。</p>
+<p>但注意，这里有一个前提：新问题的数据集要和预训练模型使用的数据集相似。如果不相似的话，效果可能没想想那么好了。</p>
 <p><strong>–&gt; 学得模型效果：</strong></p>
-<p>注意，这里有一个前提：新问题的数据集要和预训练模型使用的数据集相似。如果不相似的话，效果可能没想想那么好了。</p>
 <p>一般来所，在数据量足够的情况下，迁移学习的效果不如完全重新训练（仅次于）。但是迁移学习所需要的训练时间和训练样本数目要远远小于训练完整数据的模型。</p>
-<p>======================================================================</p>
+<p>========================================================</p>
 <p>下面我们给一个不同数据集（Database）场景下的微调策略：</p>
 <ol>
 <li>DB1_Condition：数据量少，但数据相似度非常高。此时只需要修改<strong>最后几层</strong>或<strong>最终的 Softmax 层</strong>即可实现较好的预测。</li>
@@ -1030,7 +1030,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">76</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1052,7 +1052,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-count">89</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

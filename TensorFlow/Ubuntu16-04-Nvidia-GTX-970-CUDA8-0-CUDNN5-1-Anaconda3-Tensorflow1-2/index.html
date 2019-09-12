@@ -117,7 +117,7 @@
 <meta property="og:image" content="http://yoursite.com/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/cudnn.png">
 <meta property="og:image" content="http://yoursite.com/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/cuda_download.png">
 <meta property="og:image" content="http://yoursite.com/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/cuda9.jpg">
-<meta property="og:updated_time" content="2019-09-12T07:07:03.176Z">
+<meta property="og:updated_time" content="2019-09-12T07:44:55.766Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu16.04 + Nvidia GTX 970 + CUDA8.0 + CUDNN5.1 + Anaconda3 + Tensorflow1.2">
 <meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： Update：之前为了 TensorFlow 学习使用配置的 TensorFlow 深度学习环境（For GPU Support）计算性能较差，已经不再适合现阶段学习开发使用了。故最近准备升级一下深度学习服务器，重新配置支持 GPU 显卡加速计算的 TensorFlow 深度学习开发环境。 配置过程中参考了网络上很多的相关博文，也遇到过很多坑，为">
@@ -374,7 +374,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-12T15:07:03+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-12T15:44:55+08:00">
                 2019-09-12
               </time>
             
@@ -604,7 +604,7 @@
 <h5 id="1-2-2-安装-Nvidia-驱动"><a href="#1-2-2-安装-Nvidia-驱动" class="headerlink" title="1.2.2 安装 Nvidia 驱动"></a>1.2.2 安装 Nvidia 驱动</h5><p>查询到适用的 Nvidia 驱动版本后，开始安装 Nvidia 驱动 390.25：</p>
 <p>在开始正式安装之前，回应一下和网络上很多博客给出安装 Nvidia 驱动 的不同之处：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 其他博文中给出 Nvidia 驱动安装步骤：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Step1 &gt;&gt;&gt; 通过 Ctrl+Alt+F1 进入字符界面（文本）模式。</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Step2 &gt;&gt;&gt; 为了确保驱动能够正常安装,暂时关闭 x-window 服务（图形环境）：</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo service lightdm stop</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Step3 &gt;&gt;&gt; 完成下面我给出的步骤：1）</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Step4 &gt;&gt;&gt; 重新开启 x-window 服务（图形环境）：</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo service lightdm start</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Step4 &gt;&gt;&gt; 完成其余的步骤：2）-&gt; 3）-&gt; 4）</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 更多：Ctrl+Alt+F7 可从字符界面进入图形用户界面。</span></span></span><br></pre></td></tr></table></figure>
-<p>尽管在过去我直接按照下面的 <code>1）-&gt; 2）-&gt; 3）-&gt; 4）</code>已经成功安装了 N 多次 Nvidia 驱动，但我连一次也没遇到过。</p>
+<p>在过去我直接按照下面的 <code>1）-&gt; 2）-&gt; 3）-&gt; 4）</code>已经成功安装了 N 多次 Nvidia 驱动，但我连一次也没遇到过有 Bug。</p>
 <hr>
 <p>1）使用 PPA 安装</p>
 <p>首先添加 ppa 仓库：</p>

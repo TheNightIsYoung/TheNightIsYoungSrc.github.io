@@ -361,8 +361,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:52+08:00">
-                2019-05-29
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-12T15:07:03+08:00">
+                2019-09-12
               </time>
             
           </span>
@@ -423,7 +423,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  8.9k
+                  12.1k
                 </span>
               
 
@@ -439,7 +439,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  43
+                  56
                 </span>
               
             </div>
@@ -464,9 +464,8 @@
           <center> 愿你每天欢喜多于悲，孤独有人陪… </center>
 
 <p><strong>写在前面：</strong></p>
-<p>关于搭建 <strong>TensorFlow [GPU Support]</strong> 环境：</p>
-<p>搭建基于 GPU 显卡加速运算的 TensorFlow 深度学习环境前，建议先明确当前服务器独立显卡（GPU ）详细信息（包括显卡型号、显存、计算性能等等）。这是因为，TensorFlow只支持某些类型的显卡（N卡：Nvidia），有些 TensorFlow 模型需要较大的 GPU 内存，或更多的 GPU 计算核心（即更强的计算能力，加速模型运算），了解服务器中 GPU 的详细信息可以更好的帮助我们进行计算加速。</p>
-<p>然后依据附录中的 <strong>Tensorflow&amp;&amp;NVIDIA 版本信息对照表</strong>，选择安装相互兼容的显卡并行计算包（CUDA）、深度神经网络 GPU 加速包（CUDNN）以及相应版本的 Tensorflow 即可。</p>
+<p>Update：之前为了 TensorFlow 学习使用配置的 TensorFlow 深度学习环境（For GPU Support）计算性能较差，已经不再适合现阶段学习开发使用了。故最近准备升级一下深度学习服务器，重新配置支持 GPU 显卡加速计算的 TensorFlow 深度学习开发环境。</p>
+<p>配置过程中参考了网络上很多的相关博文，也遇到过很多坑，为了感谢配置过程中各位大佬的帮助以及方便本人下次配置或者升级，整理以作此文用于“基于 GPU 显卡加速运算的 TensorFlow 深度学习环境（TensorFlow For GPU Support）”搭建记录。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/#more" rel="contents">
@@ -943,7 +942,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/TensorFlow/Centos6（7）-Ubuntu-在线搭建-Anaconda3-Tensorflow-开发环境/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/TensorFlow/Centos6（7）-Ubuntu-在线搭建-Tensorflow-深度学习开发环境/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="TheMusicIsLoud">
@@ -962,7 +961,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/TensorFlow/Centos6（7）-Ubuntu-在线搭建-Anaconda3-Tensorflow-开发环境/" itemprop="url">Centos6（7）/Ubuntu 在线搭建 Anaconda & Tensorflow 开发环境【持续更新】</a></h1>
+                <a class="post-title-link" href="/TensorFlow/Centos6（7）-Ubuntu-在线搭建-Tensorflow-深度学习开发环境/" itemprop="url">Centos6（7）/Ubuntu 在线搭建 Tensorflow 深度学习开发环境【持续更新】</a></h1>
         
 
         <div class="post-meta">
@@ -990,8 +989,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:51+08:00">
-                2019-05-29
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-12T15:24:40+08:00">
+                2019-09-12
               </time>
             
           </span>
@@ -1026,7 +1025,7 @@
 
           
           
-             <span id="/TensorFlow/Centos6（7）-Ubuntu-在线搭建-Anaconda3-Tensorflow-开发环境/" class="leancloud_visitors" data-flag-title="Centos6（7）/Ubuntu 在线搭建 Anaconda & Tensorflow 开发环境【持续更新】">
+             <span id="/TensorFlow/Centos6（7）-Ubuntu-在线搭建-Tensorflow-深度学习开发环境/" class="leancloud_visitors" data-flag-title="Centos6（7）/Ubuntu 在线搭建 Tensorflow 深度学习开发环境【持续更新】">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1093,12 +1092,12 @@
           <center> 愿你每天欢喜多于悲，孤独有人陪… </center>
 
 <p><strong>写在前面：</strong></p>
-<p>工欲善其事，必先利其器。在开始深度学习课程之前，首要的是需要选择一台性能合适的机器来部署深度学习环境以进行学习试验。关于“选择性能合适的机器”，一般意味着“好的CPU”，“大内存”，“大硬盘”，”GPU支持“，DIY 组机参见 <a href="">深度学习攒机小记</a>。当然考虑到经济问题以及以学习为优先，利用我们手头闲置的配置最好的机器就可以开始配置深度学习环境了（性能低）。</p>
+<p>工欲善其事，必先利其器。在开始深度学习课程之前，首要的是需要选择一台性能合适的机器来部署深度学习环境以进行学习试验。关于“选择性能合适的机器”，一般意味着“好的CPU”，“大内存”，“大硬盘”，”GPU支持“，DIY 组机参见 <a href="">深度学习攒机小记：如果DIY自己的深度学习工作站</a>。当然考虑到经济预算以及以学习为优先，利用我们手头闲置的配置最好的机器就可以开始配置深度学习环境了（性能低）。</p>
 <p>本文我们将详细介绍如何基于 <strong>Centos6(7) / Ubuntu</strong> 单机或集群服务器搭建 <strong>TensorFlow [ CPU/GPU Support ]</strong> 深度学习单机或集群分布式学习开发环境。事实上，TensorFlow 集群分布式环境搭建就是多台单机服务器的重复安装过程，可以通过自动化部署完成。</p>
 <p>最后，我们将在安装好的环境中运行和测试简单的 TensorFlow 样例程序以验证安装是否成功。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/TensorFlow/Centos6（7）-Ubuntu-在线搭建-Anaconda3-Tensorflow-开发环境/#more" rel="contents">
+            <a class="btn" href="/TensorFlow/Centos6（7）-Ubuntu-在线搭建-Tensorflow-深度学习开发环境/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1153,7 +1152,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Linux-Shell/Linux-之磁盘空间信息查询/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/TensorFlow/深度学习攒机小记：如果DIY自己的深度学习工作站/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="TheMusicIsLoud">
@@ -1172,7 +1171,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Linux-Shell/Linux-之磁盘空间信息查询/" itemprop="url">Linux 之磁盘空间信息查询</a></h1>
+                <a class="post-title-link" href="/TensorFlow/深度学习攒机小记：如果DIY自己的深度学习工作站/" itemprop="url">深度学习攒机小记：如果DIY自己的深度学习工作站</a></h1>
         
 
         <div class="post-meta">
@@ -1184,8 +1183,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-14T13:44:33+08:00">
-                2018-05-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-01T13:31:08+08:00">
+                2018-06-01
               </time>
             
 
@@ -1200,8 +1199,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:51+08:00">
-                2019-05-29
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-12T14:50:03+08:00">
+                2019-09-12
               </time>
             
           </span>
@@ -1219,8 +1218,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux-Shell/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux Shell</span>
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
                   </a>
                 </span>
 
@@ -1236,7 +1235,7 @@
 
           
           
-             <span id="/Linux-Shell/Linux-之磁盘空间信息查询/" class="leancloud_visitors" data-flag-title="Linux 之磁盘空间信息查询">
+             <span id="/TensorFlow/深度学习攒机小记：如果DIY自己的深度学习工作站/" class="leancloud_visitors" data-flag-title="深度学习攒机小记：如果DIY自己的深度学习工作站">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1262,7 +1261,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  321
                 </span>
               
 
@@ -1278,7 +1277,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  1
                 </span>
               
             </div>
@@ -1300,13 +1299,15 @@
 
       
         
-          <center>抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…</center>
+          <center> 愿你每天欢喜多于悲，孤独有人陪… </center>
 
-<p>Linux 中 <strong>df</strong> 命令可用于查看 linux 服务器的 <strong>“文件系统的磁盘空间占用情况”</strong>。利用该命令可以帮助我们获取到硬盘被占用了多少空间，目前还剩下多少空间，以及磁盘空间文件系统类型等信息。</p>
-<p><strong>du</strong> 命令也是查看使用空间的。但是与 <code>df</code> 命令不同的是，du 命令是对 <strong>“文件和目录磁盘使用的空间”</strong> 的查看。</p>
+<p><strong>写在前面：</strong></p>
+<p>图像识别、语音识别的突破性进展和大规模应用，让深度学习从学术界走向工业界，并因此大放异彩。特别是 AlphaGo 的胜利，无人驾驶的成功，让深度学习进入越来越多的工程师甚至是业余爱好者的视野。</p>
+<p>在开始深度学习课程之前，首要的是需要选择一台性能合适的机器来部署深度学习环境以进行学习试验。关于“选择性能合适的机器”，一般意味着“好的CPU”，“大内存”，“大硬盘”，”GPU支持“。</p>
+<p>而作为一位极客的巨大满足感就是可以 DIY 一台自己的成本效益最佳的深度学习工作站。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/Linux-Shell/Linux-之磁盘空间信息查询/#more" rel="contents">
+            <a class="btn" href="/TensorFlow/深度学习攒机小记：如果DIY自己的深度学习工作站/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1352,7 +1353,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1402,7 +1403,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1424,7 +1425,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">91</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

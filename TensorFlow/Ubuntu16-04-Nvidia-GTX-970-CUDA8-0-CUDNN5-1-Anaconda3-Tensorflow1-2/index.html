@@ -99,14 +99,15 @@
 
 
 
-<meta name="description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 关于搭建 TensorFlow [GPU Support] 环境： 搭建基于 GPU 显卡加速运算的 TensorFlow 深度学习环境前，建议先明确当前服务器独立显卡（GPU ）详细信息（包括显卡型号、显存、计算性能等等）。这是因为，TensorFlow只支持某些类型的显卡（N卡：Nvidia），有些 TensorFlow 模型需要较大的 GP">
+<meta name="description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： Update：之前为了 TensorFlow 学习使用配置的 TensorFlow 深度学习环境（For GPU Support）计算性能较差，已经不再适合现阶段学习开发使用了。故最近准备升级一下深度学习服务器，重新配置支持 GPU 显卡加速计算的 TensorFlow 深度学习开发环境。 配置过程中参考了网络上很多的相关博文，也遇到过很多坑，为">
 <meta name="keywords" content="TensorFlow,GPU,CUDA&amp;&amp;CUDNN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ubuntu16.04 + Nvidia GTX 970 + CUDA8.0 + CUDNN5.1 + Anaconda3 + Tensorflow1.2">
 <meta property="og:url" content="http://yoursite.com/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/index.html">
 <meta property="og:site_name" content="When Art Meets Technology">
-<meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 关于搭建 TensorFlow [GPU Support] 环境： 搭建基于 GPU 显卡加速运算的 TensorFlow 深度学习环境前，建议先明确当前服务器独立显卡（GPU ）详细信息（包括显卡型号、显存、计算性能等等）。这是因为，TensorFlow只支持某些类型的显卡（N卡：Nvidia），有些 TensorFlow 模型需要较大的 GP">
+<meta property="og:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： Update：之前为了 TensorFlow 学习使用配置的 TensorFlow 深度学习环境（For GPU Support）计算性能较差，已经不再适合现阶段学习开发使用了。故最近准备升级一下深度学习服务器，重新配置支持 GPU 显卡加速计算的 TensorFlow 深度学习开发环境。 配置过程中参考了网络上很多的相关博文，也遇到过很多坑，为">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/performance_per_dollar_RTX.png">
 <meta property="og:image" content="http://yoursite.com/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/driver_search.png">
 <meta property="og:image" content="http://yoursite.com/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/driver_info.png">
 <meta property="og:image" content="http://yoursite.com/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/cuda8_1.png">
@@ -116,11 +117,11 @@
 <meta property="og:image" content="http://yoursite.com/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/cudnn.png">
 <meta property="og:image" content="http://yoursite.com/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/cuda_download.png">
 <meta property="og:image" content="http://yoursite.com/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/cuda9.jpg">
-<meta property="og:updated_time" content="2019-05-29T03:03:52.236Z">
+<meta property="og:updated_time" content="2019-09-12T07:07:03.176Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu16.04 + Nvidia GTX 970 + CUDA8.0 + CUDNN5.1 + Anaconda3 + Tensorflow1.2">
-<meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： 关于搭建 TensorFlow [GPU Support] 环境： 搭建基于 GPU 显卡加速运算的 TensorFlow 深度学习环境前，建议先明确当前服务器独立显卡（GPU ）详细信息（包括显卡型号、显存、计算性能等等）。这是因为，TensorFlow只支持某些类型的显卡（N卡：Nvidia），有些 TensorFlow 模型需要较大的 GP">
-<meta name="twitter:image" content="http://yoursite.com/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/driver_search.png">
+<meta name="twitter:description" content="愿你每天欢喜多于悲，孤独有人陪…   写在前面： Update：之前为了 TensorFlow 学习使用配置的 TensorFlow 深度学习环境（For GPU Support）计算性能较差，已经不再适合现阶段学习开发使用了。故最近准备升级一下深度学习服务器，重新配置支持 GPU 显卡加速计算的 TensorFlow 深度学习开发环境。 配置过程中参考了网络上很多的相关博文，也遇到过很多坑，为">
+<meta name="twitter:image" content="http://yoursite.com/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/performance_per_dollar_RTX.png">
 
 
 
@@ -373,8 +374,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:52+08:00">
-                2019-05-29
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-12T15:07:03+08:00">
+                2019-09-12
               </time>
             
           </span>
@@ -435,7 +436,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  8.9k
+                  12.1k
                 </span>
               
 
@@ -451,7 +452,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  43
+                  56
                 </span>
               
             </div>
@@ -475,109 +476,221 @@
         <center> 愿你每天欢喜多于悲，孤独有人陪… </center>
 
 <p><strong>写在前面：</strong></p>
-<p>关于搭建 <strong>TensorFlow [GPU Support]</strong> 环境：</p>
-<p>搭建基于 GPU 显卡加速运算的 TensorFlow 深度学习环境前，建议先明确当前服务器独立显卡（GPU ）详细信息（包括显卡型号、显存、计算性能等等）。这是因为，TensorFlow只支持某些类型的显卡（N卡：Nvidia），有些 TensorFlow 模型需要较大的 GPU 内存，或更多的 GPU 计算核心（即更强的计算能力，加速模型运算），了解服务器中 GPU 的详细信息可以更好的帮助我们进行计算加速。</p>
-<p>然后依据附录中的 <strong>Tensorflow&amp;&amp;NVIDIA 版本信息对照表</strong>，选择安装相互兼容的显卡并行计算包（CUDA）、深度神经网络 GPU 加速包（CUDNN）以及相应版本的 Tensorflow 即可。</p>
+<p>Update：之前为了 TensorFlow 学习使用配置的 TensorFlow 深度学习环境（For GPU Support）计算性能较差，已经不再适合现阶段学习开发使用了。故最近准备升级一下深度学习服务器，重新配置支持 GPU 显卡加速计算的 TensorFlow 深度学习开发环境。</p>
+<p>配置过程中参考了网络上很多的相关博文，也遇到过很多坑，为了感谢配置过程中各位大佬的帮助以及方便本人下次配置或者升级，整理以作此文用于“基于 GPU 显卡加速运算的 TensorFlow 深度学习环境（TensorFlow For GPU Support）”搭建记录。</p>
 <a id="more"></a>
 <hr>
-<h3 id="Environmental-introduction"><a href="#Environmental-introduction" class="headerlink" title="Environmental introduction"></a>Environmental introduction</h3><p><strong>搭建环境: </strong></p>
-<p>Ubuntu16.04 + Nvidia GeForce GTX 970 + CUDA8.0 + CUDNN5.1 + Anaconda3 + Tensorflow1.2</p>
-<p><strong>硬件环境介绍:</strong></p>
-<ol>
-<li><p>搭载 Nvidia GeForce GTX 970 独立显卡联想 ThinkCentre 商业主机；</p>
-</li>
-<li><p>搭载 3TB 硬盘用于存储数据以及 32GB（4 * 8GB）内存条；</p>
-</li>
-<li><p>四核心 Inter CORE I7 CPU；</p>
-</li>
-<li><p>ThinkCentre 服务器安装 Ubuntu16.04。</p>
-</li>
-</ol>
-<p><strong>联想 ThinkCentre 商业主机搭载 Nvidia GTX 960 独立显卡时问题：</strong></p>
-<ol>
-<li><p>电源提供接口不够，购买电源转接线电源口 IDE 大 4D 芯一分二（4 pin公转母），显卡 6pin 转双大 4D。电源接线不够时，建议升级较大功率电源。</p>
-</li>
-<li><p>机箱主板空间较小无法安装索泰（ZOTAC）Nvidia GTX 970 独立显卡，购买 PCI-E 16X 显卡延长线。</p>
-</li>
-<li><p>购买 DVI 转 VGA24+5 Pin（显卡显示器高清视频转换接头）。</p>
-</li>
-</ol>
-<p><strong>CUDA &amp;&amp; CUDNN</strong></p>
-<p>再来了解一下什么是 CUDA 和 CUDNN：</p>
-<p>CUDA 是显卡厂商 NVIDIA 推出的通用并行计算架构（平台），它使得 GPU 能够解决并行的、复杂的计算问题。</p>
-<p>CUDNN 其实就是 cuDNN（CUDA DNN），它是深度神经网络的 GPU 加速库。想要在 CUDA 上运行深度神经网络，就要安装 cuDNN。</p>
+<h3 id="Environmental-Introduction"><a href="#Environmental-Introduction" class="headerlink" title="Environmental Introduction"></a>Environmental Introduction</h3><h4 id="1-–-gt-TensorFlow【GPU-Support】配置须知"><a href="#1-–-gt-TensorFlow【GPU-Support】配置须知" class="headerlink" title="1 –&gt; TensorFlow【GPU Support】配置须知"></a>1 –&gt; TensorFlow【GPU Support】配置须知</h4><p><strong>1.1 –&gt; 服务器硬件要求：</strong></p>
+<blockquote>
+<p>关于 内存：</p>
+</blockquote>
+<p>最低达到 GPU 显存的二倍。</p>
+<p>推荐：建议至少配备 32GB 以上内存。条件允许，可以直接上 64 G。</p>
+<blockquote>
+<p>关于 CPU：</p>
+</blockquote>
+<p>不同于 TensorFlow For CPU Support 深度学习环境的搭建，GPU Support 环境主要使用 GPU 独立显卡进行计算加速，CPU 并不负责主要任务，单显卡计算时只有一个 CPU 核心达到 100% 负荷，所以 CPU 的核心数量和显卡数量一致即可。</p>
+<p>故，CPU 的核心数太多没有必要，但是要拥有相对较高的主频就可以。</p>
+<p>推荐：具体根据实际情况进行选择，有条件的可以选择性能更好一点的。</p>
+<blockquote>
+<p>关于 GPU：</p>
+</blockquote>
+<p>独立显卡是主角，TensorFlow For GPU Support 深度学习环境的核心计算都是依托于 GPU 进行运算的，故独立显卡的性能直接影响深度学习环境计算能力！！！</p>
+<p><strong>另外并不是所有类型的独立显卡（GPU）都可以支持搭建 TensorFlow 深度学习环境</strong>：</p>
+<p>我们需要能够支持 CUDA 平台（一种由 NVIDIA 推出的通用并行计算架构）的 GPU 才行，故常见的深度学习独立显卡都选择【NVIDIA 显卡（也就是我们常说的 N 卡）】。</p>
+<p>实际上，也并不是所有的 NVIDIA 显卡都支持此功能，NVIDIA 官方提供了不同显卡系列的支持列表查询 –&gt; <a href="https://developer.nvidia.com/cuda-gpus" target="_blank" rel="noopener">传送门</a>，同时你可以查看到相应 GPU 的计算能力。</p>
+<p>=========================================================</p>
+<p>如果你手头刚好有一块在支持列表内的独立显卡，并且确保你的主机有 PCI-E（X16）插槽支持，那么恭喜你可以跳过本小节下面的内容开始后续的教程了~</p>
+<p><strong>或者 &gt;&gt;&gt;</strong></p>
+<p>如果你想要选购一块成本效益最佳的 GPU，推荐参考 Tim Dettmers 博客给出的 NVIDIA 卡分析与推荐 –&gt; <a href="https://timdettmers.com/2019/04/03/which-gpu-for-deep-learning/" target="_blank" rel="noopener">传送门</a>，这里给出博主测试出的主流显卡成本效益图：</p>
+<p><img src="/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/performance_per_dollar_RTX.png" alt="avatar"></p>
+<p>=========================================================</p>
+<p>本文我是基于手头现有的最好的设备进行搭建的，争取早日攒一台更好的服务器出来~</p>
 <hr>
-<h3 id="1-Nvidia-GTX-970-安装显卡驱动"><a href="#1-Nvidia-GTX-970-安装显卡驱动" class="headerlink" title="1. Nvidia GTX 970 安装显卡驱动"></a>1. Nvidia GTX 970 安装显卡驱动</h3><p>搭建 <strong>TensorFlow [GPU Support]</strong> 环境第一步就是要解决显卡驱动问题，具体步骤如下：</p>
+<p><strong>1.2 –&gt; 你应该了解你的 GPU</strong></p>
+<p>这里，你应该已经有了一块可以使用的 GPU 了。但在搭建基于 GPU 显卡加速运算的 TensorFlow【TensorFlow For GPU Support】深度学习环境之前，你首先应该做的就是：</p>
+<p>先明确预使用的独立显卡（GPU ）的详细信息（包括显卡型号、显存、计算性能等等）。</p>
+<p>这是因为，TensorFlow 不仅对显卡类型（支持 CUDA）有要求，而且有些 TensorFlow 模型需要较大的 GPU 内存，或更多的 GPU 计算核心（即更强的计算能力，加速模型运算），了解预搭载独立显卡（GPU）的详细信息可以更好的帮助我们使用 GPU 进行 TensorFlow 计算加速。</p>
 <hr>
-<h4 id="1-1-查询-GPU-详细信息"><a href="#1-1-查询-GPU-详细信息" class="headerlink" title="1.1 查询 GPU 详细信息"></a>1.1 查询 GPU 详细信息</h4><p>搭载 GPU 独显的服务器安装 Ubuntu16.04 后（接 GPU 显示输出）：</p>
-<p>1）查询本机的显卡型号</p>
-<p>因显卡一般是 PCI 接口，可以通过 <code>lspci</code> 查询显卡相关信息。一般我们可以查看到两种类型显卡：一块时集显；一块是独显。</p>
+<p><strong>1.3 –&gt; CUDA &amp; CUDNN &amp; TensorFlow </strong></p>
+<p>TensorFlow 要想使用 GPU 进行计算加速（相较于 CPU），那么就必须安装以及配置 CUDA 和 CUDNN。</p>
+<p>先了解一下什么是 <strong>CUDA</strong> 和 <strong>CUDNN</strong>：</p>
+<p><strong>CUDA</strong> 是显卡厂商 NVIDIA 推出的通用并行计算平台，它使得 GPU 能够解决并行的、复杂的计算问题。</p>
+<p><strong>CUDNN（ cuDNN）</strong> 其实就是 CUDA DNN 的缩写，它是 CUDA 平台深度神经网络的计算库。想要在 CUDA 上运行深度神经网络，就要安装 cuDNN。</p>
+<p>我们知道 TensorFlow 提供有丰富的版本支持，</p>
+<p><strong>–&gt; 这里，需要注意一个问题（很重要）：</strong></p>
+<p><strong>某一版本的 TensorFlow 只兼容特定版本的 CUDA 和 CUDNN。</strong>也就是说，我们选择安装的显卡并行计算平台（CUDA）、深度神经网络 GPU 计算库（CUDNN）以及 TensorFlow 的版本要相互兼容。</p>
+<p>那么，如何选择合适的 TensorFlow &amp; CUDA &amp; CUDNN 版本？</p>
+<p>关于版本选择，请参阅附录部分：<strong>【Tensorflow &amp;&amp; NVIDIA 版本信息对照表】</strong>。</p>
+<hr>
+<p><strong>1.4 –&gt; 关于深度学习服务器操作系统选择</strong></p>
+<p>对于深度学习服务器，选择一个合适的 OS 可以帮我们减少很多的麻烦。</p>
+<p>对于初学 TensorFlow 深度学习框架，仅仅想做做简单测试，强烈建议选择 Ubuntu！！！</p>
+<p><strong>Centos/Ubuntu Server Select：</strong></p>
+<ol>
+<li>如果我们选择的是 <strong>Centos Server</strong> 来安装 TensorFlow。那么我们的 Centos 版本最好选择 <code>Centos7</code>。<code>Centos6</code> 因为版本较低，其操作系统内置的库无法很好兼容 TensorFlow。虽可以解决，但会为安装带来更多的麻烦(可以通过升级一些运行时库得以解决）。当然对于操作系统为 <code>Centos6</code> 的既有服务器，且不可以更换操作系统的安装需求，后续如有需要我们会做详细说明。注意，为了可以进行分布式运算，对于 TensorFlow 要求版本大于 0.8，Tensorflow 0.8 之前版本不支持分布式。</li>
+<li>如果我们选择的是 <strong>Ubuntu Server</strong> 来安装 TensorFlow，那么我们的 Ubuntu 版本最好是 Ubuntu 14.04/16.04/18.04。这里只是因为使用 Ubuntu14.04/16.04/18.04 的人较多，可以更好的帮我们解决安装以及使用 TensorFlow 过程中遇到的问题。</li>
+</ol>
+<hr>
+<p>基于以上，这里给出我的预安装环境准备：</p>
+<h4 id="2-–-gt-My-Environment"><a href="#2-–-gt-My-Environment" class="headerlink" title="2 –&gt; My Environment"></a>2 –&gt; My Environment</h4><p><strong>2.1 –&gt; 硬件环境介绍：</strong></p>
+<ol>
+<li>搭载 Nvidia GeForce GTX 960 独立显卡联想 ThinkCentre 商业主机；</li>
+<li>搭载 3TB 硬盘用于存储数据以及 32GB（4 * 8GB）内存条；</li>
+<li>四核心 Inter CORE I7 CPU；</li>
+<li>ThinkCentre 商用主机。</li>
+</ol>
+<p>–&gt; 联想 ThinkCentre 商用主机搭载 Nvidia GTX 960 独立显卡时问题：</p>
+<ol>
+<li>电源提供接口不够，购买电源转接线电源口 IDE 大 4D 芯一分二（4 pin公转母），显卡 6pin 转双大 4D。电源接线不够时，建议升级较大功率电源。</li>
+<li>机箱主板空间较小无法安装索泰（ZOTAC）Nvidia GTX 970 独立显卡，购买 PCI-E 16X 显卡延长线。</li>
+<li>购买 DVI 转 VGA24+5 Pin（显卡显示器高清视频转换接头）。</li>
+</ol>
+<p><strong>2.2 –&gt; 搭建环境介绍:</strong> </p>
+<p>Ubuntu16.04 + Nvidia GeForce GTX 960 + CUDA8.0 + CUDNN5.1  + Tensorflow1.2</p>
+<hr>
+<p>从这里开始，正式开始【TensorFlow For GPU Support】环境的配置：</p>
+<h3 id="0-服务器操作系统准备"><a href="#0-服务器操作系统准备" class="headerlink" title="0. 服务器操作系统准备"></a>0. 服务器操作系统准备</h3><p>关于服务器操作系统，我们选择安装的是：Ubuntu16.04，具体的安装过程不赘述，网上有很多。</p>
+<p>这里，有个需要注意的地方（很重要）：安装 Ubuntu16.04 系统时是否搭载 GPU？</p>
+<p>也就是说，这里我们有两种安装方式可供选择：</p>
+<p>第一种：直接在主板上搭载 GPU，显示器接 GPU 输出接口，然后完成 Ubuntu16.04 系统的点亮；</p>
+<p>第二种：不搭载 GPU（拔掉）安装好 Ubuntu16.04 系统（此时显示器接主机 VGA 接口），关机后安装好 GPU 并将显示器接 GPU 输出接口。</p>
+<p><strong>–&gt; 重点来了：</strong></p>
+<p>通常使用的是第一种安装方式，但默认的前提是 Ubuntu16.04 安装引导系统能够正常识别 GPU（系统中默认显卡驱动支持该型号 GPU）。否则，你会发现：使用 U 盘启动盘安装系统时无法进入 Ubuntu 安装引导界面，怎么重启都没用。而一旦拔掉 GPU，显示器转接主机 VGA 接口后，重启可成功进入安装引导界面。此时，你就需要考虑第二种方法了。</p>
+<p>没看懂，不要着急，实施细则见下文。</p>
+<hr>
+<p>故，搭建 <strong>TensorFlow [GPU Support]</strong> 环境第一步就是要解决系统显卡驱动问题：</p>
+<h3 id="1-显卡驱动"><a href="#1-显卡驱动" class="headerlink" title="1. 显卡驱动"></a>1. 显卡驱动</h3><h4 id="1-1-查询系统中-GPU-详细信息"><a href="#1-1-查询系统中-GPU-详细信息" class="headerlink" title="1.1 查询系统中 GPU 详细信息"></a>1.1 查询系统中 GPU 详细信息</h4><h5 id="1-1-1-搭载式安装（第一种）"><a href="#1-1-1-搭载式安装（第一种）" class="headerlink" title="1.1.1 搭载式安装（第一种）"></a>1.1.1 搭载式安装（第一种）</h5><p>如果直接搭载 GPU 独显的服务器使用 U 盘启动安装 Ubuntu16.04，成功点亮了系统（显示器接 GPU 显示引导界面），那么恭喜你，当前系统默认显卡驱动支持你的 GPU。（如果无法成功，请移步至【1.1.2 非搭载式安装】）</p>
+<p>成功点亮系统后，我们可以查询当前系统中 GPU 的详细信息：</p>
+<p><strong>1）查询本机的显卡型号</strong></p>
+<p>因显卡一般接 PCI 接口，可以通过 <code>lspci</code> 查询显卡相关信息。一般我们可以查看到两种类型显卡：一块时集显；一块是独显。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ sudo lspci -vnn |grep VGA -A 12</span><br><span class="line">01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GM206 [GeForce GTX 960] [10de:1401] (rev a1) (prog-if 00 [VGA controller])</span><br><span class="line">        Subsystem: ZOTAC International (MCO) Ltd. GM206 [GeForce GTX 960] [19da:1379]</span><br><span class="line">        Flags: bus master, fast devsel, latency 0, IRQ 124</span><br><span class="line">        Memory at f6000000 (32-bit, non-prefetchable) [size=16M]</span><br><span class="line">        Memory at e0000000 (64-bit, prefetchable) [size=256M]</span><br><span class="line">        Memory at f0000000 (64-bit, prefetchable) [size=32M]</span><br><span class="line">        I/O ports at e000 [size=128]</span><br><span class="line">        Expansion ROM at 000c0000 [disabled] [size=128K]</span><br><span class="line">        Capabilities: [60] Power Management version 3</span><br><span class="line">        Capabilities: [68] MSI: Enable+ Count=1/1 Maskable- 64bit+</span><br><span class="line">        Capabilities: [78] Express Legacy Endpoint, MSI 00</span><br><span class="line">        Capabilities: [100] Virtual Channel</span><br><span class="line">        Capabilities: [258] L1 PM Substates</span><br></pre></td></tr></table></figure>
 <p>===============================================================</p>
 <p><strong>显卡信息：</strong></p>
-<p>独立显卡: 硬件厂商 NAVIDA（N卡）；型号名称 GM206（GeForce GTX 960）。</p>
-<p>集成显卡: 这里由于直接是搭载 GPU 的服务器安装系统，所以集显驱动未安装，无法看到集显信息。</p>
+<p>独立显卡： 硬件厂商 NAVIDA（N卡）；型号名称 GM206（GeForce GTX 960）。</p>
+<p>集成显卡：这里由于直接是搭载 GPU 的服务器安装系统，无法查看到集显信息。</p>
 <p>===============================================================</p>
-<p>2）确认本机显卡驱动是否正常加载</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ sudo lshw -C display</span><br><span class="line">$ sudo lshw -C display</span><br><span class="line">  *-display</span><br><span class="line">       description: VGA compatible controller</span><br><span class="line">       product: GM206 [GeForce GTX 960]</span><br><span class="line">       vendor: NVIDIA Corporation</span><br><span class="line">       physical id: 0</span><br><span class="line">       bus info: pci@0000:01:00.0</span><br><span class="line">       version: a1</span><br><span class="line">       width: 64 bits</span><br><span class="line">       clock: 33MHz</span><br><span class="line">       capabilities: pm msi pciexpress vga_controller bus_master cap_list rom</span><br><span class="line">       configuration: driver=nouveau latency=0</span><br><span class="line">       resources: irq:124 memory:f6000000-f6ffffff memory:e0000000-efffffff memory:f0000000-f1ffffff ioport:e000(size=128) memory:c0000-dffff</span><br></pre></td></tr></table></figure>
+<p><strong>2）确认本机显卡驱动是否正常加载</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ sudo lshw -C display</span><br><span class="line">  *-display</span><br><span class="line">       description: VGA compatible controller</span><br><span class="line">       product: GM206 [GeForce GTX 960]</span><br><span class="line">       vendor: NVIDIA Corporation</span><br><span class="line">       physical id: 0</span><br><span class="line">       bus info: pci@0000:01:00.0</span><br><span class="line">       version: a1</span><br><span class="line">       width: 64 bits</span><br><span class="line">       clock: 33MHz</span><br><span class="line">       capabilities: pm msi pciexpress vga_controller bus_master cap_list rom</span><br><span class="line">       configuration: driver=nouveau latency=0</span><br><span class="line">       resources: irq:124 memory:f6000000-f6ffffff memory:e0000000-efffffff memory:f0000000-f1ffffff ioport:e000(size=128) memory:c0000-dffff</span><br></pre></td></tr></table></figure>
 <p>输出信息 <code>configuration</code> 字段中，如果 <code>driver=“驱动名称”</code> 不为空，说明系统支持该显卡的驱动；</p>
-<p>我们可以看出，Ubuntu 系统支持 GTX 970 显卡且自动安装有一个默认的显卡驱动：<code>nouveau</code>（Linux 开源的显卡驱动），但 <code>nouveau</code>  驱动开发不是很完善。</p>
-<p>事实上，我们需要重新安装适合显卡的（这里是 GTX970） Nvidia 显卡驱动才可以正常使用深度学习显卡加速。下面我们来看如何安装合适的 Nvidia 显卡驱动：</p>
+<p>我们可以看出，Ubuntu 系统支持 GTX 960 显卡且自动安装有一个默认的显卡驱动：<code>nouveau</code>（Linux 开源的显卡驱动）。</p>
+<p>事实上，<code>nouveau</code>  驱动开发是很不完善的，我们需要重新安装适合显卡的（这里是 GTX960） Nvidia 显卡驱动才可以正常使用 TensorFlow 深度学习显卡加速。</p>
+<p>到这里，你可以直接跳转到【1.2 Nvidia 驱动安装】，接着完成后续的过程。</p>
 <hr>
-<h4 id="1-2-查询适合的-Nvidia-驱动"><a href="#1-2-查询适合的-Nvidia-驱动" class="headerlink" title="1.2 查询适合的 Nvidia 驱动"></a>1.2 查询适合的 Nvidia 驱动</h4><p>1）首先打开以及登陆 <a href="http://www.nvidia.com/Download/index.aspx?lang=en-us" target="_blank" rel="noopener">Nvidia Driver 官网</a> 根据独立显卡型号查询适合自己显卡的驱动：</p>
+<h5 id="1-1-2-非搭载式安装（第二种）"><a href="#1-1-2-非搭载式安装（第二种）" class="headerlink" title="1.1.2 非搭载式安装（第二种）"></a>1.1.2 非搭载式安装（第二种）</h5><p>如果你采用第一种直接搭载 GPU 独显的服务器使用 U 盘启动安装 Ubuntu16.04，发现：无法进入 Ubuntu 安装引导界面，怎么重启都没用。而一旦拔掉 GPU，显示器转接主机 VGA 接口后，重启可成功进入安装引导界面。</p>
+<p>此时，我们首先需要先拔掉 GPU，后将显示器转接主机 VGA 接口，安装 Ubuntu16.04。</p>
+<p>成功点亮系统后，我们可以查询当前系统中 GPU（集显）的详细信息：</p>
+<p><strong>1）查询本机的显卡型号</strong></p>
+<p>因显卡一般是 PCI 接口，可以通过 <code>lspci</code> 查询显卡相关信息。一般我们可以查看到两种类型显卡：一块时集显；一块是独显。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">deeplearning@ThinkCentre-M910s-N000:~$ lspci -vnn|grep VGA -A 12</span><br><span class="line">00:02.0 VGA compatible controller [0300]: Intel Corporation HD Graphics 630 [8086:5912] (rev 04) (prog-if 00 [VGA controller])</span><br><span class="line">    DeviceName:  Onboard IGD</span><br><span class="line">    Subsystem: Lenovo Device [17aa:3107]</span><br><span class="line">    Flags: bus master, fast devsel, latency 0, IRQ 124</span><br><span class="line">    Memory at f6000000 (64-bit, non-prefetchable) [size=16M]</span><br><span class="line">    Memory at e0000000 (64-bit, prefetchable) [size=256M]</span><br><span class="line">    I/O ports at f000 [size=64]</span><br><span class="line">    [virtual] Expansion ROM at 000c0000 [disabled] [size=128K]</span><br><span class="line">    Capabilities: &lt;access denied&gt;</span><br><span class="line">    Kernel driver in use: i915</span><br><span class="line">    Kernel modules: i915</span><br></pre></td></tr></table></figure>
+<p>这里只能查询到一块集显（未搭载独显）：</p>
+<p>===============================================================</p>
+<p><strong>显卡信息：</strong></p>
+<p>集成显卡: 硬件厂商 Intel，型号名称 Corporation HD Graphics 630。</p>
+<p>===============================================================</p>
+<p><strong>2）确认本机集显驱动是否正常加载</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">deeplearning@ThinkCentre-M910s-N000:~$ sudo lshw -C display</span><br><span class="line">[sudo] password for deeplearning: </span><br><span class="line">  *-display               </span><br><span class="line">       description: VGA compatible controller</span><br><span class="line">       product: HD Graphics 630</span><br><span class="line">       vendor: Intel Corporation</span><br><span class="line">       physical id: 2</span><br><span class="line">       bus info: pci@0000:00:02.0</span><br><span class="line">       version: 04</span><br><span class="line">       width: 64 bits</span><br><span class="line">       clock: 33MHz</span><br><span class="line">       capabilities: pciexpress msi pm vga_controller bus_master cap_list rom</span><br><span class="line">       configuration: driver=i915 latency=0</span><br><span class="line">       resources: irq:124 memory:f6000000-f6ffffff memory:e0000000-efffffff ioport:f000(size=64) memory:c0000-dffff</span><br></pre></td></tr></table></figure>
+<p>输出信息 <code>configuration</code> 字段中，如果 <code>driver=“i915”</code> 不为空，系统中集显驱动为：“i915”；</p>
+<p>此时，先不要着急关机搭载 GPU！！！（如果你尝试关机后搭载 GPU 并将显示器接 GPU 输出接口同样会发现无法进入安装引导界面（系统中默认显卡驱动是不支持该型号 GPU的），故无法正常输出信号到显示器）。</p>
+<p>–&gt; 解决办法：</p>
+<p>我们需要在安装好的系统中安装一个支持该型号 GPU 的驱动，接下文【1.2 Nvidia 驱动安装】。</p>
+<hr>
+<h4 id="1-2-Nvidia-驱动安装"><a href="#1-2-Nvidia-驱动安装" class="headerlink" title="1.2 Nvidia 驱动安装"></a>1.2 Nvidia 驱动安装</h4><p>下面，我们来看如何安装合适的 Nvidia 显卡驱动：</p>
+<h5 id="1-2-1-查询适合的-Nvidia-驱动"><a href="#1-2-1-查询适合的-Nvidia-驱动" class="headerlink" title="1.2.1 查询适合的 Nvidia 驱动"></a>1.2.1 查询适合的 Nvidia 驱动</h5><p>1）首先打开以及登陆 <a href="http://www.nvidia.com/Download/index.aspx?lang=en-us" target="_blank" rel="noopener">Nvidia Driver 官网</a> 根据独立显卡型号查询适合自己显卡的驱动（以 GTX 980 Ti 为例）：</p>
 <p><img src="/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/driver_search.png" alt="avatar"></p>
-<p>2）显卡驱动信息查询</p>
+<p>2）SEARCH，查询显卡驱动信息</p>
 <p><img src="/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/driver_info.png" alt="avatar"></p>
 <hr>
-<h4 id="1-3-安装-Nvidia-驱动"><a href="#1-3-安装-Nvidia-驱动" class="headerlink" title="1.3 安装 Nvidia 驱动"></a>1.3 安装 Nvidia 驱动</h4><p>查询到适用的 Nvidia 驱动版本后，开始安装 Nvidia 驱动 390.25：</p>
+<h5 id="1-2-2-安装-Nvidia-驱动"><a href="#1-2-2-安装-Nvidia-驱动" class="headerlink" title="1.2.2 安装 Nvidia 驱动"></a>1.2.2 安装 Nvidia 驱动</h5><p>查询到适用的 Nvidia 驱动版本后，开始安装 Nvidia 驱动 390.25：</p>
+<p>在开始正式安装之前，回应一下和网络上很多博客给出安装 Nvidia 驱动 的不同之处：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 其他博文中给出 Nvidia 驱动安装步骤：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Step1 &gt;&gt;&gt; 通过 Ctrl+Alt+F1 进入字符界面（文本）模式。</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Step2 &gt;&gt;&gt; 为了确保驱动能够正常安装,暂时关闭 x-window 服务（图形环境）：</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo service lightdm stop</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Step3 &gt;&gt;&gt; 完成下面我给出的步骤：1）</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Step4 &gt;&gt;&gt; 重新开启 x-window 服务（图形环境）：</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo service lightdm start</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Step4 &gt;&gt;&gt; 完成其余的步骤：2）-&gt; 3）-&gt; 4）</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 更多：Ctrl+Alt+F7 可从字符界面进入图形用户界面。</span></span></span><br></pre></td></tr></table></figure>
+<p>尽管在过去我直接按照下面的 <code>1）-&gt; 2）-&gt; 3）-&gt; 4）</code>已经成功安装了 N 多次 Nvidia 驱动，但我连一次也没遇到过。</p>
+<hr>
 <p>1）使用 PPA 安装</p>
+<p>首先添加 ppa 仓库：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository ppa:graphics-drivers/ppa</span><br></pre></td></tr></table></figure>
 <p>第一次运行会出现如下的警告：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Fresh drivers from upstream, currently shipping Nvidia.</span><br><span class="line"></span><br><span class="line"><span class="comment">## Current Status</span></span><br><span class="line">We currently recommend: `nvidia-361`, Nvidia<span class="string">'s current long lived branch.</span></span><br><span class="line"><span class="string">For GeForce 8 and 9 series GPUs use `nvidia-340`</span></span><br><span class="line"><span class="string">For GeForce 6 and 7 series GPUs use `nvidia-304`</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">## What we'</span>re working on right now:</span><br><span class="line">- Normal driver updates</span><br><span class="line">- Investigating how to bring this goodness to distro on a cadence.</span><br><span class="line">- </span><br><span class="line"><span class="comment">## WARNINGS:</span></span><br><span class="line">This PPA is currently <span class="keyword">in</span> testing, you should be experienced with packaging before you dive <span class="keyword">in</span> here. Give us a few days to sort out the kinks.</span><br><span class="line">Volunteers welcome! See also: https://github.com/mamarley/nvidia-graphics-drivers/</span><br><span class="line"></span><br><span class="line">http://www.ubuntu.com/download/desktop/contribute</span><br><span class="line">更多信息： https://launchpad.net/~graphics-drivers/+archive/ubuntu/ppa</span><br><span class="line">按回车继续或者 Ctrl+c 取消添加</span><br></pre></td></tr></table></figure>
-<p>–&gt; Enter 后继续：</p>
+<p>–&gt;【Enter】后继续：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Enter 后显示如下信息表示添加成功：</span></span><br><span class="line">gpg: keyring `/tmp/tmp7b1tsfut/secring.gpg<span class="string">' created</span></span><br><span class="line"><span class="string">gpg: keyring `/tmp/tmp7b1tsfut/pubring.gpg'</span> created</span><br><span class="line">gpg: requesting key 1118213C from hkp server keyserver.ubuntu.com</span><br><span class="line">gpg: /tmp/tmp7b1tsfut/trustdb.gpg: trustdb created</span><br><span class="line">gpg: key 1118213C: public key <span class="string">"Launchpad PPA for Graphics Drivers Team"</span> imported</span><br><span class="line">gpg: no ultimately trusted keys found</span><br><span class="line">gpg: Total number processed: 1</span><br><span class="line">gpg:               imported: 1  (RSA: 1)</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+<p>===========================================================</p>
 <p>如果添加 PPA 仓库报错的话，可以先 <code>remove</code> 掉，然后重新尝试：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository --remove ppa:graphics-drivers/ppa</span><br><span class="line">sudo add-apt-repository ppa:graphics-drivers/ppa</span><br></pre></td></tr></table></figure>
+<p>===========================================================</p>
 <p>添加完 PPA 仓库，需要更新一下本地 apt-get 源：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
-<p>添加 PPA 仓库并且更新源后，先来识别显卡模型和查看源中推荐的驱动程序：</p>
+<p>添加 PPA 仓库并且更新源后，先来识别显卡模型和查看源中推荐的驱动程序（如果采用非搭载式安装的话跳过）：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ ubuntu-drivers devices</span><br><span class="line">== /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 ==</span><br><span class="line">modalias : pci:v000010DEd00001401sv000019DAsd00001379bc03sc00i00</span><br><span class="line">model    : GM206 [GeForce GTX 960]</span><br><span class="line">vendor   : NVIDIA Corporation</span><br><span class="line">driver   : nvidia-415 - third-party free</span><br><span class="line">driver   : nvidia-384 - distro non-free</span><br><span class="line">driver   : nvidia-396 - third-party free</span><br><span class="line">driver   : nvidia-418 - third-party free</span><br><span class="line">driver   : nvidia-410 - third-party free</span><br><span class="line">driver   : xserver-xorg-video-nouveau - distro free builtin</span><br><span class="line">driver   : nvidia-390 - third-party free</span><br><span class="line">driver   : nvidia-430 - third-party free recommended</span><br></pre></td></tr></table></figure>
 <p>–&gt; 开始安装：</p>
 <p>首先你可以看到，PAA 仓库中提供有我们之前查询到的 390 版本的 Nvidia 驱动 。</p>
-<p>当然，你可根据源中推荐的 Nvidia 版本进行安装（recommended）。这里我选择了 nvidia-384，它是支持 GTX 970 的一个稳定版本。</p>
+<p>当然，你可根据源中推荐的 Nvidia 版本进行安装（recommended）。这里我的 GPU 为：GTX 960，故选择了 nvidia-384，它是支持 GTX 960 的一个稳定版本。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install nvidia-384</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装一些可能的依赖插件：</span></span><br><span class="line">$ sudo apt-get install mesa-common-dev</span><br><span class="line">$ sudo apt-get install freeglut3-dev</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><strong>结论：</strong> 推荐使用 PPA 仓库安装 Nvidia 驱动，这是最简单的驱动安装方式。关于使用官方的驱动进行手动安装这里不介绍了。</p>
+<p><strong>推荐阅读：</strong> 安装 Nvidia 驱动还有其它方法，但推荐使用 PPA 仓库安装 Nvidia 驱动，这是最简单的驱动安装方式。关于使用官方的驱动进行手动安装这里就不介绍了。</p>
 </blockquote>
-<p>2) 重启系统让 GTX970 显卡驱动生效</p>
+<hr>
+<p>2) 使显卡驱动生效</p>
+<p>首先，重启进入 BIOS 关闭 secure boot（Enabled -&gt; Disabled），如果不关闭的话，驱动可能不会生效。</p>
+<p>Next &gt;&gt;&gt;</p>
+<p>–&gt; 针对搭载式安装（重启）：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo reboot</span><br></pre></td></tr></table></figure>
+<p>–&gt; 采用非搭载式安装的话：</p>
+<p>直接关机，然后安装好 GPU 并将显示器接 GPU 输出接口（），便可发现已经可以进入系统了（如果不行的话，跳转至 1.4 小节）。</p>
+<hr>
+<p>安装好显卡驱动后就可以进行测试了：</p>
 <p>3) 驱动安装测试</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ watch -n -1 nvidia-smi</span><br><span class="line"></span><br><span class="line">% 显示如下信息表示显卡驱动安装成功（Ctrl + c 可退出查看状态）： </span><br><span class="line"></span><br><span class="line">Sat Jun  2 17:03:40 2018       </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 384.130                Driver Version: 384.130                   |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|===============================+======================+======================|</span><br><span class="line">|   0  GeForce GTX 960     Off  | 00000000:01:00.0  On |                  N/A |</span><br><span class="line">| 36%   45C    P8    11W / 120W |   3863MiB /  4036MiB |      3%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">                                                                               </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes:                                                       GPU Memory |</span><br><span class="line">|  GPU       PID   Type   Process name                             Usage      |</span><br><span class="line">|=============================================================================|</span><br><span class="line">|    0      1143      G   /usr/lib/xorg/Xorg                            94MiB |</span><br><span class="line">|    0      2070      G   compiz                                        42MiB |</span><br><span class="line">|    0     18635      G   /usr/lib/firefox/firefox                       1MiB |</span><br><span class="line">|    0     29337      C   ...naconda3/envs/tensorflow-3.5/bin/python  3710MiB |</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
 <p>4）确认重新安装的显卡驱动是否正常加载</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ sudo lshw -C display</span><br><span class="line">  *-display</span><br><span class="line">       description: VGA compatible controller</span><br><span class="line">       product: GM206 [GeForce GTX 960]</span><br><span class="line">       vendor: NVIDIA Corporation</span><br><span class="line">       physical id: 0</span><br><span class="line">       bus info: pci@0000:01:00.0</span><br><span class="line">       version: a1</span><br><span class="line">       width: 64 bits</span><br><span class="line">       clock: 33MHz</span><br><span class="line">       capabilities: pm msi pciexpress vga_controller bus_master cap_list rom</span><br><span class="line">       configuration: driver=nvidia latency=0</span><br><span class="line">       resources: irq:127 memory:f6000000-f6ffffff memory:e0000000-efffffff memory:f0000000-f1ffffff ioport:e000(size=128) memory:c0000-dffff</span><br></pre></td></tr></table></figure>
 <p>可以发现，<code>driver=nvidia</code> 表明安装成功。</p>
 <hr>
-<h4 id="1-4-Nvidia-驱动卸载"><a href="#1-4-Nvidia-驱动卸载" class="headerlink" title="1.4 Nvidia 驱动卸载"></a>1.4 Nvidia 驱动卸载</h4><p>对于已经安装了 <code>Nvidia</code> 显卡驱动的服务器，可能由于其驱动版本过低，无法正常使用新版本的 CUDA。故，我们一般会将 <code>Nvidia</code> 显卡驱动更新到一个较新的版本。</p>
-<p>前面我们已经知道如何安装全新的 <code>Nvidia</code> 显卡驱动，这里来看如何卸载服务器原有的显卡驱动程序：</p>
+<h4 id="1-3-Nvidia-驱动卸载"><a href="#1-3-Nvidia-驱动卸载" class="headerlink" title="1.3 Nvidia 驱动卸载"></a>1.3 Nvidia 驱动卸载</h4><p>对于已经安装了 <code>Nvidia</code> 显卡驱动的服务器，但其驱动版本过低。或者前面安装了不合适的  <code>Nvidia</code> 显卡驱动，无法正常使用新版本的 CUDA。</p>
+<p>故，我们一般会将 <code>Nvidia</code> 显卡驱动更新到一个较新的版本。</p>
+<p>前面我们已经知道如何安装全新的 <code>Nvidia</code> 显卡驱动，这里来看如何快速卸载服务器原有的显卡驱动程序：</p>
 <p><strong>–&gt; 卸载低版本 Nvidia 显卡驱动</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get remove nvidia*</span><br></pre></td></tr></table></figure>
-<p>上述我们已经卸载了系统中的 Nvidia 显卡驱动，接下来我们需要根据 <code>1.3 安装 Nvidia 驱动</code> 完成新的 <code>Nvidia</code> 显卡驱动的安装（注意此时千万不能重启，重新电脑可能会导致无法进入系统，安装好新驱动后再重启）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get --purge remove nvidia*</span><br></pre></td></tr></table></figure>
+<p>上述我们已经卸载了系统中的 Nvidia 显卡驱动（注意此时千万不能重启！！！重新电脑可能会导致无法进入系统，安装好新驱动后再重启）。</p>
+<p>接下来我们需要根据 <code>1.2 安装 Nvidia 驱动</code> 完成新的 <code>Nvidia</code> 显卡驱动的安装。</p>
 <hr>
-<h4 id="1-5-Want-to-know-more"><a href="#1-5-Want-to-know-more" class="headerlink" title="1.5 Want to know more"></a>1.5 Want to know more</h4><p>好奇么？驱动安装不是都已经结束了，怎么还有一小节？？？黑脸</p>
-<p>前面我们是基于搭载 GPU 独显的服务器安装 Ubuntu16.04 后开始驱动安装的。其实我们还可以先把 GPU 拿掉，然后在只有集显的服务器上先安装 Ubuntu16.04 ，接着按照上面的 （1） 过程安装 Nvidia 驱动，然后 <code>shutdown</code> 关机安装上 GPU 重启即可。</p>
-<p>最后通过 （3）、（4）过程进行测试，会发现也可以。</p>
-<p>这种方法可以避免驱动安装中的一些麻烦。</p>
+<h4 id="1-4-Want-to-know-more"><a href="#1-4-Want-to-know-more" class="headerlink" title="1.4 Want to know more"></a>1.4 Want to know more</h4><p>好奇么？驱动安装不是都已经结束了，怎么还有一小节？？？黑脸?</p>
+<p>–&gt; 总结一下：</p>
+<p>前面我们知道了如何基于搭载 GPU 独显的服务器安装 Ubuntu16.04 ，然后安装适合版本的下卡驱动（搭载式）。</p>
+<p>另外，我们还补充了非搭载式安装方法：先把 GPU 拿掉，然后在只有集显的服务器上先安装 Ubuntu16.04 ，接着按照【1.2 Nvidia 驱动安装】安装 Nvidia 驱动，然后 <code>shutdown</code> 关机安装上 GPU 后重启即可。</p>
+<p>最后通过 1.2.2 小节中（3）、（4）过程进行测试，会发现也可以。</p>
+<p>事实上，非搭载式安装方法可以帮助我们避免驱动安装中的很多麻烦。</p>
+<p>================================================================</p>
+<p>一般情况下，上述操作完成后就可以成功完成驱动安装了（不用怀疑）。</p>
+<p>如果发现不可以，最多再尝试如下操作：</p>
+<blockquote>
+<p>Solution：很多人建议禁用掉 Ubuntu 系统中的默认驱动 nouveau（可能和 NVIDIA 驱动产生冲突）。</p>
+<p>但上述两种方法我安装过 N 多次，都没有禁用过，但可以正常使用。</p>
+</blockquote>
+<p>开始禁用 nouveau 驱动之前，还是要拔掉 GPU，并将显示器转接主机 VGA 接口，登入系统。</p>
+<p>接下来，<strong>Ubuntu 中禁用 nouveau 步骤如下：</strong></p>
+<p><strong>Step1 &gt;&gt;&gt; ：</strong>修改配置文件 blacklist.conf</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo vim /etc/modprobe.d/blacklist.conf</span></span><br></pre></td></tr></table></figure>
+<p>在配置文件最后部分插入以下两行内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">blacklist nouveau</span><br><span class="line">options nouveau modeset=0</span><br></pre></td></tr></table></figure>
+<p><strong>Step2 &gt;&gt;&gt; ：</strong>更新配置，并重启系统</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo update-initramfs -u</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo reboot</span></span><br></pre></td></tr></table></figure>
+<p><strong>Step3 &gt;&gt;&gt; ：</strong>重新登入验证 nouveau 是否已禁用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> lsmod | grep nouveau</span></span><br></pre></td></tr></table></figure>
+<p>执行如上指令后，无 log 信息输出说明 nouveau 已禁用。</p>
 <hr>
-<p>在开始 CUDA 和 cuDNN 的安装之前，通过需要查看 <strong>Tensorflow &amp;&amp; NVIDIA 版本信息对照表</strong>，选择和TensorFlow [GPU Support] 版本兼容的 CUDA &amp;&amp; cuDNN 安装版本。</p>
-<h3 id="2-下载和安装-CUDA-8-0"><a href="#2-下载和安装-CUDA-8-0" class="headerlink" title="2. 下载和安装 CUDA 8.0"></a>2. 下载和安装 CUDA 8.0</h3><p>在安装 CUDA 之前，Google 了一下，发现在 Ubuntu 下安装 CUDA8.0 非常常见，支持 GTX 970（其它版本 CUDA 安装类似），下面我们将以 CUDA8.0 的安装为样例：</p>
+<p>解决了显卡驱动问题，下面开始CUDA 和 cuDNN 的安装：</p>
+<p>在开始 CUDA 和 cuDNN 的安装之前，通过需要查看 <strong>Tensorflow &amp;&amp; NVIDIA 版本信息对照表</strong>，选择和预安装 TensorFlow [GPU Support] 版本兼容的 CUDA &amp;&amp; cuDNN 安装版本。</p>
+<h3 id="2-CUDA-8-0-的下载和安装"><a href="#2-CUDA-8-0-的下载和安装" class="headerlink" title="2. CUDA 8.0 的下载和安装"></a>2. CUDA 8.0 的下载和安装</h3><p>我选择使用的 TensorFlow 版本是：TensorFlow-gpu-1.2.0，所以需要安装 CUDA8.0。</p>
+<p>在安装 CUDA 之前，Google 了一下，发现在 Ubuntu 下安装 CUDA8.0 非常常见，支持 GTX 970（其它版本 CUDA 安装类似）。下面我们将以 CUDA8.0 的安装为样例：</p>
 <p>注意，安装 CUDA8.0 之前请先确认系统中是否已安装有默认的 CUDA 版本？执行如下命令查看系统 CUDA 版本：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ nvcc -V</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出如下信息表示当前系统已安装有 CUDA，安装目录见：/usr/local/</span></span><br><span class="line">nvcc: NVIDIA (R) Cuda compiler driver</span><br><span class="line">Copyright (c) 2005-2016 NVIDIA Corporation</span><br><span class="line">Built on Tue_Jan_10_13:22:03_CST_2017</span><br><span class="line">Cuda compilation tools, release 8.0, V8.0.61</span><br><span class="line"></span><br><span class="line"><span class="comment"># 没有的话输出如下：</span></span><br><span class="line">The program <span class="string">'nvcc'</span> is currently not installed. You can install it by typing:</span><br><span class="line">sudo apt install nvidia-cuda-toolkit</span><br></pre></td></tr></table></figure>
 <p>如果有，请先跳转至 <code>2.4 CUDA 卸载</code>，先卸载掉系统中已安装的 CUDA 版本，再开始下面的步骤。</p>
+<hr>
 <h4 id="2-1-CUDA-下载"><a href="#2-1-CUDA-下载" class="headerlink" title="2.1 CUDA 下载"></a>2.1 CUDA 下载</h4><p>下载 CUDA 需要注册和登陆 NVIDIA 开发者账号，CUDA8 下载页面提供了很详细的系统选择和安装说明。这里选择了 Ubuntu16.04 系统 Runfile 安装方案，千万不要选择 deb 方案，前方无数坑：</p>
 <p>这里，我们首先提供 <a href="https://developer.nvidia.com/cuda-80-ga2-download-archive" target="_blank" rel="noopener">CUDA 8.0 下载地址</a>，并且选择做如下平台设置（其它版本戳 <a href="https://developer.nvidia.com/cuda-toolkit-archive" target="_blank" rel="noopener">这里</a>）:</p>
 <p><img src="/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/cuda8_1.png" alt="avatar"></p>
 <p>配置好平台设置后，进入下载界面。如下：</p>
 <p><img src="/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/cuda8_2.png" alt="avatar"></p>
+<p>这里，只需下载 <code>cuda_8.0.27_linux.run</code> 即可。</p>
 <hr>
 <p>下载好的 <code>cuda_8.0.27_linux.run</code> 有 <code>1.4G</code>。下面按照 Nivdia 官方给出的方法安装 CUDA8：</p>
 <h4 id="2-2-CUDA-安装"><a href="#2-2-CUDA-安装" class="headerlink" title="2.2 CUDA 安装"></a>2.2 CUDA 安装</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh cuda_8.0.27_linux.run --tmpdir=/opt/temp/</span><br></pre></td></tr></table></figure>
@@ -585,7 +698,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Not enough space on parition mounted at /.</span><br><span class="line">Need 5091561472 bytes.</span><br><span class="line"></span><br><span class="line">Disk space check has failed. Installation cannot <span class="built_in">continue</span>.</span><br></pre></td></tr></table></figure>
 <p><strong>–&gt; 执行 <code>sh cuda_8.0.27_linux.run</code> 后会有一系列提示让你确认，非常非常非常非常关键的地方是是否安装 <code>361</code> 这个低版本的驱动：</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Install NVIDIA Accelerated Graphics Driver <span class="keyword">for</span> Linux-x86_64 361.62 ?</span><br></pre></td></tr></table></figure>
-<p>答案必须是 <code>n</code>，否则之前安装的 <code>GTX970</code> 驱动就白费了，而且后续问题多多。</p>
+<p>答案必须是 <code>n</code>，否则之前为 GTX960 安装的  nvidia-384 驱动就白费了，而且后续问题多多。</p>
 <p><strong>–&gt; Next（详细安装步骤如下）:</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">Logging to /opt/temp//cuda_install_6583.log</span><br><span class="line">Using more to view the EULA.</span><br><span class="line">End User License Agreement</span><br><span class="line">--------------------------</span><br><span class="line">Preface</span><br><span class="line">-------</span><br><span class="line">The following contains specific license terms and conditions</span><br><span class="line"><span class="keyword">for</span> four separate NVIDIA products. By accepting this</span><br><span class="line">agreement, you agree to comply with all the terms and</span><br><span class="line">conditions applicable to the specific product(s) included</span><br><span class="line">herein.</span><br><span class="line"></span><br><span class="line">Do you accept the previously <span class="built_in">read</span> EULA?</span><br><span class="line">accept/decline/quit: accept</span><br><span class="line"></span><br><span class="line">Install NVIDIA Accelerated Graphics Driver <span class="keyword">for</span> Linux-x86_64 361.62?</span><br><span class="line">(y)es/(n)o/(q)uit: n</span><br><span class="line"></span><br><span class="line">Install the CUDA 8.0 Toolkit?</span><br><span class="line">(y)es/(n)o/(q)uit: y</span><br><span class="line"></span><br><span class="line">Enter Toolkit Location</span><br><span class="line">[ default is /usr/<span class="built_in">local</span>/cuda-8.0 ]:</span><br><span class="line"></span><br><span class="line">Do you want to install a symbolic link at /usr/<span class="built_in">local</span>/cuda?</span><br><span class="line">(y)es/(n)o/(q)uit: y</span><br><span class="line"></span><br><span class="line">Install the CUDA 8.0 Samples?</span><br><span class="line">(y)es/(n)o/(q)uit: y</span><br><span class="line"></span><br><span class="line">Enter CUDA Samples Location</span><br><span class="line">[ default is /home/textminer ]:</span><br><span class="line"></span><br><span class="line">Driver: Not Selected</span><br><span class="line"></span><br><span class="line">Installing the CUDA Toolkit <span class="keyword">in</span> /usr/<span class="built_in">local</span>/cuda-8.0 ...</span><br><span class="line">Installing the CUDA Samples <span class="keyword">in</span> /home/textminer ...</span><br><span class="line">Copying samples to /home/textminer/NVIDIA_CUDA-8.0_Samples now...</span><br><span class="line">Finished copying samples.</span><br><span class="line">	</span><br><span class="line">===========</span><br><span class="line">= Summary =</span><br><span class="line">===========</span><br><span class="line"></span><br><span class="line">Driver: Not Selected</span><br><span class="line">Toolkit: Installed <span class="keyword">in</span> /usr/<span class="built_in">local</span>/cuda-8.0</span><br><span class="line">Samples: Installed <span class="keyword">in</span> /home/textminer</span><br><span class="line"></span><br><span class="line">Please make sure that</span><br><span class="line">- PATH includes /usr/<span class="built_in">local</span>/cuda-8.0/bin</span><br><span class="line">- LD_LIBRARY_PATH includes /usr/<span class="built_in">local</span>/cuda-8.0/lib64, or, add /usr/<span class="built_in">local</span>/cuda-8.0/lib64 to /etc/ld.so.conf and run ldconfig as root</span><br><span class="line"></span><br><span class="line">To uninstall the CUDA Toolkit, run the uninstall script <span class="keyword">in</span> /usr/<span class="built_in">local</span>/cuda-8.0/bin</span><br><span class="line"></span><br><span class="line">Please see CUDA_Installation_Guide_Linux.pdf <span class="keyword">in</span> /usr/<span class="built_in">local</span>/cuda-8.0/doc/pdf <span class="keyword">for</span> detailed information on setting up CUDA.</span><br><span class="line"></span><br><span class="line">***WARNING: Incomplete installation! This installation did not install the CUDA Driver. A driver of version at least 361.00 is required <span class="keyword">for</span> CUDA 8.0 functionality to work.</span><br><span class="line">To install the driver using this installer, run the following <span class="built_in">command</span>, replacing with the name of this run file:</span><br><span class="line">sudo .run -silent -driver</span><br><span class="line"></span><br><span class="line">Logfile is /opt/temp//cuda_install_6583.log</span><br></pre></td></tr></table></figure>
 <p><strong>–&gt; 配置环境变量：</strong></p>
@@ -596,12 +709,13 @@
 <blockquote>
 <p>注意：如果是已经安装了 NVIDIA 和 CUDA 的云服务器，还需要添加环境变量才可以使用。</p>
 </blockquote>
+<p>==================================================================</p>
 <p>如果环境变量设置错误，<code>PATH</code> 值被覆盖了，这会导致 <code>ls、make</code> 等基本命令都用不了，提示 <code>xxx: command not found</code>。后来查阅资料，通过输入以下语句，可还原 <code>PATH</code> 变量值进行恢复（恢复至默认 <code>PATH</code> 值）：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=/usr/<span class="built_in">local</span>/sbin:/usr/<span class="built_in">local</span>/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin</span><br></pre></td></tr></table></figure>
 <hr>
 <p>至此，CUDA8.0的安装其实已经完成了！！！但是请注意安装过程中这里可能有报错（<code>missing recommended</code>）：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Driver: Not Selected</span><br><span class="line">Toolkit: Installed <span class="keyword">in</span> /usr/<span class="built_in">local</span>/cuda-8.0</span><br><span class="line">Samples: Installed <span class="keyword">in</span> /home/zhou, but missing recommended</span><br></pre></td></tr></table></figure>
-<p>不注意的话，会导致后续 <code>CUDA</code> 测试（ <code>nbody</code> 样例）：</p>
+<p>不注意的话，会导致后续 <code>CUDA</code> 测试（ <code>nbody</code> 样例），如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span>  ~/NVIDIA_CUDA-8.0_Samples/5_Simulations/nbody  </span><br><span class="line">$ make </span><br><span class="line">$ ./nbody</span><br></pre></td></tr></table></figure>
 <p>即在 CUDA 上运行 <code>nbody</code> 样例，<code>make</code> 部分报错：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; WARNING - libGLU.so not found, refer to CUDA Getting Started Guide <span class="keyword">for</span> how to find and install them. &lt;&lt;&lt;</span><br><span class="line">&gt;&gt;&gt; WARNING - libX11.so not found, refer to CUDA Getting Started Guide <span class="keyword">for</span> how to find and install them. &lt;&lt;&lt;</span><br><span class="line">&gt;&gt;&gt; WARNING - gl.h not found, refer to CUDA Getting Started Guide <span class="keyword">for</span> how to find and install them. &lt;&lt;&lt;</span><br><span class="line">&gt;&gt;&gt; WARNING - glu.h not found, refer to CUDA Getting Started Guide <span class="keyword">for</span> how to find and install them. &lt;&lt;&lt;</span><br><span class="line">&gt;&gt;&gt; WARNING - Xlib.h not found, refer to CUDA Getting Started Guide <span class="keyword">for</span> how to find and install them. &lt;&lt;&lt;</span><br><span class="line">[@] /usr/<span class="built_in">local</span>/cuda-8.0/bin/nvcc -ccbin g++ -I../../common/inc -m64 -ftz=<span class="literal">true</span> -gencode arch=compute_20,code=sm_20 -gencode arch=compute_30,code=sm_30 -gencode arch=compute_35,code=sm_35 -gencode arch=compute_37,code=sm_37 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_52,code=sm_52 -gencode arch=compute_60,code=sm_60 -gencode arch=compute_60,code=compute_60 -o bodysystemcuda.o -c bodysystemcuda.cu</span><br><span class="line">[@] /usr/<span class="built_in">local</span>/cuda-8.0/bin/nvcc -ccbin g++ -I../../common/inc -m64 -ftz=<span class="literal">true</span> -gencode arch=compute_20,code=sm_20 -gencode arch=compute_30,code=sm_30 -gencode arch=compute_35,code=sm_35 -gencode arch=compute_37,code=sm_37 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_52,code=sm_52 -gencode arch=compute_60,code=sm_60 -gencode arch=compute_60,code=compute_60 -o nbody.o -c nbody.cpp</span><br><span class="line">[@] /usr/<span class="built_in">local</span>/cuda-8.0/bin/nvcc -ccbin g++ -I../../common/inc -m64 -ftz=<span class="literal">true</span> -gencode arch=compute_20,code=sm_20 -gencode arch=compute_30,code=sm_30 -gencode arch=compute_35,code=sm_35 -gencode arch=compute_37,code=sm_37 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_52,code=sm_52 -gencode arch=compute_60,code=sm_60 -gencode arch=compute_60,code=compute_60 -o render_particles.o -c render_particles.cpp</span><br><span class="line">[@] /usr/<span class="built_in">local</span>/cuda-8.0/bin/nvcc -ccbin g++ -m64 -gencode arch=compute_20,code=sm_20 -gencode arch=compute_30,code=sm_30 -gencode arch=compute_35,code=sm_35 -gencode arch=compute_37,code=sm_37 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_52,code=sm_52 -gencode arch=compute_60,code=sm_60 -gencode arch=compute_60,code=compute_60 -o nbody bodysystemcuda.o nbody.o render_particles.o -L/usr/lib/nvidia-367 -lGL -lGLU -lX11 -lglut</span><br><span class="line">[@] mkdir -p ../../bin/x86_64/linux/release</span><br><span class="line">[@] cp nbody ../../bin/x86_64/linux/release</span><br></pre></td></tr></table></figure>
@@ -611,8 +725,8 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; Windowed mode</span><br><span class="line">&gt; Simulation data stored <span class="keyword">in</span> video memory</span><br><span class="line">&gt; Single precision floating point simulation</span><br><span class="line">&gt; 1 Devices used <span class="keyword">for</span> simulation</span><br><span class="line">gpuDeviceInit() CUDA Device [0]: <span class="string">"GeForce GTX 1080</span></span><br><span class="line"><span class="string">&gt; Compute 6.1 CUDA device: [GeForce GTX 1080]</span></span><br><span class="line"><span class="string">number of bodies = 256000</span></span><br><span class="line"><span class="string">256000 bodies, total time for 10 iterations: 2291.469 ms</span></span><br><span class="line"><span class="string">= 286.000 billion interactions per second</span></span><br><span class="line"><span class="string">= 5719.998 single-precision GFLOP/s at 20 flops per interaction</span></span><br></pre></td></tr></table></figure>
 <hr>
 <h4 id="2-3-CUDA-测试"><a href="#2-3-CUDA-测试" class="headerlink" title="2.3 CUDA 测试"></a>2.3 CUDA 测试</h4><p>1）NVCC</p>
-<pre><code>$ nvcc –V
-</code></pre><p>输出信息显示如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nvcc –V</span><br></pre></td></tr></table></figure>
+<p>输出信息显示如下：</p>
 <p><img src="/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/nvcc.png" alt="avatar"></p>
 <p>2）显示 GPU 信息</p>
 <p>–&gt; 进入 <code>cd NVIDIA_CUDA-8.0_Sample/1_Utilities/deviceQuery</code> 目录：</p>
@@ -622,12 +736,16 @@
 <p>3）nbody 测试见 2.2 CUDA 安装。</p>
 <p>恭喜你！至此，CUDA 安装已经完成！！！</p>
 <hr>
-<h4 id="2-4-CUDA-卸载"><a href="#2-4-CUDA-卸载" class="headerlink" title="2.4 CUDA 卸载"></a>2.4 CUDA 卸载</h4><p>通过前面的介绍，我们了解了如何在服务器上安装 CUDA 应用。事实上，很多时候我们的服务器本身已经默认安装了某个版本的 CUDA，而搭建 <code>TensorFlow GPU Support</code> 环境要求安装特定版本的 CUDA。故这一小节我们来看如何卸载服务器中已安装的 CUDA。</p>
+<h4 id="2-4-CUDA-卸载"><a href="#2-4-CUDA-卸载" class="headerlink" title="2.4 CUDA 卸载"></a>2.4 CUDA 卸载</h4><p>通过前面的介绍，我们了解了如何在服务器上安装 CUDA 应用。事实上，很多时候我们的服务器本身已经默认安装了某个版本的 CUDA，而搭建 <code>TensorFlow For GPU Support</code> 环境要求安装特定版本的 CUDA。</p>
+<p>下面，我们来看如何卸载服务器中已安装的 CUDA:</p>
+<blockquote>
+<p>如果你无法确认系统中是否存在使用当前版本 CUDA 的应用时，不推荐卸载，为了尽量降低对原始系统的影响，你可以跳转至【5.2 CUDA 多版本共存和实时切换】来解决问题。</p>
+</blockquote>
 <p>分别针对 <code>.deb</code> 和 <code>.run</code> 两种不同的安装方式（卸载方法不同），这里提供两种方式来卸载系统原有的 CUDA：</p>
 <p><strong>1）.run 方法卸载</strong></p>
 <p>执行如下命令进行自动卸载（以 <code>cuda-8.0</code> 卸载为例）：</p>
-<pre><code>$ sudo /usr/local/cuda-8.0/bin/uninstall_cuda-8.0.pl
-</code></pre><p>有上述卸载文件 <code>uninstall_cuda-8.0.pl</code> 就说明是之前是用 <code>.run</code> 文件安装的，没有则是用 <code>.deb</code> 文件安装的，可以使用第二种方法进行卸载：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /usr/local/cuda-8.0/bin/uninstall_cuda-8.0.pl</span><br></pre></td></tr></table></figure>
+<p>有上述卸载文件 <code>uninstall_cuda-8.0.pl</code> 就说明是之前是用 <code>.run</code> 文件安装的，没有则是用 <code>.deb</code> 文件安装的，可以使用第二种方法进行卸载：</p>
 <p><strong>2）.deb 方法卸载</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get remove cuda</span><br><span class="line"></span><br><span class="line">$ sudo apt-get autoclean</span><br><span class="line"></span><br><span class="line">$ sudo apt-get remove cuda*</span><br></pre></td></tr></table></figure>
 <p><strong>3）清空残留文件</strong></p>
@@ -635,124 +753,71 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/</span><br><span class="line">$ ls</span><br><span class="line"></span><br><span class="line">% 存在残留文件则删除：</span><br><span class="line">sudo rm -rf cuda-8.0</span><br></pre></td></tr></table></figure>
 <hr>
 <p>下面让我们来看 CUDNN 的安装：</p>
-<h3 id="3-CUDNN-5-1-安装"><a href="#3-CUDNN-5-1-安装" class="headerlink" title="3. CUDNN 5.1 安装"></a>3. CUDNN 5.1 安装</h3><h4 id="3-1-CUDNN-下载"><a href="#3-1-CUDNN-下载" class="headerlink" title="3.1 CUDNN 下载"></a>3.1 CUDNN 下载</h4><p>CUDNN 全称 <code>CUDA Deep Neural Network library</code>，是 NVIDIA 专门针对深度神经网络设计的一套 GPU 计算加速库，被广泛用于各种深度学习框架，例如 <code>Caffe, TensorFlow, Theano, Torch, CNTK</code>等。</p>
-<p>从 <a href="https://developer.nvidia.com/cudnn" target="_blank" rel="noopener">Nvidia 官方</a> 下载链接选择一个版本，不过下载 cuDNN 前同样需要登录甚至填写一个简单的调查问卷，链接界面如下：</p>
+<h3 id="3-CUDNN-5-1-的下载和安装"><a href="#3-CUDNN-5-1-的下载和安装" class="headerlink" title="3. CUDNN 5.1 的下载和安装"></a>3. CUDNN 5.1 的下载和安装</h3><p>这一部分我们来完成 CUDNN 的安装：</p>
+<h4 id="3-1-CUDNN-下载"><a href="#3-1-CUDNN-下载" class="headerlink" title="3.1 CUDNN 下载"></a>3.1 CUDNN 下载</h4><p>CUDNN 全称 <code>CUDA Deep Neural Network library</code>，是 NVIDIA 专门针对深度神经网络设计的一套 GPU 计算加速库，被广泛用于各种深度学习框架，例如 <code>Caffe, TensorFlow, Theano, Torch, CNTK</code> 等。</p>
+<p>从 <a href="https://developer.nvidia.com/cudnn" target="_blank" rel="noopener">Nvidia 官方</a> 下载链接选择一个版本，不过下载 cuDNN 前同样需要注册登录甚至填写一个简单的调查问卷，链接界面如下：</p>
 <p><img src="/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/cudnn.png" alt="avatar"></p>
 <h4 id="3-2-CUDNN-安装"><a href="#3-2-CUDNN-安装" class="headerlink" title="3.2 CUDNN 安装"></a>3.2 CUDNN 安装</h4><p>安装 CUDNN 比较简单，解压后把相应的文件拷贝到对应的 CUDA 目录下即可：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ tar -zxvf cudnn-8.0-linux-x64-v5.1.tgz</span><br><span class="line"></span><br><span class="line">cuda/include/cudnn.h</span><br><span class="line">cuda/lib64/libcudnn.so</span><br><span class="line">cuda/lib64/libcudnn.so.5</span><br><span class="line">cuda/lib64/libcudnn.so.5.0.5</span><br><span class="line">cuda/lib64/libcudnn_static.a</span><br><span class="line"></span><br><span class="line">$ sudo cp cuda/include/cudnn.h /usr/<span class="built_in">local</span>/cuda/include/</span><br><span class="line">$ sudo cp cuda/lib64/libcudnn* /usr/<span class="built_in">local</span>/cuda/lib64/</span><br><span class="line">$ sudo chmod a+r /usr/<span class="built_in">local</span>/cuda/include/cudnn.h</span><br><span class="line">$ sudo chmod a+r /usr/<span class="built_in">local</span>/cuda/lib64/libcudnn*</span><br></pre></td></tr></table></figure>
 <p>可以发现，cuDNN 中的 5 个文件（全部），在 <code>/usr/local/cuda/include/ &amp;&amp; /usr/local/cuda/lib64/</code> 中找不到相同文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ls /usr/<span class="built_in">local</span>/cuda/lib64/ |grep libcudnn</span><br><span class="line">$ ls /usr/<span class="built_in">local</span>/cuda/include/ |grep cudnn</span><br></pre></td></tr></table></figure>
-<p>cuDNN 其实就是 CUDA 的扩展计算库，把 cuDNN 相关库文件添加 CUDA 里，不会对CUDA造成其他影响，即所谓的插入式设计。这保证了当前系统环境中可以存在多个版本的 cuDNN。</p>
+<p>也就意味着：cuDNN 其实就是 CUDA 的扩展计算库，把 cuDNN 相关库文件添加 CUDA 里，不会对CUDA造成其他影响，即所谓的插入式设计。这保证了当前系统环境中可以存在多个版本的 cuDNN。</p>
 <h4 id="3-3-CUDNN-升级"><a href="#3-3-CUDNN-升级" class="headerlink" title="3.3 CUDNN 升级"></a>3.3 CUDNN 升级</h4><p>这里，假设一下：上面我们已经完成了 <code>cuDNN v5.1 for CUDA8.0</code> 的安装。事实上，我们需要的是 <code>cuDNN v6.0 for CUDA8.0</code> 计算加速包，那么我们如何将 <code>cuDNN</code> 版本升级到 <code>cuDNN v6.0</code> 呢？</p>
 <p>其实很简单。下载 <code>cuDNN v6.0</code> 安装包 <code>cudnn-8.0-linux-x64-v6.0.tgz</code>、解压以及使用 <code>cuDNN v6.0</code> 库文件覆盖 <code>CUDA</code> 中的 <code>cuDNN v5.1</code> 库文件即可。详细步骤如下：</p>
-<pre><code>$ tar -zxvf cudnn-8.0-linux-x64-v6.0.tgz
-
-cuda/include/cudnn.h
-cuda/lib64/libcudnn.so
-cuda/lib64/libcudnn.so.6
-cuda/lib64/libcudnn.so.6.0.6
-cuda/lib64/libcudnn_static.a
-
-$ rm /usr/local/cuda/include/cudnn.h
-$ rm /usr/local/cuda/lib64/libcudnn*
-
-$ sudo cp cuda/include/cudnn.h /usr/local/cuda/include/
-$ sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64/
-$ sudo chmod a+r /usr/local/cuda/include/cudnn.h
-$ sudo chmod a+r /usr/local/cuda/lib64/libcudnn*
-</code></pre><p>至此，CUDA 8.0 以及 CUDNN 5.1 安装完成！接下来就可以开始 Tensorflow GPU Enabled 的安装。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> tar -zxvf cudnn-8.0-linux-x64-v6.0.tgz</span></span><br><span class="line"></span><br><span class="line">cuda/include/cudnn.h</span><br><span class="line">cuda/lib64/libcudnn.so</span><br><span class="line">cuda/lib64/libcudnn.so.6</span><br><span class="line">cuda/lib64/libcudnn.so.6.0.6</span><br><span class="line">cuda/lib64/libcudnn_static.a</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> rm /usr/<span class="built_in">local</span>/cuda/include/cudnn.h</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> rm /usr/<span class="built_in">local</span>/cuda/lib64/libcudnn*</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo cp cuda/include/cudnn.h /usr/<span class="built_in">local</span>/cuda/include/</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo cp cuda/lib64/libcudnn* /usr/<span class="built_in">local</span>/cuda/lib64/</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo chmod a+r /usr/<span class="built_in">local</span>/cuda/include/cudnn.h</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo chmod a+r /usr/<span class="built_in">local</span>/cuda/lib64/libcudnn*</span></span><br></pre></td></tr></table></figure>
+<p>至此，CUDA 8.0 以及 CUDNN 5.1 安装完成！接下来就可以开始 Tensorflow GPU Enabled 的安装了。</p>
 <hr>
-<h3 id="4-Anaconda-Tensorflow-GPU-安装"><a href="#4-Anaconda-Tensorflow-GPU-安装" class="headerlink" title="4. Anaconda + Tensorflow-GPU 安装"></a>4. Anaconda + Tensorflow-GPU 安装</h3><p>这里我们推荐使用 Anconda 来安装 Tensorflow-GPU。</p>
-<h4 id="4-1-Conda-Envs-install-TensorFlow"><a href="#4-1-Conda-Envs-install-TensorFlow" class="headerlink" title="4.1 Conda Envs install TensorFlow"></a>4.1 Conda Envs install TensorFlow</h4><p>通过 Anaconda 安装 Tensorflow 详细过程见博文 <a href="https://www.orangeshare.cn/TensorFlow/Centos6%EF%BC%887%EF%BC%89-Ubuntu-在线搭建-Anaconda3-Tensorflow-开发环境/" target="_blank" rel="noopener">Centos6（7）/Ubuntu 在线搭建 Anaconda &amp; Tensorflow 开发环境</a>中【<strong>2.4 使用 Anaconda 安装</strong>】小节（Ubuntu14.04/16.04 环境下已测试），篇幅原因不赘述。</p>
+<h3 id="4-Anaconda-Tensorflow-GPU-安装"><a href="#4-Anaconda-Tensorflow-GPU-安装" class="headerlink" title="4. Anaconda + Tensorflow-GPU 安装"></a>4. Anaconda + Tensorflow-GPU 安装</h3><p>鉴于 Anaconda + Python 的学习环境，新手我们推荐使用 Anaconda 来安装 Tensorflow-GPU。</p>
+<h4 id="4-1-Conda-Envs-install-TensorFlow"><a href="#4-1-Conda-Envs-install-TensorFlow" class="headerlink" title="4.1 Conda Envs install TensorFlow"></a>4.1 Conda Envs install TensorFlow</h4><p>通过 Anaconda 安装 Tensorflow 详细过程参见博文 <a href="https://www.orangeshare.cn/TensorFlow/Centos6%EF%BC%887%EF%BC%89-Ubuntu-在线搭建-Anaconda3-Tensorflow-开发环境/" target="_blank" rel="noopener">Centos6（7）/Ubuntu 在线搭建 Anaconda &amp; Tensorflow 开发环境</a> 中【<strong>2.4 使用 Anaconda 安装</strong>】小节（Ubuntu14.04/16.04 环境下已测试），篇幅原因不赘述。</p>
 <p>对于其它方式 TensorFlow 的安装可以参见博文中的其它章节。</p>
+<hr>
 <h4 id="4-2-TensorFlow-导入测试"><a href="#4-2-TensorFlow-导入测试" class="headerlink" title="4.2 TensorFlow 导入测试"></a>4.2 TensorFlow 导入测试</h4><p>正常情况，如果安装的 Python、TensorFlow 版本正确，<code>import tensorflow as tf</code> 时，无报错。</p>
-<p><strong><code>import tensorflow as tf</code> 时，可能产生报错：</strong></p>
-<pre><code>libcudnn.so.6:cannot open sharedobjectfile:No such file or directory
-</code></pre><p><strong>问题解释：</strong></p>
+<p>===================================================================</p>
+<p>如果安装了与 CUDA &amp; CUDNN 不相容版本的 TensorFlow</p>
+<p><strong>import tensorflow as tf 时，可能产生报错：</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libcudnn.so.6:cannot open sharedobjectfile:No such file or directory</span><br></pre></td></tr></table></figure>
+<p><strong>问题解释：</strong></p>
 <p>根据错误代码，应该是找不到 <code>libcudnn.so.6</code>。到指定文件夹下发现只有 <code>5.0</code> 和 <code>8.0</code> 的版本，没有 <code>6.0</code>，查找原因是因为当前已经是 <code>1.3</code> 版本，而 <code>tensorflow-gpu1.3</code> 已经开始去找 <code>cudnn6</code> 了（也就是说是用 <code>cudnn6</code> 编译的）…所以需要换到 <code>tensorflow-gpu1.2</code> 版本，就解决问题了。</p>
-<p><strong>解决方法：</strong></p>
-<p>先卸载掉之前安装的 tensorflow 环境或 tensorflow 环境中安装的 tensorflow：</p>
-<pre><code>$ conda remove –n tensorflow-3.5 –all
-$ conda create –n tensorflow-3.5 python=3.5
-$ pip install tensorflow-gpu==1.2
-</code></pre><h4 id="4-3-GPU-运算测试"><a href="#4-3-GPU-运算测试" class="headerlink" title="4.3 GPU 运算测试"></a>4.3 GPU 运算测试</h4><p>测试代码：<code>gpu_test.py</code>。这里以一个简单的向量加法为例来测试 TensorFlow [GPU Support] 环境：</p>
-<pre><code>import tensorflow as tf
-
-a = tf.constant([1.0,2.0,3.0], shape=[3], name=”a”)
-b = tf.constant([1.0,2.0,3.0], shape=[3], name=”b”)
-result = a + b
-
-# 通过 log_device_placement 参数来输出运行每一个运算的设备：
-sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
-
-print (sess.run(result))
-</code></pre><p><strong>结果输出信息如下：</strong></p>
+<p><strong>–&gt; 解决方法：</strong></p>
+<p>先卸载掉之前安装的错误版本的 TensorFlow 环境，然后重新安装 ：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> pip uninstall tensorflow-gpu==1.3</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> pip uninstall tensorflow-gpu==1.2</span></span><br></pre></td></tr></table></figure>
+<p>或直接移除整个 conda 虚拟环境，然后重新安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> conda remove –n tensorflow-3.5 –all</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> conda create –n tensorflow-3.5 python=3.5</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> pip install tensorflow-gpu==1.2</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="4-3-GPU-运算测试"><a href="#4-3-GPU-运算测试" class="headerlink" title="4.3 GPU 运算测试"></a>4.3 GPU 运算测试</h4><p>测试代码：<code>gpu_test.py</code>。这里以一个简单的向量加法为例来测试 TensorFlow [GPU Support] 环境：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">a = tf.constant([<span class="number">1.0</span>,<span class="number">2.0</span>,<span class="number">3.0</span>], shape=[<span class="number">3</span>], name=”a”)</span><br><span class="line">b = tf.constant([<span class="number">1.0</span>,<span class="number">2.0</span>,<span class="number">3.0</span>], shape=[<span class="number">3</span>], name=”b”)</span><br><span class="line">result = a + b</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过 log_device_placement 参数来输出运行每一个运算的设备：</span></span><br><span class="line">sess = tf.Session(config=tf.ConfigProto(log_device_placement=<span class="keyword">True</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> (sess.run(result))</span><br></pre></td></tr></table></figure>
+<p><strong>结果输出信息如下：</strong></p>
 <p>[3.1] 在没有 GPU 的机器上运行上述代码，可以得到如下输出：</p>
-<pre><code>Device mapping: no known devices
-add :/job:localhost/replica:0/task:0/cpu:0
-a : /job:localhost/replica:0/task:0/cpu:0
-b : /job:localhost/replica:0/task:0/cpu:0
-</code></pre><p>[3.2] 配置好 GPU 环境的 TensorFlow 中，没有明确制定运行设备的话，TensorFlow 会优先选择 GPU 设备运行，会得到如下结果：</p>
-<pre><code>Device mapping:
-/job:localhost/replica:0/task:0/gpu:0 -&gt; device: 0, name: GeForce GTX 960, pci bus id: 0000:01:00.0
-2018-02-04 13:01:33.343286: I tensorflow/core/common_runtime/direct_session.cc:265] Device mapping:
-/job:localhost/replica:0/task:0/gpu:0 -&gt; device: 0, name: GeForce GTX 960, pci bus id: 0000:01:00.0
-
-add: (Add): /job:localhost/replica:0/task:0/gpu:0
-2018-02-04 13:01:33.343948: I tensorflow/core/common_runtime/simple_placer.cc:847] add: (Add)/job:localhost/replica:0/task:0/gpu:0
-b: (Const): /job:localhost/replica:0/task:0/gpu:0
-2018-02-04 13:01:33.343980: I tensorflow/core/common_runtime/simple_placer.cc:847] b: (Const)/job:localhost/replica:0/task:0/gpu:0
-a: (Const): /job:localhost/replica:0/task:0/gpu:0
-2018-02-04 13:01:33.343997: I tensorflow/core/common_runtime/simple_placer.cc:847] a: (Const)/job:localhost/replica:0/task:0/gpu:0
-[2. 4. 6.]
-</code></pre><p>自此，<code>Ubuntu16.04 + Nvidia GTX 970 + CUDA8.0 + CUDNN + Anaconda3 + Tensorflow1.2</code> 深度学习环境搭建完成。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Device mapping: no known devices</span><br><span class="line">add :/job:localhost/replica:0/task:0/cpu:0</span><br><span class="line">a : /job:localhost/replica:0/task:0/cpu:0</span><br><span class="line">b : /job:localhost/replica:0/task:0/cpu:0</span><br></pre></td></tr></table></figure>
+<p>[3.2] 配置好 GPU 环境的 TensorFlow 中，没有明确制定运行设备的话，TensorFlow 会优先选择 GPU 设备运行，会得到如下结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Device mapping:</span><br><span class="line">/job:localhost/replica:0/task:0/gpu:0 -&gt; device: 0, name: GeForce GTX 960, pci bus id: 0000:01:00.0</span><br><span class="line">2018-02-04 13:01:33.343286: I tensorflow/core/common_runtime/direct_session.cc:265] Device mapping:</span><br><span class="line">/job:localhost/replica:0/task:0/gpu:0 -&gt; device: 0, name: GeForce GTX 960, pci bus id: 0000:01:00.0</span><br><span class="line"></span><br><span class="line">add: (Add): /job:localhost/replica:0/task:0/gpu:0</span><br><span class="line">2018-02-04 13:01:33.343948: I tensorflow/core/common_runtime/simple_placer.cc:847] add: (Add)/job:localhost/replica:0/task:0/gpu:0</span><br><span class="line">b: (Const): /job:localhost/replica:0/task:0/gpu:0</span><br><span class="line">2018-02-04 13:01:33.343980: I tensorflow/core/common_runtime/simple_placer.cc:847] b: (Const)/job:localhost/replica:0/task:0/gpu:0</span><br><span class="line">a: (Const): /job:localhost/replica:0/task:0/gpu:0</span><br><span class="line">2018-02-04 13:01:33.343997: I tensorflow/core/common_runtime/simple_placer.cc:847] a: (Const)/job:localhost/replica:0/task:0/gpu:0</span><br><span class="line">[2. 4. 6.]</span><br></pre></td></tr></table></figure>
+<p>自此，<strong>Ubuntu16.04 + Nvidia GTX 970 + CUDA8.0 + CUDNN + Anaconda3 + Tensorflow1.2</strong> 深度学习环境搭建完成。</p>
 <hr>
 <h3 id="5-I-Want-To-Know-More"><a href="#5-I-Want-To-Know-More" class="headerlink" title="5. I Want To Know More"></a>5. I Want To Know More</h3><h4 id="5-1-NVIDIA-驱动相关"><a href="#5-1-NVIDIA-驱动相关" class="headerlink" title="5.1 NVIDIA 驱动相关"></a>5.1 NVIDIA 驱动相关</h4><p><strong>1）nvidia-smi</strong></p>
 <p>英伟达系统管理接口（<code>NVIDIA System Management Interface</code>, 简称 <code>nvidia-smi</code>），属于命令行管理组件，旨在帮助管理和监控 <code>NVIDIA GPU</code> 设备。</p>
 <p>执行 <code>nvidia-smi</code> 命令可以查看当前系统安装的 NVIDIA 驱动信息以及 GPU 使用情况，显示如下：</p>
-<pre><code>$ root@Ubuntu:~# nvidia-smi
-
-Thu Feb 28 15:50:39 2019       
-+-----------------------------------------------------------------------------+
-| NVIDIA-SMI 390.46                 Driver Version: 390.46                    |
-|-------------------------------+----------------------+----------------------+
-| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-|===============================+======================+======================|
-|   0  Tesla P4            On   | 00000000:00:07.0 Off |                    0 |
-| N/A   30C    P8     7W /  75W |      0MiB /  7611MiB |      0%      Default |
-+-------------------------------+----------------------+----------------------+
-
-+-----------------------------------------------------------------------------+
-| Processes:                                                       GPU Memory |
-|  GPU       PID   Type   Process name                             Usage      |
-|=============================================================================|
-|  No running processes found                                                 |
-+-----------------------------------------------------------------------------+
-</code></pre><p>可以看出：驱动版本（NVIDIA-SMI 390.46）、显卡型号（Tesla P4）、内存（7611MiB：8G）以及 GPU 使用率（GPU-Util  Compute M.： 0% Default）等。</p>
-<p><code>nvidia-smi</code> 配合 <code>watch -n</code> 一起使用，可用于动态查看 <code>GPU</code> 使用情况：</p>
-<pre><code>$ watch -n -1 nvidia-smi 
-</code></pre><p><strong>2）lspci</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> root@Ubuntu:~<span class="comment"># nvidia-smi</span></span></span><br><span class="line"></span><br><span class="line">Thu Feb 28 15:50:39 2019       </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 390.46                 Driver Version: 390.46                    |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|===============================+======================+======================|</span><br><span class="line">|   0  Tesla P4            On   | 00000000:00:07.0 Off |                    0 |</span><br><span class="line">| N/A   30C    P8     7W /  75W |      0MiB /  7611MiB |      0%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">                                                                               </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes:                                                       GPU Memory |</span><br><span class="line">|  GPU       PID   Type   Process name                             Usage      |</span><br><span class="line">|=============================================================================|</span><br><span class="line">|  No running processes found                                                 |</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
+<p>可以看出：驱动版本（NVIDIA-SMI 390.46）、显卡型号（Tesla P4）、内存（7611MiB：8G）以及 GPU 使用率（GPU-Util  Compute M.： 0% Default）等。</p>
+<p><strong>nvidia-smi</strong> 配合 <strong>watch -n</strong> 一起使用，可用于动态查看 <code>GPU</code> 使用情况：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> watch -n -1 nvidia-smi</span></span><br></pre></td></tr></table></figure>
+<p><strong>2）lspci</strong></p>
 <p>查看服务器集成显卡信息：</p>
-<pre><code>$ lspci | grep VGA
-00:02.0 VGA compatible controller: Cirrus Logic GD 5446
-</code></pre><p>查看服务器 NVIDIA 显卡信息：</p>
-<pre><code>$ lspci | grep NVIDIA
-00:07.0 3D controller: NVIDIA Corporation Device 1bb3 (rev a1)
-</code></pre><p><strong>3）集显与独显的切换</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> lspci | grep VGA</span></span><br><span class="line">00:02.0 VGA compatible controller: Cirrus Logic GD 5446</span><br></pre></td></tr></table></figure>
+<p>查看服务器 NVIDIA 显卡信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> lspci | grep NVIDIA</span></span><br><span class="line">00:07.0 3D controller: NVIDIA Corporation Device 1bb3 (rev a1)</span><br></pre></td></tr></table></figure>
+<p><strong>3）集显与独显的切换</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install nvidia-settings nvidia-prime</span></span><br></pre></td></tr></table></figure>
 <p>NVIDIA 还提供了用于切换显卡的命令。例如，查看当前使用的显卡：</p>
-<pre><code>$ sudo prime-select query
-</code></pre><p>如何切换 nvidia 显卡：</p>
-<pre><code>$ sudo prime-select nvidia
-</code></pre><p>如何切换 intel 显卡：</p>
-<pre><code>$ sudo prime-select intel
-</code></pre><hr>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo prime-select query</span></span><br></pre></td></tr></table></figure>
+<p>如何切换 nvidia 显卡：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo prime-select nvidia</span></span><br></pre></td></tr></table></figure>
+<p>如何切换 intel 显卡：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo prime-select intel</span></span><br></pre></td></tr></table></figure>
+<hr>
 <h4 id="5-2-CUDA-多版本共存和实时切换"><a href="#5-2-CUDA-多版本共存和实时切换" class="headerlink" title="5.2 CUDA 多版本共存和实时切换"></a>5.2 CUDA 多版本共存和实时切换</h4><p>事实上，很多情况下我们需要多 CUDA 版本兼容存在于服务器系统中，并且可以很容易地在不同版本之间进行迅速切换。请参见如下场景：</p>
 <ol>
-<li><p>多人共享使用当前服务器，由于使用的 TensorFlow 框架版本不同，所需要的 CUDA 版本也不同。此时，系统需要存在多个版本的 CUDA；</p>
-</li>
-<li><p>之前搭建 TensorFlow 环境使用的是 <code>CUDA8.0</code> 和 <code>cuDNN5.1</code>，当我们需要在 TensorFlow 环境中兼容其它深度学习环境时（搭建 <code>TensorFlow + Pytorch</code> 环境），<code>Pytroch GPU Support</code> 可能需要更高版本的 <code>CUDA</code> 以及 <code>cuDNN</code>。此时，升级 <code>CUDA</code> 以及 <code>cuDNN</code> 版本以适应 <code>TensorFlow + Pytorch</code> 环境是必要的。</p>
-</li>
+<li>多人共享使用当前服务器，由于使用的 TensorFlow 框架版本不同，所需要的 CUDA 版本也不同。此时，系统需要存在多个版本的 CUDA；</li>
+<li>之前搭建 TensorFlow 环境使用的是 <code>CUDA8.0</code> 和 <code>cuDNN5.1</code>，当我们需要在 TensorFlow 环境中兼容其它深度学习环境时（比如搭建 <code>TensorFlow + Pytorch</code> 环境），<code>Pytroch GPU Support</code> 可能需要更高版本的 <code>CUDA</code> 以及 <code>cuDNN</code>。此时，升级 <code>CUDA</code> 以及 <code>cuDNN</code> 版本以适应 <code>TensorFlow + Pytorch</code> 环境是必要的。</li>
 </ol>
 <p>这一部分，我们会以同时安装 <code>cuda-8.0</code> 和 <code>cuda-9.0</code> 版本为例进行说明。</p>
 <h5 id="5-2-1-CUDA-多版本共存"><a href="#5-2-1-CUDA-多版本共存" class="headerlink" title="5.2.1 CUDA 多版本共存"></a>5.2.1 CUDA 多版本共存</h5><p><strong>1）CUDA 的下载与安装方法选择</strong></p>
@@ -762,124 +827,30 @@ Thu Feb 28 15:50:39 2019
 <p>通过 CUDA 版本库地址 进入 CUDA9.0 下载页面后，可以看到这里提供了很详细的系统选择和安装说明。这里选择了 <code>Ubuntu16.04</code> 系统 <code>Runfile</code> 安装方案，（千万不要选择 <code>deb</code> 方案，否则前方无数坑）,下载界面如下：</p>
 <p><img src="/TensorFlow/Ubuntu16-04-Nvidia-GTX-970-CUDA8-0-CUDNN5-1-Anaconda3-Tensorflow1-2/Img/cuda9.jpg" alt="avatar"></p>
 <p>下载完成之后，进入到 CUDA9.0 安装包（<code>cuda_9.0.176_384.81_linux.run</code>）所在目录运行如下命令即可开始进行安装，详细安装过程讲解如下：</p>
-<pre><code>$ sudo sh cuda_9.0.176_384.81_linux.run
-
-Using more to view the EULA.
-End User License Agreement
---------------------------
-Preface
--------
-The following contains specific license terms and conditions
-for four separate NVIDIA products. By accepting this
-agreement, you agree to comply with all the terms and
-conditions applicable to the specific product(s) included
-herein.
-
-# 接受安装协议：
-Do you accept the previously read EULA?
-accept/decline/quit: accept
-
-# 询问是否重新安装显卡驱动，这里一定要选择 `n`，否则最初安装的显卡驱动会被覆盖产生出错：
-Install NVIDIA Accelerated Graphics Driver for Linux-x86_64 384.81?
-(y)es/(n)o/(q)uit: n
-
-Install the CUDA 9.0 Toolkit?
-(y)es/(n)o/(q)uit: y
-
-# 定义安装目录（一般默认回车即可，即安装在 `/usr/local/cuda-9.0` 目录下）,
-Enter Toolkit Location
-[ default is /usr/local/cuda-9.0 ]: 
-
-# 询问是否将 `cuda-9.0` 安装目录通过软连接的方式 link 到 `/usr/local/cuda`？【 yes or no 】 均可。
-# 系统当前启用的 `cuda` 为哪个版本？取决于哪个版本的 CUDA 安装目录被链接到 `/usr/local/cuda` 上。
-# 对于首次安装 CUDA，肯定是需要建立软连接的（yes）；对于安装额外版本的 CUDA，【 yes or no 】 需要根据是否启动新版本 CUDA 决定。
-Do you want to install a symbolic link at /usr/local/cuda? 
-(y)es/(n)o/(q)uit: n
-
-# 询问是否安装样例，可用于后续检测是否安装成功：
-Install the CUDA 9.0 Samples?
-(y)es/(n)o/(q)uit: n
-
-# 定义样例安装目录：
-Enter CUDA Samples Location
-[ default is /root ]: /home/textminer
-
-# *** 安装信息显示 **** #
-Driver: Not Selected
-
-Installing the CUDA Toolkit in /usr/local/cuda-9.0 ...
-Installing the CUDA Samples in /home/textminer ...
-Copying samples to /home/textminer/NVIDIA_CUDA-9.0_Samples now...
-Finished copying samples.
-
-===========
-= Summary =
-===========
-
-Driver: Not Selected
-Toolkit: Installed in /usr/local/cuda-9.0
-Samples: Installed in /home/textminer
-
-Please make sure that
-- PATH includes /usr/local/cuda-9.0/bin
-- LD_LIBRARY_PATH includes /usr/local/cuda-9.0/lib64, or, add /usr/local/cuda-9.0/lib64 to /etc/ld.so.conf and run ldconfig as root
-
-To uninstall the CUDA Toolkit, run the uninstall script in /usr/local/cuda-9.0/bin
-
-Please see CUDA_Installation_Guide_Linux.pdf in /usr/local/cuda-9.0/doc/pdf for detailed information on setting up CUDA.
-
-***WARNING: Incomplete installation! This installation did not install the CUDA Driver. A driver of version at least 361.00 is required for CUDA 9.0 functionality to work.
-To install the driver using this installer, run the following command, replacing with the name of this run file:
-sudo .run -silent -driver
-
-Logfile is /opt/temp//cuda_install_6583.log
-</code></pre><p><strong>2）配置 CUDA 环境变量</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo sh cuda_9.0.176_384.81_linux.run</span></span><br><span class="line"></span><br><span class="line">Using more to view the EULA.</span><br><span class="line">End User License Agreement</span><br><span class="line">--------------------------</span><br><span class="line">Preface</span><br><span class="line">-------</span><br><span class="line">The following contains specific license terms and conditions</span><br><span class="line">for four separate NVIDIA products. By accepting this</span><br><span class="line">agreement, you agree to comply with all the terms and</span><br><span class="line">conditions applicable to the specific product(s) included</span><br><span class="line">herein.</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 接受安装协议：</span></span><br><span class="line">Do you accept the previously read EULA?</span><br><span class="line">accept/decline/quit: accept</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 询问是否重新安装显卡驱动，这里一定要选择 `n`，否则最初安装的显卡驱动会被覆盖产生出错：</span></span><br><span class="line">Install NVIDIA Accelerated Graphics Driver for Linux-x86_64 384.81?</span><br><span class="line">(y)es/(n)o/(q)uit: n</span><br><span class="line"></span><br><span class="line">Install the CUDA 9.0 Toolkit?</span><br><span class="line">(y)es/(n)o/(q)uit: y</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 定义安装目录（一般默认回车即可，即安装在 `/usr/<span class="built_in">local</span>/cuda-9.0` 目录下）,</span></span><br><span class="line">Enter Toolkit Location</span><br><span class="line">[ default is /usr/local/cuda-9.0 ]: </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 询问是否将 `cuda-9.0` 安装目录通过软连接的方式 link 到 `/usr/<span class="built_in">local</span>/cuda`？【 yes or no 】 均可。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 系统当前启用的 `cuda` 为哪个版本？取决于哪个版本的 CUDA 安装目录被链接到 `/usr/<span class="built_in">local</span>/cuda` 上。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 对于首次安装 CUDA，肯定是需要建立软连接的（yes）；对于安装额外版本的 CUDA，【 yes or no 】 需要根据是否启动新版本 CUDA 决定。</span></span><br><span class="line">Do you want to install a symbolic link at /usr/local/cuda? </span><br><span class="line">(y)es/(n)o/(q)uit: n</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 询问是否安装样例，可用于后续检测是否安装成功：</span></span><br><span class="line">Install the CUDA 9.0 Samples?</span><br><span class="line">(y)es/(n)o/(q)uit: n</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 定义样例安装目录：</span></span><br><span class="line">Enter CUDA Samples Location</span><br><span class="line">[ default is /root ]: /home/textminer</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> *** 安装信息显示 **** <span class="comment">#</span></span></span><br><span class="line">Driver: Not Selected</span><br><span class="line"></span><br><span class="line">Installing the CUDA Toolkit in /usr/local/cuda-9.0 ...</span><br><span class="line">Installing the CUDA Samples in /home/textminer ...</span><br><span class="line">Copying samples to /home/textminer/NVIDIA_CUDA-9.0_Samples now...</span><br><span class="line">Finished copying samples.</span><br><span class="line"></span><br><span class="line">===========</span><br><span class="line">= Summary =</span><br><span class="line">===========</span><br><span class="line"></span><br><span class="line">Driver: Not Selected</span><br><span class="line">Toolkit: Installed in /usr/local/cuda-9.0</span><br><span class="line">Samples: Installed in /home/textminer</span><br><span class="line"></span><br><span class="line">Please make sure that</span><br><span class="line">- PATH includes /usr/local/cuda-9.0/bin</span><br><span class="line">- LD_LIBRARY_PATH includes /usr/local/cuda-9.0/lib64, or, add /usr/local/cuda-9.0/lib64 to /etc/ld.so.conf and run ldconfig as root</span><br><span class="line"></span><br><span class="line">To uninstall the CUDA Toolkit, run the uninstall script in /usr/local/cuda-9.0/bin</span><br><span class="line"></span><br><span class="line">Please see CUDA_Installation_Guide_Linux.pdf in /usr/local/cuda-9.0/doc/pdf for detailed information on setting up CUDA.</span><br><span class="line"></span><br><span class="line">***WARNING: Incomplete installation! This installation did not install the CUDA Driver. A driver of version at least 361.00 is required for CUDA 9.0 functionality to work.</span><br><span class="line">To install the driver using this installer, run the following command, replacing with the name of this run file:</span><br><span class="line">sudo .run -silent -driver</span><br><span class="line"></span><br><span class="line">Logfile is /opt/temp//cuda_install_6583.log</span><br></pre></td></tr></table></figure>
+<p><strong>2）配置 CUDA 环境变量</strong></p>
 <p>在配置文件 <code>~/.bashrc</code> 文件末尾添加如下内容：</p>
-<pre><code>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
-export PATH=$PATH:/usr/local/cuda/bin
-export CUDA_HOME=$CUDA_HOME:/usr/local/cuda
-</code></pre><p>注意，安装过程中是否创建 <code>symbolic link</code> 是关键。首次安装，选 【yes】；安装额外的版本，选 【no】。自此，我们已经成功完成了 <code>cuda-8.0</code> 和 <code>cuda-9.0</code> 的安装。下面我们来看如何迅速完成 CUDA 版本的切换：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64</span><br><span class="line">export PATH=$PATH:/usr/local/cuda/bin</span><br><span class="line">export CUDA_HOME=$CUDA_HOME:/usr/local/cuda</span><br></pre></td></tr></table></figure>
+<p>注意，安装过程中是否创建 <code>symbolic link</code> 是关键。首次安装，选 【yes】；安装额外的版本，选 【no】。自此，我们已经成功完成了 <code>cuda-8.0</code> 和 <code>cuda-9.0</code> 的安装。下面我们来看如何迅速完成 CUDA 版本的切换：</p>
 <hr>
 <h5 id="5-2-2-CUDA-版本实时切换"><a href="#5-2-2-CUDA-版本实时切换" class="headerlink" title="5.2.2 CUDA 版本实时切换"></a>5.2.2 CUDA 版本实时切换</h5><p>通过上文可知，当我们安装了多个版本的 CUDA 之后，CUDA 一般会被安装到 <code>/usr/local/</code> 目录（或你自己的自定义目录）下。查看一下当前目录下的文件：</p>
-<pre><code>$ cd /usr/local
-$ ls
-bin  cuda  cuda-8.0  cuda-9.0 etc  games ......
-</code></pre><p>上述 <code>cuda-8.0</code> 和 <code>cuda-9.0</code> 是系统中已安装的 CUDA 版本，而 <code>cuda</code> 就是我们上面创建的 <code>symbolic link</code>。<code>cuda</code> 指向系统当前正在启用的 <code>cuda</code> 版本，方便了我们切换 <code>cuda</code> 版本，可以让我们不用每次都去 <code>~/.bashrc</code> 修改环境变量的值（<code>cuda-8.0</code> or <code>cuda-9.0</code>）。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> /usr/<span class="built_in">local</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ls</span></span><br><span class="line">bin  cuda  cuda-8.0  cuda-9.0 etc  games ......</span><br></pre></td></tr></table></figure>
+<p>上述 <code>cuda-8.0</code> 和 <code>cuda-9.0</code> 是系统中已安装的 CUDA 版本，而 <code>cuda</code> 就是我们上面创建的 <code>symbolic link</code>。<code>cuda</code> 指向系统当前正在启用的 <code>cuda</code> 版本，方便了我们切换 <code>cuda</code> 版本，可以让我们不用每次都去 <code>~/.bashrc</code> 修改环境变量的值（<code>cuda-8.0</code> or <code>cuda-9.0</code>）。</p>
 <p>我们先来查看当前 <code>cuda</code> 软链接指向的哪个 <code>cuda</code> 版本:</p>
-<pre><code>$ stat cuda
-  File: &apos;cuda&apos; -&gt; &apos;/usr/local/cuda-8.0&apos;
-  Size: 19            Blocks: 0          IO Block: 4096   symbolic link
-Device: 807h/2055d    Inode: 133904      Links: 1
-Access: (0777/lrwxrwxrwx)  Uid: (    0/    root)   Gid: (    0/    root)
-Access: 2019-02-28 10:44:36.494902702 +0800
-Modify: 2018-02-03 10:52:47.543432671 +0800
-Change: 2018-02-03 10:52:47.543432671 +0800
- Birth: -
-</code></pre><p>可以看到，<code>cuda&#39; -&gt; &#39;/usr/local/cuda-8.0</code>，此时系统当前正在启用的 <code>cuda</code> 版本为 <code>cuda-8.0</code>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">stat</span> cuda</span></span><br><span class="line">  File: 'cuda' -&gt; '/usr/local/cuda-8.0'</span><br><span class="line">  Size: 19        	Blocks: 0          IO Block: 4096   symbolic link</span><br><span class="line">Device: 807h/2055d	Inode: 133904      Links: 1</span><br><span class="line">Access: (0777/lrwxrwxrwx)  Uid: (    0/    root)   Gid: (    0/    root)</span><br><span class="line">Access: 2019-02-28 10:44:36.494902702 +0800</span><br><span class="line">Modify: 2018-02-03 10:52:47.543432671 +0800</span><br><span class="line">Change: 2018-02-03 10:52:47.543432671 +0800</span><br><span class="line"> Birth: -</span><br></pre></td></tr></table></figure>
+<p>可以看到，<code>cuda&#39; -&gt; &#39;/usr/local/cuda-8.0</code>，此时系统当前正在启用的 <code>cuda</code> 版本为 <code>cuda-8.0</code>。</p>
 <p>那么，我们如何快速完成 <code>cuda-9.0</code> 的版本呢？其实很简单：</p>
-<pre><code># 查看系统当前启用的 CUDA 版本：
-$ nvcc -V
-nvcc: NVIDIA (R) Cuda compiler driver
-Copyright (c) 2005-2016 NVIDIA Corporation
-Built on Tue_Jan_10_13:22:03_CST_2017
-Cuda compilation tools, release 8.0, V8.0.61
-
-# 从 `cuda8.0` 切换到 `cuda9.0`: 
-$ rm -rf /usr/local/cuda
-$ sudo ln -s /usr/local/cuda-9.0/ /usr/local/cuda/
-
-$ nvcc --version    
-nvcc: NVIDIA (R) Cuda compiler driver
-Copyright (c) 2005-2016 NVIDIA Corporation
-Built on Tue_Jan_10_13:22:03_CST_2018
-Cuda compilation tools, release 9.0, V9.0.176
-</code></pre><hr>
-<h3 id="Tensorflow-amp-amp-NVIDIA-版本信息对照表"><a href="#Tensorflow-amp-amp-NVIDIA-版本信息对照表" class="headerlink" title="Tensorflow &amp;&amp; NVIDIA 版本信息对照表"></a>Tensorflow &amp;&amp; NVIDIA 版本信息对照表</h3><h4 id="For-Windows"><a href="#For-Windows" class="headerlink" title="For Windows"></a>For Windows</h4><p>官方经过测试的 Tensorflow &amp;&amp; CUDA &amp;&amp; cuDNN 版本对应关系（持续更新）：<a href="https://tensorflow.google.cn/install/source_windows#tested_build_configurations" target="_blank" rel="noopener">https://tensorflow.google.cn/install/source_windows#tested_build_configurations</a> 。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看系统当前启用的 CUDA 版本：</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> nvcc -V</span></span><br><span class="line">nvcc: NVIDIA (R) Cuda compiler driver</span><br><span class="line">Copyright (c) 2005-2016 NVIDIA Corporation</span><br><span class="line">Built on Tue_Jan_10_13:22:03_CST_2017</span><br><span class="line">Cuda compilation tools, release 8.0, V8.0.61</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 从 `cuda8.0` 切换到 `cuda9.0`: </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> rm -rf /usr/<span class="built_in">local</span>/cuda</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo ln -s /usr/<span class="built_in">local</span>/cuda-9.0/ /usr/<span class="built_in">local</span>/cuda/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> nvcc --version	</span></span><br><span class="line">nvcc: NVIDIA (R) Cuda compiler driver</span><br><span class="line">Copyright (c) 2005-2016 NVIDIA Corporation</span><br><span class="line">Built on Tue_Jan_10_13:22:03_CST_2018</span><br><span class="line">Cuda compilation tools, release 9.0, V9.0.176</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="5-3-CUDNN-多版本共存和实时切换"><a href="#5-3-CUDNN-多版本共存和实时切换" class="headerlink" title="5.3 CUDNN 多版本共存和实时切换"></a>5.3 CUDNN 多版本共存和实时切换</h4><p>5.2 小节中我们解决了 CUDA 多版本共存和实时切换的问题，而关于 CUDNN 多版本共存和实时切换请跳转至【CUDNN 5.1 的下载和安装】中 CUDNN 升级小节。</p>
+<hr>
+<h3 id="Tensorflow-amp-amp-NVIDIA-版本信息对照表"><a href="#Tensorflow-amp-amp-NVIDIA-版本信息对照表" class="headerlink" title="Tensorflow &amp;&amp; NVIDIA 版本信息对照表"></a>Tensorflow &amp;&amp; NVIDIA 版本信息对照表</h3><p>这里，我们给出 Windows &amp; Linux &amp; Mac 平台下 Tensorflow &amp; CUDA &amp; cuDNN 版本对应关系：</p>
+<h4 id="For-Windows"><a href="#For-Windows" class="headerlink" title="For Windows"></a>For Windows</h4><p>官方经过测试的 Tensorflow &amp;&amp; CUDA &amp;&amp; cuDNN 版本对应关系【持续更新】&gt;&gt;&gt; <a href="https://tensorflow.google.cn/install/source_windows#tested_build_configurations" target="_blank" rel="noopener">传送门</a>。</p>
 <blockquote>
 <p>Windows</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">TensorFlow 版本：         CPU/GPU:   Python 版本:    编译器:                 构建工具:           CUDNN:  CUDA:</span><br><span class="line">----------------------------------------------------------------------------------------------------------------------</span><br><span class="line">tensorflow-1.13.0         CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.13.0     GPU           3.5-3.6      MSVC 2015 update 3     Bazel 0.15.0        7        9</span><br><span class="line">tensorflow-1.12.0         CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.12.0     GPU           3.5-3.6      MSVC 2015 update 3     Bazel 0.15.0        7        9</span><br><span class="line">tensorflow-1.11.0         CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.11.0     GPU           3.5-3.6      MSVC 2015 update 3     Bazel 0.15.0        7        9</span><br><span class="line">tensorflow-1.10.0         CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.10.0     GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        7        9</span><br><span class="line">tensorflow-1.9.0          CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.9.0      GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        7        9</span><br><span class="line">tensorflow-1.8.0          CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.8.0      GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        7        9</span><br><span class="line">tensorflow-1.7.0          CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.7.0      GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        7        9</span><br><span class="line">tensorflow-1.6.0          CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.6.0      GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        7        9</span><br><span class="line">tensorflow-1.5.0          CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.5.0      GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        7        9</span><br><span class="line">tensorflow-1.4.0          CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.4.0      GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        6        8</span><br><span class="line">tensorflow-1.3.0          CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.3.0      GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        6        8</span><br><span class="line">tensorflow-1.2.0          CPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.2.0      GPU           3.5-3.6      MSVC 2015 update 3     Cmake v3.6.3        5.1      8</span><br><span class="line">tensorflow-1.1.0          CPU           3.5          MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.1.0      GPU           3.5          MSVC 2015 update 3     Cmake v3.6.3        5.1      8</span><br><span class="line">tensorflow-1.0.0          CPU           3.5          MSVC 2015 update 3     Cmake v3.6.3        N        N</span><br><span class="line">tensorflow_gpu-1.0.0      GPU           3.5          MSVC 2015 update 3     Cmake v3.6.3        5.1      8</span><br></pre></td></tr></table></figure>
-<h4 id="For-Linux-amp-amp-Mac"><a href="#For-Linux-amp-amp-Mac" class="headerlink" title="For Linux &amp;&amp; Mac"></a>For Linux &amp;&amp; Mac</h4><p>官方经过测试的 Tensorflow &amp;&amp; CUDA &amp;&amp; cuDNN 版本对应关系（持续更新）：<a href="https://tensorflow.google.cn/install/source#tested_build_configurations" target="_blank" rel="noopener">https://tensorflow.google.cn/install/source#tested_build_configurations</a> 。</p>
+<h4 id="For-Linux-amp-amp-Mac"><a href="#For-Linux-amp-amp-Mac" class="headerlink" title="For Linux &amp;&amp; Mac"></a>For Linux &amp;&amp; Mac</h4><p>官方经过测试的 Tensorflow &amp;&amp; CUDA &amp;&amp; cuDNN 版本对应关系【持续更新】&gt;&gt;&gt; <a href="https://tensorflow.google.cn/install/source#tested_build_configurations" target="_blank" rel="noopener">传送门</a> 。</p>
 <blockquote>
 <p>Linux</p>
 </blockquote>
@@ -1104,7 +1075,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1126,7 +1097,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">91</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -1190,7 +1161,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Environmental-introduction"><span class="nav-text">Environmental introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Nvidia-GTX-970-安装显卡驱动"><span class="nav-text">1. Nvidia GTX 970 安装显卡驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-查询-GPU-详细信息"><span class="nav-text">1.1 查询 GPU 详细信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-查询适合的-Nvidia-驱动"><span class="nav-text">1.2 查询适合的 Nvidia 驱动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-安装-Nvidia-驱动"><span class="nav-text">1.3 安装 Nvidia 驱动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-Nvidia-驱动卸载"><span class="nav-text">1.4 Nvidia 驱动卸载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-Want-to-know-more"><span class="nav-text">1.5 Want to know more</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-下载和安装-CUDA-8-0"><span class="nav-text">2. 下载和安装 CUDA 8.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-CUDA-下载"><span class="nav-text">2.1 CUDA 下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-CUDA-安装"><span class="nav-text">2.2 CUDA 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-CUDA-测试"><span class="nav-text">2.3 CUDA 测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-CUDA-卸载"><span class="nav-text">2.4 CUDA 卸载</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-CUDNN-5-1-安装"><span class="nav-text">3. CUDNN 5.1 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-CUDNN-下载"><span class="nav-text">3.1 CUDNN 下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-CUDNN-安装"><span class="nav-text">3.2 CUDNN 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-CUDNN-升级"><span class="nav-text">3.3 CUDNN 升级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Anaconda-Tensorflow-GPU-安装"><span class="nav-text">4. Anaconda + Tensorflow-GPU 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-Conda-Envs-install-TensorFlow"><span class="nav-text">4.1 Conda Envs install TensorFlow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-TensorFlow-导入测试"><span class="nav-text">4.2 TensorFlow 导入测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-GPU-运算测试"><span class="nav-text">4.3 GPU 运算测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-I-Want-To-Know-More"><span class="nav-text">5. I Want To Know More</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-NVIDIA-驱动相关"><span class="nav-text">5.1 NVIDIA 驱动相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-CUDA-多版本共存和实时切换"><span class="nav-text">5.2 CUDA 多版本共存和实时切换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-1-CUDA-多版本共存"><span class="nav-text">5.2.1 CUDA 多版本共存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-2-CUDA-版本实时切换"><span class="nav-text">5.2.2 CUDA 版本实时切换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tensorflow-amp-amp-NVIDIA-版本信息对照表"><span class="nav-text">Tensorflow &amp;&amp; NVIDIA 版本信息对照表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#For-Windows"><span class="nav-text">For Windows</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#For-Linux-amp-amp-Mac"><span class="nav-text">For Linux &amp;&amp; Mac</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Environmental-Introduction"><span class="nav-text">Environmental Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-–-gt-TensorFlow【GPU-Support】配置须知"><span class="nav-text">1 –&gt; TensorFlow【GPU Support】配置须知</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-–-gt-My-Environment"><span class="nav-text">2 –&gt; My Environment</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-服务器操作系统准备"><span class="nav-text">0. 服务器操作系统准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-显卡驱动"><span class="nav-text">1. 显卡驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-查询系统中-GPU-详细信息"><span class="nav-text">1.1 查询系统中 GPU 详细信息</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-1-搭载式安装（第一种）"><span class="nav-text">1.1.1 搭载式安装（第一种）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-2-非搭载式安装（第二种）"><span class="nav-text">1.1.2 非搭载式安装（第二种）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-Nvidia-驱动安装"><span class="nav-text">1.2 Nvidia 驱动安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-1-查询适合的-Nvidia-驱动"><span class="nav-text">1.2.1 查询适合的 Nvidia 驱动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-2-安装-Nvidia-驱动"><span class="nav-text">1.2.2 安装 Nvidia 驱动</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-Nvidia-驱动卸载"><span class="nav-text">1.3 Nvidia 驱动卸载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-Want-to-know-more"><span class="nav-text">1.4 Want to know more</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-CUDA-8-0-的下载和安装"><span class="nav-text">2. CUDA 8.0 的下载和安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-CUDA-下载"><span class="nav-text">2.1 CUDA 下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-CUDA-安装"><span class="nav-text">2.2 CUDA 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-CUDA-测试"><span class="nav-text">2.3 CUDA 测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-CUDA-卸载"><span class="nav-text">2.4 CUDA 卸载</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-CUDNN-5-1-的下载和安装"><span class="nav-text">3. CUDNN 5.1 的下载和安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-CUDNN-下载"><span class="nav-text">3.1 CUDNN 下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-CUDNN-安装"><span class="nav-text">3.2 CUDNN 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-CUDNN-升级"><span class="nav-text">3.3 CUDNN 升级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Anaconda-Tensorflow-GPU-安装"><span class="nav-text">4. Anaconda + Tensorflow-GPU 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-Conda-Envs-install-TensorFlow"><span class="nav-text">4.1 Conda Envs install TensorFlow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-TensorFlow-导入测试"><span class="nav-text">4.2 TensorFlow 导入测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-GPU-运算测试"><span class="nav-text">4.3 GPU 运算测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-I-Want-To-Know-More"><span class="nav-text">5. I Want To Know More</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-NVIDIA-驱动相关"><span class="nav-text">5.1 NVIDIA 驱动相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-CUDA-多版本共存和实时切换"><span class="nav-text">5.2 CUDA 多版本共存和实时切换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-1-CUDA-多版本共存"><span class="nav-text">5.2.1 CUDA 多版本共存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-2-CUDA-版本实时切换"><span class="nav-text">5.2.2 CUDA 版本实时切换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-CUDNN-多版本共存和实时切换"><span class="nav-text">5.3 CUDNN 多版本共存和实时切换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tensorflow-amp-amp-NVIDIA-版本信息对照表"><span class="nav-text">Tensorflow &amp;&amp; NVIDIA 版本信息对照表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#For-Windows"><span class="nav-text">For Windows</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#For-Linux-amp-amp-Mac"><span class="nav-text">For Linux &amp;&amp; Mac</span></a></li></ol></li></ol></div>
             
 
           </div>

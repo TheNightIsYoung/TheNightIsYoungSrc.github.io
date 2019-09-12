@@ -99,18 +99,18 @@
 
 
 
-<meta name="description" content="引言： 本来说完Python中的数字类型（Number）、字符串类型（String）之后，后续应该要继续讲元祖（Tuple）、列表（List）之类的。但是元祖和列表都属于序列，所以有必要先讲讲 Python 中的序列是什么？">
+<meta name="description" content="引言： 本来说完 Python 中的数字类型（Number）、字符串类型（String）之后，后续应该要继续讲元祖（Tuple）、列表（List）之类的。但是元祖和列表都属于序列，掌握序列（Sequence）的相关知识可以帮我们更容易的学习后续内容，所以有必要先讲讲 Python 中的序列是什么？">
 <meta name="keywords" content="Python,DataType,Sequence">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python 中的序列（sequence）">
+<meta property="og:title" content="Python 中的序列（Sequence）">
 <meta property="og:url" content="http://yoursite.com/Python/Python-中的序列（sequence）/index.html">
 <meta property="og:site_name" content="When Art Meets Technology">
-<meta property="og:description" content="引言： 本来说完Python中的数字类型（Number）、字符串类型（String）之后，后续应该要继续讲元祖（Tuple）、列表（List）之类的。但是元祖和列表都属于序列，所以有必要先讲讲 Python 中的序列是什么？">
+<meta property="og:description" content="引言： 本来说完 Python 中的数字类型（Number）、字符串类型（String）之后，后续应该要继续讲元祖（Tuple）、列表（List）之类的。但是元祖和列表都属于序列，掌握序列（Sequence）的相关知识可以帮我们更容易的学习后续内容，所以有必要先讲讲 Python 中的序列是什么？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-17T06:18:53.305Z">
+<meta property="og:updated_time" content="2019-08-30T04:50:21.510Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python 中的序列（sequence）">
-<meta name="twitter:description" content="引言： 本来说完Python中的数字类型（Number）、字符串类型（String）之后，后续应该要继续讲元祖（Tuple）、列表（List）之类的。但是元祖和列表都属于序列，所以有必要先讲讲 Python 中的序列是什么？">
+<meta name="twitter:title" content="Python 中的序列（Sequence）">
+<meta name="twitter:description" content="引言： 本来说完 Python 中的数字类型（Number）、字符串类型（String）之后，后续应该要继续讲元祖（Tuple）、列表（List）之类的。但是元祖和列表都属于序列，掌握序列（Sequence）的相关知识可以帮我们更容易的学习后续内容，所以有必要先讲讲 Python 中的序列是什么？">
 
 
 
@@ -155,7 +155,7 @@
   daovoice('update');
   </script>
 
-  <title>Python 中的序列（sequence） | When Art Meets Technology</title>
+  <title>Python 中的序列（Sequence） | When Art Meets Technology</title>
   
 
 
@@ -335,7 +335,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python 中的序列（sequence）</h1>
+          <h1 class="post-title" itemprop="name headline">Python 中的序列（Sequence）</h1>
         
 
         <div class="post-meta">
@@ -363,8 +363,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-06-17T14:18:53+08:00">
-                2019-06-17
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-30T12:50:21+08:00">
+                2019-08-30
               </time>
             
           </span>
@@ -399,7 +399,7 @@
 
           
           
-             <span id="/Python/Python-中的序列（sequence）/" class="leancloud_visitors" data-flag-title="Python 中的序列（sequence）">
+             <span id="/Python/Python-中的序列（sequence）/" class="leancloud_visitors" data-flag-title="Python 中的序列（Sequence）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -425,7 +425,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2k
+                  2.1k
                 </span>
               
 
@@ -463,9 +463,11 @@
 
       
         <p><strong>引言：</strong></p>
-<p>本来说完Python中的数字类型（Number）、字符串类型（String）之后，后续应该要继续讲元祖（Tuple）、列表（List）之类的。但是元祖和列表都属于序列，所以有必要先讲讲 Python 中的序列是什么？</p>
+<p>本来说完 Python 中的数字类型（Number）、字符串类型（String）之后，后续应该要继续讲元祖（Tuple）、列表（List）之类的。但是元祖和列表都属于序列，掌握序列（Sequence）的相关知识可以帮我们更容易的学习后续内容，所以有必要先讲讲 Python 中的序列是什么？</p>
 <a id="more"></a>
-<h2 id="Python-中的序列"><a href="#Python-中的序列" class="headerlink" title="Python 中的序列"></a>Python 中的序列</h2><p>首先，序列（有序性）是 Python 中最基本的一种数据结构。序列中的每个元素都分配一个<strong>数字</strong> —- 它的位置，也就是我们说的元素的 <strong>索引</strong>。第一个索引是 0，第二个索引是 1，依此类推。每个索引对应一个<strong>元素</strong>。</p>
+<h2 id="Python-中的序列"><a href="#Python-中的序列" class="headerlink" title="Python 中的序列"></a>Python 中的序列</h2><p>首先，序列是一系列数据元素的集合，是 Python 中最基本的一种数据结构。序列的一个重要的特性就是，序列中的元素是有序的（有序性）。</p>
+<p>序列中的每个元素都被分配一个<strong>数字</strong> —- 它的位置，也就是我们说的元素的 <strong>索引</strong>。</p>
+<p>第一个索引是 0，第二个索引是 1，依此类推……每个索引对应了一个<strong>元素</strong>。</p>
 <p>Python 包含 6 种内建的序列，包括<strong>字符串（str）、元组（tuple）、列表（list）、Unicode 字符串、buffer 对象以及 range（xrange） 对象</strong>。</p>
 <p>对于序列，都可以使用以下操作：</p>
 <ol>
@@ -477,7 +479,6 @@
 <li>计算序列的长度</li>
 <li>取序列中的最大、最小值</li>
 </ol>
-<p>序列还有一个重要的特性就是，序列中的元素是有序的。</p>
 <hr>
 <h3 id="Python-中的-is-amp-amp-amp-amp-id"><a href="#Python-中的-is-amp-amp-amp-amp-id" class="headerlink" title="Python 中的 is &amp;&amp; == &amp;&amp; id()"></a>Python 中的 is &amp;&amp; == &amp;&amp; id()</h3><p>在开始正式的解读之前，我们先来看几个必要的语法：</p>
 <h4 id="1-–-gt-id"><a href="#1-–-gt-id" class="headerlink" title="1 –&gt; id()"></a>1 –&gt; id()</h4><p>Python 中的 <strong>id()</strong> 函数可以用于获取对象的内存地址。语法规则如下：</p>
@@ -504,10 +505,10 @@
 <p>我们发现，字符串序列中通过索引取到的元素类型仍为字符串。</p>
 <hr>
 <h4 id="1-1-1-序列到底是什么？"><a href="#1-1-1-序列到底是什么？" class="headerlink" title="1.1.1 序列到底是什么？"></a>1.1.1 序列到底是什么？</h4><p>事实上，</p>
-<p><strong>序列可以看作是一个容器，里面可以放任何类型的对象元素，而当我们通过索引获取相应的元素，取到的是原对象。</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list1 = [<span class="number">1</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tup1 = (<span class="string">"Python"</span>, <span class="number">123</span>, list1)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>test = tup1[<span class="number">2</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(test, type(test))</span><br><span class="line">[<span class="number">1</span>] &lt;<span class="class"><span class="keyword">class</span> '<span class="title">list</span>'&gt;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">print</span><span class="params">(test is list1)</span></span></span><br><span class="line"><span class="class"><span class="title">True</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>序列本质上就是一个容器，里面可以放任何类型的对象元素，而当我们通过索引获取相应的元素，取到的是原对象。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list1 = [<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里，你只需要了解 tup1 = () 可以创建一个元组即可</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tup1 = (<span class="string">"Python"</span>, <span class="number">123</span>, list1)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>test = tup1[<span class="number">2</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(test, type(test))</span><br><span class="line">[<span class="number">1</span>] &lt;<span class="class"><span class="keyword">class</span> '<span class="title">list</span>'&gt;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">print</span><span class="params">(test is list1)</span></span></span><br><span class="line"><span class="class"><span class="title">True</span></span></span><br></pre></td></tr></table></figure>
 <p>也就是说，我们可以将序列中的索引看作是一个特殊的变量，<strong>它指向的是相应对象元素的内存空间（或说，它对应了元素对象的引用）。</strong></p>
-<p>不知道你发现没有：<strong>上面的说法套到字符串中略显变扭，字符串也是一个序列，而字符串索引所对应的元素难道是一个个的字符（长度为一的字符串）对象？</strong></p>
+<p>不知道你发现没有：<strong>上面的说法套到字符串中略显变扭，因为字符串也是一个序列，难道字符串索引所对应的元素难道是一个个的字符（长度为一的字符串）对象？</strong></p>
 <p>我们只能假设字符串是将每个字符（长度为一的字符串）都存储在一个个内存空间中，字符串变量取得的是整个字符串，而索引则是每个字符的变量（引用）。来看一下假设结果如何：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>str_test = <span class="string">"abcdabcd"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(id(id(str1), str_test[<span class="number">0</span>]), id(str_test[<span class="number">4</span>]))</span><br><span class="line"><span class="number">2092049863920</span> <span class="number">2092020373352</span> <span class="number">2092020373352</span></span><br></pre></td></tr></table></figure>
 <p>我们发现，哎，好像假设成立啊？</p>
@@ -615,7 +616,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/Python/Python-中的序列（sequence）/" title="Python 中的序列（sequence）">http://yoursite.com/Python/Python-中的序列（sequence）/</a>
+    <a href="http://yoursite.com/Python/Python-中的序列（sequence）/" title="Python 中的序列（Sequence）">http://yoursite.com/Python/Python-中的序列（sequence）/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -771,7 +772,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -793,7 +794,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">91</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

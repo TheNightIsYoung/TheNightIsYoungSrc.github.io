@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+  <script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Setup,Configuration,Integrated Development Environment,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="When Art Meets Technology" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="写在前面： Visual Studio Code（VS Code）是由微软推出的一款免费、强大而且非常好用的源代码编辑器，简称 VS Code。事实上，不用我安利，很多人都在说 VSCode 是全宇宙最好用的编辑器，无数个大言不惭的攻城狮，一开始尝试就无法“脱坑”。 博主在安装配置使用过程中查阅了网络上很多的相关博文，也遇到过很多问题，为了感谢过程中各位大佬的帮助以及分享给更多的新手使用，以作此文">
+<meta name="keywords" content="Setup,Configuration,Integrated Development Environment">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Visual Studio Code（VS Code）你们都在用吗？">
+<meta property="og:url" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/index.html">
+<meta property="og:site_name" content="When Art Meets Technology">
+<meta property="og:description" content="写在前面： Visual Studio Code（VS Code）是由微软推出的一款免费、强大而且非常好用的源代码编辑器，简称 VS Code。事实上，不用我安利，很多人都在说 VSCode 是全宇宙最好用的编辑器，无数个大言不惭的攻城狮，一开始尝试就无法“脱坑”。 博主在安装配置使用过程中查阅了网络上很多的相关博文，也遇到过很多问题，为了感谢过程中各位大佬的帮助以及分享给更多的新手使用，以作此文">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/download.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/vscode_ui.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/c_s_p.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/c_s_x.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/c_s_x.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/code_runner.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/vscode-icons.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/korofileheader.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/code_spell.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/bracket.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/tabout.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/indent.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/filesize.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/pathintellisense.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/todo_tree.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/settingsSync.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/one_dark_pro.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/one_dark_theme.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/night_owl.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/oceanic_next_bimbo.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/debug.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/gcc.png">
+<meta property="og:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/g++.png">
+<meta property="og:updated_time" content="2019-09-23T09:03:24.713Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Visual Studio Code（VS Code）你们都在用吗？">
+<meta name="twitter:description" content="写在前面： Visual Studio Code（VS Code）是由微软推出的一款免费、强大而且非常好用的源代码编辑器，简称 VS Code。事实上，不用我安利，很多人都在说 VSCode 是全宇宙最好用的编辑器，无数个大言不惭的攻城狮，一开始尝试就无法“脱坑”。 博主在安装配置使用过程中查阅了网络上很多的相关博文，也遇到过很多问题，为了感谢过程中各位大佬的帮助以及分享给更多的新手使用，以作此文">
+<meta name="twitter:image" content="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/download.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7e6ff6a0"
+    });
+  daovoice('update');
+  </script>
+
+  <title>Visual Studio Code（VS Code）你们都在用吗？ | When Art Meets Technology</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">When Art Meets Technology</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TheMusicIsLoud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="When Art Meets Technology">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Visual Studio Code（VS Code）你们都在用吗？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-18T15:21:46+08:00">
+                2017-12-18
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-23T17:03:24+08:00">
+                2019-09-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/IDE/" itemprop="url" rel="index">
+                    <span itemprop="name">IDE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/" class="leancloud_visitors" data-flag-title="Visual Studio Code（VS Code）你们都在用吗？">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>次</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  20
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>写在前面：</strong></p>
+<p>Visual Studio Code（VS Code）是由微软推出的一款免费、强大而且非常好用的源代码编辑器，简称 VS Code。事实上，不用我安利，很多人都在说 VSCode 是全宇宙最好用的编辑器，无数个大言不惭的攻城狮，一开始尝试就无法“脱坑”。</p>
+<p>博主在安装配置使用过程中查阅了网络上很多的相关博文，也遇到过很多问题，为了感谢过程中各位大佬的帮助以及分享给更多的新手使用，以作此文。文中如有表述不正确的地方，望各位大佬指正。</p>
+<a id="more"></a>
+<h3 id="1-VS-Code-安装"><a href="#1-VS-Code-安装" class="headerlink" title="1. VS Code 安装"></a>1. VS Code 安装</h3><p>Visual Studio Code（VScode ）官网：<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">https://code.visualstudio.com/</a></p>
+<p>Visual Studio Code（VScode ）GitHub：<a href="https://github.com/Microsoft/vscode" target="_blank" rel="noopener">https://github.com/Microsoft/vscode</a></p>
+<p>Visual Studio Code（VS Code）除了具有开源、免费，灵活的自定义配置，强大的调试功能以及丰富的插件扩展等特点之外，还提供良好的跨平台支持（Windows &amp; Linux &amp; Mac）。</p>
+<p>工欲善其事，必先利其器。你可以直接从 VS Code 官网下载站点（<a href="https://code.visualstudio.com/Download" target="_blank" rel="noopener">传送门</a>）获取到不同平台的安装包，界面如下：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./download.png" alt="avatar"></p>
+<hr>
+<p>下面，我们分别给出 Windows &amp; Linux 平台下的 VS Code 的安装方法：</p>
+<p>这里，先给出 VS Code 安装成功之后界面效果：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./vscode_ui.png" alt="avatar"></p>
+<h4 id="1-1-For-WIndows"><a href="#1-1-For-WIndows" class="headerlink" title="1.1 For WIndows"></a>1.1 For WIndows</h4><hr>
+<h4 id="1-2-For-Linux"><a href="#1-2-For-Linux" class="headerlink" title="1.2 For Linux"></a>1.2 For Linux</h4><h5 id="1-2-1-For-Debian-amp-Ubuntu"><a href="#1-2-1-For-Debian-amp-Ubuntu" class="headerlink" title="1.2.1 For Debian &amp; Ubuntu"></a>1.2.1 For Debian &amp; Ubuntu</h5><p>对于  Debian &amp; Ubuntu 系统，VS Code 的安装很简单（推荐通过 <code>.deb</code> 包进行安装）。</p>
+<p>下面正式开始安装：</p>
+<p> <strong>1 &gt;&gt; 安装包下载</strong></p>
+<p>例如，我的安装包下载目录为：<code>~/Downloads</code>。可以查看到，下载的安装包如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> Downloads</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ls</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 最新 VS Code “.deb” 包装包名称：</span></span><br><span class="line">code_1.38.1-1568209190_amd64.deb</span><br></pre></td></tr></table></figure>
+<p><strong>2 &gt;&gt; 开始安装</strong></p>
+<p>Terminal 下执行如下指令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo dpkg -i code_1.38.1-1568209190_amd64.deb</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 输入信息如下：</span></span><br><span class="line">Selecting previously unselected package code.</span><br><span class="line">(Reading database ... 227689 files and directories currently installed.)</span><br><span class="line">Preparing to unpack code_1.38.1-1568209190_amd64.deb ...</span><br><span class="line">Unpacking code (1.38.1-1568209190) ...</span><br><span class="line">Setting up code (1.38.1-1568209190) ...</span><br><span class="line">Processing triggers for gnome-menus (3.13.3-6ubuntu3.1) ...</span><br><span class="line">Processing triggers for desktop-file-utils (0.22-1ubuntu5.2) ...</span><br><span class="line">Processing triggers for bamfdaemon (0.5.3~bzr0+16.04.20180209-0ubuntu1) ...</span><br><span class="line">Rebuilding /usr/share/applications/bamf-2.index...</span><br><span class="line">Processing triggers for mime-support (3.59ubuntu1) ...</span><br></pre></td></tr></table></figure>
+<p><strong>3 &gt;&gt; 启动 VS Code</strong></p>
+<p>上述安装过程完成后，你可以通过在 Terminal 中执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> code</span></span><br></pre></td></tr></table></figure>
+<p>即可成功打开 VS Code 编辑器窗口。</p>
+<p>同样，你也可以通过在 Dash Home（Super）中搜索：<code>VS</code>  即可查询到 Visual Studio Code 应用程序。</p>
+<hr>
+<h5 id="1-2-2-For-Red-Hat-amp-Fedora-amp-SUSE"><a href="#1-2-2-For-Red-Hat-amp-Fedora-amp-SUSE" class="headerlink" title="1.2.2 For Red Hat &amp; Fedora &amp; SUSE"></a>1.2.2 For Red Hat &amp; Fedora &amp; SUSE</h5><p>对于在 Red Hat &amp; Fedora &amp; SUSE（Centos）平台下，VS Code 的安装也非常简单，你可以通过 <code>.rpm</code> 包进行安装。下面正式开始安装：</p>
+<p> <strong>1 &gt;&gt; 安装包下载</strong></p>
+<p>例如，我的安装包下载目录为：<code>~/Downloads</code>。可以查看到，下载的安装包如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> Downloads</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ls</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 最新 VS Code “.rpm” 包装包名称：</span></span><br><span class="line">code_1.38.1-1568209352.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<p><strong>2 &gt;&gt; 开始安装</strong></p>
+<p>Terminal 下执行如下指令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> yum install code_1.38.1-1568209352.el7.x86_64.rpm</span></span><br></pre></td></tr></table></figure>
+<p><strong>3 &gt;&gt; VS Code 测试</strong></p>
+<p>在命令窗口，输入：“code –version”，查看已安装 VS Code 版本号：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> code --version</span></span><br><span class="line">1.38.1</span><br><span class="line">b37e54c98e1a74ba89e03073e5a3761284e3ffb0</span><br><span class="line">x64</span><br></pre></td></tr></table></figure>
+<p><strong>4 &gt;&gt; 启动 VS Code</strong></p>
+<p>上述安装过程完成后，你可以通过在 Terminal 中执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> code</span></span><br></pre></td></tr></table></figure>
+<p>即可成功打开 VS Code 编辑器窗口。</p>
+<hr>
+<h3 id="2-VSCode-可扩展性插件功能"><a href="#2-VSCode-可扩展性插件功能" class="headerlink" title="2. VSCode 可扩展性插件功能"></a>2. VSCode 可扩展性插件功能</h3><p>VS Code 并不是一个 IDE，它只是一个编辑器，直接使用不利于源代码的编辑。</p>
+<p>然而 VS Code 提供了丰富的插件扩展支持，而插件的使用也是 VS Code 能如此流行的一个重要原因。</p>
+<p>插件扩展可以帮我们实现类似于多语言切换、代码检查、主题等等功能。</p>
+<h4 id="2-1-如何安装插件？"><a href="#2-1-如何安装插件？" class="headerlink" title="2.1 如何安装插件？"></a>2.1 如何安装插件？</h4><p><strong>方法一 &gt;&gt; Ctrl + Shift + P</strong></p>
+<p>通过快捷键组合 <code>Ctrl + Shift + P</code> 打开 VS Code 命令窗口，搜索关键字 <code>extensions</code>，选择下面的条目：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Extensions：install Extensions</span><br></pre></td></tr></table></figure>
+<p>界面显示如下（选择第一项）：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./c_s_p.png" alt="avatar"></p>
+<p>还有一种更简单的插件安装方法 &gt;&gt;&gt;</p>
+<p><strong>方法二 &gt;&gt; Ctrl + Shift + X</strong></p>
+<p>直接通过快捷键组合 <code>Ctrl + Shift + X</code>  可以直接打开插件扩展商店，搜索想要的插件进行安装（如，chinese），界面如下：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./c_s_x.png" alt="avatar"></p>
+<p>每个扩展插件的具体功能都在安装界面有介绍。</p>
+<p>================================== EXTENSIONS =================================</p>
+<p>关于 EXTENSIONS 工作区介绍：</p>
+<p>默认情况下这里分别有三个下拉列表：</p>
+<ul>
+<li><p>ENABLED：列表中包含已安装并且已启用相应功能插件；</p>
+</li>
+<li><p>RECOMMENDED：列表中包含未安装，但推荐安装的插件；</p>
+</li>
+<li><p>DISABLED：列表中包含已安装但未启用相应功能的插件。</p>
+</li>
+</ul>
+<p>如上插件扩展商店安装界面显示，在安装 <code>chinese</code> 插件时条目右下角显示 <code>Install</code>，表示未安装插件。一旦选择安装完成后，<code>Install</code> 会变成设置齿新图标，你可以通过这里设置是否：启用、关闭，甚至卸载插件（你可以通过 <code>chinese</code> 插件尝试一下）。</p>
+<hr>
+<h4 id="2-2-插件合集"><a href="#2-2-插件合集" class="headerlink" title="2.2 插件合集"></a>2.2 插件合集</h4><p>官网提供了扩展插件支持列表 &gt;&gt;&gt; <a href="https://marketplace.visualstudio.com/" target="_blank" rel="noopener">传送门</a></p>
+<p>下面我会给出一些常见的、基础的可扩展插件列表，所有的插件你都可以在插件扩展商店查看到其详细介绍：</p>
+<h5 id="2-2-1-配置类插件"><a href="#2-2-1-配置类插件" class="headerlink" title="2.2.1 配置类插件"></a>2.2.1 配置类插件</h5><h6 id="1-gt-gt-Chinese-Simplified-Language-Pack-for-Visual-Studio-Code"><a href="#1-gt-gt-Chinese-Simplified-Language-Pack-for-Visual-Studio-Code" class="headerlink" title="1 &gt;&gt; Chinese (Simplified) Language Pack for Visual Studio Code"></a>1 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-zh-hans" target="_blank" rel="noopener">Chinese (Simplified) Language Pack for Visual Studio Code</a></h6><p>插件名称：中文（简体）语言包</p>
+<p>新版 VSCode 的默认语言是英语，你可以通过在插件扩展商店中搜索 <code>Chinese</code>，安装中文（简体）语言包插件来扩展 VSCode 编辑器语言（汉化）：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./c_s_x.png" alt="avatar"></p>
+<p>插件安装后，进行配置：【Ctrl+Shift+P &gt;&gt;&gt; config &gt;&gt;&gt; Configure Display Language &gt;&gt;&gt; en(英文) 或 zg-cn(中文)】，就可以实现中英文自由切换了。</p>
+<p>安装配置好后，VSCode 会提醒你重启以使得配置生效。</p>
+<p>==================================================================</p>
+<p>后续我们还要安装一系列的插件，</p>
+<p>但注意：一些插件安装好并且配置之后只有重启 VSCode 才会生效，而有些插件则可以立即生效。</p>
+<p>万能方法：根据插件功能描述查看一下相应功能是否实现，否则重启 VSCode</p>
+<hr>
+<h6 id="2-gt-gt-Code-Runner"><a href="#2-gt-gt-Code-Runner" class="headerlink" title="2 &gt;&gt; Code Runner"></a>2 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner" target="_blank" rel="noopener">Code Runner</a></h6><p>Code Runner 被称为万能语言运行环境（提供数十种语言支持），Code Runner 插件可以让你不用搭建各种语言的开发环境就可以运行代码，非常适合学习或测试各种开发语言。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 支持的语言有: C, C++, Java, JavaScript, PHP, Python, Perl, Perl 6, Ruby, Go, Lua, Groovy, PowerShell, BAT/CMD, BASH/SH, F<span class="comment"># Script, F# (.NET Core), C# Script, C# (.NET Core), VBScript, TypeScript, CoffeeScript, Scala, Swift, Julia, Crystal, OCaml Script, R, AppleScript, Elixir, Visual Basic .NET, Clojure, Haxe, Objective-C, Rust, Racket, Scheme, AutoHotkey, AutoIt, Kotlin, Dart, Free Pascal, Haskell, Nim, D, Lisp, Kit, 以及一些自定义命令</span></span></span><br></pre></td></tr></table></figure>
+<p>你可以通过搜索 <code>Code Runner</code> 进行安装：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./code_runner.png" alt="avatar"></p>
+<p>还支持通过右键（Alt + Ctrl + N）即可编译运行单源码文件。</p>
+<hr>
+<h6 id="3-gt-gt-vscode-icons"><a href="#3-gt-gt-vscode-icons" class="headerlink" title="3 &gt;&gt; vscode-icons"></a>3 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons" target="_blank" rel="noopener">vscode-icons</a></h6><p>一个高效、易用的工作区界面对于编码是需要的，故你需要对一些不明了的显示效果做一些优化。</p>
+<p>vscode-icons 插件可以实现对各种文件类型的文件前的图标进行显示效果优化。这样，你可以直接通过文件的图标就可以快速直观的知道文件类型，而不用去区别文件后缀。</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./vscode-icons.png" alt="avatar"></p>
+<p>图标显示效果配置方法：【File &gt;&gt;&gt; Preferences &gt;&gt; File Icon Theme】，可实现项目文件图标显示效果的自由切换。</p>
+<hr>
+<h6 id="4-gt-gt-KoroFileHeader"><a href="#4-gt-gt-KoroFileHeader" class="headerlink" title="4 &gt;&gt; KoroFileHeader"></a>4 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=OBKoro1.korofileheader" target="_blank" rel="noopener">KoroFileHeader</a></h6><p>优秀的代码除了优秀的性能、规范的格式，注释也是不可或缺的，而且注释也应该有一套标准的注释方法。</p>
+<p>KoroFileHeader（Star）能够一键给文件、函数加上注释，提供多种语言支持以及未定义语言的自定义支持等：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./korofileheader.png" alt="avatar"></p>
+<p>文件头部注释快捷键：Alt + Ctrl + I，函数注释快捷键：Alt + Ctrl + T（当然你可以通过 Ctrl + K + S 重新设置快捷键，但要注意不要冲突）。</p>
+<p>详细设置方法参考 &gt;&gt;&gt; <a href="https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE" target="_blank" rel="noopener">传送门</a></p>
+<hr>
+<h6 id="5-gt-gt-Code-Spell-Checker"><a href="#5-gt-gt-Code-Spell-Checker" class="headerlink" title="5 &gt;&gt; Code Spell Checker"></a>5 &gt;&gt; <a href="https://link.juejin.im/?target=https%3A%2F%2Fmarketplace.visualstudio.com%2Fitems%3FitemName%3Dstreetsidesoftware.code-spell-checker" target="_blank" rel="noopener">Code Spell Checker</a></h6><p>强烈推荐。对大部分非英语母语又不想写出四不像变量名的程序员来说，正确识记拼写各种单词还是有不小的挑战。</p>
+<p>比模棱两可时需要去查在线词典不同的是，这款插件能实时的识别单词拼写是否有误，并给出提示（不少 Bug 都是因为拼写错误导致的）。</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./code_spell.png" alt="avatar"></p>
+<hr>
+<h6 id="6-gt-gt-Bracket-Pair-Colorizer"><a href="#6-gt-gt-Bracket-Pair-Colorizer" class="headerlink" title="6 &gt;&gt; Bracket Pair Colorizer"></a>6 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer" target="_blank" rel="noopener">Bracket Pair Colorizer</a></h6><p>彩虹花括号插件，能够为圆括号，方括号和大括号提供彩虹色：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./bracket.png" alt="avatar"></p>
+<hr>
+<p>7 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=albert.TabOut" target="_blank" rel="noopener">TabOut</a></p>
+<p>VSCode 会自动完成在你打左括号（或左引号）的时候自动完成右括号（或右引号），但在这个编辑状态下，却无法像其他编辑器一样通过按 Tab 自动跳出右括号（或右引号）。</p>
+<p>这里提供一种 TabOut 插件，安装启动后自动实现上述功能：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./tabout.png" alt="avatar"></p>
+<hr>
+<h6 id="8-gt-gt-Indent-Rainbow"><a href="#8-gt-gt-Indent-Rainbow" class="headerlink" title="8 &gt;&gt; Indent-Rainbow"></a>8 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=oderwat.indent-rainbow" target="_blank" rel="noopener">Indent-Rainbow</a></h6><p>用四种不同颜色交替着色文本前面的缩进：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./indent.png" alt="avatar"></p>
+<hr>
+<h6 id="9-gt-gt-filesize"><a href="#9-gt-gt-filesize" class="headerlink" title="9 &gt;&gt; filesize"></a>9 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=mkxml.vscode-filesize" target="_blank" rel="noopener">filesize</a></h6><p>在状态栏左下角中显示当前文件大小，点击后还可以看到详细创建、修改时间的插件：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./filesize.png" alt="avatar"></p>
+<hr>
+<h6 id="10-gt-gt-Path-Intellisense"><a href="#10-gt-gt-Path-Intellisense" class="headerlink" title="10 &gt;&gt; Path Intellisense"></a>10 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense" target="_blank" rel="noopener">Path Intellisense</a></h6><p>可自动填充文件名的插件：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./pathintellisense.png" alt="avatar"></p>
+<hr>
+<h6 id="11-gt-gt-Todo-Tree"><a href="#11-gt-gt-Todo-Tree" class="headerlink" title="11 &gt;&gt; Todo Tree"></a>11 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree" target="_blank" rel="noopener">Todo Tree</a></h6><p>维护时间稍长的代码仓库免不了会有各种 TODO、FIXME 之类的标记</p>
+<p>Todo Tree 帮助你快速搜索（使用 <a href="https://github.com/BurntSushi/ripgrep" target="_blank" rel="noopener">ripgrep</a>）你的工作区以获取 TODO 和 FIXME 等注释标记，并在资源管理器窗格的树视图中显示它们。</p>
+<p>你可以通过单击树中的 TODO 快速打开文件并将光标移动到包含 TODO 的行上。</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./todo_tree.png" alt="avatar"></p>
+<hr>
+<h6 id="12-gt-gt-Settings-Sync"><a href="#12-gt-gt-Settings-Sync" class="headerlink" title="12 &gt;&gt; Settings Sync"></a>12 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync" target="_blank" rel="noopener">Settings Sync</a></h6><p>最好用的配置同步插件，没有之一。</p>
+<p>Settings Sync 基于 GitHub Gist 实现 VSCode 用户配置、快捷键配置、已安装插件列表等的备份和恢复功能，配置过程有详细精确的操作步骤文档。</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./settingsSync.png" alt="avatar"></p>
+<p>Settings Sync 同步 VSCode 配置 &gt;&gt;&gt; <a href="">传送门</a></p>
+<hr>
+<h6 id="13-gt-gt-GitLens"><a href="#13-gt-gt-GitLens" class="headerlink" title="13 &gt;&gt; GitLens"></a>13 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens" target="_blank" rel="noopener">GitLens</a></h6><p>GitLens 把 VSCode 结合 Git 的使用体验优化到了极致，能让我们在不离开编辑器，不执行任何命令的情况下知晓光标所在位置代码的修改时间、作者信息等。</p>
+<hr>
+<h6 id="14-gt-gt-Project-Manager"><a href="#14-gt-gt-Project-Manager" class="headerlink" title="14 &gt;&gt; Project Manager"></a>14 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=alefragnani.project-manager" target="_blank" rel="noopener">Project Manager</a></h6><hr>
+<h5 id="2-2-2-主题类插件"><a href="#2-2-2-主题类插件" class="headerlink" title="2.2.2 主题类插件"></a>2.2.2 主题类插件</h5><p>长时间的编码，暗色调的编码环境更不容易让视力疲劳，可以让你更加专注。</p>
+<p>这一小节来推荐几款经典、优美的主题来优化你的 VSCode 编辑器：</p>
+<h6 id="1-gt-gt-One-Dark-Pro"><a href="#1-gt-gt-One-Dark-Pro" class="headerlink" title="1 &gt;&gt; One Dark Pro"></a>1 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme" target="_blank" rel="noopener">One Dark Pro</a></h6><p>Atom 标志性的 One Dark Pro 主题，大概是 VS Code安装量最多的主题。你可以通过搜索 <code>One Dark</code> 进行安装：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./one_dark_pro.png" alt="avatar"></p>
+<h6 id="2-gt-gt-One-Dark-Theme"><a href="#2-gt-gt-One-Dark-Theme" class="headerlink" title="2 &gt;&gt; One Dark Theme"></a>2 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark" target="_blank" rel="noopener">One Dark Theme</a></h6><p>一款基于 Atom 的黑暗经典主题，你可以通过搜索 <code>One Dark Theme</code> 进行安装：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./one_dark_theme.png" alt="avatar"></p>
+<h6 id="3-gt-gt-Night-Owl"><a href="#3-gt-gt-Night-Owl" class="headerlink" title="3 &gt;&gt; Night Owl"></a>3 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=sdras.night-owl" target="_blank" rel="noopener">Night Owl</a></h6><p>一个非常适合夜猫子的 VS Code 主题，为喜欢深夜编码的人精心设计的。你可以通过搜索 <code>Night Owl</code> 进行安装：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./night_owl.png" alt="avatar"></p>
+<h6 id="4-gt-gt-Oceanic-Next-Bimbo"><a href="#4-gt-gt-Oceanic-Next-Bimbo" class="headerlink" title="4 &gt;&gt; Oceanic Next Bimbo"></a>4 &gt;&gt; <a href="https://marketplace.visualstudio.com/items?itemName=ergenekonyigit.oceanic-next-bimbo" target="_blank" rel="noopener">Oceanic Next Bimbo</a></h6><p>一款简约而现代的神奇海洋主题，你可以通过搜索 <code>Oceanic Next Bimbo</code> 进行安装：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./oceanic_next_bimbo.png" alt="avatar"></p>
+<hr>
+<h3 id="3-VSCode-配置多重开发环境"><a href="#3-VSCode-配置多重开发环境" class="headerlink" title="3. VSCode 配置多重开发环境"></a>3. VSCode 配置多重开发环境</h3><p>这一小节所有内容均可从 VS Code 的官方文档：<a href="https://link.zhihu.com/?target=https%3A//code.visualstudio.com/docs/languages/cpp" target="_blank" rel="noopener">C++ programming with Visual Studio Code</a> 以及各个扩展的文档中获得，并且持续更新。</p>
+<p>我们知道，VS Code 事实上只是一个编辑器，并不是 IDE（集成开发环境），自身是不含编译器（解释器）以及许多其它集成功能等。但 VSCode 提供丰富的插件扩展支持，通过插件安装可以极大提高你的编程效率。</p>
+<p>故，配置多重开发环境就是组合安装配置多种语言相关插件以及相关的工具库的过程。</p>
+<p>下面我们来看如何使用 VSCode 配置多重开发环境（C/C++ &amp; Python …）：</p>
+<hr>
+<h4 id="3-1-For-C-C"><a href="#3-1-For-C-C" class="headerlink" title="3.1 For C/C++"></a>3.1 For C/C++</h4><p>我们先来配置 C/C++ 开发调试环境：</p>
+<h5 id="3-1-1-gt-gt-相关插件安装"><a href="#3-1-1-gt-gt-相关插件安装" class="headerlink" title="3.1.1 &gt;&gt; 相关插件安装"></a>3.1.1 &gt;&gt; 相关插件安装</h5><p>需要安装的扩展 &gt;&gt;</p>
+<ul>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools" target="_blank" rel="noopener">C/C++</a>：实际上就是指 cpptools，提供 C/C++ 语言支持，包括智能提示和调试功能；</li>
+</ul>
+<p>其他可选扩展：</p>
+<ul>
+<li><p><a href="https://marketplace.visualstudio.com/items?itemName=ajshort.include-autocomplete" target="_blank" rel="noopener">Include Autocomplete</a>：提供 C/C++ 头文件名字的补全；</p>
+</li>
+<li><p><a href="https://marketplace.visualstudio.com/items?itemName=hars.CppSnippets" target="_blank" rel="noopener">C/C++ Snippets</a>：提供 C/C++ 重用代码块（Snippets）支持；</p>
+</li>
+</ul>
+<p>不建议/不需要装的扩展：</p>
+<ul>
+<li><p><a href="https://marketplace.visualstudio.com/items?itemName=bukas.GBKtoUTF8" target="_blank" rel="noopener">GBKtoUTF8</a>：把 GBK 编码的文档转换成 UTF8 编码的。此扩展可能有严重的 Bug；</p>
+</li>
+<li><p><a href="">C++ Intellisense</a>：使用全局 GUN 工具为 C/C++ 提供智能提示；</p>
+</li>
+</ul>
+<hr>
+<h5 id="3-1-2-gt-gt-建立工程"><a href="#3-1-2-gt-gt-建立工程" class="headerlink" title="3.1.2 &gt;&gt; 建立工程"></a>3.1.2 &gt;&gt; 建立工程</h5><p>VScode 是以文件夹的形式来组织管理工程的。</p>
+<p>故，首先你需要创建一个用来存放整个工程代码的文件夹也被称为【工作区】，这里我的为：<strong>DeepLearning</strong>。</p>
+<blockquote>
+<p>注意：<strong>工作区路径不能含有中文和空格和引号</strong>。</p>
+</blockquote>
+<p>然后通过 VSCode 打开该文件夹【File –&gt; Open Floder 或使用快捷键 Ctrl + K + O】，选择刚才创建的那个文件夹即可。</p>
+<p>事实上，此时你就可以将 VSCode 作为编辑器进行 C/C++ 源码编写了。</p>
+<hr>
+<h5 id="3-1-3-gt-gt-VSCode-Configuration-For-C-C"><a href="#3-1-3-gt-gt-VSCode-Configuration-For-C-C" class="headerlink" title="3.1.3 &gt;&gt; VSCode Configuration For C/C++"></a>3.1.3 &gt;&gt; VSCode Configuration For C/C++</h5><p>打起精神，重点来了…. 如果你只是将 VSCode 作为一个编辑器使用，那么上述就够了。</p>
+<p>但如果你想要在 VSCode 中直接使用 Code Runner 或者完成代码的 Debug（断点测试）功能，那么还需要完成额外的配置。</p>
+<p>需要配置那些？？再一次重申：VS Code 只是一个编辑器，并不是 IDE。</p>
+<p>>&gt;&gt; 故你需要确定当前环境下确保有一个可以用来编译 C/C++ 的编译器；另外还需要对 VSCode 进行一些配置，以完成一键构建（编译、链接等）、运行……这总共会涉及到 4 个配置文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> launch.json</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> tasks.json</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> settings.json</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> c_cpp_properties.json</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>VSCode 单次运行一个脚本视为一个 task，相应任务的配置文件为 tasks.json；settings.json 为上面我们创建的工作区（DeepLearning）的配置文件；而 launch.json 是调试环境的配置文件</p>
+</blockquote>
+<hr>
+<p>但由于编译器的安装以及其在 VSCode 中的配置，在不同平台下（Windows &amp; Linux）的具体细节存在一定的差异，下面将分为两部分内容分别介绍：</p>
+<h6 id="1-gt-gt-gt-For-Linux"><a href="#1-gt-gt-gt-For-Linux" class="headerlink" title="1 &gt;&gt;&gt; For Linux"></a>1 &gt;&gt;&gt; For Linux</h6><p><strong>1.1 –&gt; 编译器</strong></p>
+<p>对于 Centos（ Centos7.2 Check） 而言，安装后可能是没有 C 语言和 C++ 编译环境的，故需要手动安装（yum）GCC/g++：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> GCC</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> yum -y install gcc</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> g++</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> yum -y install gcc-c++</span></span><br></pre></td></tr></table></figure>
+<p>而对于 Ubuntu（ Ubuntu16.04 Check），系统中默认已安装有 GCC/g++，你可以查看当前版本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">deeplearning@ThinkCentre-M910s-N000:~/DeepLearning$ gcc --version</span><br><span class="line">gcc (Ubuntu 5.4.0-6ubuntu1~16.04.11) 5.4.0 20160609</span><br><span class="line">Copyright (C) 2015 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br><span class="line"></span><br><span class="line">deeplearning@ThinkCentre-M910s-N000:~/DeepLearning$ g++ --version</span><br><span class="line">g++ (Ubuntu 5.4.0-6ubuntu1~16.04.11) 5.4.0 20160609</span><br><span class="line">Copyright (C) 2015 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br></pre></td></tr></table></figure>
+<p>解决了编译器的问题后，接着看如何完成后续的 VSCode 配置：</p>
+<hr>
+<p>在开始【launch.json &amp; tasks.json &amp; settings.json &amp; c_cpp_properties.json】配置之前，你应该知道：</p>
+<p>你可以选择直接在工作区目录（DeepLearning）创建一个 <code>.vscode</code> 文件夹，作为工作区环境配置目录，随后直接创建空白的上述四个文件，然后贴入你的配置内容，这是允许的。</p>
+<p>但我们不采用这种方式，VSCode 团队直接提供了自动生成的方法，你只需要修改其中的默认取值就可以了。</p>
+<p><strong>1.2 –&gt; Debug Configuration </strong> </p>
+<p>点击“爬虫”按钮（或 Ctrl + Shift + D）直接打开 VSCode 中的 Debug（C/C++ 编译调试）界面：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./debug.png" alt="avatar"></p>
+<p>下面我们配置 GCC 和 g++ 分别用于编译 C 和 C++:</p>
+<p><strong>1.2.1 —&gt; C 语言配置</strong></p>
+<p>首先，我们来创建一个 C 源码文件用于完成后续配置与测试：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @Description:</span></span><br><span class="line"><span class="comment"> * @Author: TheNightIsYoung</span></span><br><span class="line"><span class="comment"> * @E-Mail:</span></span><br><span class="line"><span class="comment"> * @Date: 2019-09-20 13:53:40</span></span><br><span class="line"><span class="comment"> * @LastEditors: TheNightIsYoung</span></span><br><span class="line"><span class="comment"> * @LastEditTime: 2019-09-20 13:56:34</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @Description:</span></span><br><span class="line"><span class="comment">     * @Func: VS Code Test</span></span><br><span class="line"><span class="comment">     * @Param:</span></span><br><span class="line"><span class="comment">     * @return:</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Welcome to use VS Code."</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时由于编译器的原因，其实已经可以使用 Code Runner 万能语言环境（Ctrl + Alt + N）运行一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Welcome to use VS Code.</span><br></pre></td></tr></table></figure>
+<p>完美~</p>
+<hr>
+<p>继续配置断点调试：</p>
+<p>–&gt; F5（启动 Debug 调试功能），跳转出一个小命令框选择【C++ (GDB/LLDB)】，然后你可以看到：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./gcc.png" alt="avatar"></p>
+<p>然后，我们选择：【gcc build and debug active file】，此时 VSCode 会自动在工作区中创建 <code>.vscode</code>，并且在  <code>.vscode</code> 目录下生成配置文件：<code>launch.json</code>，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>配置好 <code>launch.json</code> 文件后（用来启动调试任务），此时你可以查看 <code>.vscode</code> 目录下是否生成 <code>tasks.json</code> ？如果有直接开始后续配置，否则重新 –&gt;  F5（启动 Debug 调试功能）此时会弹出窗口显示：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could not find the task 'gcc build active file'</span><br></pre></td></tr></table></figure>
+<p>提示你找不到 <code>tasks.json</code> 文件，此时选择【Configura Task –&gt; Create task.json file from template –&gt; others】便会自动完成 <code>tasks.json</code> 的创建，默认内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // See https://go.microsoft.com/fwlink/?LinkId=733558</span><br><span class="line">    // for the documentation about the tasks.json format</span><br><span class="line">    "version": "2.0.0",</span><br><span class="line">    "tasks": [</span><br><span class="line">        &#123;</span><br><span class="line">            "label": "echo",</span><br><span class="line">            "type": "shell",</span><br><span class="line">            "command": "echo Hello"</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时我们根据需要来重新配置 <code>tasks.json</code> 文件，配置内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>对于 <code>tasks.json</code> 文件，是为了方便在 VScode 里编译 C/C++ 代码，可以将类似 <code>g++ -g main.cpp</code> 等 gcc/g++ 命令写入 VScode 的任务系统。</p>
+<p>========================================================================</p>
+<p>–&gt; 总结：</p>
+<p>launch.json 用来启动断点调试程序，其中有一个 <code>”preLaunchTask“=”gcc build active file&quot;</code> ，也就是添加一个 launch（启动）的任务，任务名为 <code>gcc build active file</code>，这 <code>gcc build active file</code> 就是我们在tasks.json 中设置的 lable（个人理解：也就是说 launch 通过 preLaunchTask 去 tasks.json 查找具体的编译任务，然后完成编译，链接，运行….）。</p>
+<p>========================================================================</p>
+<p>事实上，如果你仅仅编写 C 语言，到此 VS Code 已经能够满足你的要求。你可以尝试一下对上述给出的 C 源码进行断点调试（F5）。调试的两个快捷键与 Visual Studio 相同，<code>F10</code> 逐过程，<code>F11</code> 逐语句。</p>
+<hr>
+<p><strong>1.2.2 —&gt; C++ 语言配置</strong></p>
+<p>我们再来创建一个 C++ 源码文件用于完成后续配置与测试：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @Description:</span></span><br><span class="line"><span class="comment"> * @Author: TheNightIsYoung</span></span><br><span class="line"><span class="comment"> * @E-Mail:</span></span><br><span class="line"><span class="comment"> * @Date: 2019-09-20 13:26:01</span></span><br><span class="line"><span class="comment"> * @LastEditors: TheNightIsYoung</span></span><br><span class="line"><span class="comment"> * @LastEditTime: 2019-09-20 13:29:54</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @Description:</span></span><br><span class="line"><span class="comment">     * @Func: VSCode Test</span></span><br><span class="line"><span class="comment">     * @Param:</span></span><br><span class="line"><span class="comment">     * @return:</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Welcome to use VS Code."</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时由于编译器的原因，其实已经可以使用 Code Runner 万能语言环境（Ctrl + Alt + N）运行一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Welcome to use VS Code.</span><br></pre></td></tr></table></figure>
+<p>完美~</p>
+<hr>
+<p>继续配置 C++ 的断点调试，参照前面已经生成的 C 的配置：</p>
+<p>先来打开之前配置 C 语言的 <code>lauch.json</code>，点击页面右下角的【Add Configuration】，选择【（gdb）lauch】，如图：</p>
+<p><img src="/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/./g++.png" alt="avatar"></p>
+<p>可以看到为我们生成的一个新的调试方式:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">"configurations": [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"(gdb) Launch"</span>,</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"cppdbg"</span>,</span><br><span class="line">        <span class="attr">"request"</span>: <span class="string">"launch"</span>,</span><br><span class="line">        <span class="attr">"program"</span>: <span class="string">"enter program name, for example $&#123;workspaceFolder&#125;/a.out"</span>,</span><br><span class="line">        <span class="attr">"args"</span>: [],</span><br><span class="line">        <span class="attr">"stopAtEntry"</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">"cwd"</span>: <span class="string">"$&#123;workspaceFolder&#125;"</span>,</span><br><span class="line">        <span class="attr">"environment"</span>: [],</span><br><span class="line">        <span class="attr">"externalConsole"</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">"MIMode"</span>: <span class="string">"gdb"</span>,</span><br><span class="line">        <span class="attr">"setupCommands"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"description"</span>: <span class="string">"Enable pretty-printing for gdb"</span>,</span><br><span class="line">                <span class="attr">"text"</span>: <span class="string">"-enable-pretty-printing"</span>,</span><br><span class="line">                <span class="attr">"ignoreFailures"</span>: <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>对比着之前的 gcc 调试方式，我们需要修改一点细节，从之前生成的信息复制过来修改 lauch.json，主要修改这几个选项：</p>
+<p>–&gt; 1] program</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.o</span><br></pre></td></tr></table></figure>
+<p>–&gt; 2] miDebuggerPath</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">复制之前的路径</span><br></pre></td></tr></table></figure>
+<p>–&gt; 3] externalConsole</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">false</span><br></pre></td></tr></table></figure>
+<p>–&gt; 4] 添加 preLaunchTask</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"preLaunchTask": "g++ build active file",</span><br></pre></td></tr></table></figure>
+<p>然后，修改一下两个启动器名称（原来太长了，不好显示），完成后的 lauch.json 变为如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然后我们打开 <code>task.json</code>，按照之前生成的 gcc 编译命令，添加 g++ 编译命令。只需将之前的复制过来一份更改以下项目就行:</p>
+<p>–&gt; 1] label</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">将 gcc build active file 改为：g++ build active file</span><br></pre></td></tr></table></figure>
+<p>–&gt; 2] command</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">将之前的调试编译器由 "gcc" 改为："g++"</span><br></pre></td></tr></table></figure>
+<p>完成后的 task.json 配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>至此，回到我们的调试界面（Debug），已经可以看到启动条目里面具有 g++/gcc 调试选项，你可以再尝试一下对上述给出的 C++ 源码进行断点调试（F5）。</p>
+<hr>
+<p>好了，你的 VS Code 已经可以同时编译调试 C/C++ ~</p>
+<p><strong>1.3 –&gt; Other Configuration </strong> </p>
+<p>你应该还没忘了之前说过的有 4 个文件进行配置吧？余下的两个配置文件与 C/C++（库引用、C 标准等）以及一些设置相关。</p>
+<p>话不多说，开始配置：</p>
+<p><strong>1.3.1 —&gt; settings.json</strong></p>
+<p><strong>1.3.2 —&gt; c_cpp_properties.json</strong></p>
+<hr>
+<h6 id="2-gt-gt-gt-For-Windows"><a href="#2-gt-gt-gt-For-Windows" class="headerlink" title="2 &gt;&gt;&gt; For Windows"></a>2 &gt;&gt;&gt; For Windows</h6>
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">如果感觉文章对您有较大帮助，请随意打赏。您的鼓励是我保持持续创作的最大动力！</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="TheMusicIsLoud 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="TheMusicIsLoud 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    TheMusicIsLoud
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/" title="Visual Studio Code（VS Code）你们都在用吗？">http://yoursite.com/IDE/Visual-Studio-Code（VS-Code）你们都在用吗？/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Setup/" rel="tag"><i class="fa fa-tag"></i> Setup</a>
+          
+            <a href="/tags/Configuration/" rel="tag"><i class="fa fa-tag"></i> Configuration</a>
+          
+            <a href="/tags/Integrated-Development-Environment/" rel="tag"><i class="fa fa-tag"></i> Integrated Development Environment</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/IDE/基于-Gist-GitHub-Settings-Sync-实现-VSCode-工作站配置同步/" rel="prev" title="基于 Gist(GitHub) + Settings Sync 实现 VSCode 工作站配置同步">
+                基于 Gist(GitHub) + Settings Sync 实现 VSCode 工作站配置同步 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA5OC8xODY0NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/header.jpg" alt="TheMusicIsLoud">
+            
+              <p class="site-author-name" itemprop="name">TheMusicIsLoud</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/TheNightIsYoung" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://dev.tencent.com/" title="CloudStudio&&Coding" target="_blank">CloudStudio&&Coding</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-VS-Code-安装"><span class="nav-text">1. VS Code 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-For-WIndows"><span class="nav-text">1.1 For WIndows</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-For-Linux"><span class="nav-text">1.2 For Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-1-For-Debian-amp-Ubuntu"><span class="nav-text">1.2.1 For Debian &amp; Ubuntu</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-2-For-Red-Hat-amp-Fedora-amp-SUSE"><span class="nav-text">1.2.2 For Red Hat &amp; Fedora &amp; SUSE</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-VSCode-可扩展性插件功能"><span class="nav-text">2. VSCode 可扩展性插件功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-如何安装插件？"><span class="nav-text">2.1 如何安装插件？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-插件合集"><span class="nav-text">2.2 插件合集</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-配置类插件"><span class="nav-text">2.2.1 配置类插件</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-gt-gt-Chinese-Simplified-Language-Pack-for-Visual-Studio-Code"><span class="nav-text">1 &gt;&gt; Chinese (Simplified) Language Pack for Visual Studio Code</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-gt-gt-Code-Runner"><span class="nav-text">2 &gt;&gt; Code Runner</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-gt-gt-vscode-icons"><span class="nav-text">3 &gt;&gt; vscode-icons</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-gt-gt-KoroFileHeader"><span class="nav-text">4 &gt;&gt; KoroFileHeader</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5-gt-gt-Code-Spell-Checker"><span class="nav-text">5 &gt;&gt; Code Spell Checker</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#6-gt-gt-Bracket-Pair-Colorizer"><span class="nav-text">6 &gt;&gt; Bracket Pair Colorizer</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#8-gt-gt-Indent-Rainbow"><span class="nav-text">8 &gt;&gt; Indent-Rainbow</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#9-gt-gt-filesize"><span class="nav-text">9 &gt;&gt; filesize</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#10-gt-gt-Path-Intellisense"><span class="nav-text">10 &gt;&gt; Path Intellisense</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#11-gt-gt-Todo-Tree"><span class="nav-text">11 &gt;&gt; Todo Tree</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#12-gt-gt-Settings-Sync"><span class="nav-text">12 &gt;&gt; Settings Sync</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#13-gt-gt-GitLens"><span class="nav-text">13 &gt;&gt; GitLens</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#14-gt-gt-Project-Manager"><span class="nav-text">14 &gt;&gt; Project Manager</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-2-主题类插件"><span class="nav-text">2.2.2 主题类插件</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-gt-gt-One-Dark-Pro"><span class="nav-text">1 &gt;&gt; One Dark Pro</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-gt-gt-One-Dark-Theme"><span class="nav-text">2 &gt;&gt; One Dark Theme</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-gt-gt-Night-Owl"><span class="nav-text">3 &gt;&gt; Night Owl</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-gt-gt-Oceanic-Next-Bimbo"><span class="nav-text">4 &gt;&gt; Oceanic Next Bimbo</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-VSCode-配置多重开发环境"><span class="nav-text">3. VSCode 配置多重开发环境</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-For-C-C"><span class="nav-text">3.1 For C/C++</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-1-gt-gt-相关插件安装"><span class="nav-text">3.1.1 &gt;&gt; 相关插件安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-2-gt-gt-建立工程"><span class="nav-text">3.1.2 &gt;&gt; 建立工程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-3-gt-gt-VSCode-Configuration-For-C-C"><span class="nav-text">3.1.3 &gt;&gt; VSCode Configuration For C/C++</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-gt-gt-gt-For-Linux"><span class="nav-text">1 &gt;&gt;&gt; For Linux</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-gt-gt-gt-For-Windows"><span class="nav-text">2 &gt;&gt;&gt; For Windows</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheMusicIsLoud</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info//busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L40cS1OTf2nXQmbIANou8HvS-gzGzoHsz", "t0xHBc4DURRDc9MDSKX7vx8c");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://yoursite.com/Java/JDK-下载与安装教程/JDK_Envs.png">
 <meta property="og:image" content="http://yoursite.com/Java/JDK-下载与安装教程/JDK_Envs_1.png">
 <meta property="og:image" content="http://yoursite.com/Java/JDK-下载与安装教程/JDK_Envs_2.png">
-<meta property="og:updated_time" content="2019-05-29T03:03:51.689Z">
+<meta property="og:updated_time" content="2019-10-15T07:50:41.554Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JDK 下载与安装教程">
 <meta name="twitter:description" content="抛开喧嚣，卸下繁华，只为一纸清凉，遇到更好的自己…  写在前面： 开始学习 JAVA，首要的就是安装以及配置 JDK（Java Development Kit：Java 开发工具包）。本篇博文所作目的主要是记录一下 Java 开发环境的搭建，即 JDK 的安装以及配置过程。">
@@ -368,8 +368,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-29T11:03:51+08:00">
-                2019-05-29
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-15T15:50:41+08:00">
+                2019-10-15
               </time>
             
           </span>
@@ -430,7 +430,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.7k
+                  2.8k
                 </span>
               
 
@@ -546,7 +546,7 @@
 <h5 id="3-2-Linux下为-JDK-配置环境变量"><a href="#3-2-Linux下为-JDK-配置环境变量" class="headerlink" title="3.2 Linux下为 JDK 配置环境变量"></a>3.2 Linux下为 JDK 配置环境变量</h5><p>–&gt; 开始设置环境变量:</p>
 <p>这里注意，我们既可以设置普通用户变量（局部变量），也可以设置系统变量（全局变量）。区别在于设置普通用户变量的话，只有该用户下可用，其他用户想要使用的话需要重新配置环境变量。而设置系统变量后，我们可以在所有用户下都可以使用。</p>
 <p>–&gt; 故，这里我们选择设置系统变量：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打开系统变量配置文件：</span></span><br><span class="line">[root@localhost <span class="built_in">test</span>]<span class="comment"># vim /etc/profile</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 追加如下内容：</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/java/jdk1.8.0_131</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=.;%JAVA_HOME%/lib/tools.jar:%JAVA_HOME%/lib/dt.jar</span><br><span class="line"><span class="built_in">export</span>  PATH=<span class="variable">$PATH</span>:<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打开系统变量配置文件：</span></span><br><span class="line">[root@localhost <span class="built_in">test</span>]<span class="comment"># vim /etc/profile</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 追加如下内容：</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/java/jdk1.8.0_131</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib/tools.jar:<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib/dt.jar</span><br><span class="line"><span class="built_in">export</span>  PATH=<span class="variable">$PATH</span>:<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin</span><br></pre></td></tr></table></figure>
 <p>–&gt; 生效 <code>/etc/profile</code> 配置文件：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost test]# source /etc/profile</span><br></pre></td></tr></table></figure>
 <p>再来看一下普通用户变量如何设置：</p>
